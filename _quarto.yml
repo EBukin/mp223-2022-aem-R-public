@@ -1,0 +1,67 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  page-navigation: true
+  title: "mp223 Applied Econometric Methods for the Socials Sciences"
+  description: "mp223 AEM at JLU Giessen. Summer Semester 2022."
+  site-url: "https://ebukin.github.io/mp223Quarto2/"
+  
+  repo-url: https://github.com/EBukin/mp223Quarto2
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; Copyright 2022, Eduard Bukin"
+    background: "#0168b3"
+    
+  
+  sidebar:
+    background: "#989898"
+    logo: "img/jlu-logo-1.jfif"
+    pinned: true
+    align: center
+    tools:
+      - icon: github
+        href: https://github.com/EBukin/mp223Quarto2
+        text: "Source code"
+      - icon: info-square
+        text: "Useful links"
+        menu:
+          - text: Ilias
+            url: https://ilias.uni-giessen.de/goto.php?target=crs_301421&client_id=JLUG
+          - text: StudIP
+            url: https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&again=yes
+          - text: Youtube playlist
+            url: https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY
+        
+    style: "docked"
+    search: true
+    
+    collapse-level: 2
+    contents:
+      - href: index.qmd
+        text: "Course information"
+        
+      - section: "Week: checklists and materials"
+        contents:
+          - href: weeks/week01-checklist.qmd
+            text: "Week 1."
+
+  opengraph: true
+
+format:
+  html:
+    theme:
+      light: [cosmo]
+      dark: [cosmo]
+    mainfont: "Roboto"
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+freeze: auto
+
+editor: visual
+
