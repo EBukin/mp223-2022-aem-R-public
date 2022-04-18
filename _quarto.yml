@@ -1,14 +1,13 @@
 project:
   type: website
-  output-dir: docs
 
 website:
   page-navigation: true
   title: "mp223 Applied Econometric Methods for the Socials Sciences"
   description: "mp223 AEM at JLU Giessen. Summer Semester 2022."
-  site-url: "https://ebukin.github.io/mp223Quarto2/"
+  site-url: "https://ebukin.github.io/mp223-2022-aem-R-public/"
   
-  repo-url: https://github.com/EBukin/mp223Quarto2
+  repo-url: https://github.com/EBukin/mp223-2022-aem-R-public/
   repo-actions: [edit, issue]
   
   page-footer:
@@ -24,7 +23,7 @@ website:
     align: center
     tools:
       - icon: github
-        href: https://github.com/EBukin/mp223Quarto2
+        href: https://github.com/EBukin/mp223-2022-aem-R-public/
         text: "Source code"
       - icon: info-square
         text: "Useful links"
