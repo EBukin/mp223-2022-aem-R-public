@@ -1,0 +1,61 @@
+---
+title: "Week 1"
+subtitle: "Soft introduction to R. Ceteris Paribus. Selection bias"
+editor: visual
+---
+
+::: callout-important
+The class is in-person. We meet in the PC room 216 in Zeughaus.
+:::
+
+# Lectures (in class + followup):
+
+🖥 [Lecture 00 Introduction. Organisation. Setup.](/slides/00-introduction/00-introduction.html)
+
+🖥 [Lecture 01 Ceteris Paribus.](http://127.0.0.1:34697/slides/00-introduction/00-introduction.html)
+
+-   [ ] Watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Ceteris Paribus: Public vs. Private University](https://www.youtube.com/embed/iPBV3BlV7jk)
+-   [ ] Check takeaways in slides
+-   [ ] Follow-up `hw00-08` making an R scripts from example in lecture "01 Ceteris Paribus";
+
+🖥 [Lecture02 Selection Bias.](http://127.0.0.1:34697/slides/00-introduction/00-introduction.html)
+
+-   [ ] Watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Selection Bias: Will You Make More Going to a Private University?](https://www.youtube.com/embed/6YrIDhaUQOE)
+-   [ ] Check takeaways in slides
+-   [ ] Watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Randomized Trials: The Ideal Weapon](https://www.youtube.com/embed/eGRd8jBdNYg)
+
+# Application exercises (in class):
+
+Download project 📋 [`ae01-soft-intro-to-R.zip`]() (same as 📋 [`ae01-soft-intro-to-R.zip` on Ilias]());
+
+-   [ ] Check `AE01-README.Rmd` - Instructions.
+-   [ ] `ae01a-vaccination.Rmd` - assignment to do in class.
+
+# Home works
+
+Use instructions in🖥[00a R and RStudio introduction]() to guide your homework progress.
+
+## To do before the Week 3
+
+-   Check 🖥 [hw00-01]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Installing R and R Studio](https://youtu.be/A7XWWLXqKTI) (video 4:08)
+-   Check 🖥 [hw00-02]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [R and R Studio: introduction and interface](https://youtu.be/tYdZT62-hio) (video 1:36)
+-   Check 🖥 [hw00-03]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Setup working folders](https://youtu.be/um56ASPU76o) (video 3:54)
+-   Check 🖥 [hw00-04]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Creating an RStudio project](https://youtu.be/63a-cY6es2I) (video 4:06)
+-   Check 🖥 [hw00-05]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Console: running R code in there](https://youtu.be/OeAjBJtgh7E) (video 10:09)
+-   Check 🖥 [hw00-06]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [`.R` scripts: create, modify, run, save](https://youtu.be/y0TzG4ohLJI) (video 4:34)
+-   Check 🖥 [hw00-07]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [`.Rmd` R Markdown: create, modify, save, Knit](https://youtu.be/Ew8m1eMQDAs) (video 4:54)
+-   Check 🖥 [hw00-08]() Making an R scripts based on the example from the lecture "01 Ceteris Paribus"
+
+## Optional. to better learn R. No deadline.
+
+-   Check 🖥 [hw00-09]() and watch ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Coding out loud: introduction to R and R Markdown](https://youtu.be/ELi3ci4HSLU) (about 1 hour).
+
+-   Check 🖥 [hw00-10]() doing 📋 `ae01b-un-votes.Rmd` about voting pattern of the countries in the UN General Assembly in [📋 `ae01`]() under video guidance from ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Mine Cetinkaya-Rundel](https://youtu.be/r-uTBEclM1E).
+
+## Some other videos of Josh Angrist to watch.
+
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [What's the Difference Between Econometrics and Data Science?](https://www.youtube.com/watch?v=2EhRT2mOXm8)
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [What's the Difference Between Econometrics and Statistics?](https://www.youtube.com/watch?v=uVrr_-UUgWk)
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Isn't Econometrics Boring?](https://www.youtube.com/watch?v=g0TuQGpMvjM)
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [If I Master Econometrics, What Jobs Can I Get?](https://www.youtube.com/watch?v=ZXgIEzf2wlc)
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Econometrics is the original data science](https://www.youtube.com/watch?v=T24j8XTcpe0)
