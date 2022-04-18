@@ -293,7 +293,8 @@ Navigate to your user folder: `C > Users > Name of your user account`;
 #| echo: false
 #| out.width: "45%"
 #| fig.asp: 1
-#| fig.retina: 
+#| fig.retina: 3
+library(ggplot2)
 here::here("slides", "00-introduction", "img", "RStud-icon.PNG") %>% 
   magick::image_read() %>%
   magick::image_ggplot(interpolate = TRUE)
@@ -306,7 +307,6 @@ here::here("slides", "00-introduction", "img", "RStud-icon.PNG") %>%
 #| out.width: "100%"
 #| fig.asp: .05
 #| fig.dpi: 300
-
 here::here("slides", "00-introduction", "img", "RStud-icon-2.PNG")%>% 
   magick::image_read() %>%
   magick::image_ggplot(interpolate = TRUE)
