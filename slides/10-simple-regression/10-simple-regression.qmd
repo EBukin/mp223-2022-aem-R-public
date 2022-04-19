@@ -1,0 +1,359 @@
+---
+title: "Simple regression"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    slide-number: true
+    smaller: false
+    scrollable: true
+    
+execute:
+  freeze: auto
+bibliography: ../../references.bib
+---
+
+```{r}
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "80%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(1123581321)
+```
+
+# R setup
+
+```{r}
+# load packages
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+# set default theme and larger font size for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+# set default figure parameters for knitr
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "80%"
+)
+```
+
+# Data
+
+## Pearson-Lee data
+
+-   Data used is published in [@pearson1903].
+
+-   Karl Pearson collected data on over 1100 families in England in the period 1893 to 1898;
+
+-   Heights of mothers `mheight` and daughters `dheight` was recorded for 1375 observations.
+
+-   We rely on the examples of SLR in [@weisberg2005a]
+
+## Data loading and preparation
+
+::: smaller
+-   Loading data
+-   Converting data frame into a `tibble()` object
+-   Renaming variables
+-   Glimpse of data
+:::
+
+. . .
+
+```{r}
+# Note, we use `sample_n(400)` to randomly select only 400 observations
+dta <- 
+  alr4::Heights %>% 
+  as_tibble() %>% 
+  rename(mother_height = mheight,
+         daughter_height = dheight) %>% 
+  sample_n(400)
+glimpse(dta)
+```
+
+## Exploring data (Scatter plot) {.smaller}
+
+::: panel-tabset
+### Plot
+
+```{r}
+#| code-fold: true
+#| fig.asp: 0.5
+plt <- 
+  dta %>% 
+  ggplot() + 
+  aes(x = mother_height, y = daughter_height) + 
+  geom_point(alpha = 0.5)
+plt
+```
+
+### Improve the code yourself
+
+-   What `alpha = 0.5` stands for?
+-   Add labels.
+-   change color of points (add `color = "red"` after `alpha` separating arguments with comma)
+
+```{r}
+#| code-fold: true
+#| eval: false
+dta %>% 
+  ggplot() + 
+  aes(x = mother_height, y = daughter_height) + 
+  geom_point(alpha = 0.5) + 
+  labs(x = "___________", 
+       y = "___________")
+```
+:::
+
+# Simple Linear Regression
+
+## Simple regression line
+
+::: columns
+::: {.column width="30%"}
+::: {.smaller}
+$Y = \color{green}{f(X)} + \text{Error term} \\ 
+= \color{green}{E[Y|X]} + \epsilon
+$
+:::
+:::
+
+::: {.column width="70%"}
+```{r}
+#| out.width: "100%"
+#| code-fold: true
+fit <- lm(daughter_height ~ mother_height, data = dta)
+plt <- 
+  plt + 
+  labs(x = "Mothers' height", 
+       y = "Daughter height") + 
+  geom_smooth(method = "lm", color = "green", se = FALSE)
+plt
+```
+:::
+:::
+
+## Simple regression
+
+$$\Large{Y = \beta_0 + \beta_1 X}$$
+
+::: incremental
+-   $Y$: dependent variable, observed values
+-   $Y$: independent variable
+-   $\beta_1$: True slope
+-   $\beta_0$: True intercept
+-   Note, in the population regression function, there is no error terms!
+:::
+
+## Estimated simple regression
+
+$$\Large{\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X}$$
+
+::: incremental
+-   $\hat{Y}$: fitted values, predicted values
+-   $\hat{\beta}_1$: Estimated slope
+-   $\hat{\beta}_0$: Estimated intercept
+-   No error term!
+:::
+
+## Residuals
+
+::: columns
+::: {.column width="30%"}
+$Y = 
+\color{green}{f(X)} + \color{blue}{\text{Error term}} \\ 
+= \color{green}{E[Y|X]} + \color{blue}{\epsilon}$
+:::
+
+::: {.column width="70%"}
+```{r}
+#| out.width: "100%"
+#| code-fold: true
+plt + 
+  geom_segment(
+    aes(x = mother_height, xend = mother_height,
+        y = daughter_height, yend = predict(fit)), 
+    color = "blue",
+    alpha = 0.4
+  )
+```
+:::
+:::
+
+
+## Residuals
+
+::: incremental
+-   $\text{residuals} \\ = \text{observed} - \text{predicted} \\ = \epsilon = Y - \hat{Y}$
+
+-   ${Y = \hat{\beta}_0 + \hat{\beta}_1 X + \epsilon}$
+
+-   $\epsilon$ is the error term or residual
+
+-   For each specific observation $i$
+
+-   residual $e_i = y_i - \hat{y_i}$
+
+-   squared residual $e_i^2 = (y_i - \hat{y_i})^2$
+:::
+
+# Ordinary Least Square (OLS) 
+
+## Ordinary Least Square (OLS) 
+
+::: columns
+::: {.column width="30%"}
+::: incremental
+
+-   "finds" values for $\hat{\beta}_0$ and $\hat{\beta}_1$
+
+-   each new value of $\hat{\beta}_0$ and $\hat{\beta}_1$ generates new regression line;
+
+
+:::
+:::
+
+::: {.column width="70%"}
+```{r}
+#| out.width: "100%"
+#| code-fold: true
+plt + 
+  geom_segment(
+    aes(x = mother_height, xend = mother_height,
+        y = daughter_height, yend = predict(fit)), 
+    color = "blue",
+    alpha = 0.4
+  ) + 
+  geom_abline(intercept = 33, slope = 0.49, color = "black") + 
+  geom_abline(intercept = 5, slope = 0.95, color = "black") + 
+  geom_abline(intercept = 25, slope = 0.62, color = "black")
+```
+:::
+:::
+
+
+## Ordinary Least Square (OLS) 
+
+the OLS finds such values of $\hat{\beta}_0$ and $\hat{\beta}_1$ that minimizes the sum of squared residuals:
+
+$$
+\Large{
+SSR = 
+\sum_{i}^{n}{e_i^2} \\ = \sum_{i}^{n}{(y_i - \hat{y_i})^2} \\ = {[e_1^2 + e_2^2 + ... + e_n^2]}
+}
+$$
+
+## Properties of OLS {.smaller}
+
+::: incremental
+
+-   The regression line goes through the center of all point.
+
+-   The sum of the residuals (not squared) is zero: $\sum_{i}^n e_i = 0$
+
+-   Zero correlation between residuals and regressors $Cov(X,\epsilon) = 0$
+
+-   Predicted value of $Y$, when all regressors are at means $\bar{X}$ is the mean of $\bar{Y}$: $E[Y|\bar{X}] = \bar{Y}$
+
+:::
+
+# Interpretation
+
+## Regression coefficeints
+
+```{r}
+fit <- lm(daughter_height ~ mother_height, data = dta)
+fit
+```
+
+## Regression summary (1/3) {.smaller}
+
+```{r}
+summary(fit)
+```
+
+## Regression summary (2/3)
+
+- using `broom` package [overview](https://broom.tidymodels.org/) and [source code](https://github.com/tidymodels/broom)
+
+```{r}
+library(broom)
+tidy(fit)
+```
+. . .
+
+```{r}
+glance(fit)
+```
+
+## Regression summary (3/3)
+
+- using `parameters` package [overview](https://easystats.github.io/parameters/) and [source code](https://github.com/easystats/parameters/)
+
+```{r}
+library(parameters)
+parameters(fit)
+```
+
+. . .
+
+- using `performance` package [overview](https://easystats.github.io/performance/) and [source code](https://github.com/easystats/performance/)
+
+```{r}
+library(performance)
+performance(fit)
+```
+
+## Intercept
+
+-  Important in the context of the data.
+
+-  Value of $Y$ when all $X$ are zero.
+
+
+## Slope
+
+Marginal effect or unit change in $Y$ on average, when $X$ is being change by on unit, keeping all other regressors fixed.
+
+-   When mother's height increases by 1 inch, the height of a daughter increases by $\hat{\beta_1}$ inches, keeping other variables constant.
+
+# Residuals and Fitted values
+
+## Residuals
+
+TBD
+
+## Fitted
+
+TBD
+
+# Takeaways
+
+## Takeaway
+
+-   Simple linear regression
+-   OLS
+-   Slope and Intercept (interpretation)
+
+. . .
+
+-   fitting regression: `fit()`
+-   regression summary: `summary()`, `tidy()`, `glance()`, `parameters()` and `performance()`
+-   packages: `broom`, `parameters` and `performance`
+
+# References
+
+## References
