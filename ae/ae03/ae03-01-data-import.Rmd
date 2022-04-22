@@ -1,0 +1,57 @@
+---
+title: "Data import"
+author: "Eduard Bukin"
+date: "`r Sys.Date()`"
+output: html_document
+bibliography: ../../references.bib
+---
+
+## Setups
+
+We will us `tidyverse` for data wrangling and `readr` and `readxl` for data import.
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(readr)       # install.packages("readr")
+library(readxl)      # install.packages("readxl")
+```
+
+# Data import from `.csv`
+
+`.csv` is coma separated file.
+
+Here is the example [NHIS 2009](https://raw.githubusercontent.com/EBukin/datasets4examples/main/datasets-raw/NHIS2009.csv) data used in the [@Angrist2014].
+
+To load data we use `readr` package from tidyverse [readr](https://readr.tidyverse.org/).
+
+We may use a visual import tool for data available in R studio. But remember to make the R code used to import data part of your analysis.
+
+The challenge is to specify the right path to the file that we want to import
+
+
+## Exercise 1. Simple CSV file
+
+In the folder `data` there is a file `chicken.csv`. Load it into the object chick.
+
+```{r}
+library(readr)
+# chick <- read_csv(____)
+chick <- read_csv("data/chicken.csv")
+```
+
+Now inspect the data:
+
+-   use `glimpse(____)`;
+-   simply print the data set;
+
+```{r}
+read_csv()
+```
+
+Try function `summary(_____)`.
+
+```{r}
+
+```
+
+What is the difference between summary and previous two ways of data exploration.
