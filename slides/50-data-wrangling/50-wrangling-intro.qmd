@@ -1,0 +1,362 @@
+---
+title: "Data Wrangling"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+slide-number: true
+smaller: false
+scrollable: true
+
+execute:
+  freeze: auto
+  
+bibliography: ../../references.bib
+---
+
+# R setup {.smaller}
+
+```{r}
+# load packages
+library(tidyverse)       # for data wrangling
+
+# set default theme and larger font size for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+
+# set default figure parameters for knitr
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "80%"
+)
+```
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "80%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(1123581321)
+```
+
+```{r}
+#| echo: false
+library(magick)   
+library(magrittr)    
+get_image <- function(x) {
+  here::here("slides", "50-data-wrangling", "img", x) 
+}
+```
+
+# Introduction
+
+## Data analysis workflow
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+:::
+
+```{r}
+#| echo: false
+# get_image("data-science.png") %>%
+#   magick::image_read() %>%
+#   magick::image_ggplot(interpolate = TRUE)
+knitr::include_graphics("./img/data-science.png")
+```
+
+## Wrangling
+
+```{r}
+#| echo: false
+# get_image("data-science-wrangle.png") %>% 
+#   magick::image_read() %>%
+#   magick::image_ggplot(interpolate = TRUE)
+knitr::include_graphics("./img/data-science-wrangle.png")
+```
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+:::
+
+. . .
+
+### See also:
+
+R4DS: [R for data science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund (book's [source code](https://github.com/hadley/r4ds))
+
+-   Part Wrangle [Chapter 9](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro) in [@Wickham2017R]
+
+## Tidy data (1/4)
+
+```{r}
+#| echo: false
+# get_image("tidy-1.png") %>%
+#   magick::image_read() %>%
+#   magick::image_ggplot(interpolate = TRUE)
+knitr::include_graphics("./img/tidy-1.png")
+```
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/tidy-data.html)
+:::
+
+## Tidy data (2/4) wide format
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tidy-2-wide.png")
+```
+
+::: footer
+See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+
+
+## Tidy data (3/4) long format
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tidy-2-long.png")
+```
+
+::: footer
+See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+
+## Tidy data (4/4) transformation
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tidy-2-transformation.png")
+```
+
+::: footer
+See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+
+# Data import
+
+## `readr` package (1/3)
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-logo.png")
+```
+
+:::
+
+::: {.column width="70%"}
+
+-   Documentation [tidyverse/readr](https://readr.tidyverse.org/reference/readr_example.html)
+    
+    -   Check out the landing page with examples
+    
+
+-   Source code [GitHub](https://github.com/tidyverse/readr/)
+
+-   Cheat sheets [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+
+:::
+
+::::
+
+## `readr` package (2/3) key functions {.smaller}
+
+:::: {.columns}
+
+::: {.column width="20%"}
+
+-   `read_csv()` - for a coma separate data in the text file
+
+-   `read_dta()` - for Stata data files.
+
+:::
+
+::: {.column width="80%"}
+
+The file, which we want to read is in 
+
+```{r}
+readr_example("chickens.csv")
+```
+
+Instead of specifying the path to this file, we use `readr_example("chickens.csv")`.
+
+```{r}
+chickens <- readr_example("chickens.csv") %>% read_csv()
+glimpse(chickens)
+```
+
+:::
+
+::::
+
+## `readr` package (3/3) user interface {.smaller}
+
+
+::: {.panel-tabset}
+
+### Step 1
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-1.png")
+```
+
+### Step 2
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-2.png")
+```
+
+### Step 3
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-3.png")
+```
+
+### Step 4
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-4.png")
+```
+
+### Step 5
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-5.png")
+```
+:::
+
+
+## `readxl` package (1/3)
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-logo.png")
+```
+
+:::
+
+::: {.column width="70%"}
+
+-   Documentation [tidyverse/readxl](https://readxl.tidyverse.org/)
+    
+    -   Check out the landing page with examples
+
+-   Source code [GitHub](https://github.com/tidyverse/readxl/)
+-   Cheat sheets [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+
+-   Key functions: 
+
+    -   `excel_sheets("file")`
+    -   `read_excel("file", sheet = "name of the sheet")`
+
+:::
+
+::::
+
+## `readxl` package (2/3) Basic usage
+
+::: {.panel-tabset}
+
+### Step 1 Path to the file
+
+-   First, locate the file. 
+
+```{r}
+library(readxl)
+xls_example <- readxl_example("datasets.xls")
+xls_example
+```
+
+-   Then, open it manually to see if it is alright.
+
+### Step 2 Sheets
+
+-   Then, check what sheets re present there:
+
+```{r}
+excel_sheets(xls_example)
+```
+
+### Step 3 Data in R
+
+```{r}
+xl_sta <- read_excel(xls_example, sheet = "chickwts")
+glimpse(xl_sta)
+```
+
+:::
+
+
+## `readxl` package (3/3) user interface {.smaller}
+
+
+::: {.panel-tabset}
+### Step 1
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-1.png")
+```
+
+### Step 2
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-2.png")
+```
+
+### Step 3
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-3.png")
+```
+
+### Step 4
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-4.png")
+```
+
+### Step 5
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-5.png")
+```
+:::
+
+
+# References
+
+## References
