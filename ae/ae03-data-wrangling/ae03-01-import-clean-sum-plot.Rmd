@@ -1,0 +1,530 @@
+---
+title: "AE03-01 Import, cleaning, summary plot"
+author: "Eduard Bukin"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+bibliography: ../../references.bib
+---
+
+## Setups
+
+We will us `tidyverse` for data wrangling and `readr` and `readxl` for data import.
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(readr)       # install.packages("readr")
+library(readxl)      # install.packages("readxl")
+library(janitor)     # install.packages("janitor")
+library(skimr)       # install.packages("skimr")
+```
+
+## Data import and cleaning
+
+In this exercise, we shall practice the following:
+
+-   Loading data: `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
+-   Inspecting data: `dplyr::glimpse()`, `utils::View()`, `utils::head()`, `base::names()`;
+-   Data summary: `base::summary()`;
+-   Renaming variables: `janitor::clean_names(...)`, `dplyr::rename()`;
+-   Removing undesired observations/row by their number in the data with `dplyr::slice()`;
+-   Mutating/modifying types of existing variables: `dplyr::mutate()`
+-   Converting excel dates to R-relevant `<date>` variable type: `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
+-   Summary statistics with: `skimr::skim()`.
+-   Plotting time series with: `ggplot2::ggplot()`, `ggplot2::aes()`, `ggplot2::geom_path()`.
+
+## Exercise 1. Load clean and plot data from Excel
+
+Here, we will explore the data from the file called `commodity-prices.xlsx` in the `data` folder.
+
+### Ex. 1.1 Inspect the file in excel: `readxl::excel_sheets()`
+
+Open the file in Excel and inspect it.
+
+-   What sheets are there?
+-   Where is the data?
+
+Use function `excel_sheets()` to check what sheets does R sees in this file. Please note that you need to provide path to the file manually. Thus:
+
+1.  Create an object `path_prices`
+
+    -   and assign to it a value of the string with the path to the file.
+    -   This string may look like: `./path_to_folder/file_name.ext`.
+    -   Make sure that you specify the path exactly as it is with the file extension.
+    -   Make sure that in the path, there are no extra spaces of characters which are not present in the file path.
+
+2.  Execute function `excel_sheets()` specifying in the arguments path to the file.
+
+```{r}
+library(readxl)
+# path_prices <- "______"
+# excel_sheets(path = _______)
+```
+
+What does the `excel_sheets()` tells us?
+
+### Ex. 1.2 Load data from the sheet: `readxl::read_excel(..., sheet = ____)`, `utils::head()`
+
+You need to use function `read_excel()` to load data.
+
+-   Check help for this function in the console!
+-   Save data in the `environment` under the object name `prices_dta`.
+-   `glimpse()` at the data
+-   us function `head()` with the data and explain what it does
+
+```{r}
+# prices_dta <- 
+#   ________(path_prices)
+
+# prices_dta %>% 
+#   ________()
+
+# prices_dta %>% 
+#   head()
+```
+
+As you can see, the data is loaded into R, but there are problems:
+
+-   Variables names are long, bulky, contain spaces and it is difficult to use them.
+-   All variables are in `<chr>`, which means character, when it should be numerical `<dbl>`.
+-   First row in the data contains text, which is irrelevant to the data.
+-   The data is not tidy! We need to clean it.
+
+### Ex. 1.3 Cleaning variables names: `janitor::clean_names(...)` , `base::names()`
+
+Currently variables names are very long.
+
+-   Note, we use `names()` function to check variables names.
+
+```{r}
+# prices_dta %>% names()
+```
+
+We can simplify these names and make them machine readable and usable using function `janitor::clean_names()`.
+
+-   check help for this function `?clean_names`
+
+-   run it on the data and check the variables names
+
+```{r}
+# prices_dta %>% 
+#   __________() %>% 
+#   names()
+```
+
+Are those variables names useful now?
+
+### Ex. 1.4 Cleaning variables names: `dplyr::rename()`
+
+Well, no, these variables names are not useful. We still need to `rename()` them into something shorter. For this, we use `dplyr::rename()` . See help [here](https://dplyr.tidyverse.org/reference/rename.html).
+
+The logit is:
+
+-   we supply data into `rename()` with pipe: `data %>% rename()`.
+-   in the `rename()` , we specify what should be the new name on the left hand side and old name on the right hand
+    -   `data %>% rename(new_name = OLD_NAME)`.
+-   we do not use any quotation marks.
+-   Remember to repeat the data cleaning step with `janitor::lean_names()`.
+
+Here is the example with the longest variable:
+
+```{r}
+# prices_dta %>% 
+#   clean_names() %>% 
+#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt) %>% 
+#   names()
+```
+
+Follow this example to rename variables into `date`, `oil`, `maize` and `urea`.
+
+```{r}
+# prices_dta %>%
+#   clean_names() %>% 
+#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, 
+#          maize = ______________, 
+#          date = ______________, 
+#          ______________ = ______________, 
+#          ______________ = ______________) %>%
+#   names()
+```
+
+Did it work?
+
+### Ex. 1.5 Removing first row with irrelevant data `dplyr::slice()`
+
+Use function `slice(prices_dta, -1)`. Check help for `dplyr::slice()`.
+
+-   with argument `-1` we are telling to R to drop row with the number `1`;
+-   Note, wen we use pipeline `%>%` we do not need to specify data frame name `prices_dta` within the brackets `(…)` of the `slice()` call!
+-   Remember to copy all the code from before, where you renamed the variables.
+-   Assign value of this long pipe to the new object named `prices_dta_1`. This object will stand for the intermediary step in the data cleaning process.
+
+```{r}
+# prices_dta_1 <- 
+#   prices_dta %>%
+#   ### Place here the R code with renaming ###
+#   ### Place here the R code with renaming ###
+#   ### Place here the R code with renaming ###
+#   slice(___) %>% 
+#   glimpse()
+```
+
+If everything alright with the data now? Let us use `summary()` to summaries the variables and extract some numerical features:
+
+```{r}
+# prices_dta_1 %>%
+#   summary()
+```
+
+Are these results meaningful?
+
+### Ex. 1.6 Mutating variables types: `dplyr::mutate()`, `base::as.numeric()`.
+
+As we say on the previous step, all variables have the type `character` or `<chr>`. As this is text, it is not possible to make summary statistics out of it. `R` simply does not understand that we want to used those variables as numbers as we need to explain this to `R`.
+
+We need to:
+
+-   `mutate()` existing variables (see definition of mutate [here](https://dictionary.cambridge.org/dictionary/english/mutate))
+
+-   the help on the `mutate()` function is [here](https://dplyr.tidyverse.org/reference/mutate.html) with more [case example here](https://dplyr.tidyverse.org/articles/colwise.html) and a dedicated [Chapter 5.5 in R4DS](https://dplyr.tidyverse.org/articles/colwise.html);
+
+-   and convert them to `numeric` or `double` type referred as `<dbl>`
+
+-   to convert variable type, we use `as.numeric()`, see: `?as.numeric` or run `as.numeric(c("-.1"," 2.7 ","B"))` in console.
+
+Here is the example that should work for one column:
+
+-   Note, it will only work if you made previous cleaning steps correctly.
+
+-   please un-commencement it.
+
+```{r}
+# prices_dta_1 %>% 
+#   mutate(oil = as.numeric(oil)) %>% 
+#   glimpse()
+```
+
+As you can see now, `oil` variable has numeric format. Thus, when we run `summary()` we get description of the numerical values there:
+
+```{r}
+# prices_dta_1 %>% 
+#   mutate(oil = as.numeric(oil)) %>% 
+#   summary()
+```
+
+Now, your turn to mutate all variable as numeric.
+
+```{r}
+# prices_dta_1 %>%
+#   mutate(oil = as.numeric(oil),
+#          wheat = ____________(____),
+#          _____ = ____________(urea),
+#          _____ = ____________(____),
+#          _____ = ____________(____)) %>%
+#   glimpse()
+```
+
+### Ex. 1.7 Mutating date variable: `dplyr::mutate()`, `janitor::convert_to_date()`.
+
+Check results of the previous chunk!
+
+-   It is clear that `date` variable is not a date, but a series of a number instead.
+-   This is because Excel stores date as a number of days since January 1, 1990. Thus, 33664 is March 1, 1992.
+-   We need to convert such date notations to some real dates using function `janitor::convert_to_date()`.
+-   See: `?convert_to_date`.
+-   Convert date to the type `<date>` in the same way as variable type conversion at the previous step.
+-   Assign new object `prices_dta_clean` with the value of the data frame with all cleaning steps.
+
+```{r}
+# prices_dta_clean <- 
+#   prices_dta_1 %>%
+#   mutate(oil = as.numeric(oil),
+#          wheat = ____________(____),
+#          _____ = ____________(urea),
+#          _____ = ____________(____),
+#          date = convert_to_date(____)) 
+# prices_dta_clean %>% glimpse()
+```
+
+We have manage to clean the data!
+
+Do data `summary()` of the data to see what the variables are about.
+
+```{r}
+# 
+
+```
+
+### Ex. 1.8 Use `skimr::skim()` to generate summary statistics of the data
+
+Go to [skimr website](https://docs.ropensci.org/skimr/) and learn how to use function `skim()`. Apply it to the `prices_dta_clean` data frame below and discuss how the results are different from `summary()`.
+
+```{r}
+library(skimr)       # install.packages("skimr")
+# prices_dta_clean %>% 
+#   _____()
+```
+
+### Ex. 1.9 Plot a time-series of all four variables using `ggplot2` package
+
+Plotting according to the `grammar of graphics` (`gg`) using package `ggplot2` is a rewarding process. But, we need to follow some steps.
+
+1.  We need to make data clean and tidy.
+    -   Ideally, data has to be in the long format, but wide data may also work
+2.  Send data to `ggplot()` function to initiate a plot.
+    -   Note, we use `%>%` (pipe) for this step: `data %>% ggplot()`
+3.  Start adding (`+`) various `aesthetics` to the plot using `aes()` function:
+    -   Note, inside the ggplot builder we use `+`, not a pipe! `data %>% ggplot() + aes(x, y)`
+4.  Add geometries using `+`
+    -   `data %>% ggplot() + aes(x, y) + geom_line()`
+
+Let us give it a try! Let us convert existing data to the plot basis and add an aesthetics for `x` axis:
+
+-   Use `date` as an aesthetics for `x` axis, `wheat` for `y` axis and a string `"wheat"` for `color`.
+-   Do not use quotation marks in `aes` for `x` and `y`.
+-   Do USE quotation marks in `aes` for `colour`.
+
+```{r}
+# prices_dta_clean %>% 
+#   _________() + 
+#   aes(____ = date, y = _____, color = "_____") 
+```
+
+R created a grid for a plot, but no plot. This is because, we did not add any geometries! Let us add a `geom_path()` to the plot.
+
+```{r}
+# prices_dta_clean %>% 
+#   _________() + 
+#   aes(____ = date, y = _____, color = "_____") 
+#   _________() + 
+#   geom_path(aes(y = _______, colour = "Maize")) + 
+#   geom_path(aes(y = _______, colour = "_____"))
+```
+
+Now, we shall add another line to the plot with the Maize prices:
+
+-   we need to add a line with a new `geom_path()`, and
+-   specify `aes()` inside `geom_path()`,
+-   for example `geom_path(aes(y = maize, colour = "Maize"))`.
+-   do not forget `+`.
+
+Go ahead:
+
+```{r}
+# prices_dta_clean %>% 
+#   _________() + 
+#   aes(____ = date, y = _____, color = "_____") 
+#   _________() + 
+#   geom_path(_____(y = ______, colour = "_____"))
+```
+
+Add another line with \`geom_path\`, this time adding the oil prices to the plot.
+
+```{r}
+# prices_dta_clean %>% 
+#   _________() + 
+#   aes(____ = date, y = _____, color = "_____") 
+#   _________() + 
+#   geom_path(_____(y = ______, colour = "_____")) + 
+#   geom_path(_____(y = ______, colour = "_____"))
+```
+
+### Solution to the exercise 2
+
+```{r class.source = 'fold-hide'}
+prices_dta_clean <- 
+  read_excel("data/commodity-prices.xlsx", sheet =  "data") %>% 
+  clean_names() %>% 
+  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, 
+        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, 
+        date = day_month_year, 
+        oil = crude_oil_brent_usd_per_barrel, 
+        urea = urea_f_o_b_black_sea_usd_per_mt) %>%
+  slice(-1) %>% 
+  mutate(
+    oil = as.numeric(oil),
+    wheat = as.numeric(wheat),
+    maize = as.numeric(maize),
+    urea = as.numeric(urea),
+    date = convert_to_date(date)
+  ) 
+
+glimpse(prices_dta_clean)
+
+summary(prices_dta_clean)
+
+skim(prices_dta_clean)
+
+prices_dta_clean %>% 
+  ggplot() + 
+  aes(x = date, y = wheat, colour = "Wheat") + 
+  geom_path() + 
+  geom_path(aes(y = maize, colour = "Maize")) + 
+  geom_path(aes(y = urea, colour = "Urea"))
+```
+
+Same plot could be build build in a more simple way if we use long formatted data. 
+
+```{r class.source = 'fold-hide'}
+prices_dta_clean_long <- 
+  prices_dta_clean %>% 
+  pivot_longer(cols = c(oil:urea))
+
+glimpse(prices_dta_clean_long)
+
+prices_dta_clean_long %>% 
+  ggplot() + 
+  aes(x = date, y = value, colour = name) + 
+  geom_path()
+```
+
+## Exercise 2. OPTIONAL Import from a `.csv`: coma separated file
+
+Here is the example [NHIS 2009](https://raw.githubusercontent.com/EBukin/datasets4examples/main/datasets-raw/NHIS2009.csv) data used in the [@Angrist2014]. To load such data in R, we can use `readr` package from tidyverse [readr](https://readr.tidyverse.org/).
+
+One may use a visual import tool for data available in R studio. But remember to save the R code for data import in the script. Data import code must be a part of your analysis.
+
+The challenge is to specify the right path to the file that we want to import. For this exercise, this file is also saved in the folder `./data/NHIS2009.csv`
+
+### 2.1 Simple CSV file: `readr::read_csv()`, `dplyr::glimpse()` , `base::summary()` , `utils::View()`
+
+In the folder `data` there is a file `chicken.csv`. Load it into the object chick.
+
+```{r}
+library(readr)
+# chick <- read_csv(____)
+```
+
+Now inspect the data:
+
+-   use `glimpse(____)`;
+-   print the data set;
+-   `View()` the data;
+
+```{r}
+#
+
+```
+
+Try function `summary(_____)`.
+
+```{r}
+# 
+
+```
+
+What is the difference between summary and previous two ways of data exploration?
+
+### 2.2 Large and complex CSV file
+
+Loading larger CSV files is not different from loading small files. Below, load the file `NHIS2009.csv` from the folder `data` and then glimpse at it:
+
+```{r}
+# 
+
+```
+
+### Solutions 
+
+```{r class.source = 'fold-hide'}
+chick <- read_csv("data/chicken.csv")
+glimpse(chick)
+# View(chick)
+summary(chick)
+nhis <- read_csv("data/NHIS2009.csv")
+```
+
+## Exercise 3. OPTIONAL. `janitor` for cleaning data in R
+
+we follow the data cleaning exercise form the [janitor webpage](https://github.com/sfirke/janitor). Data set is called `dirty_data.xlsx` and it is located in: `./data/dirty_data.xlsx` or on the [github](https://github.com/sfirke/janitor/raw/main/dirty_data.xlsx).
+
+```{r}
+ddta <- read_excel("./data/dirty_data.xlsx")
+glimpse(ddta)
+```
+
+As you can see, this data is dirty. The problems are:
+
+-   Variables names are wrong, they are in fact in the first row of data.
+-   All variables are in character type, when in fact some variables are in different format.
+-   There are some columns that are empty.
+-   There are some rows that are empty.
+
+### 3.1 Make all variables named as values in the first row.
+
+Use function `row_to_names()` and specify the parameter `row_number` to 1.
+
+```{r}
+# ddta %>% 
+#   ____________(__________ = 1) %>% 
+#   glimpse()
+```
+
+### 3.2 Make all names nice
+
+Currently, all names are (insert your code form previous step):
+
+```{r}
+# ddta %>% 
+#   ____________(__________ = 1) %>% 
+#   names()
+```
+
+Use function `clean_names()`, to make names nice.
+
+```{r}
+# ddta %>%
+#   ____________(__________ = 1) %>%
+#   ____________() %>% 
+#   glimpse()
+```
+
+### 3.3 Make variable `hire_data` as date
+
+To convert variable types to meaningful numeric variables, we need to use some more functions. Specifically, functions `convert_to_date()`. In addition, we need to use function `mutate()` to tell r to modify existing variable.
+
+Here is the example, where we use mutate to modify existing variable `Sepal.Width` with the same variable but as character string instead of a number.
+
+```{r}
+iris %>% glimpse()
+
+iris %>% 
+  mutate(Sepal.Width = as.character(Sepal.Width)) %>% 
+  glimpse()
+```
+
+Use the example from above to modify the variable `hire_date` with its values converted to date using function `convert_to_date`.
+
+```{r}
+#ddta %>%
+#   ____________(__________ = 1) %>%
+#   ____________() %>% 
+#   mutate(_________ = ____________(hire_date)) %>% 
+#  glimpse()
+```
+
+### 3.4 Make variable `percent_allocated` as numeric
+
+Same as above, but now using function `as.numeric()`.
+
+```{r}
+# ddta %>%
+#   ______________(__________ = 1) %>%
+#   ______________() %>%
+#   mutate(_________ = ____________(hire_date),
+#          percent_allocated = ________(___________)) %>%
+#   glimpse()
+```
+
+### Solutions
+
+```{r class.source = 'fold-hide'}
+ddta <- read_excel("./data/dirty_data.xlsx")
+ddta %>%
+  row_to_names(row_number = 1) %>%
+  clean_names() %>%
+  mutate(hire_date = as.numeric(hire_date),
+         percent_allocated = as.numeric(percent_allocated)) %>%
+  glimpse()
+```
