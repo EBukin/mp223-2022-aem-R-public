@@ -2,12 +2,9 @@
 title: "Materials and external sources for learning R"
 ---
 
-
-
 # R, RStudio and working with data
 
 -   R4DS: [R for data science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund ([source code](https://github.com/hadley/r4ds))
-
 
 ## Wrangling
 
@@ -17,17 +14,14 @@ RStudio cheat sheets ([here](https://www.rstudio.com/resources/cheatsheets/)) on
 -   [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
 -   [Data tidying with tidyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
 
-
 RStudio [Webinars](https://www.rstudio.com/resources/webinars/) + [sourcode](https://github.com/rstudio/webinars):
 
--   [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund 
--   [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/) by Garrett Grolemund 
+-   [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund
+
+-   [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/) by Garrett Grolemund
 
 -   [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/) with Jenny Bryan
-
 
 Tutorials from [INBO Tutorials](https://inbo.github.io/tutorials/):
 
 -   [R for beginners](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners) from Research Institute for Nature and Forest (INBO) in Belgium
-
-
