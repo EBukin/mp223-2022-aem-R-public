@@ -364,7 +364,7 @@ prices_dta_clean %>%
   geom_path(aes(y = urea, colour = "Urea"))
 ```
 
-Same plot could be build build in a more simple way if we use long formatted data. 
+Same plot could be build build in a more simple way if we use long formatted data.
 
 ```{r class.source = 'fold-hide'}
 prices_dta_clean_long <- 
@@ -425,7 +425,7 @@ Loading larger CSV files is not different from loading small files. Below, load 
 
 ```
 
-### Solutions 
+### Solutions
 
 ```{r class.source = 'fold-hide'}
 chick <- read_csv("data/chicken.csv")
