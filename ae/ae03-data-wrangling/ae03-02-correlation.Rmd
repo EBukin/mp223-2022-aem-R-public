@@ -1,0 +1,131 @@
+---
+title: "AE03-02 Correlation"
+author: "Eduard Bukin"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+bibliography: ../../references.bib
+---
+
+## Setups
+
+We will us `tidyverse` for data wrangling and `readr` and `readxl` for data import.
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(readr)       # install.packages("readr")
+library(readxl)      # install.packages("readxl")
+library(janitor)     # install.packages("janitor")
+library(skimr)       # install.packages("skimr")
+library(lubridate)   # install.packages("lubridate")
+
+ggplot2::theme_set(ggplot2::theme_minimal())
+```
+
+## Data import and cleaning
+
+### Importing and cleaning data in wid format
+
+```{r}
+p_wd <- 
+  read_excel("data/commodity-prices.xlsx", sheet =  "data") %>% 
+  clean_names() %>% 
+  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, 
+        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, 
+        date = day_month_year, 
+        oil = crude_oil_brent_usd_per_barrel, 
+        urea = urea_f_o_b_black_sea_usd_per_mt) %>%
+  slice(-1) %>% 
+  mutate(
+    oil = as.numeric(oil),
+    wheat = as.numeric(wheat),
+    maize = as.numeric(maize),
+    urea = as.numeric(urea),
+    date = convert_to_date(date)
+  ) 
+
+glimpse(p_wd)
+```
+
+### Converting data to long format
+
+```{r}
+p_lg <- 
+  p_wd %>% 
+  pivot_longer(cols = c(oil:urea), 
+               names_to = "var", 
+               values_to = "price")
+
+glimpse(p_lg)
+```
+
+
+## Exercise 2. Compute prices index (2010 = 100)
+
+
+```{r}
+p_index <- 
+  p_lg %>% 
+  group_by(var) %>% 
+  mutate(base = ifelse(year(date) == 2010, price, NA), 
+         base = mean(base, na.rm = TRUE),
+         index = price / base * 100,
+         fd = price - lag(price)) %>% 
+  select(-base) %>% 
+  ungroup() %>% 
+  pivot_longer(cols = c(price, index, fd), names_to = "type")
+p_index %>% glimpse()
+p_index %>% 
+  pivot_wider(names_from = c(var, type),
+              values_from = c(value)) %>% 
+  glimpse()
+```
+
+## Exercise 3. Plot prices time series
+
+```{r}
+p_index %>% 
+  filter(type == "index", var %in% c("urea", "wheat", "oil")) %>% 
+  ggplot() + 
+  aes(x = date, y = value, color = var) +
+  geom_path() + 
+  labs(y = "Price index (2010 = 100)",
+       color = "Commodity")
+```
+
+## Does Urea prices drive wheat prices?
+
+```{r}
+
+```
+
+
+
+## Exercise 4. Correlation between 
+
+
+```{r}
+library(correlation)
+
+p_index %>% 
+  filter(type %in% c("price")) %>% 
+  pivot_wider(names_from = c(var, type), 
+              values_from = c(value)) %>% 
+  correlation() %>% 
+  summary()
+
+p_index %>% 
+  filter(type %in% c("index")) %>% 
+  pivot_wider(names_from = c(var, type), 
+              values_from = c(value)) %>% 
+  correlation() %>% 
+  summary()
+
+p_index %>% 
+  filter(type %in% c("fd")) %>% 
+  pivot_wider(names_from = c(var, type), 
+              values_from = c(value)) %>% 
+  correlation() %>% 
+  summary()
+```
