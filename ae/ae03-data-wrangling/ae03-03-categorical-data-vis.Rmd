@@ -1,0 +1,35 @@
+---
+title: "AE03-03 Visualisation of the categorical data"
+author: "Eduard Bukin"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+bibliography: ../../references.bib
+---
+
+## Setups
+
+We will us `tidyverse` for data wrangling and `readr` and `readxl` for data import.
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(readr)       # install.packages("readr")
+library(readxl)      # install.packages("readxl")
+library(janitor)     # install.packages("janitor")
+library(skimr)       # install.packages("skimr")
+```
+
+
+## Categorical data
+
+Use Chapter 4 in intro to modern stats:  https://openintro-ims.netlify.app/explore-categorical.html#chp4-exercises
+
+Check examples and problems in the end.
+
+
+Exploratory data analysis: 1 - Exploring categorical data
+
+https://openintrostat.github.io/ims-tutorials/02-explore/
+
+https://openintro.shinyapps.io/ims-02-explore-01/
