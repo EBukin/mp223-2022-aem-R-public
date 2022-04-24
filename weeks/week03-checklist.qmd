@@ -3,52 +3,105 @@ title: "Week 3"
 subtitle: "Data wrangling: Data import and manipulations"
 editor: visual
 ---
-  
+
 ::: callout-important
 The class is in-person. We meet in the PC room 216 in Zeughaus.
 :::
-  
-# Lectures (in class + followup):
-  
-🖥 [W03L00 Data Wrangling](/slides/50-data-wrangling/50-wrangling-intro.html)
-🖥 [W03L01 Data import](/slides/50-data-wrangling/)
-🖥 [W03L02 `filter()` observations](/slides/50-data-wrangling/)
-🖥 [W03L03 `select()` + `rename()` variables](/slides/50-data-wrangling/)
-🖥 [W03L04 `mutate()` variables](/slides/50-data-wrangling/)
+
+# Highly recommended (nearly compulsory)
+
+## 🖥 Lecture: [W03 Data Wrangling](/slides/50-data-wrangling/50-wrangling-intro.html)
+
+-   [ ] Introduction
+
+    -   In class: overview
+        -   **Do yourself!** Interactive [Programming basics](https://rstudio.cloud/learn/primers/1.2)
+
+-   [ ] Data import `readr` + `readxl` + `janitor`
+
+    -   In class: overview + exercise
+    -   **Do yourself!** Watch a complementary [video on Data types](https://www.youtube.com/watch?v=WsxLbtWbEfc&ab_channel=Mine%C3%87etinkaya-Rundel) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
+
+-   [ ] Wrangle with `dplyr`
+
+    -   In class: overview of `filter()` + `select()` + `rename()`
+        -   **Do yourself!** Interactive [Working with Tibbles](https://rstudio.cloud/learn/primers/2.1)
+        -   **Do yourself!** Interactive [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2)
+        -   **Do yourself!** Interactive [Filter observations](https://learnr-examples.shinyapps.io/ex-data-filter/)
+    -   In class: overview of `mutate()` + `group_by()` + `select()`
+        -   **Do yourself!** Interactive [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3)
+    -   **Read** [R4DS Chapter 5 Data transformation](https://r4ds.had.co.nz/transform.html#transform)
+        -   **Do yourself!** Interactive tutorial based on R4DS Ch. 5.6 [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/)
+
+-   [ ] Visualize with `ggplot2`
+
+    -   In class: overview
+    -   **Do yourself!** Interactive:
+        -   [Data Visualization Basics](https://rstudio.cloud/learn/primers/1.1)
+        -   [Exploratory data analysis](https://rstudio.cloud/learn/primers/3.1)
+        -   [Bar Charts](https://rstudio.cloud/learn/primers/3.2)
+        -   [Histograms](https://rstudio.cloud/learn/primers/3.3)
+        -   [Boxplots and Counts](https://rstudio.cloud/learn/primers/3.4)
+        -   [Scatterplots](https://rstudio.cloud/learn/primers/3.5)
+        -   [Overplotting](https://rstudio.cloud/learn/primers/3.7)
+        -   [Customize plots](https://rstudio.cloud/learn/primers/3.8)
+    -   **Read** [R4DS Chapter 3 Data visualisation](https://r4ds.had.co.nz/data-visualisation.html#data-visualisation)
+
+-   [ ] Summary statistics `skimr`
+
+    -   In class: overview + exercise
+
+-   [ ] Correlation `correlation`
+
+    -   In class: overview + exercise
+
+🖥 [W03L01 Data import `readr` + `readxl` + `janitor` + `dplyr::rename()`](/slides/50-data-wrangling/)
+
 🖥 [W03L05 Correlation](/slides/50-data-wrangling/)
+
 🖥 [W03L06 Summary statistics](/slides/50-data-wrangling/)
+
 🖥 Homework [W03L07 `pivot_wider()` + `pivot_longer()` variables transformation](/slides/50-data-wrangling/)
+
 🖥 Homework [W03L08 `group_by()` + `summarise()`](/slides/50-data-wrangling/)
 
-# Application exercises (in class):
+## Application exercises (in class):
 
 Download project 📋 [`ae03-data-wrangling.zip`]() (same as 📋 [`ae03-data-wrangling.zip` on Ilias]());
 
--   [ ] `ae03-01-data-import.Rmd` + homework section in the file
+-   [ ] [`ae03-01-import-clean-sum-plot.Rmd`](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html)
+-   [ ] `ae03-02-correlation.Rmd`
+
+homework section in the file
+
 -   [ ] `ae03-02-filter-observations.Rmd` + homework section in the file
 -   [ ] `ae03-03-select-rename-variables.Rmd` + homework section in the file
 -   [ ] `ae03-04-mutate.Rmd` + homework section in the file
 -   [ ] `ae03-05-correlation.Rmd` + homework section in the file
 -   [ ] `ae03-06-summary-statistics.Rmd` + homework section in the file
 
-
 ::: callout-important
 Homework assignments are in each individual application exercise!
 :::
 
-# Literature (optional = selfstudy)
+# Optional and additional materials
 
-R4DS. Wrangle [Chapter 9](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro) in [@Wickham2017R]
+## Video-guided lectures (optional = self-study)
+
+-   [Video: Importing data](https://youtu.be/tIMaRYiuEFA) and [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1).
+
+## Literature (optional = self-study)
+
+R4DS. Wrangle [Chapter 9, 10, 11 and 12](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro) in [@Wickham2017R]
 
 -   Make scripts out of the exercises R code in there.
 
-# Video-guided excersises  (optional = selfstudy)
+## Video-guided exercises (optional = self-study)
 
 RStudio [Webinars](https://www.rstudio.com/resources/webinars/) + [sourcode](https://github.com/rstudio/webinars):
 
--   [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund 
+-   [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund
 
--   [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/) by Garrett Grolemund 
+-   [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/) by Garrett Grolemund
 
 -   [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/) by Jenny Bryan
-
