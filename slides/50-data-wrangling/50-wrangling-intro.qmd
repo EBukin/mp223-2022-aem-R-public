@@ -100,7 +100,7 @@ R4DS: [R for data science](https://r4ds.had.co.nz/index.html) by Hadley Wickham 
 
 -   Part Wrangle [Chapter 9](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro) in [@Wickham2017R]
 
-## Tidy data (1/4)
+## Tidy data (1/5)
 
 ```{r}
 #| echo: false
@@ -114,7 +114,7 @@ knitr::include_graphics("./img/tidy-1.png")
 Image source: [R4DS](https://r4ds.had.co.nz/tidy-data.html)
 :::
 
-## Tidy data (2/4) wide format
+## Tidy data (2/5) wide format
 
 ```{r}
 #| echo: false
@@ -125,8 +125,7 @@ knitr::include_graphics("./img/tidy-2-wide.png")
 See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
 :::
 
-
-## Tidy data (3/4) long format
+## Tidy data (3/5) long format
 
 ```{r}
 #| echo: false
@@ -137,7 +136,7 @@ knitr::include_graphics("./img/tidy-2-long.png")
 See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
 :::
 
-## Tidy data (4/4) transformation
+## Tidy data (4/5) transformation
 
 ```{r}
 #| echo: false
@@ -148,51 +147,103 @@ knitr::include_graphics("./img/tidy-2-transformation.png")
 See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
 :::
 
+## Tidy data (5/5). Learn more?
+
+Read: [R4DS Ch. 12. Tidy data](https://r4ds.had.co.nz/tidy-data.html#tidy-data)
+
+. . .
+
+Follow slides, videos and exercises: 
+
+. . .
+
+-   Chapter [7.1.2 Wrangling and tidying data ](https://datasciencebox.org/exploring-data.html?q=import#wrangling-and-tidying-data) in [Data Science in a Box](https://datasciencebox.org/)
+
+
 # Data import
+
+## General notes
+
+Data import must be done in a reproducible way!
+
+. . .
+
+-   `Raw data` must be stored together with the project.
+
+-   Data import and cleaning should be done with the scripts.
+
+. . .
+
+It is tricky to load data, because, we need to interact with the file system.
+
+-   You may use interactive Users Interface to load data.
+
+. . .
+
+::: callout-important
+Always save data import R code in your scripts!
+:::
+
+## Data import. Learn more?
+
+[Data Science in a Box](https://datasciencebox.org/): 
+
+-   Unit 2 - Deck 10: Data types [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1) and [video](https://youtu.be/dozvSVQcqqg)
+
+-   Unit 2 - Deck 12: Importing data [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1) and [video](https://youtu.be/tIMaRYiuEFA)
+
+Read: [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
+
+## List of relevnat functions {.smaller}
+
+-   Loading data: `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
+
+-   Inspecting data: `dplyr::glimpse()`, `utils::View()`, `utils::head()`, `base::names()`;
+
+-   Data summary: `base::summary()`;
+
+-   Renaming variables: `janitor::clean_names(...)`, `dplyr::rename()`;
+
+-   Removing undesired observations/row by their number in the data with `dplyr::slice()`;
+
+-   Converting excel dates to R-relevant `<date>` variable type: `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
+
+-   Summary statistics with: `skimr::skim()`.
 
 ## `readr` package (1/3)
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="30%"}
-
 ```{r}
 #| echo: false
 knitr::include_graphics("./img/readr-logo.png")
 ```
-
 :::
 
 ::: {.column width="70%"}
-
 -   Documentation [tidyverse/readr](https://readr.tidyverse.org/reference/readr_example.html)
-    
+
     -   Check out the landing page with examples
-    
 
 -   Source code [GitHub](https://github.com/tidyverse/readr/)
 
 -   Cheat sheets [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
 
+-   Additional reading [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html)
 :::
-
-::::
+:::
 
 ## `readr` package (2/3) key functions {.smaller}
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="20%"}
-
 -   `read_csv()` - for a coma separate data in the text file
 
 -   `read_dta()` - for Stata data files.
-
 :::
 
 ::: {.column width="80%"}
-
-The file, which we want to read is in 
+The file, which we want to read is in
 
 ```{r}
 readr_example("chickens.csv")
@@ -204,16 +255,12 @@ Instead of specifying the path to this file, we use `readr_example("chickens.csv
 chickens <- readr_example("chickens.csv") %>% read_csv()
 glimpse(chickens)
 ```
-
 :::
-
-::::
+:::
 
 ## `readr` package (3/3) user interface {.smaller}
 
-
-::: {.panel-tabset}
-
+::: panel-tabset
 ### Step 1
 
 ```{r}
@@ -250,45 +297,38 @@ knitr::include_graphics("./img/readr-ui-5.png")
 ```
 :::
 
+## `readxl` package (1/3) {.smaller}
 
-## `readxl` package (1/3)
-
-:::: {.columns}
-
+::: columns
 ::: {.column width="30%"}
-
 ```{r}
 #| echo: false
 knitr::include_graphics("./img/readr-logo.png")
 ```
-
 :::
 
 ::: {.column width="70%"}
-
 -   Documentation [tidyverse/readxl](https://readxl.tidyverse.org/)
-    
+
     -   Check out the landing page with examples
 
 -   Source code [GitHub](https://github.com/tidyverse/readxl/)
+
 -   Cheat sheets [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
 
--   Key functions: 
+-   Key functions:
 
     -   `excel_sheets("file")`
     -   `read_excel("file", sheet = "name of the sheet")`
-
 :::
-
-::::
+:::
 
 ## `readxl` package (2/3) Basic usage
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ### Step 1 Path to the file
 
--   First, locate the file. 
+-   First, locate the file.
 
 ```{r}
 library(readxl)
@@ -312,14 +352,11 @@ excel_sheets(xls_example)
 xl_sta <- read_excel(xls_example, sheet = "chickwts")
 glimpse(xl_sta)
 ```
-
 :::
-
 
 ## `readxl` package (3/3) user interface {.smaller}
 
-
-::: {.panel-tabset}
+::: panel-tabset
 ### Step 1
 
 ```{r}
@@ -355,6 +392,202 @@ knitr::include_graphics("./img/readxl-ui-4.png")
 knitr::include_graphics("./img/readxl-ui-5.png")
 ```
 :::
+
+## `janitor` package (1/2)
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/janitor-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Helps cleaning data and variables names
+
+-   Documentation [janitor](https://sfirke.github.io/janitor/) + Source code [GitHub](https://github.com/sfirke/janitor)
+
+    -   Check out the landing page with examples
+:::
+:::
+
+## `janitor` package (2/2) key functions
+
+-   `janitor::clean_names()` - Cleans names of an object (usually a data.frame).
+
+-   `janitor::row_to_names(row_number = 1)` - Elevate a row to be the column names of a data.frame.
+
+-   `janitor::convert_to_date()` + `excel_numeric_to_date()` - Convert many date and datetime formats as may be received from Microsoft Excel
+
+-   `janitor::remove_empty()` - Remove empty rows and/or columns from a data.frame or matrix.
+
+# Data wrangling
+
+## `dplyr` package
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/dplyr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does data wrangling.
+
+-   Documentation [tidyverse/dplyr](https://dplyr.tidyverse.org/) + [Source code](https://github.com/tidyverse/dplyr/)
+
+-   Cheat sheets [Data transformation with dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+
+-   Learn by doing [R4DS Ch 5. Data transformation](https://r4ds.had.co.nz/transform.html)
+:::
+
+:::
+
+## `dplyr` package: getting started {.smaller}
+
+Article: [Introduction to dplyr](https://dplyr.tidyverse.org/articles/dplyr.html)
+
+. . .
+
+Cheat sheets: [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+
+. . .
+
+Webinar: [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund
+
+. . .
+
+Interactive exercises (repeated on following slides)
+
+-   [Working with Tibbles](https://rstudio.cloud/learn/primers/2.1)
+-   [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2)
+-   [Filter observations](https://learnr-examples.shinyapps.io/ex-data-filter/)
+-   [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3)
+-   [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/)
+
+. . .
+
+Readings:
+
+-   [R4DS Chapter 5 Data transformation](https://r4ds.had.co.nz/transform.html#transform)
+
+## `dplyr::rename()` Rename columns
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/rename.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.4 ](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/rename.html) (see examples!)
+
+## `dplyr::mutate()` Create, modify, and delete columns
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/mutate.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.5 ](https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate) + [function reference](https://dplyr.tidyverse.org/reference/mutate.html)
+
+. . .
+
+-   Articles: [Add new columns with mutate](https://dplyr.tidyverse.org/articles/dplyr.html#add-new-columns-with-mutate) and [Column-wise operations](https://dplyr.tidyverse.org/articles/colwise.html)
+
+. . .
+
+-   Interactive exercises:  [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3),  [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/) and [Road Traffic Accidents](https://minecr.shinyapps.io/dsbox-02-accidents/)
+
+## `dplyr::filter()` (1/2) subset rows using column values
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/filter.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.2 ](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) + [function reference](https://dplyr.tidyverse.org/reference/filter.html) (see examples!)
+
+. . .
+
+-   Article: [Filter rows with filter()](https://dplyr.tidyverse.org/articles/dplyr.html#filter-rows-with-filter)
+
+. . .
+
+Interactive exercises: [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2) and [Filter observations](https://learnr-examples.shinyapps.io/ex-data-filter/).
+
+## `dplyr::filter()` (2/2) relies on logical operators
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/filter-helpers.png")
+```
+
+-   See: `?Comparison` and `?base::Logic`
+
+## `dplyr::select()` Subset columns using their names and types
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/select.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.4 ](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/select.html) (see examples!)
+
+. . .
+
+Interactive exercises: [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2)
+
+## Left for later
+
+-   `dplyr::summarise()`
+-   `dplyr::group_by()`
+-   `dplyr::arrange()`
+-   `dplyr::pull()`
+-   `dplyr::distinct()`
+-   `dplyr::count()`
+
+# Summary statistics
+
+## `skimr` package (1/3)
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/skimr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does Summary statistics
+
+-   Documentation [ropensci/skimr](https://docs.ropensci.org/skimr/) + [Source code](https://github.com/ropensci/skimr/)
+-   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
+
+Key functions: `skimr::skim()`.
+
+:::
+
+:::
+
+# Correlation
+
+
+# Histogram
+
+# Box plot
+
+# Scatter plot
 
 
 # References
