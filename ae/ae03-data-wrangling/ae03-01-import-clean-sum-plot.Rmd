@@ -24,19 +24,46 @@ library(skimr)       # install.packages("skimr")
 
 In this exercise, we shall practice the following:
 
--   Loading data: `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
--   Inspecting data: `dplyr::glimpse()`, `utils::View()`, `utils::head()`, `base::names()`;
--   Data summary: `base::summary()`;
--   Renaming variables: `janitor::clean_names(...)`, `dplyr::rename()`;
--   Removing undesired observations/row by their number in the data with `dplyr::slice()`;
--   Mutating/modifying types of existing variables: `dplyr::mutate()`
--   Converting excel dates to R-relevant `<date>` variable type: `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
--   Summary statistics with: `skimr::skim()`.
--   Plotting time series with: `ggplot2::ggplot()`, `ggplot2::aes()`, `ggplot2::geom_path()`.
+Loading data: 
+
+-   `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
+
+Inspecting data: 
+
+-   `dplyr::glimpse()`, `utils::View()`, `utils::head()`, `base::names()`;
+
+Data summary: 
+
+-   `base::summary()`;
+Renaming variables: 
+
+-   `janitor::clean_names(...)`, `dplyr::rename()`;
+
+Removing undesired observations/row by their number in the data with:
+
+-   `dplyr::slice()`;
+
+Mutating/modifying types of existing variables: 
+
+-   `dplyr::mutate()`
+
+Converting excel dates to R-relevant `<date>` variable type:
+
+-   `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
+
+Summary statistics with: 
+
+-   `skimr::skim()`.
+
+Plotting time series with: 
+
+-   `ggplot2::ggplot()`, `ggplot2::aes()`, `ggplot2::geom_path()`.
+
 
 ## Exercise 1. Load clean and plot data from Excel
 
 Here, we will explore the data from the file called `commodity-prices.xlsx` in the `data` folder.
+
 
 ### Ex. 1.1 Inspect the file in excel: `readxl::excel_sheets()`
 

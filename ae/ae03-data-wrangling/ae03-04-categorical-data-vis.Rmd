@@ -20,13 +20,11 @@ library(janitor)     # install.packages("janitor")
 library(skimr)       # install.packages("skimr")
 ```
 
-
 ## Categorical data
 
-Use Chapter 4 in intro to modern stats:  https://openintro-ims.netlify.app/explore-categorical.html#chp4-exercises
+Use Chapter 4 in intro to modern stats: https://openintro-ims.netlify.app/explore-categorical.html#chp4-exercises
 
 Check examples and problems in the end.
-
 
 Exploratory data analysis: 1 - Exploring categorical data
 

@@ -1,0 +1,307 @@
+---
+title: "Import data"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    multiplex: false
+    slide-number: true
+    incremental: true 
+    chalkboard: false
+    smaller: false
+    scrollable: true
+
+execute:
+  freeze: auto
+  
+bibliography: ../../references.bib
+---
+
+# R setup{.smaller}
+
+```{r}
+#| echo: true
+#| 
+library(tidyverse)
+library(readxl)
+library(readr)
+library(janitor)       
+
+# set default theme and larger font size for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+
+# set default figure parameters for knitr
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "80%"
+)
+```
+
+# Data import
+
+## General notes
+
+Data import must be done in a reproducible way!
+
+. . .
+
+-   `Raw data` must be stored together with the project.
+-   Data import and cleaning should be done with scripts.
+
+. . .
+
+It is tricky to load data, because, we need to interact with the file system.
+
+-   You may use interactive Users Interface to load data once,
+-   But you should use R code to reload same data again.
+
+. . .
+
+::: callout-important
+Always save data import R code in your scripts!
+:::
+
+## Data import. Learn more?
+
+[Data Science in a Box](https://datasciencebox.org/):
+
+-   ![](https://datasciencebox.org/dsbox.png){width="25"}Data types [video](https://www.youtube.com/watch?v=WsxLbtWbEfc&ab_channel=Mine%C3%87etinkaya-Rundel) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
+
+-   **Optional.** Watch:
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}[Importing and recoding data](https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data)
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Data classes [video](https://youtu.be/dozvSVQcqqg) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1)
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Importing data [video](https://youtu.be/tIMaRYiuEFA) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1)
+
+<!-- -->
+
+-   **Optional**. Read:
+    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
+
+## List of relevnat functions {.smaller}
+
+-   Loading data: `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
+
+-   Renaming variables: `janitor::clean_names(...)`, `dplyr::rename()`;
+
+-   Converting excel dates to R-relevant `<date>` variable type: `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
+
+
+# `readr` package (1/3)
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+-   Documentation [tidyverse/readr](https://readr.tidyverse.org/reference/readr_example.html)
+
+    -   Check out the landing page with examples
+
+-   Source code [GitHub](https://github.com/tidyverse/readr/)
+
+-   Cheat sheets [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+
+-   Additional reading [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html)
+:::
+:::
+
+## `readr` package (2/3) key functions {.smaller}
+
+::: columns
+::: {.column width="20%"}
+-   `read_csv()` - for a coma separate data in the text file
+
+-   `read_dta()` - for Stata data files.
+:::
+
+::: {.column width="80%"}
+The file, which we want to read is in
+
+```{r}
+readr_example("chickens.csv")
+```
+
+Instead of specifying the path to this file, we use `readr_example("chickens.csv")`.
+
+```{r}
+chickens <- readr_example("chickens.csv") %>% read_csv()
+glimpse(chickens)
+```
+:::
+:::
+
+## `readr` package (3/3) user interface {.smaller}
+
+::: panel-tabset
+### Step 1
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-1.png")
+```
+
+### Step 2
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-2.png")
+```
+
+### Step 3
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-3.png")
+```
+
+### Step 4
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-4.png")
+```
+
+### Step 5
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-ui-5.png")
+```
+:::
+
+# `readxl` package (1/3) {.smaller}
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+-   Documentation [tidyverse/readxl](https://readxl.tidyverse.org/)
+
+    -   Check out the landing page with examples
+
+-   Source code [GitHub](https://github.com/tidyverse/readxl/)
+
+-   Cheat sheets [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+
+-   Key functions:
+
+    -   `excel_sheets("file")`
+    -   `read_excel("file", sheet = "name of the sheet")`
+:::
+:::
+
+## `readxl` package (2/3) Basic usage
+
+::: panel-tabset
+### Step 1 Path to the file
+
+-   First, locate the file.
+
+```{r}
+library(readxl)
+xls_example <- readxl_example("datasets.xls")
+xls_example
+```
+
+-   Then, open it manually to see if it is alright.
+
+### Step 2 Sheets
+
+-   Then, check what sheets re present there:
+
+```{r}
+excel_sheets(xls_example)
+```
+
+### Step 3 Data in R
+
+```{r}
+xl_sta <- read_excel(xls_example, sheet = "chickwts")
+glimpse(xl_sta)
+```
+:::
+
+## `readxl` package (3/3) user interface {.smaller}
+
+::: panel-tabset
+### Step 1
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-1.png")
+```
+
+### Step 2
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-2.png")
+```
+
+### Step 3
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-3.png")
+```
+
+### Step 4
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-4.png")
+```
+
+### Step 5
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/readxl-ui-5.png")
+```
+:::
+
+# `janitor` package (1/2)
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/janitor-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Helps cleaning data and variables names
+
+-   Documentation [janitor](https://sfirke.github.io/janitor/) + Source code [GitHub](https://github.com/sfirke/janitor)
+
+    -   Check out the landing page with examples
+:::
+:::
+
+## `janitor` package (2/2) key functions
+
+-   `janitor::clean_names()` - Cleans names of an object (usually a data.frame).
+
+-   `janitor::row_to_names(row_number = 1)` - Elevate a row to be the column names of a data.frame.
+
+-   `janitor::convert_to_date()` + `excel_numeric_to_date()` - Convert many date and datetime formats as may be received from Microsoft Excel
+
+-   `janitor::remove_empty()` - Remove empty rows and/or columns from a data.frame or matrix.
+

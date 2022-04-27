@@ -8,10 +8,10 @@ editor: visual
 format: 
   revealjs: 
     transition: fade
-    multiplex: true
+    multiplex: false
     slide-number: true
     incremental: true 
-    chalkboard: true
+    chalkboard: false
     smaller: false
     scrollable: true
 
@@ -21,12 +21,11 @@ execute:
 bibliography: ../../references.bib
 ---
 
-# R setup
-
-## R setup {.smaller}
+# R setup {.smaller}
 
 ```{r}
-library(tidyverse)       # for data wrangling
+#| echo: true
+library(tidyverse)       
 library(palmerpenguins)
 library(correlation)
 
@@ -70,7 +69,7 @@ get_image <- function(x) {
 
 # Correlation
 
-## Definitions
+## Definition of Correlation {.smaller}
 
 > In statistics, correlation or dependence is any statistical relationship, whether causal or not, between two random variables or bivariate data.
 
@@ -84,6 +83,10 @@ Most common are following [method of correlation](https://easystats.github.io/co
 . . .
 
 Both, capture **linear** relationship.
+
+. . .
+
+Tips for [interpretation of the strength of correlation](https://easystats.github.io/effectsize/articles/interpret.html)
 
 ## Examples
 
@@ -113,9 +116,9 @@ Key functions: `correlation::correlation()`.
 :::
 :::
 
-# Pinguins and correlation
+# Penguins and correlation
 
-## Correlation in pinguins data
+## Correlation in penguins data
 
 ```{r}
 #| echo: false
@@ -285,7 +288,7 @@ prices %>%
 
 -   Does high and significant correlation suggest about causal relationship?
 
-## First Difference and corelation (1/2)
+## First Difference and correlation (1/2)
 
 . . .
 
@@ -305,7 +308,7 @@ p_index_fd %>%
   summary()
 ```
 
-## First Difference and corelation (2/2)
+## First Difference and correlation (2/2)
 
 First Difference removed linear trends from the data.
 
@@ -325,7 +328,7 @@ There might be some different chains of reaction here. For example:
 
 -   Does not implies causation because of no Ceteris Paribus;
 
-    -   Simultaneity proble in time series.
+    -   Simultaneity problem in time series.
 
 -   First difference helps to remove serial trend;
 

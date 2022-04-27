@@ -43,10 +43,12 @@ website:
       - href: index.qmd
         text: "Course information"
         
-      - section: "Week: checklists and materials"
+      - section: "Weekly checklists"
         contents:
           - href: weeks/week01-checklist.qmd
-            text: "Week 1."
+            text: "Week 1"
+          - href: weeks/week03-checklist.qmd
+            text: "Week 3"
 
   opengraph: true
 
