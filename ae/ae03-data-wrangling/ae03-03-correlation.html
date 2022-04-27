@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.314">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduard Bukin">
+<meta name="dcterms.date" content="2022-04-27">
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - AE03-03 Correlation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">AE03-03 Correlation</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../">
+      <img src="../../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setups" id="toc-setups" class="nav-link active" data-scroll-target="#setups">Setups</a></li>
+  <li><a href="#data-import-and-cleaning" id="toc-data-import-and-cleaning" class="nav-link" data-scroll-target="#data-import-and-cleaning">Data import and cleaning</a>
+  <ul class="collapse">
+  <li><a href="#importing-and-cleaning-data-in-the-wide-format" id="toc-importing-and-cleaning-data-in-the-wide-format" class="nav-link" data-scroll-target="#importing-and-cleaning-data-in-the-wide-format">Importing and cleaning data in the wide format</a></li>
+  <li><a href="#converting-data-to-the-long-format" id="toc-converting-data-to-the-long-format" class="nav-link" data-scroll-target="#converting-data-to-the-long-format">Converting data to the long format</a></li>
+  </ul></li>
+  <li><a href="#example-computing-prices-index-with-some-base" id="toc-example-computing-prices-index-with-some-base" class="nav-link" data-scroll-target="#example-computing-prices-index-with-some-base">Example: Computing prices index with some base</a></li>
+  <li><a href="#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010" id="toc-exercise-1.-compute-prices-index-with-base-mean-prices-in-2010" class="nav-link" data-scroll-target="#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010">Exercise 1. Compute prices index with base mean prices in 2010</a></li>
+  <li><a href="#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea" id="toc-exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea" class="nav-link" data-scroll-target="#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea">Exercise 2. Plot time series of indexes for wheat and urea</a></li>
+  <li><a href="#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities" id="toc-exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities" class="nav-link" data-scroll-target="#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities">Exercise 3. Build a correlation table between price indices of different commodities</a></li>
+  <li><a href="#exercise-4.-compute-a-first-difference-of-indices-with-lag-1" id="toc-exercise-4.-compute-a-first-difference-of-indices-with-lag-1" class="nav-link" data-scroll-target="#exercise-4.-compute-a-first-difference-of-indices-with-lag-1">Exercise 4. Compute a first difference of indices with lag 1</a></li>
+  <li><a href="#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities" id="toc-exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities" class="nav-link" data-scroll-target="#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities">Exercise 5. Build a correlation table between first differences of indices for different commodities</a></li>
+  <li><a href="#exercise-6.-compute-first-differences-with-lag-2-and-3" id="toc-exercise-6.-compute-first-differences-with-lag-2-and-3" class="nav-link" data-scroll-target="#exercise-6.-compute-first-differences-with-lag-2-and-3">Exercise 6. Compute first differences with lag 2 and 3</a></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a>
+  <ul class="collapse">
+  <li><a href="#ex.-1" id="toc-ex.-1" class="nav-link" data-scroll-target="#ex.-1">Ex. 1</a></li>
+  <li><a href="#ex.-2" id="toc-ex.-2" class="nav-link" data-scroll-target="#ex.-2">Ex. 2</a></li>
+  <li><a href="#ex.-3" id="toc-ex.-3" class="nav-link" data-scroll-target="#ex.-3">Ex. 3</a></li>
+  <li><a href="#ex.-4" id="toc-ex.-4" class="nav-link" data-scroll-target="#ex.-4">Ex. 4</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae03-data-wrangling/ae03-03-correlation.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">AE03-03 Correlation</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduard Bukin </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 27, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="setups" class="level2">
+<h2 class="anchored" data-anchor-id="setups">Setups</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)       <span class="co"># install.packages("readr")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)      <span class="co"># install.packages("readxl")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)     <span class="co"># install.packages("janitor")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)       <span class="co"># install.packages("skimr")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)   <span class="co"># install.packages("lubridate")</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>())</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">out.width =</span> <span class="dv">60</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-import-and-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-import-and-cleaning">Data import and cleaning</h2>
+<section id="importing-and-cleaning-data-in-the-wide-format" class="level3">
+<h3 class="anchored" data-anchor-id="importing-and-cleaning-data-in-the-wide-format">Importing and cleaning data in the wide format</h3>
+<p>Practically the same procedure that we did in the previous exercise.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p_wd <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="st">"data/commodity-prices.xlsx"</span>, <span class="at">sheet =</span>  <span class="st">"data"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">wheat =</span> soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">maize =</span> yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> day_month_year, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">oil =</span> crude_oil_brent_usd_per_barrel, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">urea =</span> urea_f_o_b_black_sea_usd_per_mt) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">oil =</span> <span class="fu">as.numeric</span>(oil),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">wheat =</span> <span class="fu">as.numeric</span>(wheat),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">maize =</span> <span class="fu">as.numeric</span>(maize),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">urea =</span> <span class="fu">as.numeric</span>(urea),</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">convert_to_date</span>(date)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(p_wd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 359
+Columns: 5
+$ date  &lt;date&gt; 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…
+$ oil   &lt;dbl&gt; 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…
+$ wheat &lt;dbl&gt; 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …
+$ maize &lt;dbl&gt; 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…
+$ urea  &lt;dbl&gt; 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …</code></pre>
+</div>
+</div>
+</section>
+<section id="converting-data-to-the-long-format" class="level3">
+<h3 class="anchored" data-anchor-id="converting-data-to-the-long-format">Converting data to the long format</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p_lg <span class="ot">&lt;-</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  p_wd <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(oil<span class="sc">:</span>urea), </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"var"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"price"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date, var)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(p_lg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,436
+Columns: 3
+$ date  &lt;date&gt; 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…
+$ var   &lt;chr&gt; "maize", "oil", "urea", "wheat", "maize", "oil", "urea", "wheat"…
+$ price &lt;dbl&gt; 117.00, 17.45, 120.00, 161.44, 108.52, 18.63, 120.00, 153.07, 10…</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="example-computing-prices-index-with-some-base" class="level2">
+<h2 class="anchored" data-anchor-id="example-computing-prices-index-with-some-base">Example: Computing prices index with some base</h2>
+<p>Index of a variable with a base is a mathematical transformation of a variable, where each value of a variable is divided by the base value and then multiplied by 100.</p>
+<p><span class="math display">\[
+{I}_{i} = \frac{x_i}{x_{base}} \times 100
+\]</span></p>
+<p>This is easy in Excel, but tricky without it!</p>
+<p>Let us demonstrate the logic of calculations based on a simple example of <strong>2 commodities (wheat and urea)</strong> and <strong>few month</strong> in <strong>year 2010</strong>.</p>
+<section id="step-1.-filter-a-sub-sample" class="level4">
+<h4 class="anchored" data-anchor-id="step-1.-filter-a-sub-sample">Step 1. Filter a sub-sample</h4>
+<p>As discussed above, we want to:</p>
+<ul>
+<li><code>filter data, where year is 2010, month less than 6, var is "wheat" or "maize"</code></li>
+</ul>
+<p>Which identically translate into R code as:</p>
+<ul>
+<li><code>filter(data, year(date) == 2010, month(date) &lt; 6, var %in% c("wheat", "maize"))</code>`</li>
+<li><code>filter data, where year is 2010, month less than 6, var is "wheat" or "maize"</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_lg, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">month</span>(date) <span class="sc">&lt;</span> <span class="dv">6</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         var <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"wheat"</span>, <span class="st">"maize"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(var, date)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>p_lg_sb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   date       var   price
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt;
+ 1 2010-01-01 maize  167.
+ 2 2010-02-01 maize  162.
+ 3 2010-03-01 maize  159.
+ 4 2010-04-01 maize  157.
+ 5 2010-05-01 maize  163.
+ 6 2010-01-01 wheat  199.
+ 7 2010-02-01 wheat  192.
+ 8 2010-03-01 wheat  190.
+ 9 2010-04-01 wheat  188.
+10 2010-05-01 wheat  190.</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2.-create-variable-with-the-base-for-indexing" class="level4">
+<h4 class="anchored" data-anchor-id="step-2.-create-variable-with-the-base-for-indexing">Step 2. Create variable with the base for indexing</h4>
+<p>Here we want to:</p>
+<ul>
+<li><code>for each groups of commodities "var", mutate variable "base", which is equal to "price" when month is equal to 1 and year is equal to 2010</code>.</li>
+</ul>
+<p>In language of R this is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span>           <span class="co"># 1. for each groups of commodities "var"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(                     <span class="co"># 2. mutate</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">base =</span> <span class="fu">ifelse</span>(            <span class="co"># 3. variable "base", which is equal to</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">month</span>(date) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span>      <span class="co"># 5. when month is equal to 1 and</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>,   <span class="co"># 6. year is equal to 2010</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      price,                  <span class="co"># 4. "price"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="cn">NA</span>                      <span class="co"># 7. missing value is in other cases</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+# Groups:   var [2]
+   date       var   price  base
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2010-01-01 maize  167.  167.
+ 2 2010-02-01 maize  162.   NA 
+ 3 2010-03-01 maize  159.   NA 
+ 4 2010-04-01 maize  157.   NA 
+ 5 2010-05-01 maize  163.   NA 
+ 6 2010-01-01 wheat  199.  199.
+ 7 2010-02-01 wheat  192.   NA 
+ 8 2010-03-01 wheat  190.   NA 
+ 9 2010-04-01 wheat  188.   NA 
+10 2010-05-01 wheat  190.   NA </code></pre>
+</div>
+</div>
+</section>
+<section id="step-3.-make-sure-that-base-is-the-same-for-all-observations-in-each-group-var" class="level4">
+<h4 class="anchored" data-anchor-id="step-3.-make-sure-that-base-is-the-same-for-all-observations-in-each-group-var">Step 3. Make sure that base is the same for all observations in each group <code>var</code></h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">base =</span> <span class="fu">ifelse</span>(<span class="fu">month</span>(date) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, price, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">fill</span>(base, <span class="at">.direction =</span> <span class="st">"updown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+# Groups:   var [2]
+   date       var   price  base
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2010-01-01 maize  167.  167.
+ 2 2010-02-01 maize  162.  167.
+ 3 2010-03-01 maize  159.  167.
+ 4 2010-04-01 maize  157.  167.
+ 5 2010-05-01 maize  163.  167.
+ 6 2010-01-01 wheat  199.  199.
+ 7 2010-02-01 wheat  192.  199.
+ 8 2010-03-01 wheat  190.  199.
+ 9 2010-04-01 wheat  188.  199.
+10 2010-05-01 wheat  190.  199.</code></pre>
+</div>
+</div>
+</section>
+<section id="step-4.-calculate-index" class="level4">
+<h4 class="anchored" data-anchor-id="step-4.-calculate-index">Step 4. Calculate index</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">base =</span> <span class="fu">ifelse</span>(<span class="fu">month</span>(date) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, price, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">fill</span>(base, <span class="at">.direction =</span> <span class="st">"updown"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> price <span class="sc">/</span> base <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+# Groups:   var [2]
+   date       var   price  base index
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2010-01-01 maize  167.  167. 100  
+ 2 2010-02-01 maize  162.  167.  96.7
+ 3 2010-03-01 maize  159.  167.  95.1
+ 4 2010-04-01 maize  157.  167.  93.9
+ 5 2010-05-01 maize  163.  167.  97.7
+ 6 2010-01-01 wheat  199.  199. 100  
+ 7 2010-02-01 wheat  192.  199.  96.5
+ 8 2010-03-01 wheat  190.  199.  95.6
+ 9 2010-04-01 wheat  188.  199.  94.5
+10 2010-05-01 wheat  190.  199.  95.7</code></pre>
+</div>
+</div>
+</section>
+<section id="optional-example-calculate-index-where-base-is-average-of-month-2-and-3" class="level4">
+<h4 class="anchored" data-anchor-id="optional-example-calculate-index-where-base-is-average-of-month-2-and-3">Optional example: calculate index, where base is average of month 2 and 3</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">base =</span> <span class="fu">ifelse</span>(<span class="fu">month</span>(date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>) <span class="sc">&amp;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                       price, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                       <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">base_full =</span> <span class="fu">mean</span>(base, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> price <span class="sc">/</span> base_full <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+# Groups:   var [2]
+   date       var   price  base base_full index
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 2010-01-01 maize  167.   NA       160. 104. 
+ 2 2010-02-01 maize  162.  162.      160. 101. 
+ 3 2010-03-01 maize  159.  159.      160.  99.1
+ 4 2010-04-01 maize  157.   NA       160.  97.9
+ 5 2010-05-01 maize  163.   NA       160. 102. 
+ 6 2010-01-01 wheat  199.   NA       191. 104. 
+ 7 2010-02-01 wheat  192.  192.      191. 100. 
+ 8 2010-03-01 wheat  190.  190.      191.  99.5
+ 9 2010-04-01 wheat  188.   NA       191.  98.4
+10 2010-05-01 wheat  190.   NA       191.  99.7</code></pre>
+</div>
+</div>
+<p>Note, we specify <code>mean(…, na.rm = TRUE)</code> because when we compute mean, there are some missing observations in the variable. Mean of a vector with missing observation will return <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>If we specify parameter to ignore <code>NA</code> in the data, we will get a result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">NA</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.5</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-1.-compute-prices-index-with-base-mean-prices-in-2010" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1.-compute-prices-index-with-base-mean-prices-in-2010">Exercise 1. Compute prices index with base mean prices in 2010</h2>
+<p>Following the previous examples, let us compute:</p>
+<ul>
+<li>Step 1. for each <strong>group</strong> of <code>var</code>;</li>
+<li>Step 2. <strong>mutate</strong> <code>base_part</code>, which contains <code>price</code> <strong>if</strong> <code>year</code> is 2010 and <code>NA</code> in <strong>else</strong> cases;</li>
+<li>Step 3. <strong>mutate</strong> <code>base</code> with the <code>mean()</code> value of <code>base_part</code> price with parameter <code>na.rm = TRUE</code>;</li>
+<li>Step 4. <strong>mutate</strong> price <code>index</code> against such <code>base</code>;</li>
+<li>Step 5. <strong>ungroup</strong> data</li>
+<li>Step 6. <strong>select</strong> variables <code>date</code>, <code>var</code>, <code>price</code> and <code>index</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index &lt;- </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   p_lg %&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ________() %&gt;%                               # step 1.</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______(                                      # step 2.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     base_part = </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#       ifelse(year(_____) == 2010, price, ____)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) %&gt;% </span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______(                                      # step 3.</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     base = ______(_______, na.rm = TRUE)</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) %&gt;%  </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(index = ____ / _____ * 100) %&gt;%       # step 4.</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%                                # step 5.</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(date, var, price, index)              # step 6.</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(p_index)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea">Exercise 2. Plot time series of indexes for wheat and urea</h2>
+<p>Before plotting we need to <code>filter var when it is %in% "wehat" or "urea"</code>;</p>
+<p>Remember from the previous exercises: <code>ggplot()</code> + <code>aes()</code> + <code>geom_path()</code></p>
+<ul>
+<li>Use <code>labs(x = "", y = "", title = "")</code> to give meaningful labels to the plot.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index %&gt;% </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______(var %in% c("wheat", ______)) %&gt;% </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______() + </span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   aes(x = _____, y = _______, colour = var) + </span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_path() + </span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   labs()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Answer the following questions:</p>
+<ul>
+<li><p>Can we conclude, based on the plot, that surging prices of <code>urea</code> cause the <code>wheat</code> prices to surge?</p></li>
+<li><p>What could be a theoretical explanation for this?</p></li>
+<li><p>What could be the theoretical mechanism of <code>urea</code> prices effect on <code>wheat</code>?</p></li>
+</ul>
+</section>
+<section id="exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities">Exercise 3. Build a correlation table between price indices of different commodities</h2>
+<p>First, we need to convert our data to wide format again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_wd &lt;-</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   p_index %&gt;% </span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_wider(names_from = var, values_from = c(price, index))</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(p_index_wd)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To make a correlation table, we use package <code>correlation</code> and a function with the same name. We use summary to convert correlation table with extensive results to a compact matrix</p>
+<ul>
+<li>We <code>select</code> only those variables, where names <code>contains()</code> string <code>index</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(correlation)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_wd %&gt;% </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(contains("index")) %&gt;% </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   correlation() %&gt;% </span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   summary()</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_wd %&gt;% </span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(contains("price")) %&gt;% </span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   correlation() %&gt;% </span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   summary()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Does this correlation coefficients suggests about causation if we assume that theory does justifies causal relationship?</li>
+</ul>
+<p>Run the same correlations but without <code>summary()</code>. What are the differences?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_wd %&gt;% </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______(_______("index")) %&gt;% </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________()</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ______ %&gt;% </span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______(______("price")) %&gt;% </span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______() </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-4.-compute-a-first-difference-of-indices-with-lag-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4.-compute-a-first-difference-of-indices-with-lag-1">Exercise 4. Compute a first difference of indices with lag 1</h2>
+<p>First difference is a change of value in the next period, compared to the previous one. To compute it, we use function <code>lag()</code> and perform similar mutate operations.</p>
+<section id="simple-example-of-a-first-difference" class="level4">
+<h4 class="anchored" data-anchor-id="simple-example-of-a-first-difference">Simple example of a first difference</h4>
+<p>Before, we computed index in the following way:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">base =</span> <span class="fu">ifelse</span>(<span class="fu">month</span>(date) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, price, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">fill</span>(base, <span class="at">.direction =</span> <span class="st">"updown"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> price <span class="sc">/</span> base <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+# Groups:   var [2]
+   date       var   price  base index
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2010-01-01 maize  167.  167. 100  
+ 2 2010-02-01 maize  162.  167.  96.7
+ 3 2010-03-01 maize  159.  167.  95.1
+ 4 2010-04-01 maize  157.  167.  93.9
+ 5 2010-05-01 maize  163.  167.  97.7
+ 6 2010-01-01 wheat  199.  199. 100  
+ 7 2010-02-01 wheat  192.  199.  96.5
+ 8 2010-03-01 wheat  190.  199.  95.6
+ 9 2010-04-01 wheat  188.  199.  94.5
+10 2010-05-01 wheat  190.  199.  95.7</code></pre>
+</div>
+</div>
+<p>let us <code>mutate()</code> the <code>index_fd</code> variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>p_lg_sb <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">base =</span> <span class="fu">ifelse</span>(<span class="fu">month</span>(date) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, price, <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">fill</span>(base, <span class="at">.direction =</span> <span class="st">"updown"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> price <span class="sc">/</span> base <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index_fd =</span> index <span class="sc">-</span> <span class="fu">lag</span>(index))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+# Groups:   var [2]
+   date       var   price  base index index_fd
+   &lt;date&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 2010-01-01 maize  167.  167. 100     NA    
+ 2 2010-02-01 maize  162.  167.  96.7   -3.29 
+ 3 2010-03-01 maize  159.  167.  95.1   -1.64 
+ 4 2010-04-01 maize  157.  167.  93.9   -1.18 
+ 5 2010-05-01 maize  163.  167.  97.7    3.77 
+ 6 2010-01-01 wheat  199.  199. 100     NA    
+ 7 2010-02-01 wheat  192.  199.  96.5   -3.51 
+ 8 2010-03-01 wheat  190.  199.  95.6   -0.926
+ 9 2010-04-01 wheat  188.  199.  94.5   -1.11 
+10 2010-05-01 wheat  190.  199.  95.7    1.29 </code></pre>
+</div>
+</div>
+<p>Using simple example, let us compute the first difference of the index for the entire data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_fd &lt;- </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______ %&gt;% </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(______) %&gt;% </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(index_fd = ______ - lag(______)) %&gt;% </span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   ungroup() %&gt;% </span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(date, var, index_fd) %&gt;% </span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_wider(names_from = var, </span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#               values_from = c(index_fd))</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_fd %&gt;% </span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities">Exercise 5. Build a correlation table between first differences of indices for different commodities</h2>
+<p>As the same exercise before, we use <code>correlation</code> package and the same function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_fd %&gt;% </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   correlation() %&gt;% </span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   summary()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>Based on this results, does urea prices causes surges in the wheat prices?</p></li>
+<li><p>What kind of causal relationship could be there?</p></li>
+</ul>
+</section>
+<section id="exercise-6.-compute-first-differences-with-lag-2-and-3" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-6.-compute-first-differences-with-lag-2-and-3">Exercise 6. Compute first differences with lag 2 and 3</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p_index_fd_lags &lt;- </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   p_index %&gt;% </span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(var) %&gt;% </span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(fd = index - lag(index, 1)) %&gt;% </span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   ungroup() %&gt;% </span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(date, var, contains("fd")) %&gt;% </span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_wider(names_from = var, </span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#               values_from = c(contains("fd"))) %&gt;% </span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(urea_fd1 = urea,</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#          urea_fd2 = lag(urea, 2),</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">#          urea_fd3 = lag(urea, 3),</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#          urea_fd4 = lag(urea, 4),</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">#          urea_fd5 = lag(urea, 5)</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation(p_index_fd_lags) %&gt;% summary()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solutions" class="level2">
+<h2 class="anchored" data-anchor-id="solutions">Solutions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p_wd <span class="ot">&lt;-</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="st">"data/commodity-prices.xlsx"</span>, <span class="at">sheet =</span>  <span class="st">"data"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">wheat =</span> soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">maize =</span> yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> day_month_year, </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">oil =</span> crude_oil_brent_usd_per_barrel, </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">urea =</span> urea_f_o_b_black_sea_usd_per_mt) <span class="sc">%&gt;%</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">oil =</span> <span class="fu">as.numeric</span>(oil),</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">wheat =</span> <span class="fu">as.numeric</span>(wheat),</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">maize =</span> <span class="fu">as.numeric</span>(maize),</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">urea =</span> <span class="fu">as.numeric</span>(urea),</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">convert_to_date</span>(date)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>p_lg <span class="ot">&lt;-</span> </span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  p_wd <span class="sc">%&gt;%</span> </span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(oil<span class="sc">:</span>urea), </span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"var"</span>, </span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"price"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(var, date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="ex.-1" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1">Ex. 1</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>p_index <span class="ot">&lt;-</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  p_lg <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>() <span class="sc">%&gt;%</span>                               <span class="co"># step 1.</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(                                      <span class="co"># step 2.</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_part =</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ifelse</span>(<span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2010</span>, price, <span class="cn">NA</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(                                      <span class="co"># step 3.</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">base =</span> <span class="fu">mean</span>(base_part, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> price <span class="sc">/</span> base <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span>       <span class="co"># step 4.</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span>                                <span class="co"># step 5.</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, var, price, index)              <span class="co"># step 6.</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(p_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,436
+Columns: 4
+$ date  &lt;date&gt; 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…
+$ var   &lt;chr&gt; "maize", "maize", "maize", "maize", "maize", "maize", "maize", "…
+$ price &lt;dbl&gt; 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…
+$ index &lt;dbl&gt; 59.72918, 55.40009, 55.97185, 56.61509, 52.45447, 49.49864, 50.0…</code></pre>
+</div>
+</div>
+</section>
+<section id="ex.-2" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-2">Ex. 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>p_index <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"wheat"</span>, <span class="st">"urea"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> index, <span class="at">colour =</span> var) <span class="sc">+</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span> </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Price index, 2010 = 100"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Price indices of key commodities"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-03-correlation_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="60"></p>
+</div>
+</div>
+</section>
+<section id="ex.-3" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3">Ex. 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>p_index_wd <span class="ot">&lt;-</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  p_index <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> var, <span class="at">values_from =</span> <span class="fu">c</span>(price, index))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(correlation)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>p_index_wd <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"index"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">correlation</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'parameters':
+  method                         from      
+  format.parameters_distribution datawizard</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Correlation Matrix (pearson-method)
+
+Parameter   | index_wheat | index_urea | index_oil
+--------------------------------------------------
+index_maize |     0.89*** |    0.77*** |   0.81***
+index_oil   |     0.79*** |    0.80*** |          
+index_urea  |     0.76*** |            |          
+
+p-value adjustment method: Holm (1979)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>p_index_wd <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"price"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">correlation</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Correlation Matrix (pearson-method)
+
+Parameter   | price_wheat | price_urea | price_oil
+--------------------------------------------------
+price_maize |     0.89*** |    0.77*** |   0.81***
+price_oil   |     0.79*** |    0.80*** |          
+price_urea  |     0.76*** |            |          
+
+p-value adjustment method: Holm (1979)</code></pre>
+</div>
+</div>
+</section>
+<section id="ex.-4" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4">Ex. 4</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>p_index_fd <span class="ot">&lt;-</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  p_index <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index_fd =</span> index <span class="sc">-</span> <span class="fu">lag</span>(index)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, var, index_fd) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> var,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(index_fd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

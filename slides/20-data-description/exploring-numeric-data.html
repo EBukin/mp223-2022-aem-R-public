@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.314">
+
+  <meta name="author" content="Eduard Bukin">
+  <title>mp223 Applied Econometric Methods for the Socials Sciences - Exploring numerical data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
+  <script src="../../site_libs/quarto-html/tabby.min.js"></script>
+  <script src="../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.7em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > :last-child,
+  .callout.callout-captioned .callout-body > div > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Exploring numerical data</h1>
+  <p class="subtitle">MP223 - Applied Econometrics Methods for the Social Sciences</p>
+  <p class="author">Eduard Bukin</p>
+</section>
+
+<section id="r-setup" class="title-slide slide level1 smaller center">
+<h1>R setup</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># set default theme and larger font size for ggplot2</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>))</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># set default figure parameters for knitr</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">fig.width =</span> <span class="dv">8</span>,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="at">out.width =</span> <span class="st">"80%"</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-3_211d040917e61d005a9834f6153f479d">
+
+</div>
+</section>
+
+<section id="the-data-in-use" class="title-slide slide level1 smaller center">
+<h1>The data in use</h1>
+<p><code>UN11</code> data set on National statistics from the United Nations mostly from 2009-2011 from <span class="citation" data-cites="weisberg2005a">(<a href="#/ref-weisberg2005a" role="doc-biblioref" onclick="return false;">Weisberg 2005</a>)</span>.</p>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-4_1163403892f54bc3123e4ba184fe009a">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>un_dta <span class="ot">&lt;-</span> UN11 <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">glimpse</span>(un_dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 199
+Columns: 6
+$ region    &lt;fct&gt; Asia, Europe, Africa, Africa, Caribbean, Latin Amer, Asia, C…
+$ group     &lt;fct&gt; other, other, africa, africa, other, other, other, other, oe…
+$ fertility &lt;dbl&gt; 5.968, 1.525, 2.142, 5.135, 2.000, 2.172, 1.735, 1.671, 1.94…
+$ ppgdp     &lt;dbl&gt; 499.0, 3677.2, 4473.0, 4321.9, 13750.1, 9162.1, 3030.7, 2285…
+$ lifeExpF  &lt;dbl&gt; 49.49, 80.40, 75.00, 53.17, 81.10, 79.89, 77.33, 77.75, 84.2…
+$ pctUrban  &lt;dbl&gt; 23, 53, 67, 59, 100, 93, 64, 47, 89, 68, 52, 84, 89, 29, 45,…</code></pre>
+</div>
+</div>
+</section>
+
+<section>
+<section id="summary-statistics" class="title-slide slide level1 center">
+<h1>Summary statistics</h1>
+
+</section>
+<section id="summary-of-a-single-variables" class="slide level2">
+<h2>Summary of a single variables</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-5_96537178ff19901cfdb0f700ed7292f1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">pull</span>(fertility) <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.761383</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-6_49477a3bd9d3f1c0f1fb03f08c0f0352">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">mean</span>(un_dta<span class="sc">$</span>fertility)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.761383</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-7_1e4fb629ccb62b273d439ddc9026656c">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">pull</span>(fertility) <span class="sc">%&gt;%</span> <span class="fu">sd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.339589</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-8_dff8ba4cf89b69533f2fd76a69fd8699">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">sd</span>(un_dta<span class="sc">$</span>fertility)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.339589</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-13" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (1/3)</h2>
+
+<img data-src="./img/summarise-01.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="using-dplyrsummarise-23" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (2/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-10_22634323cc0f0d92790d946db76e97b0">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="at">mean_fert =</span> <span class="fu">mean</span>(fertility)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_fert
+      &lt;dbl&gt;
+1      2.76</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-23-1" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (2/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-11_4802cfb65f55322d5c7adbd87bd6adf0">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="at">mean_fert =</span> <span class="fu">mean</span>(fertility),</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="at">sd_ppgdp =</span> <span class="fu">sd</span>(ppgdp)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_fert sd_ppgdp
+      &lt;dbl&gt;    &lt;dbl&gt;
+1      2.76   18412.</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-23-2" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (2/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-12_a3f96a5d11321a25f067b0048eac55e6">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="at">mean_fert =</span> <span class="fu">mean</span>(fertility),</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">sd_ppgdp =</span> <span class="fu">sd</span>(ppgdp),</span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">med_lifeExpF =</span> <span class="fu">median</span>(lifeExpF)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  mean_fert sd_ppgdp med_lifeExpF
+      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+1      2.76   18412.         75.9</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-33" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (3/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-13_3382e742ae763909263e9e09ece35e8a">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="fu">c</span>(fertility),</span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="fu">list</span>(</span>
+<span id="cb18-5"><a href="#cb18-5"></a>      <span class="at">means =</span> mean</span>
+<span id="cb18-6"><a href="#cb18-6"></a>    )</span>
+<span id="cb18-7"><a href="#cb18-7"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-8"><a href="#cb18-8"></a>  <span class="fu">t</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    [,1]
+fertility_means 2.761383</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-33-1" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (3/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-14_0f8629260bade33b3d4fd4b8f49bc204">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    <span class="fu">c</span>(fertility, ppgdp),</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="fu">list</span>(</span>
+<span id="cb20-5"><a href="#cb20-5"></a>      <span class="at">means =</span> mean</span>
+<span id="cb20-6"><a href="#cb20-6"></a>    )</span>
+<span id="cb20-7"><a href="#cb20-7"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-8"><a href="#cb20-8"></a>  <span class="fu">t</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        [,1]
+fertility_means     2.761383
+ppgdp_means     13011.951759</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-33-2" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (3/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-15_b8049d34130ed4af47d966bb11c54f22">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="fu">c</span>(fertility, ppgdp),</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="fu">list</span>(</span>
+<span id="cb22-5"><a href="#cb22-5"></a>      <span class="at">means =</span> mean,</span>
+<span id="cb22-6"><a href="#cb22-6"></a>      <span class="at">medians =</span> <span class="sc">~</span> <span class="fu">median</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-7"><a href="#cb22-7"></a>    )</span>
+<span id="cb22-8"><a href="#cb22-8"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-9"><a href="#cb22-9"></a>  <span class="fu">t</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          [,1]
+fertility_means       2.761383
+fertility_medians     2.262000
+ppgdp_means       13011.951759
+ppgdp_medians      4684.500000</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrsummarise-33-3" class="slide level2">
+<h2>Using <code>dplyr::summarise()</code> (3/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-16_a9a09f73746a8d91517806f75f20b3da">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="fu">c</span>(fertility, ppgdp),</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="fu">list</span>(</span>
+<span id="cb24-5"><a href="#cb24-5"></a>      <span class="at">means =</span> mean,</span>
+<span id="cb24-6"><a href="#cb24-6"></a>      <span class="at">medians =</span> <span class="sc">~</span> <span class="fu">median</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb24-7"><a href="#cb24-7"></a>      <span class="at">sd =</span> <span class="sc">~</span> <span class="fu">sd</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb24-8"><a href="#cb24-8"></a>      <span class="at">n_nonmis =</span> <span class="sc">~</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))</span>
+<span id="cb24-9"><a href="#cb24-9"></a>    )</span>
+<span id="cb24-10"><a href="#cb24-10"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-11"><a href="#cb24-11"></a>  <span class="fu">t</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           [,1]
+fertility_means        2.761383
+fertility_medians      2.262000
+fertility_sd           1.339589
+fertility_n_nonmis   199.000000
+ppgdp_means        13011.951759
+ppgdp_medians       4684.500000
+ppgdp_sd           18412.443368
+ppgdp_n_nonmis       199.000000</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrgroup_by-dplyrsummarise-13" class="slide level2">
+<h2>Using <code>dplyr::group_by()</code> + <code>dplyr::summarise()</code> (1/3)</h2>
+
+<img data-src="./img/group_by-01.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="using-dplyrgroup_by-dplyrsummarise-23" class="slide level2">
+<h2>Using <code>dplyr::group_by()</code> + <code>dplyr::summarise()</code> (2/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-18_10b533a46a9d8856cd681352286bdab9">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="co"># group_by(region) %&gt;% </span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_fert =</span> <span class="fu">mean</span>(fertility),</span>
+<span id="cb26-4"><a href="#cb26-4"></a>            <span class="at">sd_ppgdp =</span> <span class="fu">sd</span>(ppgdp),</span>
+<span id="cb26-5"><a href="#cb26-5"></a>            <span class="at">med_lifeExpF =</span> <span class="fu">median</span>(lifeExpF))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  mean_fert sd_ppgdp med_lifeExpF
+      &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+1      2.76   18412.         75.9</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrgroup_by-dplyrsummarise-23-1" class="slide level2">
+<h2>Using <code>dplyr::group_by()</code> + <code>dplyr::summarise()</code> (2/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-19_6e9e4a6117b9ad8e60bd26fb303f0ddb">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_fert =</span> <span class="fu">mean</span>(fertility),</span>
+<span id="cb28-4"><a href="#cb28-4"></a>            <span class="at">sd_ppgdp =</span> <span class="fu">sd</span>(ppgdp),</span>
+<span id="cb28-5"><a href="#cb28-5"></a>            <span class="at">med_lifeExpF =</span> <span class="fu">median</span>(lifeExpF))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+  region        mean_fert sd_ppgdp med_lifeExpF
+  &lt;fct&gt;             &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+1 Africa             4.24    3614.         58.6
+2 Asia               2.43   16742.         75.2
+3 Caribbean          2.01   23063.         78.2
+4 Europe             1.59   23820.         81.4
+5 Latin Amer         2.43    3775.         77.6
+6 North America      1.88     131.         82.4
+7 NorthAtlantic      2.22      NA          71.6
+8 Oceania            3.10   15956.         72.3</code></pre>
+</div>
+</div>
+</section>
+<section id="using-dplyrgroup_by-dplyrsummarise-33" class="slide level2">
+<h2>Using <code>dplyr::group_by()</code> + <code>dplyr::summarise()</code> (3/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-20_ca822cfe4e51e33d8a08bd030e9b4012">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb30-4"><a href="#cb30-4"></a>    <span class="fu">c</span>(fertility, ppgdp),</span>
+<span id="cb30-5"><a href="#cb30-5"></a>    <span class="fu">list</span>(</span>
+<span id="cb30-6"><a href="#cb30-6"></a>      <span class="at">means =</span> mean,</span>
+<span id="cb30-7"><a href="#cb30-7"></a>      <span class="at">medians =</span> <span class="sc">~</span> <span class="fu">median</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-8"><a href="#cb30-8"></a>      <span class="at">sd =</span> <span class="sc">~</span> <span class="fu">sd</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-9"><a href="#cb30-9"></a>      <span class="at">n_nonmis =</span> <span class="sc">~</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))</span>
+<span id="cb30-10"><a href="#cb30-10"></a>    )</span>
+<span id="cb30-11"><a href="#cb30-11"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 9
+  group  fertility_means fertility_medians fertility_sd fertility_n_nonmis
+  &lt;fct&gt;            &lt;dbl&gt;             &lt;dbl&gt;        &lt;dbl&gt;              &lt;int&gt;
+1 oecd              1.77              1.79        0.340                 31
+2 other             2.35              2.17        0.927                115
+3 africa            4.24              4.42        1.30                  53
+# … with 4 more variables: ppgdp_means &lt;dbl&gt;, ppgdp_medians &lt;dbl&gt;,
+#   ppgdp_sd &lt;dbl&gt;, ppgdp_n_nonmis &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="skimr-package" class="slide level2">
+<h2><code>skimr</code> package</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-21_6768e369cc97969df314e2d14cbd87f8">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/skimr-logo.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Package for Summary statistics</p>
+<ul>
+<li class="fragment"><p>Documentation <a href="https://docs.ropensci.org/skimr/">ropensci/skimr</a> + <a href="https://github.com/ropensci/skimr/">Source code</a></p></li>
+<li class="fragment"><p>Learn by doing <a href="https://docs.ropensci.org/skimr/articles/skimr.html">Using Skimr</a></p></li>
+<li class="fragment"><p>Key functions: <code>skimr::skim()</code></p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="skim-of-the-un-data" class="slide level2 smaller">
+<h2><code>skim()</code> of the UN data</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-22_eb652efe6a57af0e10d85fdeb30001cb">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-23_aec8327a43fb1dfbe6e2f64b64c9dedb">
+<div class="cell-output cell-output-stdout">
+<pre><code>── Data Summary ────────────────────────
+                           Values    
+Name                       Piped data
+Number of rows             199       
+Number of columns          6         
+_______________________              
+Column type frequency:               
+  factor                   2         
+  numeric                  4         
+________________________             
+Group variables            None      
+
+── Variable type: factor ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  skim_variable n_missing complete_rate ordered n_unique top_counts                        
+1 region                0             1 FALSE          8 Afr: 53, Asi: 50, Eur: 39, Lat: 20
+2 group                 0             1 FALSE          3 oth: 115, afr: 53, oec: 31        
+
+── Variable type: numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  skim_variable n_missing complete_rate     mean       sd     p0     p25     p50      p75      p100 hist 
+1 fertility             0             1     2.76     1.34   1.13    1.75    2.26     3.54      6.92 ▇▃▂▂▁
+2 ppgdp                 0             1 13012.   18412.   115.   1283.   4684.   15520.   105095.   ▇▁▁▁▁
+3 lifeExpF              0             1    72.3     10.1   48.1    65.7    75.9     79.6      87.1  ▂▂▂▇▅
+4 pctUrban              0             1    57.9     23.4   11      39      59       75       100    ▅▆▇▇▆</code></pre>
+</div>
+</div>
+</section>
+<section id="skim-of-the-un-data-by-group" class="slide level2 smaller">
+<h2><code>skim()</code> of the UN data by group</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-24_00be5f133a734b63d8422ebe0c3626b8">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-25_368c7b9978e42c3f3df15ba0a65c6612">
+<div class="cell-output cell-output-stdout">
+<pre><code>── Data Summary ────────────────────────
+                           Values    
+Name                       Piped data
+Number of rows             199       
+Number of columns          6         
+_______________________              
+Column type frequency:               
+  factor                   1         
+  numeric                  4         
+________________________             
+Group variables            group     
+
+── Variable type: factor ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  skim_variable group  n_missing complete_rate ordered n_unique top_counts                        
+1 region        oecd           0             1 FALSE          5 Eur: 22, Asi: 3, Lat: 2, Nor: 2   
+2 region        other          0             1 FALSE          6 Asi: 47, Lat: 18, Car: 17, Eur: 17
+3 region        africa         0             1 FALSE          1 Afr: 53, Asi: 0, Car: 0, Eur: 0   
+
+── Variable type: numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   skim_variable group  n_missing complete_rate     mean        sd      p0      p25      p50      p75      p100 hist 
+ 1 fertility     oecd           0             1     1.77     0.340    1.31     1.48     1.79     1.95      2.91 ▇▇▃▁▁
+ 2 fertility     other          0             1     2.35     0.927    1.13     1.65     2.17     2.61      5.97 ▇▆▂▁▁
+ 3 fertility     africa         0             1     4.24     1.30     1.59     3.17     4.42     5.08      6.92 ▅▃▇▅▂
+ 4 ppgdp         oecd           0             1 37761.   22092.    9101.   20138.   39546.   46453.   105095.   ▆▇▂▁▁
+ 5 ppgdp         other          0             1 11181.   15271.     499     2527.    5195.   12857.    92625.   ▇▁▁▁▁
+ 6 ppgdp         africa         0             1  2509.    3614.     115.     509      981.    2865     16852.   ▇▁▁▁▁
+ 7 lifeExpF      oecd           0             1    82.4      2.09    76.6     81.3     82.8     83.5      87.1  ▁▂▇▇▁
+ 8 lifeExpF      other          0             1    75.3      5.68    49.5     72.5     76.4     78.3      86.4  ▁▁▂▇▂
+ 9 lifeExpF      africa         0             1    59.8      8.69    48.1     53.1     58.6     63.8      78    ▇▆▅▁▃
+10 pctUrban      oecd           0             1    75.8     11.7     49       68       78       85        97    ▁▅▃▇▂
+11 pctUrban      other          0             1    60.2     24.0     13       44.5     60       76       100    ▅▃▇▇▆
+12 pctUrban      africa         0             1    42.6     17.6     11       28       40       59        86    ▃▇▅▅▁</code></pre>
+</div>
+</div>
+</section>
+<section id="report-package" class="slide level2">
+<h2><code>report</code> package</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-26_d5381c68c50b346184fb4a4ed909c07d">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/report-logo.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Package for Summary statistics!</p>
+<ul>
+<li class="fragment"><p>Documentation <a href="report://easystats.github.io/report/">easystats/skimr</a></p></li>
+<li class="fragment"><p>Learn by doing <a href="https://docs.ropensci.org/skimr/articles/skimr.html">Using Skimr</a></p></li>
+<li class="fragment"><p>Key functions: <code>skimr::skim()</code></p></li>
+</ul>
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>This is an experimental package! It does not support some types of the variables and may break or produce an error.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="report-the-un-data" class="slide level2 smaller">
+<h2><code>report</code> the UN data</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-27_95be0969150fb17aa2bb629cb72cd1d9">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># library(report)</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="co"># un_dta %&gt;% report() %&gt;% as_tibble()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-28_4331639a0dcc87c5f3bec44ff9321137">
+
+</div>
+</section>
+<section id="report-the-un-data-by-group" class="slide level2 smaller">
+<h2><code>report</code> the UN data by group</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-29_66571de8b2367c05e29551509ac2ae8d">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co"># un_dta %&gt;% group_by(group) %&gt;% report() %&gt;% as_tibble()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-30_01c0677769e75069c1f9671b8de61421">
+
+</div>
+</section></section>
+<section>
+<section id="univariate-data-boxplot" class="title-slide slide level1 center">
+<h1>Univariate data: Boxplot</h1>
+
+</section>
+<section id="boxplot-basics" class="slide level2">
+<h2>Boxplot: basics</h2>
+
+<img data-src="./img/boxplot_explanation.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Check out <a href="https://www.r-graph-gallery.com/boxplot.html" class="uri">https://www.r-graph-gallery.com/boxplot.html</a>;</p>
+<p>Boxplot explanation: <a href="https://www.data-to-viz.com/caveat/boxplot.html" class="uri">https://www.data-to-viz.com/caveat/boxplot.html</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>Image source: <a href="https://www.leansigmacorporation.com/box-plot-with-minitab/" class="uri">https://www.leansigmacorporation.com/box-plot-with-minitab/</a></p>
+</div>
+</div>
+</section>
+<section id="boxplot-14" class="slide level2">
+<h2>Boxplot (1/4)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-32_df8edd5d46c49ccf3f828250e44c6763">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">ggplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-32-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-24" class="slide level2">
+<h2>Boxplot (2/4)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-33_c9a10806b00d073c1ffd6fd72390b3f8">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> fertility)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-33-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-34" class="slide level2">
+<h2>Boxplot (3/4)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-34_0502169086de08d083989d1fc148452d">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> fertility) <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="#cb40-4"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-34-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-44" class="slide level2">
+<h2>Boxplot (4/4)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-35_af6cfe45226496f497031e086038cc19">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> fertility) <span class="sc">+</span> </span>
+<span id="cb41-4"><a href="#cb41-4"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb41-5"><a href="#cb41-5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of fertility"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6"></a>       <span class="at">subtitle =</span> <span class="st">"Based on UN country level data for 2010-2015"</span>,</span>
+<span id="cb41-7"><a href="#cb41-7"></a>       <span class="at">y =</span> <span class="st">"Fertility, children per woman"</span>,</span>
+<span id="cb41-8"><a href="#cb41-8"></a>       <span class="at">x =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-35-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-44-1" class="slide level2">
+<h2>Boxplot (4/4)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-36_93435e8b4acf88947426d514b784e89f">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> fertility) <span class="sc">+</span> </span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-36-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-by-groups-13" class="slide level2">
+<h2>Boxplot by groups (1/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-37_bf988911e35919e71a8c68f31ef24548">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> fertility, <span class="at">x =</span> region) <span class="sc">+</span> </span>
+<span id="cb43-4"><a href="#cb43-4"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-37-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-by-groups-23" class="slide level2">
+<h2>Boxplot by groups (2/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-38_16a45076b0b9480431d68a700578dc17">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> fertility, <span class="at">x =</span> region, <span class="at">colour =</span> region) <span class="sc">+</span> </span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-38-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="boxplot-by-groups-33" class="slide level2">
+<h2>Boxplot by groups (3/3)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-39_ce51d745168017e20774e86bd26b2f80">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> region, <span class="at">x =</span> fertility, <span class="at">colour =</span> region) <span class="sc">+</span> </span>
+<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-39-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="causal-question-on-boxplot" class="slide level2">
+<h2>Causal question on boxplot!</h2>
+<h4 id="does-a-country-group-has-a-causal-effect-on-fertility">Does a country group has a causal effect on fertility?</h4>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-40_d4261335e1d4dcd1e0415384d0517700">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">aes</span>(<span class="at">y =</span> group, <span class="at">x =</span> fertility, <span class="at">colour =</span> group) <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb46-5"><a href="#cb46-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-40-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="univariate-data-histogram" class="title-slide slide level1 center">
+<h1>Univariate data: Histogram</h1>
+
+</section>
+<section id="histogram-basics" class="slide level2">
+<h2>Histogram: basics</h2>
+
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-41-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Check the gallery <a href="https://r-graph-gallery.com/histogram.html" class="uri">https://r-graph-gallery.com/histogram.html</a>;</p>
+<p>Learn about histograms here: <a href="https://www.data-to-viz.com/graph/histogram.html">THE BOXPLOT AND ITS PITFALLS</a></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="histogramus-simplicius" class="slide level2">
+<h2>Histogramus simplicius</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-42_6adddfce1835315562e95c3ef314b899">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>un_dta </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 199 × 6
+   region     group  fertility  ppgdp lifeExpF pctUrban
+   &lt;fct&gt;      &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Asia       other       5.97   499      49.5       23
+ 2 Europe     other       1.52  3677.     80.4       53
+ 3 Africa     africa      2.14  4473      75         67
+ 4 Africa     africa      5.14  4322.     53.2       59
+ 5 Caribbean  other       2    13750.     81.1      100
+ 6 Latin Amer other       2.17  9162.     79.9       93
+ 7 Asia       other       1.74  3031.     77.3       64
+ 8 Caribbean  other       1.67 22852.     77.8       47
+ 9 Oceania    oecd        1.95 57119.     84.3       89
+10 Europe     oecd        1.35 45159.     83.6       68
+# … with 189 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="histogramus-simplicius-1" class="slide level2">
+<h2>Histogramus simplicius</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-43_8a7d5b5d161acbba5364f1e5d748b509">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">ggplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-43-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogramus-simplicius-2" class="slide level2">
+<h2>Histogramus simplicius</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-44_52cd4da42d2f29366b0985f85b687f88">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-44-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogramus-simplicius-3" class="slide level2">
+<h2>Histogramus simplicius</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-45_46ee041ddba474fcfa31f4c7a5f0590b">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp) <span class="sc">+</span> </span>
+<span id="cb51-4"><a href="#cb51-4"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb51-5"><a href="#cb51-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-45-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="histogram-bins" class="title-slide slide level1 center">
+<h1>Histogram: bins</h1>
+
+</section>
+<section id="histogram-bins-1" class="slide level2">
+<h2>Histogram: bins</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-46_ae7789c15706f0df20f5ef8789661e0f">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb52-3"><a href="#cb52-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp) <span class="sc">+</span> </span>
+<span id="cb52-4"><a href="#cb52-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="#cb52-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-46-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-bins-2" class="slide level2">
+<h2>Histogram: bins</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-47_f0c90240ad8fdcdfe7b50b40cb187c9e">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb53-3"><a href="#cb53-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp) <span class="sc">+</span> </span>
+<span id="cb53-4"><a href="#cb53-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb53-5"><a href="#cb53-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-47-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-bins-3" class="slide level2">
+<h2>Histogram: bins</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-48_b816ae30880d624b4971a2ab91c06b30">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb54-3"><a href="#cb54-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp) <span class="sc">+</span> </span>
+<span id="cb54-4"><a href="#cb54-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb54-5"><a href="#cb54-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-48-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="histogram-by-group" class="title-slide slide level1 center">
+<h1>Histogram by group</h1>
+
+</section>
+<section id="histogram-by-group-1" class="slide level2">
+<h2>Histogram by group</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-49_b9653558ef5d39c3d6649b50d33b498b">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb55-3"><a href="#cb55-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb55-4"><a href="#cb55-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="#cb55-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-49-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-by-group-2" class="slide level2">
+<h2>Histogram by group</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-50_f5969adf4fa24e551d2871acc40814f6">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb56-3"><a href="#cb56-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb56-4"><a href="#cb56-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-50-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-by-group-3" class="slide level2">
+<h2>Histogram by group</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-51_b68802b6d8cc0811f25489a93180b145">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb57-4"><a href="#cb57-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5"></a>  <span class="fu">facet_grid</span>(group <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-51-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="histogram-variables-transformation" class="title-slide slide level1 center">
+<h1>Histogram: variables transformation</h1>
+
+</section>
+<section id="histogram-x-transformation-1" class="slide level2">
+<h2>Histogram: <code>x</code> transformation (1)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-52_a1b6132b752e59bed472c2d79df125fa">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb58-4"><a href="#cb58-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">5</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="#cb58-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-52-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-x-transformation-1-1" class="slide level2">
+<h2>Histogram: <code>x</code> transformation (1)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-53_8bf9072ae9b54cf32cf1736d84524d96">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="#cb59-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb59-3"><a href="#cb59-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb59-4"><a href="#cb59-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">5</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb59-5"><a href="#cb59-5"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb59-6"><a href="#cb59-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-53-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-x-transformation-1-2" class="slide level2">
+<h2>Histogram: <code>x</code> transformation (1)</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-54_5323639195dede719ffb6230ec5deb12">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2"></a>  <span class="fu">mutate</span>(<span class="at">log_ppgdp =</span> <span class="fu">log10</span>(ppgdp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="#cb60-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb60-4"><a href="#cb60-4"></a>  <span class="fu">aes</span>(<span class="at">x =</span> log_ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb60-5"><a href="#cb60-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">5</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log of GDP per capita (log base 10), 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-54-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="histogram-x-transformation-1-3" class="slide level2">
+<h2>Histogram: <code>x</code> transformation (1)</h2>
+<div class="callout callout-warning callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>What is special about <strong>bins width</strong>, when we apply a transformation to <code>x</code>?</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Bins width start to vary, when we transform the data.</p>
+<p>This is opposed to the fixed bins width when data is not transformed.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="histogram-x-transformation-1-4" class="slide level2">
+<h2>Histogram: <code>x</code> transformation (1)</h2>
+<p>Min, max and width of bins:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>No transformation</p>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-55_1afd5b0505b46d8b64c90639a352da68">
+<div class="cell-output cell-output-stdout">
+<pre><code>       xmin      xmax     diff
+1  -5832.26   5832.26 11664.51
+2   5832.26  17496.77 11664.51
+3  17496.77  29161.28 11664.51
+4  29161.28  40825.79 11664.51
+5  40825.79  52490.30 11664.51
+6  52490.30  64154.81 11664.51
+7  64154.81  75819.32 11664.51
+8  75819.32  87483.83 11664.51
+9  87483.83  99148.34 11664.51
+10 99148.34 110812.86 11664.51</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><code>log10()</code> transformation</p>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-56_09ebba4021fc67ad08cb53200c995530">
+<div class="cell-output cell-output-stdout">
+<pre><code>       xmin      xmax     diff
+1     64.55    137.71    73.16
+2    137.71    293.79   156.08
+3    293.79    626.77   332.98
+4    626.77   1337.14   710.37
+5   1337.14   2852.65  1515.51
+6   2852.65   6085.83  3233.18
+7   6085.83  12983.49  6897.66
+8  12983.49  27698.91 14715.42
+9  27698.91  59092.73 31393.82
+10 59092.73 126068.14 66975.41</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="density-plot" class="title-slide slide level1 center">
+<h1>Density plot</h1>
+
+</section>
+<section id="density-plot-basics" class="slide level2">
+<h2>Density plot: basics</h2>
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Check the gallery <a href="https://r-graph-gallery.com/density-plot" class="uri">https://r-graph-gallery.com/density-plot</a>;</p>
+<p>Learn about density plots here: <a href="https://www.data-to-viz.com/graph/density.html" class="uri">https://www.data-to-viz.com/graph/density.html</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="density-plot-example" class="slide level2">
+<h2>Density plot: example</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-57_fc42c5807acab1bcf199a49912af88ba">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="#cb63-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb63-3"><a href="#cb63-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb63-4"><a href="#cb63-4"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb63-5"><a href="#cb63-5"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb63-6"><a href="#cb63-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-57-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="density-plot-adjust" class="slide level2">
+<h2>Density plot: <code>adjust</code></h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-58_3538ebcd1d0792919db1e1ebaf4f2c19">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb64-4"><a href="#cb64-4"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb64-5"><a href="#cb64-5"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb64-6"><a href="#cb64-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-58-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="density-plot-adjust-1" class="slide level2">
+<h2>Density plot: <code>adjust</code></h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-59_2d9b5f8896f742a46b35141415fff24d">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a href="#cb65-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb65-3"><a href="#cb65-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb65-4"><a href="#cb65-4"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb65-5"><a href="#cb65-5"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb65-6"><a href="#cb65-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-59-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="density-plot-adjust-2" class="slide level2">
+<h2>Density plot: <code>adjust</code></h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-60_2a996d9abc9d21e783b03eb2cacdf9b9">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ppgdp, <span class="at">fill =</span> group) <span class="sc">+</span> </span>
+<span id="cb66-4"><a href="#cb66-4"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">adjust =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb66-5"><a href="#cb66-5"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb66-6"><a href="#cb66-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per capita, 2010 USD"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-60-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="bivariate-data-scatter-plot" class="title-slide slide level1 center">
+<h1>Bivariate data: Scatter plot</h1>
+
+</section>
+<section id="scatter-plot-basics" class="slide level2">
+<h2>Scatter plot: basics</h2>
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Check the gallery <a href="https://r-graph-gallery.com/scatterplot.html" class="uri">https://r-graph-gallery.com/scatterplot.html</a>;</p>
+<p>Learn more about scatter plots here: <a href="https://www.data-to-viz.com/graph/scatter.html" class="uri">https://www.data-to-viz.com/graph/scatter.html</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="simple-scatter-plot" class="slide level2">
+<h2>Simple scatter plot</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-61_638731ab376c5da12b2ff1098a6ca180">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>un_dta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 199 × 6
+   region     group  fertility  ppgdp lifeExpF pctUrban
+   &lt;fct&gt;      &lt;fct&gt;      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Asia       other       5.97   499      49.5       23
+ 2 Europe     other       1.52  3677.     80.4       53
+ 3 Africa     africa      2.14  4473      75         67
+ 4 Africa     africa      5.14  4322.     53.2       59
+ 5 Caribbean  other       2    13750.     81.1      100
+ 6 Latin Amer other       2.17  9162.     79.9       93
+ 7 Asia       other       1.74  3031.     77.3       64
+ 8 Caribbean  other       1.67 22852.     77.8       47
+ 9 Oceania    oecd        1.95 57119.     84.3       89
+10 Europe     oecd        1.35 45159.     83.6       68
+# … with 189 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="simple-scatter-plot-1" class="slide level2">
+<h2>Simple scatter plot</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-62_674ef0f68436767a0b0f513c6f685730">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a>  <span class="fu">ggplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-62-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="simple-scatter-plot-2" class="slide level2">
+<h2>Simple scatter plot</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-63_485a66a969186c05af380a5710f0eccf">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb70-3"><a href="#cb70-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> lifeExpF, <span class="at">y =</span> fertility) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-63-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="simple-scatter-plot-3" class="slide level2">
+<h2>Simple scatter plot</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-64_b8546026d984e244224a6225761575bd">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="#cb71-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb71-3"><a href="#cb71-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> lifeExpF, <span class="at">y =</span> fertility) <span class="sc">+</span></span>
+<span id="cb71-4"><a href="#cb71-4"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-64-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="simple-scatter-plot-4" class="slide level2">
+<h2>Simple scatter plot</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-65_5239586c95a1508b8fae30ca29de51d5">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb72-3"><a href="#cb72-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> lifeExpF, <span class="at">y =</span> fertility) <span class="sc">+</span></span>
+<span id="cb72-4"><a href="#cb72-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb72-5"><a href="#cb72-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life expectancy of wemen at birth"</span>, <span class="at">y =</span> <span class="st">"Fertility, children per woman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-65-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="scatter-plot-make-it-rich-with-colour" class="slide level2">
+<h2>Scatter plot: make it rich with colour</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-66_b3eb619a39e565caeb15fd127a2e8b8b">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb73-3"><a href="#cb73-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> lifeExpF, <span class="at">y =</span> fertility, <span class="at">color =</span> group) <span class="sc">+</span></span>
+<span id="cb73-4"><a href="#cb73-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb73-5"><a href="#cb73-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life expectancy of wemen at birth"</span>, <span class="at">y =</span> <span class="st">"Fertility, children per woman"</span>, <span class="at">color =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-66-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="scatter-plot-make-it-rich-with-size" class="slide level2">
+<h2>Scatter plot: make it rich with size</h2>
+<div class="cell" data-layout-align="center" data-hash="exploring-numeric-data_cache/revealjs/unnamed-chunk-67_bee57c2ecd455531102f99108cb90c08">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>un_dta <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="#cb74-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb74-3"><a href="#cb74-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> lifeExpF, <span class="at">y =</span> fertility, <span class="at">color =</span> group, <span class="at">size =</span> ppgdp) <span class="sc">+</span></span>
+<span id="cb74-4"><a href="#cb74-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb74-5"><a href="#cb74-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life expectancy of wemen at birth"</span>, <span class="at">y =</span> <span class="st">"Fertility, children per woman"</span>, <span class="at">color =</span> <span class="st">""</span>, <span class="at">size =</span> <span class="st">"GDP/cap."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="exploring-numeric-data_files/figure-revealjs/unnamed-chunk-67-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="takeaway" class="title-slide slide level1 center">
+<h1>Takeaway</h1>
+
+</section>
+<section id="takeaway-1" class="slide level2 smaller">
+<h2>Takeaway</h2>
+<p>Summary statistics:</p>
+<ul>
+<li class="fragment">Extracting one variable with <code>pull()</code> and <code>$</code>;</li>
+<li class="fragment"><code>dplyr::summarise()</code> + <code>dplyr::group_by()</code>;</li>
+<li class="fragment"><code>skimr</code> + <code>report</code>;</li>
+</ul>
+<div class="fragment">
+<p>Boxplot: <code>geom_boxplot()</code>, simple and by groups;</p>
+</div>
+<div class="fragment">
+<p>Histogram: <code>geom_histogram()</code>, <code>bins</code>, <code>scale_x_log10()</code></p>
+<ul>
+<li class="fragment"><code>bins</code> is important as it changes a perspective;</li>
+<li class="fragment">data transformation changes bins width;</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Scatter plot:</p>
+<ul>
+<li class="fragment">Create plots with rich visual details;</li>
+<li class="fragment">Be clear and explicit with labels;</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="references" class="title-slide slide level1 center">
+<h1>References</h1>
+
+</section>
+<section id="references-1" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+
+<img src="../../img/jlu-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-weisberg2005a" class="csl-entry" role="doc-biblioentry">
+Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. John Wiley &amp; Sons, Inc. <a href="https://doi.org/10.1002/0471704091">https://doi.org/10.1002/0471704091</a>.
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>

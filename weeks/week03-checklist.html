@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.314">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - Week 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../weeks/week01-checklist.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Week 3</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../">
+      <img src="../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link active">Week 3</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#w03-00-dataworkflow-tidy-data-wrangling" id="toc-w03-00-dataworkflow-tidy-data-wrangling" class="nav-link active" data-scroll-target="#w03-00-dataworkflow-tidy-data-wrangling">W03-00 DataWorkflow + Tidy data + Wrangling</a></li>
+  <li><a href="#w03-01-import-data" id="toc-w03-01-import-data" class="nav-link" data-scroll-target="#w03-01-import-data">W03-01 Import data</a></li>
+  <li><a href="#w03-02-exploring-numerical-data" id="toc-w03-02-exploring-numerical-data" class="nav-link" data-scroll-target="#w03-02-exploring-numerical-data">W03-02 Exploring numerical data</a></li>
+  <li><a href="#w03-03-correlation" id="toc-w03-03-correlation" class="nav-link" data-scroll-target="#w03-03-correlation">🖥 W03-03 Correlation</a></li>
+  <li><a href="#w03ae---application-exercise" id="toc-w03ae---application-exercise" class="nav-link" data-scroll-target="#w03ae---application-exercise">📋 W03AE - application exercise:</a></li>
+  <li><a href="#self-study-exploring-categorical-data" id="toc-self-study-exploring-categorical-data" class="nav-link" data-scroll-target="#self-study-exploring-categorical-data">🖥 <strong><code>SELF STUDY</code></strong> Exploring categorical data</a></li>
+  <li><a href="#self-study-wrangle-with-dplyr" id="toc-self-study-wrangle-with-dplyr" class="nav-link" data-scroll-target="#self-study-wrangle-with-dplyr">🖥 <strong><code>SELF STUDY</code></strong> Wrangle with <code>dplyr</code></a></li>
+  <li><a href="#self-study-data-visualization-with-ggplot2" id="toc-self-study-data-visualization-with-ggplot2" class="nav-link" data-scroll-target="#self-study-data-visualization-with-ggplot2">🖥 <strong><code>SELF STUDY</code></strong> Data visualization with <code>ggplot2</code></a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/weeks/week03-checklist.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Week 3</h1>
+<p class="subtitle lead">Data wrangling: Data import and manipulations</p>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="w03-00-dataworkflow-tidy-data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="w03-00-dataworkflow-tidy-data-wrangling">W03-00 DataWorkflow + Tidy data + Wrangling</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>🖥<a href="../slides/50-data-wrangling/workflow-tidy-data-wrangling.html">W03-00 DataWorkflow + Tidy data + Wrangling</a></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><strong>Recommended. <u>Practice</u>:</strong>
+<ul>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/1.2">Programming basics</a></li>
+</ul></li>
+<li><strong>Recommended.</strong> Read:
+<ul>
+<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro">R4DS Ch 9. Wrangle</a></li>
+<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/tidy-data.html#tidy-data">R4DS Ch. 12. Tidy data</a></li>
+<li><strong>CHEATSHEET:</strong> <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf">Data tidying with tidyr cheatsheet</a></li>
+</ul></li>
+<li><strong>Optional.</strong> Watch:
+<ul>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Tidy data <a href="https://youtu.be/Ux85eR3h9hw">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d05-tidy-data/u2-d05-tidy-data.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Grammar of data wrangling <a href="https://youtu.be/ZCaYBES_VEk">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d06-grammar-wrangle/u2-d06-grammar-wrangle.html#1">slides</a></li>
+<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">Data wrangling with R and RStudio</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="w03-01-import-data" class="level2">
+<h2 class="anchored" data-anchor-id="w03-01-import-data">W03-01 Import data</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>📋<a href="../ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html"><code>ae03-01-import-clean-sum-plot.Rmd</code></a></li>
+</ul>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>SELF STUDY</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>🖥<a href="../slides/50-data-wrangling/import-data.html">W03-02 Import data</a></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><strong>Recommended.</strong> Watch:
+<ul>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25">Data types <a href="https://www.youtube.com/watch?v=WsxLbtWbEfc&amp;ab_channel=Mine%C3%87etinkaya-Rundel">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1">slides</a></li>
+</ul></li>
+<li><strong>Recommended</strong>. Read:
+<ul>
+<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/data-import.html#data-import">R4DS Ch. 11 Data import</a></li>
+</ul></li>
+<li><strong>Optional</strong>. Read:
+<ul>
+<li><strong>CHEATSHEET:</strong> <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf">Data import with the tidyverse</a></li>
+<li><a href="https://readxl.tidyverse.org/">tidyverse/readxl</a> + <a href="https://readr.tidyverse.org/reference/readr_example.html">tidyverse/readr</a> + <a href="https://sfirke.github.io/janitor/">janitor</a></li>
+</ul></li>
+<li><strong>Optional.</strong> Watch:
+<ul>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"><a href="https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data">Importing and recoding data</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25">Data classes <a href="https://youtu.be/dozvSVQcqqg">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25">Importing data <a href="https://youtu.be/tIMaRYiuEFA">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1">slides</a></li>
+<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/">What’s new with readxl?</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="w03-02-exploring-numerical-data" class="level2">
+<h2 class="anchored" data-anchor-id="w03-02-exploring-numerical-data">W03-02 Exploring numerical data</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>🖥<a href="../slides/20-data-description/exploring-numeric-data.html">W03-02 Exploring numerical data</a></li>
+<li>📋<strong>TBD</strong></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><strong>Recommended.</strong> <u>Practice</u><strong>:</strong>
+<ul>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.3">Derive Information with dplyr</a></li>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-02/">Visualizing numerical data</a> (takes time to load)</li>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-03/">Summarizing data</a> (takes time to load)</li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/1.1">Data Visualization Basics</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.3">Histograms</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.4">Boxplots and Counts</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.5">Scatterplots</a></li>
+</ul></li>
+<li><strong>Optional.</strong> Read:
+<ul>
+<li><img src="https://openintro-ims.netlify.app/images/IMS1_front_cover.png" width="25" height="31"> <a href="https://openintro-ims.netlify.app/explore-numerical.html">IMS: Chapter 5 Exploring numerical data</a></li>
+</ul></li>
+<li><strong>Optional</strong>. Watch + Practice:
+<ul>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Data and visualisation <a href="https://youtu.be/FddF4b_GuTI">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising data with ggplot2 <a href="https://youtu.be/s2NF2J36ljE">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising numerical data <a href="https://youtu.be/waBabVTI8ec">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1">slides</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="w03-03-correlation" class="level2">
+<h2 class="anchored" data-anchor-id="w03-03-correlation">🖥 W03-03 Correlation</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>🖥<a href="../slides/20-data-description/correlation.html">W03-04 correlation <code>correlation</code></a></li>
+</ul>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>SELF STUDY</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>📋<a href="../ae/ae03-data-wrangling/ae03-03-correlation.html"><code>ae03-03-correlation.Rmd</code></a></li>
+</ul>
+</div>
+</div>
+<ul>
+<li><strong>Recommended.</strong> <u>Practice</u><strong>:</strong>
+<ul>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.1">Exploratory data analysis</a></li>
+</ul></li>
+<li><strong>Recommended</strong>. Read:
+<ul>
+<li><a href="https://easystats.github.io/effectsize/articles/interpret.html">Interpretation of the strength of correlation</a></li>
+</ul></li>
+<li><strong>Optional</strong>. Read:
+<ul>
+<li><a href="https://easystats.github.io/correlation/">easystats/correlation</a></li>
+<li><a href="https://easystats.github.io/correlation/articles/types.html">Correlation types</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="w03ae---application-exercise" class="level2">
+<h2 class="anchored" data-anchor-id="w03ae---application-exercise">📋 W03AE - application exercise:</h2>
+<p>Download project from 📋 <a href=""><code>ae03-data-wrangling.zip</code></a> or the same on Ilias: 📋 <a href=""><code>ae03-data-wrangling.zip</code> on Ilias</a>.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="../ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html"><code>ae03-01-import-clean-sum-plot.Rmd</code></a></li>
+<li></li>
+</ul>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>SELF STUDY</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="../ae/ae03-data-wrangling/ae03-02-correlation.html"><code>ae03-02-correlation.Rmd</code></a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="self-study-exploring-categorical-data" class="level2">
+<h2 class="anchored" data-anchor-id="self-study-exploring-categorical-data">🖥 <strong><code>SELF STUDY</code></strong> Exploring categorical data</h2>
+<ul>
+<li><strong>Recommended.</strong> Practice:
+<ul>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-01/">Visualizing categorical data</a> (takes time to load)</li>
+</ul></li>
+<li><strong>Recommended</strong>. Watch + Practice:
+<ul>
+<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/">Tidyverse visualization manipulation basics</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising categorical data <a href="https://youtu.be/21h3rEO8k2E">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1">slides</a></li>
+</ul></li>
+<li><strong>Optional.</strong> Read:
+<ul>
+<li><img src="https://openintro-ims.netlify.app/images/IMS1_front_cover.png" width="25" height="31"> <a href="https://openintro-ims.netlify.app/explore-categorical.html#explore-categorical">IMS: Chapter 4 Exploring categorical data</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="self-study-wrangle-with-dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="self-study-wrangle-with-dplyr">🖥 <strong><code>SELF STUDY</code></strong> Wrangle with <code>dplyr</code></h2>
+<p>We use <code>dplyr</code> every day in any exercise. Thus, there is no point to dedicate specific time to it. Use this list of materials to guide your learning process. Most of the core functions of <code>dplyr</code> are covered in data other parts of the course.</p>
+<p>Materials listed here may repeat the ones listed before.</p>
+<ul>
+<li><p><strong>Recommended.</strong> Read<strong>:</strong></p>
+<ul>
+<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/transform.html#transform">R4DS Chapter 5 Data transformation</a></li>
+<li><strong>CHEATSHEET:</strong> <a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">Data transformation with dplyr</a></li>
+<li><a href="https://dplyr.tidyverse.org/">tidyverse/dplyr</a></li>
+</ul></li>
+<li><p><strong>Recommended.</strong> <u>Practice</u><strong>:</strong></p>
+<ul>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.1">Working with Tibbles</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.2">Isolating Data with dplyr</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.3">Derive Information with dplyr</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://learnr-examples.shinyapps.io/ex-data-filter/">Filter observations</a></li>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-03/">Summarizing data</a> (takes time to load)</li>
+<li>Interactive tutorial based on R4DS Ch. 5.6 <a href="https://learnr-examples.shinyapps.io/ex-data-summarise/">Summarizing data</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="self-study-data-visualization-with-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="self-study-data-visualization-with-ggplot2">🖥 <strong><code>SELF STUDY</code></strong> Data visualization with <code>ggplot2</code></h2>
+<p>There are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the <code>ggplot2</code> package is scheduled for self learning.</p>
+<ul>
+<li><strong>Recommended.</strong> Read:
+<ul>
+<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/data-visualisation.html#data-visualisation">R4DS Chapter 3 Data visualisation</a></li>
+<li>CHEATSHEET: <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf">Data visualization with ggplot2 cheatsheet</a></li>
+</ul></li>
+<li><strong>Recommended.</strong> <u>Practice</u><strong>:</strong>
+<ul>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/1.1">Data Visualization Basics</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.1">Exploratory data analysis</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.2">Bar Charts</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.3">Histograms</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.4">Boxplots and Counts</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.5">Scatterplots</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.7">Overplotting</a></li>
+<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.8">Customize plots</a></li>
+</ul></li>
+<li><strong>Optional.</strong> Practice:
+<ul>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-01/">Visualizing categorical data</a> (takes time to load)</li>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-02/">Visualizing numerical data</a> (takes time to load)</li>
+</ul></li>
+<li><strong>Optional</strong>. Watch + Practice:
+<ul>
+<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/">Tidyverse visualization manipulation basics</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Data and visualisation <a href="https://youtu.be/FddF4b_GuTI">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising data with ggplot2 <a href="https://youtu.be/s2NF2J36ljE">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising numerical data <a href="https://youtu.be/waBabVTI8ec">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1">slides</a></li>
+<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising categorical data <a href="https://youtu.be/21h3rEO8k2E">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1">slides</a></li>
+</ul></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../weeks/week01-checklist.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 1</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

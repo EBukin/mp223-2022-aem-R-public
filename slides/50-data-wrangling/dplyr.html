@@ -4,7 +4,7 @@
   <meta name="generator" content="quarto-0.9.314">
 
   <meta name="author" content="Eduard Bukin">
-  <title>mp223 Applied Econometric Methods for the Socials Sciences - Introduction. Organisation. Setup.</title>
+  <title>mp223 Applied Econometric Methods for the Socials Sciences - Data Workflow + Tidy data + Wrangling</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -17,6 +17,88 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -322,300 +404,330 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Introduction. Organisation. Setup.</h1>
+  <h1 class="title">Data Workflow + Tidy data + Wrangling</h1>
   <p class="subtitle">MP223 - Applied Econometrics Methods for the Social Sciences</p>
   <p class="author">Eduard Bukin</p>
 </section>
 
-<section class="slide level2">
-
+<section id="r-setup" class="slide level2 smaller">
+<h2>R setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># for data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># set default theme and larger font size for ggplot2</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>))</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># set default figure parameters for knitr</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">fig.width =</span> <span class="dv">8</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>  <span class="at">out.width =</span> <span class="st">"80%"</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 
 </div>
-</section>
-<section id="mp223---applied-econometrics-methods-for-the-social-sciences" class="slide level2">
-<h2>MP223 - Applied Econometrics Methods for the Social Sciences</h2>
-<p><strong>Author</strong>: Eduard Bukin (<a href="https://studip.uni-giessen.de/dispatch.php/profile?cid=b1775c5097d2a85c2986b7667d22c3dc&amp;username=gh2910">StudIP profile</a>)</p>
-<p><strong>Email</strong>: <a href="mailto:eduardbukin@agrar.uni-giessen.de">eduardbukin@agrar.uni-giessen.de</a>,</p>
-<p><strong>Telephone</strong>: +49 641 99-37055</p>
-<p><strong>Office</strong>: Zeughaus (Senckenbergstr. 3). Room: 132.</p>
-<p><strong>Office hours</strong>: Part time (better to make an appointment)</p>
-</section>
-<section id="introduction" class="slide level2">
-<h2>Introduction</h2>
-<p>Welcome to the MP223 - Applied Econometrics Methods for the Social Sciences!</p>
-</section>
-<section id="lecturers-christoph-funk" class="slide level2 smaller">
-<h2>Lecturers: <strong>Christoph Funk</strong></h2>
-<p><a href="mailto:Christoph.Funk@wirtschaft.uni-giessen.de">Christoph.Funk@wirtschaft.uni-giessen.de</a>. <a href="https://www.uni-giessen.de/fbz/zentren/zeu/Team/zeumembersall/Christoph_Funk/dpfunk">Website</a>.</p>
-<p>Post Doc.</p>
-<blockquote>
-<p>Center for international Development and Environmental Research (ZEU) Justus Liebig Universität</p>
-</blockquote>
-<p>2020 - PhD in economics from Justus Liebig University Giessen</p>
-<p>Research interests: - SDG monitoring - Climate change vulnerability - Adaptation strategies - Energy economics - Econometric modelling</p>
-</section>
-<section id="lecturers-vladimir-otrachshenko" class="slide level2 smaller">
-<h2>Lecturers: <strong>Vladimir Otrachshenko</strong></h2>
-<p><a href="mailto:Vladimir.Otrachshenko@zeu.uni-giessen.de">Vladimir.Otrachshenko@zeu.uni-giessen.de</a>. <a href="https://www.uni-giessen.de/fbz/zentren/zeu/Team/zeumembersall/Vladimir_Otrachshenko/dpotrachshenko">Website</a>.</p>
-<p>Senior Researcher.</p>
-<blockquote>
-<p>Center for international Development and Environmental Research (ZEU) Justus Liebig Universität</p>
-</blockquote>
-<p>2013 - PhD in Economics from Nova School of Business and Economics, Lisbon, Portugal</p>
-<p>Research interests:</p>
-<ul>
-<li>Environmental and Resource Economics</li>
-<li>Climate Change</li>
-<li>Health and Population Economics</li>
-</ul>
-</section>
-<section id="lecturers-eduard-bukin" class="slide level2 smaller">
-<h2>Lecturers: <strong>Eduard Bukin</strong></h2>
-<p><a href="mailto:eduardbukin@agrar.uni-giessen.de">eduardbukin@agrar.uni-giessen.de</a>, (<a href="https://studip.uni-giessen.de/dispatch.php/profile?cid=b1775c5097d2a85c2986b7667d22c3dc&amp;username=gh2910">StudIP profile</a>)</p>
-<p>Data science enthusiast, econometrics practitioner. PhD Student.</p>
-<blockquote>
-<p>Institute of Agricultural Policy and Market Research</p>
-</blockquote>
-<p>2015 – MSc in Rural Development:</p>
-<ul>
-<li>Ghent University, Belgium</li>
-</ul>
-<p>Research interests:</p>
-<ul>
-<li>Restructuring and productivity change in agriculture</li>
-<li>Land and labor factor markets in agriculture</li>
-</ul>
-</section>
-<section id="your-turn" class="slide level2">
-<h2>Your turn!</h2>
-<p><strong>Please introduce yourself</strong></p>
-<div class="fragment">
-<p><strong>What is your name?</strong></p>
-<p><strong>Where do you come from?</strong></p>
-</div>
-<div class="fragment">
-<p><strong>What do you study?</strong></p>
-<p><strong>What is your background?</strong></p>
-</div>
-<div class="fragment">
-<p><strong>What are your expectations?</strong></p>
+<div class="cell" data-layout-align="center" data-hash="dplyr_cache/revealjs/unnamed-chunk-3_274da12544ec3b65f8e0ec1792318639">
+
 </div>
 </section>
-<section id="course-structure-and-overview-14" class="slide level2">
-<h2>Course structure and overview (1/4)</h2>
-<p>MP223 - Applied Econometrics Methods for the Social Sciences is taught <strong>in presence</strong>.</p>
-<div>
-<ul>
-<li class="fragment"><p>Every Wednesday 14:00 - 18:00, Room: Senckenbergstr. 03, 216 (Ze-PC2)</p></li>
-<li class="fragment"><p>Wear a mask all the time.</p></li>
-<li class="fragment"><p>Get a new mask from a lecturer for every lecture.</p></li>
-<li class="fragment"><p>Optional, make a COVID-19 speed tests if you do no feel well (ask the test from a lecturer).</p></li>
-<li class="fragment"><p>Please, do not show up if you are sick.</p></li>
-</ul>
-</div>
+<section>
+<section id="introduction" class="title-slide slide level1 center">
+<h1>Introduction</h1>
+
 </section>
-<section id="course-structure-and-overview-24" class="slide level2 smaller">
-<h2>Course structure and overview (2/4)</h2>
-<div class="fragment">
-<p>Online resources:</p>
-<ul>
-<li><p><a href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">Ilias</a> is used for materials dissemination;</p></li>
-<li><p><a href="https://studip.uni-giessen.de/dispatch.php/course/overview?cid=b1775c5097d2a85c2986b7667d22c3dc">StudIP</a> is only used for announcements.</p></li>
-</ul>
-</div>
-<div class="fragment">
-<p>Rough course structure is in the <strong>Course Plan on Ilias.</strong></p>
-</div>
-<div class="fragment">
-<p>Almost every week will have a <strong>checklist</strong></p>
-<ul>
-<li><p>summary of materials from the class;</p></li>
-<li><p>key materials to cover on your own;</p></li>
-</ul>
-</div>
-</section>
-<section id="course-structure-and-overview-34" class="slide level2 smaller">
-<h2>Course structure and overview (3/4)</h2>
-<p><strong>Lectures</strong></p>
-<ul>
-<li>Slides on Ilias. No pre-recording;</li>
-<li>“Takeaways” slides in th end of a lecture (if available);</li>
-</ul>
-<div class="fragment">
-<p><strong>Application exercises</strong> in class</p>
-<ul>
-<li>Sometimes have pre requisites (watch a video, read a paper)</li>
-<li>Sometimes require preparation in advance;</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><strong>Seminar discussions</strong> - definitely require preparation (reading papers) in advance;</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Application exercises at home</strong></p>
-<ul>
-<li>Some are mandatory, some are optional but highly recommended.</li>
-<li>With /or without video guidance.</li>
-</ul>
-</div>
-</section>
-<section id="course-structure-and-overview-44" class="slide level2">
-<h2>Course structure and overview (4/4)</h2>
-<p>Examination:</p>
-<ul>
-<li>60% written exam</li>
-</ul>
-<div class="fragment">
-<ul>
-<li><p>40% practical homework on R analysis.</p>
-<ul>
-<li>Will be disseminated on the week 4-6.</li>
-<li>Deadline: end of semester.</li>
-</ul></li>
-</ul>
-</div>
-</section>
-<section id="any-questions" class="slide level2">
-<h2>Any questions?</h2>
-</section>
-<section id="plan-for-today" class="slide level2">
-<h2>Plan for today</h2>
-<p>Next 45 minutes: Application Exercise 01 - Soft introduction to R</p>
-<ul>
-<li>in class we will do “ae01a-vaccination.Rmd” everything else is at home;</li>
-</ul>
-<div class="fragment">
-<p>Two Lectures (90 min):</p>
-<ul>
-<li>Ceteris Paribus</li>
-<li>Selection Bias</li>
-</ul>
-</div>
-<div class="fragment">
-<p>Application Exercise at home.</p>
-<ul>
-<li>See the check list.</li>
-</ul>
-</div>
-</section>
-<section id="application-exercise-01---soft-introduction-to-r" class="slide level2">
-<h2>Application Exercise 01 - Soft introduction to R</h2>
-<div class="fragment">
-<p><strong>Turn on your PC</strong></p>
-<div class="callout callout-important callout-captioned callout-style-default">
-<div class="callout-body">
-<div class="callout-caption">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Login: <code>ZH-user-pcl</code></p>
-<p>Password: <code>V5-senc!3ken</code></p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Write them down and remember.</p>
-<p>Same password an login will be used on all PCs in Zeughaus.</p>
-</div>
-</section>
-<section id="log-into-studip-and-ilias" class="slide level2">
-<h2>Log into studIP and Ilias</h2>
-<div class="fragment">
-<p>Log into your <code>studIP</code>;</p>
-</div>
-<div class="fragment">
-<p>Follow to “Ilias &gt;&gt; Kurs (ID 301421) in JLUG”;</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="00-introduction_files/figure-revealjs/unnamed-chunk-2-1.png" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Log in to Ilias;</p>
-</div>
-<div class="fragment">
-<p>Download <code>ae01-soft-intro-to-R.zip</code> to downloads;</p>
-</div>
-</section>
-<section id="setup-working-folders" class="slide level2">
-<h2>Setup working folders</h2>
-<div class="fragment">
-<p>Navigate to your user folder: <code>C &gt; Users &gt; Name of your user account</code>;</p>
-</div>
-<div class="fragment">
-<ul>
-<li><p>Create there a <strong>course folder</strong> names <code>{your initial}-mk223-2022</code>.</p>
-<ul>
-<li>Use it for your course for all in-class work;</li>
-<li>on my pc the course folder is called <code>eb-mk223-2022</code>;</li>
-<li>the full path is <code>C:\Users\ZH-user-pcl\eb-mk223-2022</code>;</li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Paste <code>ae01-soft-intro-to-R.zip</code> from downloads to the <strong>course folder</strong>;</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Unzip <code>ae01-soft-intro-to-R.zip</code> into <code>ae01-soft-intro-to-R</code>;</li>
-</ul>
-</div>
-</section>
-<section id="launch-the-r-studio-from-the-project-ae01-soft-intro-to-r" class="slide level2">
-<h2>Launch the R Studio from the project “ae01-soft-intro-to-R”</h2>
-<div class="fragment">
-<ul>
-<li>Navigate to <code>ae01-soft-intro-to-R</code> in your <strong>course folder</strong></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Open <code>ae01-soft-intro-to-R.Rproj</code> that has R studio icon and <code>.Rproj</code> extension:</li>
-</ul>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="00-introduction_files/figure-revealjs/unnamed-chunk-3-1.png" style="width:45.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-layout-align="center" data-fig.dpi="300">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="00-introduction_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
+<section id="data-analysis-workflow" class="slide level2">
+<h2>Data analysis workflow</h2>
+<div class="footer">
+<p>Image source: <a href="https://r4ds.had.co.nz/introduction.html">R4DS</a></p>
 </div>
 
-<p><img src="../../img/jlu-logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
-<p><a href="https://sta210-s22.github.io/website/">sta210-s22.github.io/website</a></p>
+<img data-src="dplyr_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="tidy-data-15" class="slide level2">
+<h2>Tidy data (1/5)</h2>
+
+<img data-src="./img/tidy-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="footer">
+<p>Image source: <a href="https://r4ds.had.co.nz/tidy-data.html">R4DS</a></p>
+</div>
+</section>
+<section id="tidy-data-25-wide-format" class="slide level2">
+<h2>Tidy data (2/5) wide format</h2>
+
+<img data-src="./img/tidy-2-wide.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="footer">
+<p>See: <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Data transformation with dplyr cheatsheet</a></p>
+</div>
+</section>
+<section id="tidy-data-35-long-format" class="slide level2">
+<h2>Tidy data (3/5) long format</h2>
+
+<img data-src="./img/tidy-2-long.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="footer">
+<p>See: <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Data transformation with dplyr cheatsheet</a></p>
+</div>
+</section>
+<section id="tidy-data-45-transformation" class="slide level2">
+<h2>Tidy data (4/5) transformation</h2>
+
+<img data-src="./img/tidy-2-transformation.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="footer">
+<p>See: <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Data transformation with dplyr cheatsheet</a></p>
+</div>
+</section>
+<section id="tidy-data-55.-learn-more" class="slide level2">
+<h2>Tidy data (5/5). Learn more?</h2>
+<h3 id="read">Read:</h3>
+<ul>
+<li class="fragment"><img data-src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="50" height="73"> <a href="https://r4ds.had.co.nz/tidy-data.html#tidy-data">R4DS Ch. 12. Tidy data</a></li>
+</ul>
+<div class="fragment">
+<p>Follow slides, videos and exercises:</p>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment">Chapter <a href="https://datasciencebox.org/exploring-data.html?q=import#wrangling-and-tidying-data">7.1.2 Wrangling and tidying data</a> in <a href="https://datasciencebox.org/">Data Science in a Box</a></li>
+</ul>
+</div>
+</section>
+<section id="wrangling" class="slide level2">
+<h2>Wrangling</h2>
+
+<img data-src="dplyr_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="footer">
+<p>Image source: <a href="https://r4ds.had.co.nz/introduction.html">R4DS</a></p>
+</div>
+</section>
+<section id="wrangling-see-also" class="slide level2 smaller">
+<h2>Wrangling: See also</h2>
+<p>Read:</p>
+<ul>
+<li class="fragment"><img data-src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="50" height="73"> <a href="https://r4ds.had.co.nz/index.html">R4DS: R for data science</a> by Hadley Wickham and Garrett Grolemund (book’s <a href="https://github.com/hadley/r4ds">source code</a>) <span class="citation" data-cites="Wickham2017R">(<a href="#/ref-Wickham2017R" role="doc-biblioref" onclick="return false;">Wickham and Grolemund 2017</a>)</span></li>
+<li class="fragment"><a href="https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro">R4DS Ch 9. Wrangle</a></li>
+</ul>
+<div class="fragment">
+<p>Watch</p>
+<ul>
+<li class="fragment"><p><img data-src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" width="20"> Grammar of data wrangling <a href="https://youtu.be/ZCaYBES_VEk">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d06-grammar-wrangle/u2-d06-grammar-wrangle.html#1">slides</a></p></li>
+<li class="fragment"><p><img data-src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">Data wrangling with R and RStudio</a></p></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="data-wrangling" class="title-slide slide level1 center">
+<h1>Data wrangling</h1>
+
+</section>
+<section id="dplyr-package" class="slide level2">
+<h2><code>dplyr</code> package</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center" data-hash="dplyr_cache/revealjs/unnamed-chunk-10_c10a7f06f89a4277391d19ce90e6a0d7">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/dplyr-logo.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Does data wrangling.</p>
+<ul>
+<li class="fragment"><p>Documentation <a href="https://dplyr.tidyverse.org/">tidyverse/dplyr</a> + <a href="https://github.com/tidyverse/dplyr/">Source code</a></p></li>
+<li class="fragment"><p>Cheat sheets <a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">Data transformation with dplyr</a></p></li>
+<li class="fragment"><p>Learn by doing <a href="https://r4ds.had.co.nz/transform.html">R4DS Ch 5. Data transformation</a></p></li>
+</ul>
 </div>
 </div>
 </section>
+<section id="dplyr-package-getting-started" class="slide level2 smaller">
+<h2><code>dplyr</code> package: getting started</h2>
+<p>Article: <a href="https://dplyr.tidyverse.org/articles/dplyr.html">Introduction to dplyr</a></p>
+<div class="fragment">
+<p>Cheat sheets: <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Data transformation with dplyr</a></p>
+</div>
+<div class="fragment">
+<p>Webinar: <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">Data wrangling with R and RStudio</a> by Garrett Grolemund</p>
+</div>
+<div class="fragment">
+<p>Interactive exercises (repeated on following slides)</p>
+<ul>
+<li class="fragment"><a href="https://rstudio.cloud/learn/primers/2.1">Working with Tibbles</a></li>
+<li class="fragment"><a href="https://rstudio.cloud/learn/primers/2.2">Isolating Data with dplyr</a></li>
+<li class="fragment"><a href="https://learnr-examples.shinyapps.io/ex-data-filter/">Filter observations</a></li>
+<li class="fragment"><a href="https://rstudio.cloud/learn/primers/2.3">Derive Information with dplyr</a></li>
+<li class="fragment"><a href="https://learnr-examples.shinyapps.io/ex-data-summarise/">Summarizing data</a></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Readings:</p>
+<ul>
+<li class="fragment"><a href="https://r4ds.had.co.nz/transform.html#transform">R4DS Chapter 5 Data transformation</a></li>
+</ul>
+</div>
+</section>
+<section id="dplyrrename-rename-columns" class="slide level2">
+<h2><code>dplyr::rename()</code> Rename columns</h2>
+
+<img data-src="./img/rename.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<ul>
+<li class="fragment">Read about in <a href="https://r4ds.had.co.nz/transform.html#select">R4DS Ch. 5.4</a> + <a href="https://dplyr.tidyverse.org/reference/rename.html">function reference</a> (see examples!)</li>
+</ul>
+</div>
+</section>
+<section id="dplyrmutate-create-modify-and-delete-columns" class="slide level2">
+<h2><code>dplyr::mutate()</code> Create, modify, and delete columns</h2>
+
+<img data-src="./img/mutate.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<ul>
+<li class="fragment">Read about in <a href="https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate">R4DS Ch. 5.5</a> + <a href="https://dplyr.tidyverse.org/reference/mutate.html">function reference</a></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment">Articles: <a href="https://dplyr.tidyverse.org/articles/dplyr.html#add-new-columns-with-mutate">Add new columns with mutate</a> and <a href="https://dplyr.tidyverse.org/articles/colwise.html">Column-wise operations</a></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment">Interactive exercises: <a href="https://rstudio.cloud/learn/primers/2.3">Derive Information with dplyr</a>, <a href="https://learnr-examples.shinyapps.io/ex-data-summarise/">Summarizing data</a> and <a href="https://minecr.shinyapps.io/dsbox-02-accidents/">Road Traffic Accidents</a></li>
+</ul>
+</div>
+</section>
+<section id="dplyrfilter-12-subset-rows-using-column-values" class="slide level2">
+<h2><code>dplyr::filter()</code> (1/2) subset rows using column values</h2>
+
+<img data-src="./img/filter.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<ul>
+<li class="fragment">Read about in <a href="https://r4ds.had.co.nz/transform.html#filter-rows-with-filter">R4DS Ch. 5.2</a> + <a href="https://dplyr.tidyverse.org/reference/filter.html">function reference</a> (see examples!)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment">Article: <a href="https://dplyr.tidyverse.org/articles/dplyr.html#filter-rows-with-filter">Filter rows with filter()</a></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Interactive exercises: <a href="https://rstudio.cloud/learn/primers/2.2">Isolating Data with dplyr</a> and <a href="https://learnr-examples.shinyapps.io/ex-data-filter/">Filter observations</a>.</p>
+</div>
+</section>
+<section id="dplyrfilter-22-relies-on-logical-operators" class="slide level2">
+<h2><code>dplyr::filter()</code> (2/2) relies on logical operators</h2>
+
+<img data-src="./img/filter-helpers.png" style="width:80.0%" class="r-stretch quarto-figure-center"><ul>
+<li class="fragment">See: <code>?Comparison</code> and <code>?base::Logic</code></li>
+</ul>
+</section>
+<section id="dplyrselect-subset-columns-using-their-names-and-types" class="slide level2">
+<h2><code>dplyr::select()</code> Subset columns using their names and types</h2>
+
+<img data-src="./img/select.png" style="width:80.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<ul>
+<li class="fragment">Read about in <a href="https://r4ds.had.co.nz/transform.html#select">R4DS Ch. 5.4</a> + <a href="https://dplyr.tidyverse.org/reference/select.html">function reference</a> (see examples!)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Interactive exercises: <a href="https://rstudio.cloud/learn/primers/2.2">Isolating Data with dplyr</a></p>
+</div>
+</section>
+<section id="left-for-later" class="slide level2">
+<h2>Left for later</h2>
+<ul>
+<li class="fragment"><code>dplyr::summarise()</code></li>
+<li class="fragment"><code>dplyr::group_by()</code></li>
+<li class="fragment"><code>dplyr::arrange()</code></li>
+<li class="fragment"><code>dplyr::pull()</code></li>
+<li class="fragment"><code>dplyr::distinct()</code></li>
+<li class="fragment"><code>dplyr::count()</code></li>
+</ul>
+</section></section>
+<section>
+<section id="summary-statistics" class="title-slide slide level1 center">
+<h1>Summary statistics</h1>
+
+</section>
+<section id="skimr-package" class="slide level2">
+<h2><code>skimr</code> package</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center" data-hash="dplyr_cache/revealjs/unnamed-chunk-16_2109c164d96ff18858d5bb84cfa8cb5e">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/skimr-logo.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Does Summary statistics</p>
+<ul>
+<li class="fragment">Documentation <a href="https://docs.ropensci.org/skimr/">ropensci/skimr</a> + <a href="https://github.com/ropensci/skimr/">Source code</a></li>
+<li class="fragment">Learn by doing <a href="https://docs.ropensci.org/skimr/articles/skimr.html">Using Skimr</a></li>
+</ul>
+<p>Key functions: <code>skimr::skim()</code>.</p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="correlation" class="title-slide slide level1 center">
+<h1>Correlation</h1>
+
+</section>
+<section id="correlation-1" class="slide level2">
+<h2>Correlation</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="cell" data-layout-align="center" data-hash="dplyr_cache/revealjs/unnamed-chunk-17_b37d2da47979b2354a59b91de9fd77c7">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/correlation-logo.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
+<p>Does Summary statistics</p>
+<ul>
+<li class="fragment"><p>Documentation <a href="https://easystats.github.io/correlation/">easystats/correlation</a> + <a href="https://github.com/easystats/correlation">Source code</a></p></li>
+<li class="fragment"><p>Learn by doing <a href="https://easystats.github.io/correlation/">Using correlation</a></p></li>
+</ul>
+<p>Key functions: <code>correlation::correlation()</code>.</p>
+</div>
+</div>
+</section></section>
+<section id="histogram" class="title-slide slide level1 center">
+<h1>Histogram</h1>
+
+</section>
+
+<section id="box-plot" class="title-slide slide level1 center">
+<h1>Box plot</h1>
+
+</section>
+
+<section id="scatter-plot" class="title-slide slide level1 center">
+<h1>Scatter plot</h1>
+
+</section>
+
+<section>
+<section id="references" class="title-slide slide level1 center">
+<h1>References</h1>
+
+</section>
+<section id="references-1" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+
+<img src="../../img/jlu-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Wickham2017R" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, and Garrett Grolemund. 2017. <em>R for Data Science</em>. O’Reilly Media. <a href="http://r4ds.had.co.nz/">http://r4ds.had.co.nz/</a>.
+</div>
+</div>
+</section></section>
     </div>
   </div>
 
@@ -642,13 +754,13 @@
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': true,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': true,
+'smaller': false,
  
         // Display controls in the bottom right corner
         controls: false,

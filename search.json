@@ -1,10 +1,1088 @@
 [
   {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "",
+    "text": "We will us tidyverse for data wrangling and readr and readxl for data import.\n\nlibrary(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-1.-load-clean-and-plot-data-from-excel",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-1.-load-clean-and-plot-data-from-excel",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Exercise 1. Load clean and plot data from Excel",
+    "text": "Exercise 1. Load clean and plot data from Excel\nHere, we will explore the data from the file called commodity-prices.xlsx in the data folder.\n\nEx. 1.1 Inspect the file in excel: readxl::excel_sheets()\nOpen the file in Excel and inspect it.\n\nWhat sheets are there?\nWhere is the data?\n\nUse function excel_sheets() to check what sheets does R sees in this file. Please note that you need to provide path to the file manually. Thus:\n\nCreate an object path_prices\n\nand assign to it a value of the string with the path to the file.\nThis string may look like: ./path_to_folder/file_name.ext.\nMake sure that you specify the path exactly as it is with the file extension.\nMake sure that in the path, there are no extra spaces of characters which are not present in the file path.\n\nExecute function excel_sheets() specifying in the arguments path to the file.\n\n\nlibrary(readxl)\n# path_prices <- \"______\"\n# excel_sheets(path = _______)\n\nWhat does the excel_sheets() tells us?\n\n\nEx. 1.2 Load data from the sheet: readxl::read_excel(..., sheet = ____), utils::head()\nYou need to use function read_excel() to load data.\n\nCheck help for this function in the console!\nSave data in the environment under the object name prices_dta.\nglimpse() at the data\nus function head() with the data and explain what it does\n\n\n# prices_dta <- \n#   ________(path_prices)\n\n# prices_dta %>% \n#   ________()\n\n# prices_dta %>% \n#   head()\n\nAs you can see, the data is loaded into R, but there are problems:\n\nVariables names are long, bulky, contain spaces and it is difficult to use them.\nAll variables are in <chr>, which means character, when it should be numerical <dbl>.\nFirst row in the data contains text, which is irrelevant to the data.\nThe data is not tidy! We need to clean it.\n\n\n\nEx. 1.3 Cleaning variables names: janitor::clean_names(...) , base::names()\nCurrently variables names are very long.\n\nNote, we use names() function to check variables names.\n\n\n# prices_dta %>% names()\n\nWe can simplify these names and make them machine readable and usable using function janitor::clean_names().\n\ncheck help for this function ?clean_names\nrun it on the data and check the variables names\n\n\n# prices_dta %>% \n#   __________() %>% \n#   names()\n\nAre those variables names useful now?\n\n\nEx. 1.4 Cleaning variables names: dplyr::rename()\nWell, no, these variables names are not useful. We still need to rename() them into something shorter. For this, we use dplyr::rename() . See help here.\nThe logit is:\n\nwe supply data into rename() with pipe: data %>% rename().\nin the rename() , we specify what should be the new name on the left hand side and old name on the right hand\n\ndata %>% rename(new_name = OLD_NAME).\n\nwe do not use any quotation marks.\nRemember to repeat the data cleaning step with janitor::lean_names().\n\nHere is the example with the longest variable:\n\n# prices_dta %>% \n#   clean_names() %>% \n#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt) %>% \n#   names()\n\nFollow this example to rename variables into date, oil, maize and urea.\n\n# prices_dta %>%\n#   clean_names() %>% \n#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n#          maize = ______________, \n#          date = ______________, \n#          ______________ = ______________, \n#          ______________ = ______________) %>%\n#   names()\n\nDid it work?\n\n\nEx. 1.5 Removing first row with irrelevant data dplyr::slice()\nUse function slice(prices_dta, -1). Check help for dplyr::slice().\n\nwith argument -1 we are telling to R to drop row with the number 1;\nNote, wen we use pipeline %>% we do not need to specify data frame name prices_dta within the brackets (…) of the slice() call!\nRemember to copy all the code from before, where you renamed the variables.\nAssign value of this long pipe to the new object named prices_dta_1. This object will stand for the intermediary step in the data cleaning process.\n\n\n# prices_dta_1 <- \n#   prices_dta %>%\n#   ### Place here the R code with renaming ###\n#   ### Place here the R code with renaming ###\n#   ### Place here the R code with renaming ###\n#   slice(___) %>% \n#   glimpse()\n\nIf everything alright with the data now? Let us use summary() to summaries the variables and extract some numerical features:\n\n# prices_dta_1 %>%\n#   summary()\n\nAre these results meaningful?\n\n\nEx. 1.6 Mutating variables types: dplyr::mutate(), base::as.numeric().\nAs we say on the previous step, all variables have the type character or <chr>. As this is text, it is not possible to make summary statistics out of it. R simply does not understand that we want to used those variables as numbers as we need to explain this to R.\nWe need to:\n\nmutate() existing variables (see definition of mutate here)\nthe help on the mutate() function is here with more case example here and a dedicated Chapter 5.5 in R4DS;\nand convert them to numeric or double type referred as <dbl>\nto convert variable type, we use as.numeric(), see: ?as.numeric or run as.numeric(c(\"-.1\",\" 2.7 \",\"B\")) in console.\n\nHere is the example that should work for one column:\n\nNote, it will only work if you made previous cleaning steps correctly.\nplease un-commencement it.\n\n\n# prices_dta_1 %>% \n#   mutate(oil = as.numeric(oil)) %>% \n#   glimpse()\n\nAs you can see now, oil variable has numeric format. Thus, when we run summary() we get description of the numerical values there:\n\n# prices_dta_1 %>% \n#   mutate(oil = as.numeric(oil)) %>% \n#   summary()\n\nNow, your turn to mutate all variable as numeric.\n\n# prices_dta_1 %>%\n#   mutate(oil = as.numeric(oil),\n#          wheat = ____________(____),\n#          _____ = ____________(urea),\n#          _____ = ____________(____),\n#          _____ = ____________(____)) %>%\n#   glimpse()\n\n\n\nEx. 1.7 Mutating date variable: dplyr::mutate(), janitor::convert_to_date().\nCheck results of the previous chunk!\n\nIt is clear that date variable is not a date, but a series of a number instead.\nThis is because Excel stores date as a number of days since January 1, 1990. Thus, 33664 is March 1, 1992.\nWe need to convert such date notations to some real dates using function janitor::convert_to_date().\nSee: ?convert_to_date.\nConvert date to the type <date> in the same way as variable type conversion at the previous step.\nAssign new object prices_dta_clean with the value of the data frame with all cleaning steps.\n\n\n# prices_dta_clean <- \n#   prices_dta_1 %>%\n#   mutate(oil = as.numeric(oil),\n#          wheat = ____________(____),\n#          _____ = ____________(urea),\n#          _____ = ____________(____),\n#          date = convert_to_date(____)) \n# prices_dta_clean %>% glimpse()\n\nWe have manage to clean the data!\nDo data summary() of the data to see what the variables are about.\n\n# \n\n\n\nEx. 1.8 Use skimr::skim() to generate summary statistics of the data\nGo to skimr website and learn how to use function skim(). Apply it to the prices_dta_clean data frame below and discuss how the results are different from summary().\n\nlibrary(skimr)       # install.packages(\"skimr\")\n# prices_dta_clean %>% \n#   _____()\n\n\n\nEx. 1.9 Plot a time-series of all four variables using ggplot2 package\nPlotting according to the grammar of graphics (gg) using package ggplot2 is a rewarding process. But, we need to follow some steps.\n\nWe need to make data clean and tidy.\n\nIdeally, data has to be in the long format, but wide data may also work\n\nSend data to ggplot() function to initiate a plot.\n\nNote, we use %>% (pipe) for this step: data %>% ggplot()\n\nStart adding (+) various aesthetics to the plot using aes() function:\n\nNote, inside the ggplot builder we use +, not a pipe! data %>% ggplot() + aes(x, y)\n\nAdd geometries using +\n\ndata %>% ggplot() + aes(x, y) + geom_line()\n\n\nLet us give it a try! Let us convert existing data to the plot basis and add an aesthetics for x axis:\n\nUse date as an aesthetics for x axis, wheat for y axis and a string \"wheat\" for color.\nDo not use quotation marks in aes for x and y.\nDo USE quotation marks in aes for colour.\n\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n\nR created a grid for a plot, but no plot. This is because, we did not add any geometries! Let us add a geom_path() to the plot.\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(aes(y = _______, colour = \"Maize\")) + \n#   geom_path(aes(y = _______, colour = \"_____\"))\n\nNow, we shall add another line to the plot with the Maize prices:\n\nwe need to add a line with a new geom_path(), and\nspecify aes() inside geom_path(),\nfor example geom_path(aes(y = maize, colour = \"Maize\")).\ndo not forget +.\n\nGo ahead:\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(_____(y = ______, colour = \"_____\"))\n\nAdd another line with `geom_path`, this time adding the oil prices to the plot.\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(_____(y = ______, colour = \"_____\")) + \n#   geom_path(_____(y = ______, colour = \"_____\"))\n\n\n\nSolution to the exercise 2\n\nprices_dta_clean <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\nglimpse(prices_dta_clean)\n\nRows: 359\nColumns: 5\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ oil   <dbl> 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…\n$ wheat <dbl> 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …\n$ maize <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ urea  <dbl> 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …\n\nsummary(prices_dta_clean)\n\n      date                 oil             wheat           maize       \n Min.   :1992-03-01   Min.   : 10.41   Min.   : 85.3   Min.   : 75.27  \n 1st Qu.:1999-08-16   1st Qu.: 20.93   1st Qu.:137.3   1st Qu.:104.16  \n Median :2007-02-01   Median : 46.17   Median :175.4   Median :150.15  \n Mean   :2007-01-30   Mean   : 50.48   Mean   :185.3   Mean   :155.62  \n 3rd Qu.:2014-07-16   3rd Qu.: 71.81   3rd Qu.:220.3   3rd Qu.:176.88  \n Max.   :2022-01-01   Max.   :132.83   Max.   :419.6   Max.   :333.05  \n                                       NA's   :1                       \n      urea       \n Min.   : 62.75  \n 1st Qu.:103.94  \n Median :213.88  \n Mean   :221.94  \n 3rd Qu.:278.70  \n Max.   :900.50  \n                 \n\nskim(prices_dta_clean)\n\n\nData summary\n\n\nName\nprices_dta_clean\n\n\nNumber of rows\n359\n\n\nNumber of columns\n5\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nDate\n1\n\n\nnumeric\n4\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: Date\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\ndate\n0\n1\n1992-03-01\n2022-01-01\n2007-02-01\n359\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\noil\n0\n1\n50.48\n30.88\n10.41\n20.93\n46.17\n71.81\n132.83\n▇▃▃▂▁\n\n\nwheat\n1\n1\n185.35\n65.07\n85.30\n137.26\n175.45\n220.31\n419.61\n▇▇▃▂▁\n\n\nmaize\n0\n1\n155.62\n62.66\n75.27\n104.16\n150.15\n176.88\n333.05\n▇▆▂▂▁\n\n\nurea\n0\n1\n221.93\n137.63\n62.75\n103.94\n213.88\n278.70\n900.50\n▇▅▁▁▁\n\n\n\n\nprices_dta_clean %>% \n  ggplot() + \n  aes(x = date, y = wheat, colour = \"Wheat\") + \n  geom_path() + \n  geom_path(aes(y = maize, colour = \"Maize\")) + \n  geom_path(aes(y = urea, colour = \"Urea\"))\n\nWarning: Removed 1 row(s) containing missing values (geom_path).\n\n\n\n\n\nSame plot could be build build in a more simple way if we use long formatted data.\n\nprices_dta_clean_long <- \n  prices_dta_clean %>% \n  pivot_longer(cols = c(oil:urea))\n\nglimpse(prices_dta_clean_long)\n\nRows: 1,436\nColumns: 3\n$ date  <date> 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…\n$ name  <chr> \"oil\", \"wheat\", \"maize\", \"urea\", \"oil\", \"wheat\", \"maize\", \"urea\"…\n$ value <dbl> 17.45, 161.44, 117.00, 120.00, 18.63, 153.07, 108.52, 120.00, 19…\n\nprices_dta_clean_long %>% \n  ggplot() + \n  aes(x = date, y = value, colour = name) + \n  geom_path()\n\nWarning: Removed 1 row(s) containing missing values (geom_path)."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-2.-optional-import-from-a-.csv-coma-separated-file",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-2.-optional-import-from-a-.csv-coma-separated-file",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Exercise 2. OPTIONAL Import from a .csv: coma separated file",
+    "text": "Exercise 2. OPTIONAL Import from a .csv: coma separated file\nHere is the example NHIS 2009 data used in the (Angrist and Pischke 2014). To load such data in R, we can use readr package from tidyverse readr.\nOne may use a visual import tool for data available in R studio. But remember to save the R code for data import in the script. Data import code must be a part of your analysis.\nThe challenge is to specify the right path to the file that we want to import. For this exercise, this file is also saved in the folder ./data/NHIS2009.csv\n\n2.1 Simple CSV file: readr::read_csv(), dplyr::glimpse() , base::summary() , utils::View()\nIn the folder data there is a file chicken.csv. Load it into the object chick.\n\nlibrary(readr)\n# chick <- read_csv(____)\n\nNow inspect the data:\n\nuse glimpse(____);\nprint the data set;\nView() the data;\n\n\n#\n\nTry function summary(_____).\n\n# \n\nWhat is the difference between summary and previous two ways of data exploration?\n\n\n2.2 Large and complex CSV file\nLoading larger CSV files is not different from loading small files. Below, load the file NHIS2009.csv from the folder data and then glimpse at it:\n\n# \n\n\n\nSolutions\n\nchick <- read_csv(\"data/chicken.csv\")\n\nNew names:\nRows: 5 Columns: 5\n── Column specification\n──────────────────────────────────────────────────────── Delimiter: \",\" chr\n(3): chicken, sex, motto dbl (2): ...1, eggs_laid\nℹ Use `spec()` to retrieve the full column specification for this data. ℹ\nSpecify the column types or set `show_col_types = FALSE` to quiet this message.\n• `` -> `...1`\n\nglimpse(chick)\n\nRows: 5\nColumns: 5\n$ ...1      <dbl> 1, 2, 3, 4, 5\n$ chicken   <chr> \"Foghorn Leghorn\", \"Chicken Little\", \"Ginger\", \"Camilla the …\n$ sex       <chr> \"rooster\", \"hen\", \"hen\", \"hen\", \"rooster\"\n$ eggs_laid <dbl> 0, 3, 12, 7, 0\n$ motto     <chr> \"That's a joke, ah say, that's a joke, son.\", \"The sky is fa…\n\n# View(chick)\nsummary(chick)\n\n      ...1     chicken              sex              eggs_laid   \n Min.   :1   Length:5           Length:5           Min.   : 0.0  \n 1st Qu.:2   Class :character   Class :character   1st Qu.: 0.0  \n Median :3   Mode  :character   Mode  :character   Median : 3.0  \n Mean   :3                                         Mean   : 4.4  \n 3rd Qu.:4                                         3rd Qu.: 7.0  \n Max.   :5                                         Max.   :12.0  \n    motto          \n Length:5          \n Class :character  \n Mode  :character  \n                   \n                   \n                   \n\nnhis <- read_csv(\"data/NHIS2009.csv\")\n\nRows: 80634 Columns: 40\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (38): year, inc1, inc2, inc3, inc4, inc5, inc6, inc7, inc8, serial, hhwe...\nlgl  (2): fml, marradult\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-3.-optional.-janitor-for-cleaning-data-in-r",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-3.-optional.-janitor-for-cleaning-data-in-r",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Exercise 3. OPTIONAL. janitor for cleaning data in R",
+    "text": "Exercise 3. OPTIONAL. janitor for cleaning data in R\nwe follow the data cleaning exercise form the janitor webpage. Data set is called dirty_data.xlsx and it is located in: ./data/dirty_data.xlsx or on the github.\n\nddta <- read_excel(\"./data/dirty_data.xlsx\")\n\nNew names:\n• `` -> `...2`\n• `` -> `...3`\n• `` -> `...5`\n• `` -> `...6`\n• `` -> `...7`\n• `` -> `...8`\n• `` -> `...9`\n• `` -> `...10`\n• `` -> `...11`\n\nglimpse(ddta)\n\nRows: 14\nColumns: 11\n$ `Data most recently refreshed on:` <chr> \"First Name\", \"Jason\", \"Jason\", \"Al…\n$ ...2                               <chr> \"Last Name\", \"Bourne\", \"Bourne\", \"K…\n$ ...3                               <chr> \"Employee Status\", \"Teacher\", \"Teac…\n$ `Dec-27 2020`                      <chr> \"Subject\", \"PE\", \"Drafting\", \"Music…\n$ ...5                               <chr> \"Hire Date\", \"39690\", \"43479\", \"371…\n$ ...6                               <chr> \"% Allocated\", \"0.75\", \"0.25\", \"1\",…\n$ ...7                               <chr> \"Full time?\", \"Yes\", \"Yes\", \"Yes\", …\n$ ...8                               <chr> \"do not edit! --->\", NA, NA, NA, NA…\n$ ...9                               <chr> \"Certification\", \"Physical ed\", \"Ph…\n$ ...10                              <chr> \"Certification\", \"Theater\", \"Theate…\n$ ...11                              <chr> \"Active?\", \"YES\", \"YES\", \"YES\", \"YE…\n\n\nAs you can see, this data is dirty. The problems are:\n\nVariables names are wrong, they are in fact in the first row of data.\nAll variables are in character type, when in fact some variables are in different format.\nThere are some columns that are empty.\nThere are some rows that are empty.\n\n\n3.1 Make all variables named as values in the first row.\nUse function row_to_names() and specify the parameter row_number to 1.\n\n# ddta %>% \n#   ____________(__________ = 1) %>% \n#   glimpse()\n\n\n\n3.2 Make all names nice\nCurrently, all names are (insert your code form previous step):\n\n# ddta %>% \n#   ____________(__________ = 1) %>% \n#   names()\n\nUse function clean_names(), to make names nice.\n\n# ddta %>%\n#   ____________(__________ = 1) %>%\n#   ____________() %>% \n#   glimpse()\n\n\n\n3.3 Make variable hire_data as date\nTo convert variable types to meaningful numeric variables, we need to use some more functions. Specifically, functions convert_to_date(). In addition, we need to use function mutate() to tell r to modify existing variable.\nHere is the example, where we use mutate to modify existing variable Sepal.Width with the same variable but as character string instead of a number.\n\niris %>% glimpse()\n\nRows: 150\nColumns: 5\n$ Sepal.Length <dbl> 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  <dbl> 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…\n$ Petal.Length <dbl> 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  <dbl> 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      <fct> setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\niris %>% \n  mutate(Sepal.Width = as.character(Sepal.Width)) %>% \n  glimpse()\n\nRows: 150\nColumns: 5\n$ Sepal.Length <dbl> 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  <chr> \"3.5\", \"3\", \"3.2\", \"3.1\", \"3.6\", \"3.9\", \"3.4\", \"3.4\", \"2.…\n$ Petal.Length <dbl> 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  <dbl> 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      <fct> setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\n\nUse the example from above to modify the variable hire_date with its values converted to date using function convert_to_date.\n\n#ddta %>%\n#   ____________(__________ = 1) %>%\n#   ____________() %>% \n#   mutate(_________ = ____________(hire_date)) %>% \n#  glimpse()\n\n\n\n3.4 Make variable percent_allocated as numeric\nSame as above, but now using function as.numeric().\n\n# ddta %>%\n#   ______________(__________ = 1) %>%\n#   ______________() %>%\n#   mutate(_________ = ____________(hire_date),\n#          percent_allocated = ________(___________)) %>%\n#   glimpse()\n\n\n\nSolutions\n\nddta <- read_excel(\"./data/dirty_data.xlsx\")\n\nNew names:\n• `` -> `...2`\n• `` -> `...3`\n• `` -> `...5`\n• `` -> `...6`\n• `` -> `...7`\n• `` -> `...8`\n• `` -> `...9`\n• `` -> `...10`\n• `` -> `...11`\n\nddta %>%\n  row_to_names(row_number = 1) %>%\n  clean_names() %>%\n  mutate(hire_date = as.numeric(hire_date),\n         percent_allocated = as.numeric(percent_allocated)) %>%\n  glimpse()\n\nWarning in row_to_names(., row_number = 1): Row 1 does not provide unique names.\nConsider running clean_names() after row_to_names().\n\n\nRows: 13\nColumns: 11\n$ first_name        <chr> \"Jason\", \"Jason\", \"Alicia\", \"Ada\", \"Desus\", \"Chien-S…\n$ last_name         <chr> \"Bourne\", \"Bourne\", \"Keys\", \"Lovelace\", \"Nice\", \"Wu\"…\n$ employee_status   <chr> \"Teacher\", \"Teacher\", \"Teacher\", \"Teacher\", \"Adminis…\n$ subject           <chr> \"PE\", \"Drafting\", \"Music\", NA, \"Dean\", \"Physics\", \"C…\n$ hire_date         <dbl> 39690, 43479, 37118, 38572, 42791, 11037, 11037, NA,…\n$ percent_allocated <dbl> 0.75, 0.25, 1.00, 1.00, 1.00, 0.50, 0.50, NA, 0.50, …\n$ full_time         <chr> \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", NA,…\n$ do_not_edit       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA\n$ certification     <chr> \"Physical ed\", \"Physical ed\", \"Instr. music\", \"PENDI…\n$ certification_2   <chr> \"Theater\", \"Theater\", \"Vocal music\", \"Computers\", NA…\n$ active            <chr> \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", NA,…"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#functional-reference",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#functional-reference",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Functional reference",
+    "text": "Functional reference\nIn this exercise, we shall practice the following:\nLoading data:\n\nreadr::read_csv() and readxl::excel_sheets() with readxl::read_excel();\n\nInspecting data:\n\ndplyr::glimpse(), utils::View(), utils::head(), base::names();\n\nData summary:\n\nbase::summary(); Renaming variables:\njanitor::clean_names(...), dplyr::rename();\n\nRemoving undesired observations/row by their number in the data with:\n\ndplyr::slice();\n\nMutating/modifying types of existing variables:\n\ndplyr::mutate()\n\nConverting excel dates to R-relevant <date> variable type:\n\njanitor::convert_to_date() and janitor::excel_numeric_to_date().\n\nSummary statistics with:\n\nskimr::skim().\n\nPlotting time series with:\n\nggplot2::ggplot(), ggplot2::aes(), ggplot2::geom_path()."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html",
+    "title": "AE03-03 Correlation",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")\nlibrary(lubridate)   # install.packages(\"lubridate\")\n\nggplot2::theme_set(ggplot2::theme_minimal())\n\nknitr::opts_chunk$set(out.width = 60)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#data-import-and-cleaning",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#data-import-and-cleaning",
+    "title": "AE03-03 Correlation",
+    "section": "Data import and cleaning",
+    "text": "Data import and cleaning\n\nImporting and cleaning data in the wide format\nPractically the same procedure that we did in the previous exercise.\n\np_wd <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\nglimpse(p_wd)\n\nRows: 359\nColumns: 5\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ oil   <dbl> 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…\n$ wheat <dbl> 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …\n$ maize <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ urea  <dbl> 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …\n\n\n\n\nConverting data to the long format\n\np_lg <- \n  p_wd %>% \n  pivot_longer(cols = c(oil:urea), \n               names_to = \"var\", \n               values_to = \"price\") %>% \n  arrange(date, var)\nglimpse(p_lg)\n\nRows: 1,436\nColumns: 3\n$ date  <date> 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…\n$ var   <chr> \"maize\", \"oil\", \"urea\", \"wheat\", \"maize\", \"oil\", \"urea\", \"wheat\"…\n$ price <dbl> 117.00, 17.45, 120.00, 161.44, 108.52, 18.63, 120.00, 153.07, 10…"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#example-computing-prices-index-with-some-base",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#example-computing-prices-index-with-some-base",
+    "title": "AE03-03 Correlation",
+    "section": "Example: Computing prices index with some base",
+    "text": "Example: Computing prices index with some base\nIndex of a variable with a base is a mathematical transformation of a variable, where each value of a variable is divided by the base value and then multiplied by 100.\n\\[\n{I}_{i} = \\frac{x_i}{x_{base}} \\times 100\n\\]\nThis is easy in Excel, but tricky without it!\nLet us demonstrate the logic of calculations based on a simple example of 2 commodities (wheat and urea) and few month in year 2010.\n\nStep 1. Filter a sub-sample\nAs discussed above, we want to:\n\nfilter data, where year is 2010, month less than 6, var is \"wheat\" or \"maize\"\n\nWhich identically translate into R code as:\n\nfilter(data, year(date) == 2010, month(date) < 6, var %in% c(\"wheat\", \"maize\"))`\nfilter data, where year is 2010, month less than 6, var is \"wheat\" or \"maize\"\n\n\np_lg_sb <- \n  filter(p_lg, \n         year(date) == 2010, \n         month(date) < 6, \n         var %in% c(\"wheat\", \"maize\")) %>% \n  arrange(var, date)\np_lg_sb\n\n# A tibble: 10 × 3\n   date       var   price\n   <date>     <chr> <dbl>\n 1 2010-01-01 maize  167.\n 2 2010-02-01 maize  162.\n 3 2010-03-01 maize  159.\n 4 2010-04-01 maize  157.\n 5 2010-05-01 maize  163.\n 6 2010-01-01 wheat  199.\n 7 2010-02-01 wheat  192.\n 8 2010-03-01 wheat  190.\n 9 2010-04-01 wheat  188.\n10 2010-05-01 wheat  190.\n\n\n\n\nStep 2. Create variable with the base for indexing\nHere we want to:\n\nfor each groups of commodities \"var\", mutate variable \"base\", which is equal to \"price\" when month is equal to 1 and year is equal to 2010.\n\nIn language of R this is:\n\np_lg_sb %>% \n  group_by(var) %>%           # 1. for each groups of commodities \"var\"\n  mutate(                     # 2. mutate\n    base = ifelse(            # 3. variable \"base\", which is equal to\n      month(date) == 1 &      # 5. when month is equal to 1 and\n        year(date) == 2010,   # 6. year is equal to 2010\n      price,                  # 4. \"price\"\n      NA                      # 7. missing value is in other cases\n      )\n    )\n\n# A tibble: 10 × 4\n# Groups:   var [2]\n   date       var   price  base\n   <date>     <chr> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167.\n 2 2010-02-01 maize  162.   NA \n 3 2010-03-01 maize  159.   NA \n 4 2010-04-01 maize  157.   NA \n 5 2010-05-01 maize  163.   NA \n 6 2010-01-01 wheat  199.  199.\n 7 2010-02-01 wheat  192.   NA \n 8 2010-03-01 wheat  190.   NA \n 9 2010-04-01 wheat  188.   NA \n10 2010-05-01 wheat  190.   NA \n\n\n\n\nStep 3. Make sure that base is the same for all observations in each group var\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\")\n\n# A tibble: 10 × 4\n# Groups:   var [2]\n   date       var   price  base\n   <date>     <chr> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167.\n 2 2010-02-01 maize  162.  167.\n 3 2010-03-01 maize  159.  167.\n 4 2010-04-01 maize  157.  167.\n 5 2010-05-01 maize  163.  167.\n 6 2010-01-01 wheat  199.  199.\n 7 2010-02-01 wheat  192.  199.\n 8 2010-03-01 wheat  190.  199.\n 9 2010-04-01 wheat  188.  199.\n10 2010-05-01 wheat  190.  199.\n\n\n\n\nStep 4. Calculate index\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100)\n\n# A tibble: 10 × 5\n# Groups:   var [2]\n   date       var   price  base index\n   <date>     <chr> <dbl> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167. 100  \n 2 2010-02-01 maize  162.  167.  96.7\n 3 2010-03-01 maize  159.  167.  95.1\n 4 2010-04-01 maize  157.  167.  93.9\n 5 2010-05-01 maize  163.  167.  97.7\n 6 2010-01-01 wheat  199.  199. 100  \n 7 2010-02-01 wheat  192.  199.  96.5\n 8 2010-03-01 wheat  190.  199.  95.6\n 9 2010-04-01 wheat  188.  199.  94.5\n10 2010-05-01 wheat  190.  199.  95.7\n\n\n\n\nOptional example: calculate index, where base is average of month 2 and 3\n\np_lg_sb %>%\n  group_by(var) %>%\n  mutate(base = ifelse(month(date) %in% c(2,3) & \n                         year(date) == 2010, \n                       price, \n                       NA)) %>% \n  mutate(base_full = mean(base, na.rm = TRUE)) %>% \n  mutate(index = price / base_full * 100)\n\n# A tibble: 10 × 6\n# Groups:   var [2]\n   date       var   price  base base_full index\n   <date>     <chr> <dbl> <dbl>     <dbl> <dbl>\n 1 2010-01-01 maize  167.   NA       160. 104. \n 2 2010-02-01 maize  162.  162.      160. 101. \n 3 2010-03-01 maize  159.  159.      160.  99.1\n 4 2010-04-01 maize  157.   NA       160.  97.9\n 5 2010-05-01 maize  163.   NA       160. 102. \n 6 2010-01-01 wheat  199.   NA       191. 104. \n 7 2010-02-01 wheat  192.  192.      191. 100. \n 8 2010-03-01 wheat  190.  190.      191.  99.5\n 9 2010-04-01 wheat  188.   NA       191.  98.4\n10 2010-05-01 wheat  190.   NA       191.  99.7\n\n\nNote, we specify mean(…, na.rm = TRUE) because when we compute mean, there are some missing observations in the variable. Mean of a vector with missing observation will return NA.\n\nmean(c(1, 2, 3, 4, NA))\n\n[1] NA\n\n\nIf we specify parameter to ignore NA in the data, we will get a result:\n\nmean(c(1, 2, 3, 4, NA), na.rm = TRUE)\n\n[1] 2.5"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 1. Compute prices index with base mean prices in 2010",
+    "text": "Exercise 1. Compute prices index with base mean prices in 2010\nFollowing the previous examples, let us compute:\n\nStep 1. for each group of var;\nStep 2. mutate base_part, which contains price if year is 2010 and NA in else cases;\nStep 3. mutate base with the mean() value of base_part price with parameter na.rm = TRUE;\nStep 4. mutate price index against such base;\nStep 5. ungroup data\nStep 6. select variables date, var, price and index\n\n\n# p_index <- \n#   p_lg %>%\n#   ________() %>%                               # step 1.\n#   ______(                                      # step 2.\n#     base_part = \n#       ifelse(year(_____) == 2010, price, ____)\n#     ) %>% \n#   ______(                                      # step 3.\n#     base = ______(_______, na.rm = TRUE)\n#     ) %>%  \n#   mutate(index = ____ / _____ * 100) %>%       # step 4.\n#   ungroup() %>%                                # step 5.\n#   select(date, var, price, index)              # step 6.\n# \n# glimpse(p_index)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 2. Plot time series of indexes for wheat and urea",
+    "text": "Exercise 2. Plot time series of indexes for wheat and urea\nBefore plotting we need to filter var when it is %in% \"wehat\" or \"urea\";\nRemember from the previous exercises: ggplot() + aes() + geom_path()\n\nUse labs(x = \"\", y = \"\", title = \"\") to give meaningful labels to the plot.\n\n\n# p_index %>% \n#   ______(var %in% c(\"wheat\", ______)) %>% \n#   ______() + \n#   aes(x = _____, y = _______, colour = var) + \n#   geom_path() + \n#   labs()\n\nAnswer the following questions:\n\nCan we conclude, based on the plot, that surging prices of urea cause the wheat prices to surge?\nWhat could be a theoretical explanation for this?\nWhat could be the theoretical mechanism of urea prices effect on wheat?"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 3. Build a correlation table between price indices of different commodities",
+    "text": "Exercise 3. Build a correlation table between price indices of different commodities\nFirst, we need to convert our data to wide format again:\n\n# p_index_wd <-\n#   p_index %>% \n#   pivot_wider(names_from = var, values_from = c(price, index))\n# glimpse(p_index_wd)\n\nTo make a correlation table, we use package correlation and a function with the same name. We use summary to convert correlation table with extensive results to a compact matrix\n\nWe select only those variables, where names contains() string index.\n\n\nlibrary(correlation)\n\n# p_index_wd %>% \n#   select(contains(\"index\")) %>% \n#   correlation() %>% \n#   summary()\n\n# p_index_wd %>% \n#   select(contains(\"price\")) %>% \n#   correlation() %>% \n#   summary()\n\n\nDoes this correlation coefficients suggests about causation if we assume that theory does justifies causal relationship?\n\nRun the same correlations but without summary(). What are the differences?\n\n# p_index_wd %>% \n#   ______(_______(\"index\")) %>% \n#   _________()\n\n# ______ %>% \n#   ______(______(\"price\")) %>% \n#   ______()"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-4.-compute-a-first-difference-of-indices-with-lag-1",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-4.-compute-a-first-difference-of-indices-with-lag-1",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 4. Compute a first difference of indices with lag 1",
+    "text": "Exercise 4. Compute a first difference of indices with lag 1\nFirst difference is a change of value in the next period, compared to the previous one. To compute it, we use function lag() and perform similar mutate operations.\n\nSimple example of a first difference\nBefore, we computed index in the following way:\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100)\n\n# A tibble: 10 × 5\n# Groups:   var [2]\n   date       var   price  base index\n   <date>     <chr> <dbl> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167. 100  \n 2 2010-02-01 maize  162.  167.  96.7\n 3 2010-03-01 maize  159.  167.  95.1\n 4 2010-04-01 maize  157.  167.  93.9\n 5 2010-05-01 maize  163.  167.  97.7\n 6 2010-01-01 wheat  199.  199. 100  \n 7 2010-02-01 wheat  192.  199.  96.5\n 8 2010-03-01 wheat  190.  199.  95.6\n 9 2010-04-01 wheat  188.  199.  94.5\n10 2010-05-01 wheat  190.  199.  95.7\n\n\nlet us mutate() the index_fd variable:\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100) %>% \n  mutate(index_fd = index - lag(index))\n\n# A tibble: 10 × 6\n# Groups:   var [2]\n   date       var   price  base index index_fd\n   <date>     <chr> <dbl> <dbl> <dbl>    <dbl>\n 1 2010-01-01 maize  167.  167. 100     NA    \n 2 2010-02-01 maize  162.  167.  96.7   -3.29 \n 3 2010-03-01 maize  159.  167.  95.1   -1.64 \n 4 2010-04-01 maize  157.  167.  93.9   -1.18 \n 5 2010-05-01 maize  163.  167.  97.7    3.77 \n 6 2010-01-01 wheat  199.  199. 100     NA    \n 7 2010-02-01 wheat  192.  199.  96.5   -3.51 \n 8 2010-03-01 wheat  190.  199.  95.6   -0.926\n 9 2010-04-01 wheat  188.  199.  94.5   -1.11 \n10 2010-05-01 wheat  190.  199.  95.7    1.29 \n\n\nUsing simple example, let us compute the first difference of the index for the entire data.\n\n# p_index_fd <- \n#   ______ %>% \n#   group_by(______) %>% \n#   mutate(index_fd = ______ - lag(______)) %>% \n#   ungroup() %>% \n#   select(date, var, index_fd) %>% \n#   pivot_wider(names_from = var, \n#               values_from = c(index_fd))\n#\n# p_index_fd %>% \n#   glimpse()"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 5. Build a correlation table between first differences of indices for different commodities",
+    "text": "Exercise 5. Build a correlation table between first differences of indices for different commodities\nAs the same exercise before, we use correlation package and the same function.\n\n# p_index_fd %>% \n#   correlation() %>% \n#   summary()\n\n\nBased on this results, does urea prices causes surges in the wheat prices?\nWhat kind of causal relationship could be there?"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-6.-compute-first-differences-with-lag-2-and-3",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-6.-compute-first-differences-with-lag-2-and-3",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 6. Compute first differences with lag 2 and 3",
+    "text": "Exercise 6. Compute first differences with lag 2 and 3\n\n# p_index_fd_lags <- \n#   p_index %>% \n#   group_by(var) %>% \n#   mutate(fd = index - lag(index, 1)) %>% \n#   ungroup() %>% \n#   select(date, var, contains(\"fd\")) %>% \n#   pivot_wider(names_from = var, \n#               values_from = c(contains(\"fd\"))) %>% \n#   mutate(urea_fd1 = urea,\n#          urea_fd2 = lag(urea, 2),\n#          urea_fd3 = lag(urea, 3),\n#          urea_fd4 = lag(urea, 4),\n#          urea_fd5 = lag(urea, 5)\n#   )\n# \n# correlation(p_index_fd_lags) %>% summary()"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#solutions",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#solutions",
+    "title": "AE03-03 Correlation",
+    "section": "Solutions",
+    "text": "Solutions\n\np_wd <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\np_lg <- \n  p_wd %>% \n  pivot_longer(cols = c(oil:urea), \n               names_to = \"var\", \n               values_to = \"price\") %>% \n  arrange(var, date)\n\n\nEx. 1\n\np_index <- \n  p_lg %>%\n  group_by() %>%                               # step 1.\n  mutate(                                      # step 2.\n    base_part = \n      ifelse(year(date) == 2010, price, NA)\n    ) %>% \n  mutate(                                      # step 3.\n    base = mean(base_part, na.rm = TRUE)\n    ) %>%  \n  mutate(index = price / base * 100) %>%       # step 4.\n  ungroup() %>%                                # step 5.\n  select(date, var, price, index)              # step 6.\n\nglimpse(p_index)\n\nRows: 1,436\nColumns: 4\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ var   <chr> \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"…\n$ price <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ index <dbl> 59.72918, 55.40009, 55.97185, 56.61509, 52.45447, 49.49864, 50.0…\n\n\n\n\nEx. 2\n\np_index %>% \n  filter(var %in% c(\"wheat\", \"urea\")) %>%\n  ggplot() + \n  aes(x = date, y = index, colour = var) + \n  geom_path() + \n  labs(x = \"Date\", y = \"Price index, 2010 = 100\",\n       title = \"Price indices of key commodities\",\n       colour = NULL)\n\nWarning: Removed 1 row(s) containing missing values (geom_path).\n\n\n\n\n\n\n\nEx. 3\n\np_index_wd <-\n  p_index %>% \n  pivot_wider(names_from = var, values_from = c(price, index))\n\nlibrary(correlation)\n\np_index_wd %>% \n  select(contains(\"index\")) %>% \n  correlation() %>% \n  summary()\n\nRegistered S3 method overwritten by 'parameters':\n  method                         from      \n  format.parameters_distribution datawizard\n\n\n# Correlation Matrix (pearson-method)\n\nParameter   | index_wheat | index_urea | index_oil\n--------------------------------------------------\nindex_maize |     0.89*** |    0.77*** |   0.81***\nindex_oil   |     0.79*** |    0.80*** |          \nindex_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\np_index_wd %>% \n  select(contains(\"price\")) %>% \n  correlation() %>% \n  summary()\n\n# Correlation Matrix (pearson-method)\n\nParameter   | price_wheat | price_urea | price_oil\n--------------------------------------------------\nprice_maize |     0.89*** |    0.77*** |   0.81***\nprice_oil   |     0.79*** |    0.80*** |          \nprice_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\n\n\n\nEx. 4\n\np_index_fd <- \n  p_index %>% \n  group_by(var) %>% \n  mutate(index_fd = index - lag(index)) %>% \n  ungroup() %>% \n  select(date, var, index_fd) %>% \n  pivot_wider(names_from = var,\n              values_from = c(index_fd))"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic waste.html",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic waste.html",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "",
+    "text": "This exercise is adopted from ata Science in a Box."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#setup",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#setup",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#data",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#data",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "Data",
+    "text": "Data\nThe dataset for this assignment can be found as a csv file in the data folder of your repository. You can read it in using the following.\n\nplastic_waste <- read_csv(\"data/plastic-waste.csv\")\n\nThe variable descriptions are as follows:\n\ncode: 3 Letter country code\nentity: Country name\ncontinent: Continent name\nyear: Year\ngdp_per_cap: GDP per capita constant 2011 international $, rate\nplastic_waste_per_cap: Amount of plastic waste per capita in kg/day\nmismanaged_plastic_waste_per_cap: Amount of mismanaged plastic waste per capita in kg/day\nmismanaged_plastic_waste: Tonnes of mismanaged plastic waste\ncoastal_pop: Number of individuals living on/near coast\ntotal_pop: Total population according to Gapminder"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "mp223 Applied Econometric Methods for the Social Sciences (SoSe 2022)",
     "section": "",
     "text": "This is the website where most lectures, R application exercises and supplementary materials are developed for the course MP223 Applied Econometric Methods for the Social Sciences (SoSe 2022). it is not a substitute of course Ilias or course StudIP pages, but rather a convenient way of making the slides accessible, downloadable and nice."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#r-setup",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#r-setup",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "R setup",
+    "text": "R setup\n\nlibrary(tidyverse)       # for data wrangling\n\n# set default theme and larger font size for ggplot2\nggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))\n\n# set default figure parameters for knitr\nknitr::opts_chunk$set(\n  fig.width = 8,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"80%\"\n)"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#data-analysis-workflow",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#data-analysis-workflow",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Data analysis workflow",
+    "text": "Data analysis workflow\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-14",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-14",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (1/4)",
+    "text": "Tidy data (1/4)\n\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-24-wide-format",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-24-wide-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (2/4) wide format",
+    "text": "Tidy data (2/4) wide format\n\n\nSee: Data transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-34-long-format",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-34-long-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (3/4) long format",
+    "text": "Tidy data (3/4) long format\n\n\nSee: Data transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-44-transformation",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-44-transformation",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (4/4) transformation",
+    "text": "Tidy data (4/4) transformation\n\n\nSee: Data transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#wrangling",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#wrangling",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Wrangling",
+    "text": "Wrangling\n\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-and-wrangling-see-also",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-and-wrangling-see-also",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data and Wrangling: See also",
+    "text": "Tidy data and Wrangling: See also\n R4DS: R for data science by Hadley Wickham and Garrett Grolemund (book’s source code) (Wickham and Grolemund 2017)\n\nRecommended. Practice:\n\n Primers: Programming basics\n7.1.2 Wrangling and tidying data in Data Science in a Box\n\nRecommended. Read:\n\n R4DS Ch 9. Wrangle\n R4DS Ch. 12. Tidy data\nCHEATSHEET: Data tidying with tidyr cheatsheet\n\nOptional. Watch:\n\n Tidy data video + slides\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#takeaways",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#takeaways",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nTidy data: Wide + long formats\nData analysis workflow\nLearning materials"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#references",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#references",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science. O’Reilly Media. http://r4ds.had.co.nz/."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#general-notes",
+    "href": "slides/50-data-wrangling/import-data.html#general-notes",
+    "title": "Import data",
+    "section": "General notes",
+    "text": "General notes\nData import must be done in a reproducible way!\n\n\nRaw data must be stored together with the project.\nData import and cleaning should be done with scripts.\n\n\n\nIt is tricky to load data, because, we need to interact with the file system.\n\nYou may use interactive Users Interface to load data once,\nBut you should use R code to reload same data again.\n\n\n\n\n\n\n\n\n\nImportant\n\n\nAlways save data import R code in your scripts!"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#data-import-more-materials",
+    "href": "slides/50-data-wrangling/import-data.html#data-import-more-materials",
+    "title": "Import data",
+    "section": "Data import: more materials",
+    "text": "Data import: more materials\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readr-package-23-key-functions",
+    "href": "slides/50-data-wrangling/import-data.html#readr-package-23-key-functions",
+    "title": "Import data",
+    "section": "readr package (2/3) key functions",
+    "text": "readr package (2/3) key functions\n\n\n\nread_csv() - for a coma separate data in the text file\nread_dta() - for Stata data files.\n\n\nThe file, which we want to read is in\n\n\n[1] \"/home/runner/work/_temp/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/readr/2.1.2/9c59de1357dc209868b5feb5c9f0fe2f/readr/extdata/chickens.csv\"\n\n\nInstead of specifying the path to this file, we use readr_example(\"chickens.csv\").\n\n\nRows: 5\nColumns: 4\n$ chicken   <chr> \"Foghorn Leghorn\", \"Chicken Little\", \"Ginger\", \"Camilla the …\n$ sex       <chr> \"rooster\", \"hen\", \"hen\", \"hen\", \"rooster\"\n$ eggs_laid <dbl> 0, 3, 12, 7, 0\n$ motto     <chr> \"That's a joke, ah say, that's a joke, son.\", \"The sky is fa…"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readr-package-33-user-interface",
+    "href": "slides/50-data-wrangling/import-data.html#readr-package-33-user-interface",
+    "title": "Import data",
+    "section": "readr package (3/3) user interface",
+    "text": "readr package (3/3) user interface\n\nStep 1Step 2Step 3Step 4Step 5"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readxl-package-23-basic-usage",
+    "href": "slides/50-data-wrangling/import-data.html#readxl-package-23-basic-usage",
+    "title": "Import data",
+    "section": "readxl package (2/3) Basic usage",
+    "text": "readxl package (2/3) Basic usage\n\nStep 1 Path to the fileStep 2 SheetsStep 3 Data in R\n\n\n\nFirst, locate the file.\n\n\n\n[1] \"/home/runner/work/_temp/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/readxl/1.4.0/170c35f745563bb307e963bde0197e4f/readxl/extdata/datasets.xls\"\n\n\n\nThen, open it manually to see if it is alright.\n\n\n\n\nThen, check what sheets re present there:\n\n\n\n[1] \"iris\"     \"mtcars\"   \"chickwts\" \"quakes\"  \n\n\n\n\n\n\nRows: 71\nColumns: 2\n$ weight <dbl> 179, 160, 136, 227, 217, 168, 108, 124, 143, 140, 309, 229, 181…\n$ feed   <chr> \"horsebean\", \"horsebean\", \"horsebean\", \"horsebean\", \"horsebean\"…"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readxl-package-33-user-interface",
+    "href": "slides/50-data-wrangling/import-data.html#readxl-package-33-user-interface",
+    "title": "Import data",
+    "section": "readxl package (3/3) user interface",
+    "text": "readxl package (3/3) user interface\n\nStep 1Step 2Step 3Step 4Step 5"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#janitor-package-22-key-functions",
+    "href": "slides/50-data-wrangling/import-data.html#janitor-package-22-key-functions",
+    "title": "Import data",
+    "section": "janitor package (2/2) key functions",
+    "text": "janitor package (2/2) key functions\n\njanitor::clean_names() - Cleans names of an object (usually a data.frame).\njanitor::row_to_names(row_number = 1) - Elevate a row to be the column names of a data.frame.\njanitor::convert_to_date() + excel_numeric_to_date() - Convert many date and datetime formats as may be received from Microsoft Excel\njanitor::remove_empty() - Remove empty rows and/or columns from a data.frame or matrix."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#r-setup",
+    "href": "slides/50-data-wrangling/dplyr.html#r-setup",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "R setup",
+    "text": "R setup\n\nlibrary(tidyverse)       # for data wrangling\n\n# set default theme and larger font size for ggplot2\nggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))\n\n# set default figure parameters for knitr\nknitr::opts_chunk$set(\n  fig.width = 8,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"80%\"\n)"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#data-analysis-workflow",
+    "href": "slides/50-data-wrangling/dplyr.html#data-analysis-workflow",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Data analysis workflow",
+    "text": "Data analysis workflow\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-15",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-15",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (1/5)",
+    "text": "Tidy data (1/5)\n\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-25-wide-format",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-25-wide-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (2/5) wide format",
+    "text": "Tidy data (2/5) wide format\n\n\nSee: Data transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-35-long-format",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-35-long-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (3/5) long format",
+    "text": "Tidy data (3/5) long format\n\n\nSee: Data transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-45-transformation",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-45-transformation",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (4/5) transformation",
+    "text": "Tidy data (4/5) transformation\n\n\nSee: Data transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-55.-learn-more",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-55.-learn-more",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (5/5). Learn more?",
+    "text": "Tidy data (5/5). Learn more?\nRead:\n\n R4DS Ch. 12. Tidy data\n\n\nFollow slides, videos and exercises:\n\n\n\nChapter 7.1.2 Wrangling and tidying data in Data Science in a Box"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#wrangling",
+    "href": "slides/50-data-wrangling/dplyr.html#wrangling",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Wrangling",
+    "text": "Wrangling\n\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#wrangling-see-also",
+    "href": "slides/50-data-wrangling/dplyr.html#wrangling-see-also",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Wrangling: See also",
+    "text": "Wrangling: See also\nRead:\n\n R4DS: R for data science by Hadley Wickham and Garrett Grolemund (book’s source code) (Wickham and Grolemund 2017)\nR4DS Ch 9. Wrangle\n\n\nWatch\n\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyr-package",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyr-package",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr package",
+    "text": "dplyr package\n\n\n\n\n\n\n\n\n\n\n\n\nDoes data wrangling.\n\nDocumentation tidyverse/dplyr + Source code\nCheat sheets Data transformation with dplyr\nLearn by doing R4DS Ch 5. Data transformation"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyr-package-getting-started",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyr-package-getting-started",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr package: getting started",
+    "text": "dplyr package: getting started\nArticle: Introduction to dplyr\n\nCheat sheets: Data transformation with dplyr\n\n\nWebinar: Data wrangling with R and RStudio by Garrett Grolemund\n\n\nInteractive exercises (repeated on following slides)\n\nWorking with Tibbles\nIsolating Data with dplyr\nFilter observations\nDerive Information with dplyr\nSummarizing data\n\n\n\nReadings:\n\nR4DS Chapter 5 Data transformation"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrrename-rename-columns",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrrename-rename-columns",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::rename() Rename columns",
+    "text": "dplyr::rename() Rename columns\n\n\n\nRead about in R4DS Ch. 5.4 + function reference (see examples!)"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrmutate-create-modify-and-delete-columns",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrmutate-create-modify-and-delete-columns",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::mutate() Create, modify, and delete columns",
+    "text": "dplyr::mutate() Create, modify, and delete columns\n\n\n\nRead about in R4DS Ch. 5.5 + function reference\n\n\n\n\nArticles: Add new columns with mutate and Column-wise operations\n\n\n\n\nInteractive exercises: Derive Information with dplyr, Summarizing data and Road Traffic Accidents"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrfilter-12-subset-rows-using-column-values",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrfilter-12-subset-rows-using-column-values",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::filter() (1/2) subset rows using column values",
+    "text": "dplyr::filter() (1/2) subset rows using column values\n\n\n\nRead about in R4DS Ch. 5.2 + function reference (see examples!)\n\n\n\n\nArticle: Filter rows with filter()\n\n\n\nInteractive exercises: Isolating Data with dplyr and Filter observations."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrfilter-22-relies-on-logical-operators",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrfilter-22-relies-on-logical-operators",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::filter() (2/2) relies on logical operators",
+    "text": "dplyr::filter() (2/2) relies on logical operators\n\n\nSee: ?Comparison and ?base::Logic"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrselect-subset-columns-using-their-names-and-types",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrselect-subset-columns-using-their-names-and-types",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::select() Subset columns using their names and types",
+    "text": "dplyr::select() Subset columns using their names and types\n\n\n\nRead about in R4DS Ch. 5.4 + function reference (see examples!)\n\n\n\nInteractive exercises: Isolating Data with dplyr"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#left-for-later",
+    "href": "slides/50-data-wrangling/dplyr.html#left-for-later",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Left for later",
+    "text": "Left for later\n\ndplyr::summarise()\ndplyr::group_by()\ndplyr::arrange()\ndplyr::pull()\ndplyr::distinct()\ndplyr::count()"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#skimr-package",
+    "href": "slides/50-data-wrangling/dplyr.html#skimr-package",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "skimr package",
+    "text": "skimr package\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation ropensci/skimr + Source code\nLearn by doing Using Skimr\n\nKey functions: skimr::skim()."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#correlation-1",
+    "href": "slides/50-data-wrangling/dplyr.html#correlation-1",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Correlation",
+    "text": "Correlation\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation easystats/correlation + Source code\nLearn by doing Using correlation\n\nKey functions: correlation::correlation()."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#references-1",
+    "href": "slides/50-data-wrangling/dplyr.html#references-1",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science. O’Reilly Media. http://r4ds.had.co.nz/."
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#summary-of-a-single-variables",
+    "href": "slides/20-data-description/exploring-numeric-data.html#summary-of-a-single-variables",
+    "title": "Exploring numerical data",
+    "section": "Summary of a single variables",
+    "text": "Summary of a single variables\n\nun_dta %>% pull(fertility) %>% mean()\n\n[1] 2.761383\n\n\n\n\nmean(un_dta$fertility)\n\n[1] 2.761383\n\n\n\n\n\nun_dta %>% pull(fertility) %>% sd()\n\n[1] 1.339589\n\n\n\n\n\nsd(un_dta$fertility)\n\n[1] 1.339589"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-13",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-13",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (1/3)",
+    "text": "Using dplyr::summarise() (1/3)"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-23",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-23",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (2/3)",
+    "text": "Using dplyr::summarise() (2/3)\n\nun_dta %>%\n  summarise(\n    mean_fert = mean(fertility)\n  ) \n\n# A tibble: 1 × 1\n  mean_fert\n      <dbl>\n1      2.76"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-23-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-23-1",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (2/3)",
+    "text": "Using dplyr::summarise() (2/3)\n\nun_dta %>%\n  summarise(\n    mean_fert = mean(fertility),\n    sd_ppgdp = sd(ppgdp)\n  ) \n\n# A tibble: 1 × 2\n  mean_fert sd_ppgdp\n      <dbl>    <dbl>\n1      2.76   18412."
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-23-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-23-2",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (2/3)",
+    "text": "Using dplyr::summarise() (2/3)\n\nun_dta %>%\n  summarise(\n    mean_fert = mean(fertility),\n    sd_ppgdp = sd(ppgdp),\n    med_lifeExpF = median(lifeExpF)\n  ) \n\n# A tibble: 1 × 3\n  mean_fert sd_ppgdp med_lifeExpF\n      <dbl>    <dbl>        <dbl>\n1      2.76   18412.         75.9"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (3/3)",
+    "text": "Using dplyr::summarise() (3/3)\n\nun_dta %>%\n  summarise(across(\n    c(fertility),\n    list(\n      means = mean\n    )\n  )) %>% \n  t()\n\n                    [,1]\nfertility_means 2.761383"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33-1",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (3/3)",
+    "text": "Using dplyr::summarise() (3/3)\n\nun_dta %>%\n  summarise(across(\n    c(fertility, ppgdp),\n    list(\n      means = mean\n    )\n  )) %>% \n  t()\n\n                        [,1]\nfertility_means     2.761383\nppgdp_means     13011.951759"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33-2",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (3/3)",
+    "text": "Using dplyr::summarise() (3/3)\n\nun_dta %>%\n  summarise(across(\n    c(fertility, ppgdp),\n    list(\n      means = mean,\n      medians = ~ median(., na.rm = TRUE)\n    )\n  )) %>% \n  t()\n\n                          [,1]\nfertility_means       2.761383\nfertility_medians     2.262000\nppgdp_means       13011.951759\nppgdp_medians      4684.500000"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33-3",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrsummarise-33-3",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::summarise() (3/3)",
+    "text": "Using dplyr::summarise() (3/3)\n\nun_dta %>%\n  summarise(across(\n    c(fertility, ppgdp),\n    list(\n      means = mean,\n      medians = ~ median(., na.rm = TRUE),\n      sd = ~ sd(., na.rm = TRUE),\n      n_nonmis = ~ sum(!is.na(.))\n    )\n  )) %>% \n  t()\n\n                           [,1]\nfertility_means        2.761383\nfertility_medians      2.262000\nfertility_sd           1.339589\nfertility_n_nonmis   199.000000\nppgdp_means        13011.951759\nppgdp_medians       4684.500000\nppgdp_sd           18412.443368\nppgdp_n_nonmis       199.000000"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-13",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-13",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::group_by() + dplyr::summarise() (1/3)",
+    "text": "Using dplyr::group_by() + dplyr::summarise() (1/3)"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-23",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-23",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::group_by() + dplyr::summarise() (2/3)",
+    "text": "Using dplyr::group_by() + dplyr::summarise() (2/3)\n\nun_dta %>% \n  # group_by(region) %>% \n  summarise(mean_fert = mean(fertility),\n            sd_ppgdp = sd(ppgdp),\n            med_lifeExpF = median(lifeExpF))\n\n# A tibble: 1 × 3\n  mean_fert sd_ppgdp med_lifeExpF\n      <dbl>    <dbl>        <dbl>\n1      2.76   18412.         75.9"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-23-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-23-1",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::group_by() + dplyr::summarise() (2/3)",
+    "text": "Using dplyr::group_by() + dplyr::summarise() (2/3)\n\nun_dta %>% \n  group_by(region) %>% \n  summarise(mean_fert = mean(fertility),\n            sd_ppgdp = sd(ppgdp),\n            med_lifeExpF = median(lifeExpF))\n\n# A tibble: 8 × 4\n  region        mean_fert sd_ppgdp med_lifeExpF\n  <fct>             <dbl>    <dbl>        <dbl>\n1 Africa             4.24    3614.         58.6\n2 Asia               2.43   16742.         75.2\n3 Caribbean          2.01   23063.         78.2\n4 Europe             1.59   23820.         81.4\n5 Latin Amer         2.43    3775.         77.6\n6 North America      1.88     131.         82.4\n7 NorthAtlantic      2.22      NA          71.6\n8 Oceania            3.10   15956.         72.3"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-33",
+    "href": "slides/20-data-description/exploring-numeric-data.html#using-dplyrgroup_by-dplyrsummarise-33",
+    "title": "Exploring numerical data",
+    "section": "Using dplyr::group_by() + dplyr::summarise() (3/3)",
+    "text": "Using dplyr::group_by() + dplyr::summarise() (3/3)\n\nun_dta %>%\n  group_by(group) %>%\n  summarise(across(\n    c(fertility, ppgdp),\n    list(\n      means = mean,\n      medians = ~ median(., na.rm = TRUE),\n      sd = ~ sd(., na.rm = TRUE),\n      n_nonmis = ~ sum(!is.na(.))\n    )\n  ))\n\n# A tibble: 3 × 9\n  group  fertility_means fertility_medians fertility_sd fertility_n_nonmis\n  <fct>            <dbl>             <dbl>        <dbl>              <int>\n1 oecd              1.77              1.79        0.340                 31\n2 other             2.35              2.17        0.927                115\n3 africa            4.24              4.42        1.30                  53\n# … with 4 more variables: ppgdp_means <dbl>, ppgdp_medians <dbl>,\n#   ppgdp_sd <dbl>, ppgdp_n_nonmis <int>"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#skimr-package",
+    "href": "slides/20-data-description/exploring-numeric-data.html#skimr-package",
+    "title": "Exploring numerical data",
+    "section": "skimr package",
+    "text": "skimr package\n\n\n\n\n\n\n\n\n\n\n\n\nPackage for Summary statistics\n\nDocumentation ropensci/skimr + Source code\nLearn by doing Using Skimr\nKey functions: skimr::skim()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#skim-of-the-un-data",
+    "href": "slides/20-data-description/exploring-numeric-data.html#skim-of-the-un-data",
+    "title": "Exploring numerical data",
+    "section": "skim() of the UN data",
+    "text": "skim() of the UN data\n\nlibrary(skimr)\nun_dta %>% skim()\n\n\n\n── Data Summary ────────────────────────\n                           Values    \nName                       Piped data\nNumber of rows             199       \nNumber of columns          6         \n_______________________              \nColumn type frequency:               \n  factor                   2         \n  numeric                  4         \n________________________             \nGroup variables            None      \n\n── Variable type: factor ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n  skim_variable n_missing complete_rate ordered n_unique top_counts                        \n1 region                0             1 FALSE          8 Afr: 53, Asi: 50, Eur: 39, Lat: 20\n2 group                 0             1 FALSE          3 oth: 115, afr: 53, oec: 31        \n\n── Variable type: numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n  skim_variable n_missing complete_rate     mean       sd     p0     p25     p50      p75      p100 hist \n1 fertility             0             1     2.76     1.34   1.13    1.75    2.26     3.54      6.92 ▇▃▂▂▁\n2 ppgdp                 0             1 13012.   18412.   115.   1283.   4684.   15520.   105095.   ▇▁▁▁▁\n3 lifeExpF              0             1    72.3     10.1   48.1    65.7    75.9     79.6      87.1  ▂▂▂▇▅\n4 pctUrban              0             1    57.9     23.4   11      39      59       75       100    ▅▆▇▇▆"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#skim-of-the-un-data-by-group",
+    "href": "slides/20-data-description/exploring-numeric-data.html#skim-of-the-un-data-by-group",
+    "title": "Exploring numerical data",
+    "section": "skim() of the UN data by group",
+    "text": "skim() of the UN data by group\n\nun_dta %>% group_by(group) %>% skim()\n\n\n\n── Data Summary ────────────────────────\n                           Values    \nName                       Piped data\nNumber of rows             199       \nNumber of columns          6         \n_______________________              \nColumn type frequency:               \n  factor                   1         \n  numeric                  4         \n________________________             \nGroup variables            group     \n\n── Variable type: factor ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n  skim_variable group  n_missing complete_rate ordered n_unique top_counts                        \n1 region        oecd           0             1 FALSE          5 Eur: 22, Asi: 3, Lat: 2, Nor: 2   \n2 region        other          0             1 FALSE          6 Asi: 47, Lat: 18, Car: 17, Eur: 17\n3 region        africa         0             1 FALSE          1 Afr: 53, Asi: 0, Car: 0, Eur: 0   \n\n── Variable type: numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n   skim_variable group  n_missing complete_rate     mean        sd      p0      p25      p50      p75      p100 hist \n 1 fertility     oecd           0             1     1.77     0.340    1.31     1.48     1.79     1.95      2.91 ▇▇▃▁▁\n 2 fertility     other          0             1     2.35     0.927    1.13     1.65     2.17     2.61      5.97 ▇▆▂▁▁\n 3 fertility     africa         0             1     4.24     1.30     1.59     3.17     4.42     5.08      6.92 ▅▃▇▅▂\n 4 ppgdp         oecd           0             1 37761.   22092.    9101.   20138.   39546.   46453.   105095.   ▆▇▂▁▁\n 5 ppgdp         other          0             1 11181.   15271.     499     2527.    5195.   12857.    92625.   ▇▁▁▁▁\n 6 ppgdp         africa         0             1  2509.    3614.     115.     509      981.    2865     16852.   ▇▁▁▁▁\n 7 lifeExpF      oecd           0             1    82.4      2.09    76.6     81.3     82.8     83.5      87.1  ▁▂▇▇▁\n 8 lifeExpF      other          0             1    75.3      5.68    49.5     72.5     76.4     78.3      86.4  ▁▁▂▇▂\n 9 lifeExpF      africa         0             1    59.8      8.69    48.1     53.1     58.6     63.8      78    ▇▆▅▁▃\n10 pctUrban      oecd           0             1    75.8     11.7     49       68       78       85        97    ▁▅▃▇▂\n11 pctUrban      other          0             1    60.2     24.0     13       44.5     60       76       100    ▅▃▇▇▆\n12 pctUrban      africa         0             1    42.6     17.6     11       28       40       59        86    ▃▇▅▅▁"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#report-package",
+    "href": "slides/20-data-description/exploring-numeric-data.html#report-package",
+    "title": "Exploring numerical data",
+    "section": "report package",
+    "text": "report package\n\n\n\n\n\n\n\n\n\n\n\n\nPackage for Summary statistics!\n\nDocumentation easystats/skimr\nLearn by doing Using Skimr\nKey functions: skimr::skim()\n\n\n\n\n\n\n\nImportant\n\n\nThis is an experimental package! It does not support some types of the variables and may break or produce an error."
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#report-the-un-data",
+    "href": "slides/20-data-description/exploring-numeric-data.html#report-the-un-data",
+    "title": "Exploring numerical data",
+    "section": "report the UN data",
+    "text": "report the UN data\n\n# library(report)\n# un_dta %>% report() %>% as_tibble()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#report-the-un-data-by-group",
+    "href": "slides/20-data-description/exploring-numeric-data.html#report-the-un-data-by-group",
+    "title": "Exploring numerical data",
+    "section": "report the UN data by group",
+    "text": "report the UN data by group\n\n# un_dta %>% group_by(group) %>% report() %>% as_tibble()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-basics",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-basics",
+    "title": "Exploring numerical data",
+    "section": "Boxplot: basics",
+    "text": "Boxplot: basics\n\n\n\n\n\n\n\n\nImportant\n\n\nCheck out https://www.r-graph-gallery.com/boxplot.html;\nBoxplot explanation: https://www.data-to-viz.com/caveat/boxplot.html\n\n\n\n\nImage source: https://www.leansigmacorporation.com/box-plot-with-minitab/"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-14",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-14",
+    "title": "Exploring numerical data",
+    "section": "Boxplot (1/4)",
+    "text": "Boxplot (1/4)\n\nun_dta %>% \n  ggplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-24",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-24",
+    "title": "Exploring numerical data",
+    "section": "Boxplot (2/4)",
+    "text": "Boxplot (2/4)\n\nun_dta %>% \n  ggplot() + \n  aes(y = fertility)"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-34",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-34",
+    "title": "Exploring numerical data",
+    "section": "Boxplot (3/4)",
+    "text": "Boxplot (3/4)\n\nun_dta %>% \n  ggplot() + \n  aes(y = fertility) + \n  geom_boxplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-44",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-44",
+    "title": "Exploring numerical data",
+    "section": "Boxplot (4/4)",
+    "text": "Boxplot (4/4)\n\nun_dta %>% \n  ggplot() + \n  aes(y = fertility) + \n  geom_boxplot() + \n  labs(title = \"Boxplot of fertility\",\n       subtitle = \"Based on UN country level data for 2010-2015\",\n       y = \"Fertility, children per woman\",\n       x = \"\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-44-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-44-1",
+    "title": "Exploring numerical data",
+    "section": "Boxplot (4/4)",
+    "text": "Boxplot (4/4)\n\nun_dta %>% \n  ggplot() + \n  aes(y = fertility) + \n  geom_boxplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-by-groups-13",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-by-groups-13",
+    "title": "Exploring numerical data",
+    "section": "Boxplot by groups (1/3)",
+    "text": "Boxplot by groups (1/3)\n\nun_dta %>% \n  ggplot() + \n  aes(y = fertility, x = region) + \n  geom_boxplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-by-groups-23",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-by-groups-23",
+    "title": "Exploring numerical data",
+    "section": "Boxplot by groups (2/3)",
+    "text": "Boxplot by groups (2/3)\n\nun_dta %>% \n  ggplot() + \n  aes(y = fertility, x = region, colour = region) + \n  geom_boxplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#boxplot-by-groups-33",
+    "href": "slides/20-data-description/exploring-numeric-data.html#boxplot-by-groups-33",
+    "title": "Exploring numerical data",
+    "section": "Boxplot by groups (3/3)",
+    "text": "Boxplot by groups (3/3)\n\nun_dta %>% \n  ggplot() + \n  aes(y = region, x = fertility, colour = region) + \n  geom_boxplot() + \n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#causal-question-on-boxplot",
+    "href": "slides/20-data-description/exploring-numeric-data.html#causal-question-on-boxplot",
+    "title": "Exploring numerical data",
+    "section": "Causal question on boxplot!",
+    "text": "Causal question on boxplot!\nDoes a country group has a causal effect on fertility?\n\n\nCode\nun_dta %>% \n  ggplot() + \n  aes(y = group, x = fertility, colour = group) + \n  geom_boxplot() + \n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-basics",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-basics",
+    "title": "Exploring numerical data",
+    "section": "Histogram: basics",
+    "text": "Histogram: basics\n\n\n\n\n\n\n\n\nImportant\n\n\nCheck the gallery https://r-graph-gallery.com/histogram.html;\nLearn about histograms here: THE BOXPLOT AND ITS PITFALLS"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius",
+    "title": "Exploring numerical data",
+    "section": "Histogramus simplicius",
+    "text": "Histogramus simplicius\n\nun_dta \n\n# A tibble: 199 × 6\n   region     group  fertility  ppgdp lifeExpF pctUrban\n   <fct>      <fct>      <dbl>  <dbl>    <dbl>    <dbl>\n 1 Asia       other       5.97   499      49.5       23\n 2 Europe     other       1.52  3677.     80.4       53\n 3 Africa     africa      2.14  4473      75         67\n 4 Africa     africa      5.14  4322.     53.2       59\n 5 Caribbean  other       2    13750.     81.1      100\n 6 Latin Amer other       2.17  9162.     79.9       93\n 7 Asia       other       1.74  3031.     77.3       64\n 8 Caribbean  other       1.67 22852.     77.8       47\n 9 Oceania    oecd        1.95 57119.     84.3       89\n10 Europe     oecd        1.35 45159.     83.6       68\n# … with 189 more rows"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius-1",
+    "title": "Exploring numerical data",
+    "section": "Histogramus simplicius",
+    "text": "Histogramus simplicius\n\nun_dta %>% \n  ggplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius-2",
+    "title": "Exploring numerical data",
+    "section": "Histogramus simplicius",
+    "text": "Histogramus simplicius\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp)"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius-3",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogramus-simplicius-3",
+    "title": "Exploring numerical data",
+    "section": "Histogramus simplicius",
+    "text": "Histogramus simplicius\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp) + \n  geom_histogram() +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-bins-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-bins-1",
+    "title": "Exploring numerical data",
+    "section": "Histogram: bins",
+    "text": "Histogram: bins\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp) + \n  geom_histogram(bins = 50) +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-bins-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-bins-2",
+    "title": "Exploring numerical data",
+    "section": "Histogram: bins",
+    "text": "Histogram: bins\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp) + \n  geom_histogram(bins = 10) +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-bins-3",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-bins-3",
+    "title": "Exploring numerical data",
+    "section": "Histogram: bins",
+    "text": "Histogram: bins\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp) + \n  geom_histogram(bins = 3) +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-by-group-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-by-group-1",
+    "title": "Exploring numerical data",
+    "section": "Histogram by group",
+    "text": "Histogram by group\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_histogram(bins = 10, colour = \"black\") +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-by-group-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-by-group-2",
+    "title": "Exploring numerical data",
+    "section": "Histogram by group",
+    "text": "Histogram by group\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_histogram(bins = 10, colour = \"black\", position = \"dodge\") +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-by-group-3",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-by-group-3",
+    "title": "Exploring numerical data",
+    "section": "Histogram by group",
+    "text": "Histogram by group\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_histogram(bins = 10, colour = \"black\") +\n  facet_grid(group ~ ., scales = \"free_y\") +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1",
+    "title": "Exploring numerical data",
+    "section": "Histogram: x transformation (1)",
+    "text": "Histogram: x transformation (1)\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_histogram(bins = 5, colour = \"black\") +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-1",
+    "title": "Exploring numerical data",
+    "section": "Histogram: x transformation (1)",
+    "text": "Histogram: x transformation (1)\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_histogram(bins = 5, colour = \"black\") +\n  scale_x_log10() +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-2",
+    "title": "Exploring numerical data",
+    "section": "Histogram: x transformation (1)",
+    "text": "Histogram: x transformation (1)\n\nun_dta %>%\n  mutate(log_ppgdp = log10(ppgdp)) %>% \n  ggplot() + \n  aes(x = log_ppgdp, fill = group) + \n  geom_histogram(bins = 5, colour = \"black\") +\n  labs(x = \"Log of GDP per capita (log base 10), 2010 USD\", y = \"Frequency\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-3",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-3",
+    "title": "Exploring numerical data",
+    "section": "Histogram: x transformation (1)",
+    "text": "Histogram: x transformation (1)\n\n\n\n\n\n\nWarning\n\n\nWhat is special about bins width, when we apply a transformation to x?\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\nBins width start to vary, when we transform the data.\nThis is opposed to the fixed bins width when data is not transformed."
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-4",
+    "href": "slides/20-data-description/exploring-numeric-data.html#histogram-x-transformation-1-4",
+    "title": "Exploring numerical data",
+    "section": "Histogram: x transformation (1)",
+    "text": "Histogram: x transformation (1)\nMin, max and width of bins:\n\n\nNo transformation\n\n\n       xmin      xmax     diff\n1  -5832.26   5832.26 11664.51\n2   5832.26  17496.77 11664.51\n3  17496.77  29161.28 11664.51\n4  29161.28  40825.79 11664.51\n5  40825.79  52490.30 11664.51\n6  52490.30  64154.81 11664.51\n7  64154.81  75819.32 11664.51\n8  75819.32  87483.83 11664.51\n9  87483.83  99148.34 11664.51\n10 99148.34 110812.86 11664.51\n\n\n\nlog10() transformation\n\n\n       xmin      xmax     diff\n1     64.55    137.71    73.16\n2    137.71    293.79   156.08\n3    293.79    626.77   332.98\n4    626.77   1337.14   710.37\n5   1337.14   2852.65  1515.51\n6   2852.65   6085.83  3233.18\n7   6085.83  12983.49  6897.66\n8  12983.49  27698.91 14715.42\n9  27698.91  59092.73 31393.82\n10 59092.73 126068.14 66975.41"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#density-plot-basics",
+    "href": "slides/20-data-description/exploring-numeric-data.html#density-plot-basics",
+    "title": "Exploring numerical data",
+    "section": "Density plot: basics",
+    "text": "Density plot: basics\n\n\n\n\n\n\nImportant\n\n\nCheck the gallery https://r-graph-gallery.com/density-plot;\nLearn about density plots here: https://www.data-to-viz.com/graph/density.html"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#density-plot-example",
+    "href": "slides/20-data-description/exploring-numeric-data.html#density-plot-example",
+    "title": "Exploring numerical data",
+    "section": "Density plot: example",
+    "text": "Density plot: example\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_density(alpha = 0.5) +\n  scale_x_log10() +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Density\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#density-plot-adjust",
+    "href": "slides/20-data-description/exploring-numeric-data.html#density-plot-adjust",
+    "title": "Exploring numerical data",
+    "section": "Density plot: adjust",
+    "text": "Density plot: adjust\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_density(alpha = 0.5, adjust = 0.1) +\n  scale_x_log10() +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Density\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#density-plot-adjust-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#density-plot-adjust-1",
+    "title": "Exploring numerical data",
+    "section": "Density plot: adjust",
+    "text": "Density plot: adjust\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_density(alpha = 0.5, adjust = 1) +\n  scale_x_log10() +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Density\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#density-plot-adjust-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#density-plot-adjust-2",
+    "title": "Exploring numerical data",
+    "section": "Density plot: adjust",
+    "text": "Density plot: adjust\n\nun_dta %>% \n  ggplot() + \n  aes(x = ppgdp, fill = group) + \n  geom_density(alpha = 0.5, adjust = 10) +\n  scale_x_log10() +\n  labs(x = \"GDP per capita, 2010 USD\", y = \"Density\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#scatter-plot-basics",
+    "href": "slides/20-data-description/exploring-numeric-data.html#scatter-plot-basics",
+    "title": "Exploring numerical data",
+    "section": "Scatter plot: basics",
+    "text": "Scatter plot: basics\n\n\n\n\n\n\nImportant\n\n\nCheck the gallery https://r-graph-gallery.com/scatterplot.html;\nLearn more about scatter plots here: https://www.data-to-viz.com/graph/scatter.html"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot",
+    "href": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot",
+    "title": "Exploring numerical data",
+    "section": "Simple scatter plot",
+    "text": "Simple scatter plot\n\nun_dta\n\n# A tibble: 199 × 6\n   region     group  fertility  ppgdp lifeExpF pctUrban\n   <fct>      <fct>      <dbl>  <dbl>    <dbl>    <dbl>\n 1 Asia       other       5.97   499      49.5       23\n 2 Europe     other       1.52  3677.     80.4       53\n 3 Africa     africa      2.14  4473      75         67\n 4 Africa     africa      5.14  4322.     53.2       59\n 5 Caribbean  other       2    13750.     81.1      100\n 6 Latin Amer other       2.17  9162.     79.9       93\n 7 Asia       other       1.74  3031.     77.3       64\n 8 Caribbean  other       1.67 22852.     77.8       47\n 9 Oceania    oecd        1.95 57119.     84.3       89\n10 Europe     oecd        1.35 45159.     83.6       68\n# … with 189 more rows"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-1",
+    "title": "Exploring numerical data",
+    "section": "Simple scatter plot",
+    "text": "Simple scatter plot\n\nun_dta %>%\n  ggplot()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-2",
+    "href": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-2",
+    "title": "Exploring numerical data",
+    "section": "Simple scatter plot",
+    "text": "Simple scatter plot\n\nun_dta %>%\n  ggplot() +\n  aes(x = lifeExpF, y = fertility)"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-3",
+    "href": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-3",
+    "title": "Exploring numerical data",
+    "section": "Simple scatter plot",
+    "text": "Simple scatter plot\n\nun_dta %>%\n  ggplot() +\n  aes(x = lifeExpF, y = fertility) +\n  geom_point()"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-4",
+    "href": "slides/20-data-description/exploring-numeric-data.html#simple-scatter-plot-4",
+    "title": "Exploring numerical data",
+    "section": "Simple scatter plot",
+    "text": "Simple scatter plot\n\nun_dta %>%\n  ggplot() +\n  aes(x = lifeExpF, y = fertility) +\n  geom_point() +\n  labs(x = \"Life expectancy of wemen at birth\", y = \"Fertility, children per woman\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#scatter-plot-make-it-rich-with-colour",
+    "href": "slides/20-data-description/exploring-numeric-data.html#scatter-plot-make-it-rich-with-colour",
+    "title": "Exploring numerical data",
+    "section": "Scatter plot: make it rich with colour",
+    "text": "Scatter plot: make it rich with colour\n\nun_dta %>%\n  ggplot() +\n  aes(x = lifeExpF, y = fertility, color = group) +\n  geom_point() +\n  labs(x = \"Life expectancy of wemen at birth\", y = \"Fertility, children per woman\", color = \"\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#scatter-plot-make-it-rich-with-size",
+    "href": "slides/20-data-description/exploring-numeric-data.html#scatter-plot-make-it-rich-with-size",
+    "title": "Exploring numerical data",
+    "section": "Scatter plot: make it rich with size",
+    "text": "Scatter plot: make it rich with size\n\nun_dta %>%\n  ggplot() +\n  aes(x = lifeExpF, y = fertility, color = group, size = ppgdp) +\n  geom_point() +\n  labs(x = \"Life expectancy of wemen at birth\", y = \"Fertility, children per woman\", color = \"\", size = \"GDP/cap.\")"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#takeaway-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#takeaway-1",
+    "title": "Exploring numerical data",
+    "section": "Takeaway",
+    "text": "Takeaway\nSummary statistics:\n\nExtracting one variable with pull() and $;\ndplyr::summarise() + dplyr::group_by();\nskimr + report;\n\n\nBoxplot: geom_boxplot(), simple and by groups;\n\n\nHistogram: geom_histogram(), bins, scale_x_log10()\n\nbins is important as it changes a perspective;\ndata transformation changes bins width;\n\n\n\nScatter plot:\n\nCreate plots with rich visual details;\nBe clear and explicit with labels;"
+  },
+  {
+    "objectID": "slides/20-data-description/exploring-numeric-data.html#references-1",
+    "href": "slides/20-data-description/exploring-numeric-data.html#references-1",
+    "title": "Exploring numerical data",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWeisberg, Sanford. 2005. Applied Linear Regression. John Wiley & Sons, Inc. https://doi.org/10.1002/0471704091."
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#definition-of-correlation",
+    "href": "slides/20-data-description/correlation.html#definition-of-correlation",
+    "title": "Correlation",
+    "section": "Definition of Correlation",
+    "text": "Definition of Correlation\n\nIn statistics, correlation or dependence is any statistical relationship, whether causal or not, between two random variables or bivariate data.\n\n\nMost common are following method of correlation:\n\nPearson’s correlation\nSpearman’s rank correlation\n\n\n\nBoth, capture linear relationship.\n\n\nTips for interpretation of the strength of correlation"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#examples",
+    "href": "slides/20-data-description/correlation.html#examples",
+    "title": "Correlation",
+    "section": "Examples",
+    "text": "Examples"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#computation-with-correlation",
+    "href": "slides/20-data-description/correlation.html#computation-with-correlation",
+    "title": "Correlation",
+    "section": "Computation with correlation",
+    "text": "Computation with correlation\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation easystats/correlation + Source code\nLearn by doing Using correlation\n\nKey functions: correlation::correlation()."
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#correlation-in-penguins-data",
+    "href": "slides/20-data-description/correlation.html#correlation-in-penguins-data",
+    "title": "Correlation",
+    "section": "Correlation in penguins data",
+    "text": "Correlation in penguins data"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#the-data",
+    "href": "slides/20-data-description/correlation.html#the-data",
+    "title": "Correlation",
+    "section": "The data",
+    "text": "The data\n\nglimpse(penguins)\n\nRows: 344\nColumns: 8\n$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…\n$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…\n$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …\n$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …\n$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…\n$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …\n$ sex               <fct> male, female, female, NA, female, male, female, male…\n$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#scatter-plot",
+    "href": "slides/20-data-description/correlation.html#scatter-plot",
+    "title": "Correlation",
+    "section": "Scatter plot",
+    "text": "Scatter plot\n\nPlotCode\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nlibrary(palmerpenguins)\npenguins %>% \n  ggplot(aes(x = flipper_length_mm, y = bill_length_mm)) +\n  geom_point(aes(color = species, shape = species)) +\n  labs(\n    title = \"Flipper and bill length\",\n    x = \"Flipper length (mm)\",\n    y = \"Bill length (mm)\",\n    color = \"Penguin species\",\n    shape = \"Penguin species\"\n  )"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#correlation-usage-1",
+    "href": "slides/20-data-description/correlation.html#correlation-usage-1",
+    "title": "Correlation",
+    "section": "correlation() usage 1",
+    "text": "correlation() usage 1\n\npenguins %>% correlation()\n\n# Correlation Matrix (pearson-method)\n\nParameter1        |        Parameter2 |     r |         95% CI | t(340) |         p\n-----------------------------------------------------------------------------------\nbill_length_mm    |     bill_depth_mm | -0.24 | [-0.33, -0.13] |  -4.46 | < .001***\nbill_length_mm    | flipper_length_mm |  0.66 | [ 0.59,  0.71] |  16.03 | < .001***\nbill_length_mm    |       body_mass_g |  0.60 | [ 0.52,  0.66] |  13.65 | < .001***\nbill_length_mm    |              year |  0.05 | [-0.05,  0.16] |   1.01 | 0.797    \nbill_depth_mm     | flipper_length_mm | -0.58 | [-0.65, -0.51] | -13.26 | < .001***\nbill_depth_mm     |       body_mass_g | -0.47 | [-0.55, -0.39] |  -9.87 | < .001***\nbill_depth_mm     |              year | -0.06 | [-0.17,  0.05] |  -1.11 | 0.797    \nflipper_length_mm |       body_mass_g |  0.87 | [ 0.84,  0.89] |  32.72 | < .001***\nflipper_length_mm |              year |  0.17 | [ 0.06,  0.27] |   3.17 | 0.007**  \nbody_mass_g       |              year |  0.04 | [-0.06,  0.15] |   0.78 | 0.797    \n\np-value adjustment method: Holm (1979)\nObservations: 342"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#correlation-usage-2-summary",
+    "href": "slides/20-data-description/correlation.html#correlation-usage-2-summary",
+    "title": "Correlation",
+    "section": "correlation() usage 2 + summary()",
+    "text": "correlation() usage 2 + summary()\n\npenguins %>% correlation() %>% summary()\n\n# Correlation Matrix (pearson-method)\n\nParameter         |   year | body_mass_g | flipper_length_mm | bill_depth_mm\n----------------------------------------------------------------------------\nbill_length_mm    |   0.05 |     0.60*** |           0.66*** |      -0.24***\nbill_depth_mm     |  -0.06 |    -0.47*** |          -0.58*** |              \nflipper_length_mm | 0.17** |     0.87*** |                   |              \nbody_mass_g       |   0.04 |             |                   |              \n\np-value adjustment method: Holm (1979)"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#correlation-usage-3-as_tibble",
+    "href": "slides/20-data-description/correlation.html#correlation-usage-3-as_tibble",
+    "title": "Correlation",
+    "section": "correlation() usage 3 + as_tibble()",
+    "text": "correlation() usage 3 + as_tibble()\n\npenguins %>% correlation() %>% as_tibble()\n\n# A tibble: 10 × 11\n   Parameter1        Parameter2         r    CI  CI_low CI_high       t df_error\n   <chr>             <chr>          <dbl> <dbl>   <dbl>   <dbl>   <dbl>    <int>\n 1 bill_length_mm    bill_depth_… -0.235   0.95 -0.333  -0.132   -4.46       340\n 2 bill_length_mm    flipper_len…  0.656   0.95  0.591   0.713   16.0        340\n 3 bill_length_mm    body_mass_g   0.595   0.95  0.522   0.660   13.7        340\n 4 bill_length_mm    year          0.0545  0.95 -0.0518  0.160    1.01       340\n 5 bill_depth_mm     flipper_len… -0.584   0.95 -0.650  -0.509  -13.3        340\n 6 bill_depth_mm     body_mass_g  -0.472   0.95 -0.550  -0.385   -9.87       340\n 7 bill_depth_mm     year         -0.0604  0.95 -0.165   0.0460  -1.11       340\n 8 flipper_length_mm body_mass_g   0.871   0.95  0.843   0.895   32.7        340\n 9 flipper_length_mm year          0.170   0.95  0.0648  0.271    3.17       340\n10 body_mass_g       year          0.0422  0.95 -0.0641  0.148    0.779      340\n# … with 3 more variables: p <dbl>, Method <chr>, n_Obs <int>"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#what-commodity-causes-surges-13",
+    "href": "slides/20-data-description/correlation.html#what-commodity-causes-surges-13",
+    "title": "Correlation",
+    "section": "What commodity causes surges? (1/3)",
+    "text": "What commodity causes surges? (1/3)"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#what-commodity-causes-surges-23",
+    "href": "slides/20-data-description/correlation.html#what-commodity-causes-surges-23",
+    "title": "Correlation",
+    "section": "What commodity causes surges? (2/3)",
+    "text": "What commodity causes surges? (2/3)"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#what-commodity-causes-surges-33",
+    "href": "slides/20-data-description/correlation.html#what-commodity-causes-surges-33",
+    "title": "Correlation",
+    "section": "What commodity causes surges? (3/3)",
+    "text": "What commodity causes surges? (3/3)\n\nCan we conclude, based on the plot, that surging prices of urea cause the wheat prices to surge?\nWhat could be the theoretical explanation for this cause and effect relationship?\nWhat could be the theoretical mechanism of urea prices effect on wheat?\nHow can we test empirically, if there is any (co)relationship?"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#prices-correlation-12",
+    "href": "slides/20-data-description/correlation.html#prices-correlation-12",
+    "title": "Correlation",
+    "section": "Prices correlation (1/2)",
+    "text": "Prices correlation (1/2)\n\n\n# Correlation Matrix (pearson-method)\n\nParameter   | index_wheat | index_urea | index_oil\n--------------------------------------------------\nindex_maize |     0.89*** |    0.77*** |   0.81***\nindex_oil   |     0.79*** |    0.80*** |          \nindex_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\n\n\n\nIf we assume that theoretical causation from Urea to Wheat prices is possible!\nDoes high and significant correlation suggest about causal relationship?"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#first-difference-and-correlation-12",
+    "href": "slides/20-data-description/correlation.html#first-difference-and-correlation-12",
+    "title": "Correlation",
+    "section": "First Difference and correlation (1/2)",
+    "text": "First Difference and correlation (1/2)\n\n\n\n# Correlation Matrix (pearson-method)\n\nParameter      | index_fd_wheat | index_fd_urea | index_fd_oil\n--------------------------------------------------------------\nindex_fd_maize |        0.41*** |          0.02 |      0.25***\nindex_fd_oil   |           0.07 |       0.24*** |             \nindex_fd_urea  |          -0.05 |               |             \n\np-value adjustment method: Holm (1979)"
+  },
+  {
+    "objectID": "slides/20-data-description/correlation.html#first-difference-and-correlation-22",
+    "href": "slides/20-data-description/correlation.html#first-difference-and-correlation-22",
+    "title": "Correlation",
+    "section": "First Difference and correlation (2/2)",
+    "text": "First Difference and correlation (2/2)\nFirst Difference removed linear trends from the data.\n\nThere might be some different chains of reaction here. For example:\n\nOil price may affect Urea prices as it is an important production factor\nOil price may affect maize price as it is a baleful competitor\nMaize price affect wheat as they are the substitute."
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#pearson-lee-data",
+    "href": "slides/10-simple-regression/10-simple-regression.html#pearson-lee-data",
+    "title": "Simple regression",
+    "section": "Pearson-Lee data",
+    "text": "Pearson-Lee data\n\nData used is published in (Pearson and Lee 1903).\nKarl Pearson collected data on over 1100 families in England in the period 1893 to 1898;\nHeights of mothers mheight and daughters dheight was recorded for 1375 observations.\nWe rely on the examples of SLR in (Weisberg 2005)"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#data-loading-and-preparation",
+    "href": "slides/10-simple-regression/10-simple-regression.html#data-loading-and-preparation",
+    "title": "Simple regression",
+    "section": "Data loading and preparation",
+    "text": "Data loading and preparation\n\n\nLoading data\nConverting data frame into a tibble() object\nRenaming variables\nGlimpse of data\n\n\n\n\n# Note, we use `sample_n(400)` to randomly select only 400 observations\ndta <- \n  alr4::Heights %>% \n  as_tibble() %>% \n  rename(mother_height = mheight,\n         daughter_height = dheight) %>% \n  sample_n(400)\nglimpse(dta)\n\nRows: 400\nColumns: 2\n$ mother_height   <dbl> 58.8, 65.4, 65.5, 63.2, 60.1, 61.2, 60.8, 63.7, 63.8, …\n$ daughter_height <dbl> 62.7, 66.2, 62.8, 62.2, 65.1, 64.8, 63.4, 64.3, 62.5, …"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#exploring-data-scatter-plot",
+    "href": "slides/10-simple-regression/10-simple-regression.html#exploring-data-scatter-plot",
+    "title": "Simple regression",
+    "section": "Exploring data (Scatter plot)",
+    "text": "Exploring data (Scatter plot)\n\nPlotImprove the code yourself\n\n\n\n\nCode\nplt <- \n  dta %>% \n  ggplot() + \n  aes(x = mother_height, y = daughter_height) + \n  geom_point(alpha = 0.5)\nplt\n\n\n\n\n\n\n\n\n\n\n\n\nWhat alpha = 0.5 stands for?\nAdd labels.\nchange color of points (add color = \"red\" after alpha separating arguments with comma)\n\n\n\nCode\ndta %>% \n  ggplot() + \n  aes(x = mother_height, y = daughter_height) + \n  geom_point(alpha = 0.5) + \n  labs(x = \"___________\", \n       y = \"___________\")"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#simple-regression-line",
+    "href": "slides/10-simple-regression/10-simple-regression.html#simple-regression-line",
+    "title": "Simple regression",
+    "section": "Simple regression line",
+    "text": "Simple regression line\n\n\n\n$Y = + \\ = + $\n\n\n\n\nCode\nfit <- lm(daughter_height ~ mother_height, data = dta)\nplt <- \n  plt + \n  labs(x = \"Mothers' height\", \n       y = \"Daughter height\") + \n  geom_smooth(method = \"lm\", color = \"green\", se = FALSE)\nplt"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#simple-regression",
+    "href": "slides/10-simple-regression/10-simple-regression.html#simple-regression",
+    "title": "Simple regression",
+    "section": "Simple regression",
+    "text": "Simple regression\n\\[\\Large{Y = \\beta_0 + \\beta_1 X}\\]\n\n\n\\(Y\\): dependent variable, observed values\n\\(Y\\): independent variable\n\\(\\beta_1\\): True slope\n\\(\\beta_0\\): True intercept\nNote, in the population regression function, there is no error terms!"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#estimated-simple-regression",
+    "href": "slides/10-simple-regression/10-simple-regression.html#estimated-simple-regression",
+    "title": "Simple regression",
+    "section": "Estimated simple regression",
+    "text": "Estimated simple regression\n\\[\\Large{\\hat{Y} = \\hat{\\beta}_0 + \\hat{\\beta}_1 X}\\]\n\n\n\\(\\hat{Y}\\): fitted values, predicted values\n\\(\\hat{\\beta}_1\\): Estimated slope\n\\(\\hat{\\beta}_0\\): Estimated intercept\nNo error term!"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals",
+    "href": "slides/10-simple-regression/10-simple-regression.html#residuals",
+    "title": "Simple regression",
+    "section": "Residuals",
+    "text": "Residuals\n\n\n\\(Y = \\color{green}{f(X)} + \\color{blue}{\\text{Error term}} \\\\ = \\color{green}{E[Y|X]} + \\color{blue}{\\epsilon}\\)\n\n\n\nCode\nplt + \n  geom_segment(\n    aes(x = mother_height, xend = mother_height,\n        y = daughter_height, yend = predict(fit)), \n    color = \"blue\",\n    alpha = 0.4\n  )"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals-1",
+    "href": "slides/10-simple-regression/10-simple-regression.html#residuals-1",
+    "title": "Simple regression",
+    "section": "Residuals",
+    "text": "Residuals\n\n\n\\(\\text{residuals} \\\\ = \\text{observed} - \\text{predicted} \\\\ = \\epsilon = Y - \\hat{Y}\\)\n\\({Y = \\hat{\\beta}_0 + \\hat{\\beta}_1 X + \\epsilon}\\)\n\\(\\epsilon\\) is the error term or residual\nFor each specific observation \\(i\\)\nresidual \\(e_i = y_i - \\hat{y_i}\\)\nsquared residual \\(e_i^2 = (y_i - \\hat{y_i})^2\\)"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#ordinary-least-square-ols-1",
+    "href": "slides/10-simple-regression/10-simple-regression.html#ordinary-least-square-ols-1",
+    "title": "Simple regression",
+    "section": "Ordinary Least Square (OLS)",
+    "text": "Ordinary Least Square (OLS)\n\n\n\n\n“finds” values for \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\)\neach new value of \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) generates new regression line;\n\n\n\n\n\nCode\nplt + \n  geom_segment(\n    aes(x = mother_height, xend = mother_height,\n        y = daughter_height, yend = predict(fit)), \n    color = \"blue\",\n    alpha = 0.4\n  ) + \n  geom_abline(intercept = 33, slope = 0.49, color = \"black\") + \n  geom_abline(intercept = 5, slope = 0.95, color = \"black\") + \n  geom_abline(intercept = 25, slope = 0.62, color = \"black\")"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#ordinary-least-square-ols-2",
+    "href": "slides/10-simple-regression/10-simple-regression.html#ordinary-least-square-ols-2",
+    "title": "Simple regression",
+    "section": "Ordinary Least Square (OLS)",
+    "text": "Ordinary Least Square (OLS)\nthe OLS finds such values of \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) that minimizes the sum of squared residuals:\n\\[\n\\Large{\nSSR =\n\\sum_{i}^{n}{e_i^2} \\\\ = \\sum_{i}^{n}{(y_i - \\hat{y_i})^2} \\\\ = {[e_1^2 + e_2^2 + ... + e_n^2]}\n}\n\\]"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#properties-of-ols",
+    "href": "slides/10-simple-regression/10-simple-regression.html#properties-of-ols",
+    "title": "Simple regression",
+    "section": "Properties of OLS",
+    "text": "Properties of OLS\n\n\nThe regression line goes through the center of all point.\nThe sum of the residuals (not squared) is zero: \\(\\sum_{i}^n e_i = 0\\)\nZero correlation between residuals and regressors \\(Cov(X,\\epsilon) = 0\\)\nPredicted value of \\(Y\\), when all regressors are at means \\(\\bar{X}\\) is the mean of \\(\\bar{Y}\\): \\(E[Y|\\bar{X}] = \\bar{Y}\\)"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#regression-coefficeints",
+    "href": "slides/10-simple-regression/10-simple-regression.html#regression-coefficeints",
+    "title": "Simple regression",
+    "section": "Regression coefficeints",
+    "text": "Regression coefficeints\n\nfit <- lm(daughter_height ~ mother_height, data = dta)\nfit\n\n\nCall:\nlm(formula = daughter_height ~ mother_height, data = dta)\n\nCoefficients:\n  (Intercept)  mother_height  \n      29.4551         0.5498"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#regression-summary-13",
+    "href": "slides/10-simple-regression/10-simple-regression.html#regression-summary-13",
+    "title": "Simple regression",
+    "section": "Regression summary (1/3)",
+    "text": "Regression summary (1/3)\n\nsummary(fit)\n\n\nCall:\nlm(formula = daughter_height ~ mother_height, data = dta)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-6.6255 -1.5767 -0.0878  1.3916  9.0083 \n\nCoefficients:\n              Estimate Std. Error t value Pr(>|t|)    \n(Intercept)   29.45511    2.91727   10.10   <2e-16 ***\nmother_height  0.54979    0.04662   11.79   <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.337 on 398 degrees of freedom\nMultiple R-squared:  0.2589,    Adjusted R-squared:  0.2571 \nF-statistic: 139.1 on 1 and 398 DF,  p-value: < 2.2e-16"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#regression-summary-23",
+    "href": "slides/10-simple-regression/10-simple-regression.html#regression-summary-23",
+    "title": "Simple regression",
+    "section": "Regression summary (2/3)",
+    "text": "Regression summary (2/3)\n\nusing broom package overview and source code\n\n\nlibrary(broom)\ntidy(fit)\n\n# A tibble: 2 × 5\n  term          estimate std.error statistic  p.value\n  <chr>            <dbl>     <dbl>     <dbl>    <dbl>\n1 (Intercept)     29.5      2.92        10.1 1.71e-21\n2 mother_height    0.550    0.0466      11.8 9.88e-28\n\n\n\n\nglance(fit)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC\n      <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>\n1     0.259         0.257  2.34      139. 9.88e-28     1  -906. 1818. 1830.\n# … with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#regression-summary-33",
+    "href": "slides/10-simple-regression/10-simple-regression.html#regression-summary-33",
+    "title": "Simple regression",
+    "section": "Regression summary (3/3)",
+    "text": "Regression summary (3/3)\n\nusing parameters package overview and source code\n\n\nlibrary(parameters)\nparameters(fit)\n\nParameter     | Coefficient |   SE |         95% CI | t(398) |      p\n---------------------------------------------------------------------\n(Intercept)   |       29.46 | 2.92 | [23.72, 35.19] |  10.10 | < .001\nmother height |        0.55 | 0.05 | [ 0.46,  0.64] |  11.79 | < .001\n\n\n\n\nusing performance package overview and source code\n\n\nlibrary(performance)\nperformance(fit)\n\n# Indices of model performance\n\nAIC      |      BIC |    R2 | R2 (adj.) |  RMSE | Sigma\n-------------------------------------------------------\n1818.301 | 1830.276 | 0.259 |     0.257 | 2.331 | 2.337"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#intercept",
+    "href": "slides/10-simple-regression/10-simple-regression.html#intercept",
+    "title": "Simple regression",
+    "section": "Intercept",
+    "text": "Intercept\n\nImportant in the context of the data.\nValue of \\(Y\\) when all \\(X\\) are zero."
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#slope",
+    "href": "slides/10-simple-regression/10-simple-regression.html#slope",
+    "title": "Simple regression",
+    "section": "Slope",
+    "text": "Slope\nMarginal effect or unit change in \\(Y\\) on average, when \\(X\\) is being change by on unit, keeping all other regressors fixed.\n\nWhen mother’s height increases by 1 inch, the height of a daughter increases by \\(\\hat{\\beta_1}\\) inches, keeping other variables constant."
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals-2",
+    "href": "slides/10-simple-regression/10-simple-regression.html#residuals-2",
+    "title": "Simple regression",
+    "section": "Residuals",
+    "text": "Residuals\n\n# With `[1:20]` we foce R only to print first 20 values\nresiduals(fit)[1:20]\n\n         1          2          3          4          5          6          7 \n 0.9173961  0.7887997 -2.6661790 -2.0016682  2.6026726  1.6979065  0.5178215 \n         8          9         10         11         12         13         14 \n-0.1765618 -2.0315406 -1.5917107 -5.4523061 -5.1774125  0.8022473 -1.4757112 \n        15         16         17         18         19         20 \n-3.4674550  4.0178215 -0.6813279 -3.6462641  1.8927151 -4.2860940 \n\nresid(fit)[1:20]\n\n         1          2          3          4          5          6          7 \n 0.9173961  0.7887997 -2.6661790 -2.0016682  2.6026726  1.6979065  0.5178215 \n         8          9         10         11         12         13         14 \n-0.1765618 -2.0315406 -1.5917107 -5.4523061 -5.1774125  0.8022473 -1.4757112 \n        15         16         17         18         19         20 \n-3.4674550  4.0178215 -0.6813279 -3.6462641  1.8927151 -4.2860940"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#fitted",
+    "href": "slides/10-simple-regression/10-simple-regression.html#fitted",
+    "title": "Simple regression",
+    "section": "Fitted",
+    "text": "Fitted\n\n# With `[1:20]` we foce R only to print first 20 values\nfitted(fit)[1:20]\n\n       1        2        3        4        5        6        7        8 \n61.78260 65.41120 65.46618 64.20167 62.49733 63.10209 62.88218 64.47656 \n       9       10       11       12       13       14       15       16 \n64.53154 64.09171 62.55231 62.27741 61.39775 66.67571 62.16746 62.88218 \n      17       18       19       20 \n65.08133 65.24626 62.60728 65.68609"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals-vs-fitted-13",
+    "href": "slides/10-simple-regression/10-simple-regression.html#residuals-vs-fitted-13",
+    "title": "Simple regression",
+    "section": "Residuals vs fitted (1/3)",
+    "text": "Residuals vs fitted (1/3)\n\ndta_1 <- \n  dta %>% \n  mutate(fitted = fitted(fit)) %>% \n  mutate(residuals = resid(fit))\n\nglimpse(dta_1)\n\nRows: 400\nColumns: 4\n$ mother_height   <dbl> 58.8, 65.4, 65.5, 63.2, 60.1, 61.2, 60.8, 63.7, 63.8, …\n$ daughter_height <dbl> 62.7, 66.2, 62.8, 62.2, 65.1, 64.8, 63.4, 64.3, 62.5, …\n$ fitted          <dbl> 61.78260, 65.41120, 65.46618, 64.20167, 62.49733, 63.1…\n$ residuals       <dbl> 0.9173961, 0.7887997, -2.6661790, -2.0016682, 2.602672…"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals-vs-fitted-23",
+    "href": "slides/10-simple-regression/10-simple-regression.html#residuals-vs-fitted-23",
+    "title": "Simple regression",
+    "section": "Residuals vs fitted (2/3)",
+    "text": "Residuals vs fitted (2/3)\n\ndta_1 %>% \n  ggplot() + \n  aes(x = fitted, y = residuals) + \n  geom_point()"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals-vs-fitted-33",
+    "href": "slides/10-simple-regression/10-simple-regression.html#residuals-vs-fitted-33",
+    "title": "Simple regression",
+    "section": "Residuals vs fitted (3/3)",
+    "text": "Residuals vs fitted (3/3)\n\nlibrary(performance)\nlibrary(see)\ncheck_model(fit, check = \"linearity\", panel = FALSE)\n\n$NCV"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#takeaway",
+    "href": "slides/10-simple-regression/10-simple-regression.html#takeaway",
+    "title": "Simple regression",
+    "section": "Takeaway",
+    "text": "Takeaway\n\nSimple linear regression\nOLS\nSlope and Intercept (interpretation)\nFitted values\nResiduals\nResiduals vs Fitted\n\n\n\nfitting regression: fit()\nregression summary: summary(), tidy(), glance(), parameters(), performance() , check_model() , fitted() , residuals() , resid()\npackages: broom, parameters and performance"
+  },
+  {
+    "objectID": "slides/10-simple-regression/10-simple-regression.html#references-1",
+    "href": "slides/10-simple-regression/10-simple-regression.html#references-1",
+    "title": "Simple regression",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nPearson, Karl, and Alice Lee. 1903. “On the Laws of Inheritance in Man: I. Inheritance of Physical Characters.” Biometrika 2 (4): 357. https://doi.org/10.2307/2331507.\n\n\nWeisberg, Sanford. 2005. Applied Linear Regression. John Wiley & Sons, Inc. https://doi.org/10.1002/0471704091."
   },
   {
     "objectID": "slides/00-introduction/00-introduction.html#mp223---applied-econometrics-methods-for-the-social-sciences",
@@ -119,6 +1197,13 @@
     "text": "Launch the R Studio from the project “ae01-soft-intro-to-R”\n\n\nNavigate to ae01-soft-intro-to-R in your course folder\n\n\n\n\nOpen ae01-soft-intro-to-R.Rproj that has R studio icon and .Rproj extension:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsta210-s22.github.io/website"
   },
   {
+    "objectID": "articles/external-materials.html",
+    "href": "articles/external-materials.html",
+    "title": "Materials and external sources for learning R",
+    "section": "",
+    "text": "R4DS: R for data science by Hadley Wickham and Garrett Grolemund (source code)\n\n\n\nRStudio cheat sheets (here) on:\n\nData import with readr, readxl, and googlesheets4 cheatsheet\nData transformation with dplyr cheatsheet\nData tidying with tidyr cheatsheet\n\nRStudio Webinars + sourcode:\n\nData wrangling with R and RStudio by Garrett Grolemund\nTidyverse visualization manipulation basics by Garrett Grolemund\nWhat’s new with readxl? with Jenny Bryan\n\nTutorials from INBO Tutorials:\n\nR for beginners from Research Institute for Nature and Forest (INBO) in Belgium"
+  },
+  {
     "objectID": "weeks/week01-checklist.html",
     "href": "weeks/week01-checklist.html",
     "title": "Week 1",
@@ -145,5 +1230,61 @@
     "title": "Week 1",
     "section": "Some other videos of Josh Angrist to watch.",
     "text": "Some other videos of Josh Angrist to watch.\n\n What’s the Difference Between Econometrics and Data Science?\n What’s the Difference Between Econometrics and Statistics?\n Isn’t Econometrics Boring?\n If I Master Econometrics, What Jobs Can I Get?\n Econometrics is the original data science"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html",
+    "href": "weeks/week03-checklist.html",
+    "title": "Week 3",
+    "section": "",
+    "text": "In class\n\n\n\n\n🖥W03-00 DataWorkflow + Tidy data + Wrangling\n\n\n\n\nRecommended. Practice:\n\n Primers: Programming basics\n\nRecommended. Read:\n\n R4DS Ch 9. Wrangle\n R4DS Ch. 12. Tidy data\nCHEATSHEET: Data tidying with tidyr cheatsheet\n\nOptional. Watch:\n\n Tidy data video + slides\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#w03-01-import-data",
+    "href": "weeks/week03-checklist.html#w03-01-import-data",
+    "title": "Week 3",
+    "section": "W03-01 Import data",
+    "text": "W03-01 Import data\n\n\n\n\n\n\nIn class\n\n\n\n\n📋ae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\n🖥W03-02 Import data\n\n\n\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#w03-02-exploring-numerical-data",
+    "href": "weeks/week03-checklist.html#w03-02-exploring-numerical-data",
+    "title": "Week 3",
+    "section": "W03-02 Exploring numerical data",
+    "text": "W03-02 Exploring numerical data\n\n\n\n\n\n\nIn class\n\n\n\n\n🖥W03-02 Exploring numerical data\n📋TBD\n\n\n\n\nRecommended. Practice:\n\n Primers: Derive Information with dplyr\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n Open Intro. Interactive. Summarizing data (takes time to load)\n Primers: Data Visualization Basics\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n\nOptional. Read:\n\n IMS: Chapter 5 Exploring numerical data\n\nOptional. Watch + Practice:\n\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#w03-03-correlation",
+    "href": "weeks/week03-checklist.html#w03-03-correlation",
+    "title": "Week 3",
+    "section": "🖥 W03-03 Correlation",
+    "text": "🖥 W03-03 Correlation\n\n\n\n\n\n\nIn class\n\n\n\n\n🖥W03-04 correlation correlation\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\n📋ae03-03-correlation.Rmd\n\n\n\n\nRecommended. Practice:\n\n Primers: Exploratory data analysis\n\nRecommended. Read:\n\nInterpretation of the strength of correlation\n\nOptional. Read:\n\neasystats/correlation\nCorrelation types"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#w03ae---application-exercise",
+    "href": "weeks/week03-checklist.html#w03ae---application-exercise",
+    "title": "Week 3",
+    "section": "📋 W03AE - application exercise:",
+    "text": "📋 W03AE - application exercise:\nDownload project from 📋 ae03-data-wrangling.zip or the same on Ilias: 📋 ae03-data-wrangling.zip on Ilias.\n\n\n\n\n\n\nIn class\n\n\n\n\nae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nae03-02-correlation.Rmd"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#self-study-exploring-categorical-data",
+    "href": "weeks/week03-checklist.html#self-study-exploring-categorical-data",
+    "title": "Week 3",
+    "section": "🖥 SELF STUDY Exploring categorical data",
+    "text": "🖥 SELF STUDY Exploring categorical data\n\nRecommended. Practice:\n\n Open Intro. Interactive. Visualizing categorical data (takes time to load)\n\nRecommended. Watch + Practice:\n\n webinar: Tidyverse visualization manipulation basics\n Visualising categorical data video + slides\n\nOptional. Read:\n\n IMS: Chapter 4 Exploring categorical data"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#self-study-wrangle-with-dplyr",
+    "href": "weeks/week03-checklist.html#self-study-wrangle-with-dplyr",
+    "title": "Week 3",
+    "section": "🖥 SELF STUDY Wrangle with dplyr",
+    "text": "🖥 SELF STUDY Wrangle with dplyr\nWe use dplyr every day in any exercise. Thus, there is no point to dedicate specific time to it. Use this list of materials to guide your learning process. Most of the core functions of dplyr are covered in data other parts of the course.\nMaterials listed here may repeat the ones listed before.\n\nRecommended. Read:\n\n R4DS Chapter 5 Data transformation\nCHEATSHEET: Data transformation with dplyr\ntidyverse/dplyr\n\nRecommended. Practice:\n\n Primers: Working with Tibbles\n Primers: Isolating Data with dplyr\n Primers: Derive Information with dplyr\n Primers: Filter observations\n Open Intro. Interactive. Summarizing data (takes time to load)\nInteractive tutorial based on R4DS Ch. 5.6 Summarizing data"
+  },
+  {
+    "objectID": "weeks/week03-checklist.html#self-study-data-visualization-with-ggplot2",
+    "href": "weeks/week03-checklist.html#self-study-data-visualization-with-ggplot2",
+    "title": "Week 3",
+    "section": "🖥 SELF STUDY Data visualization with ggplot2",
+    "text": "🖥 SELF STUDY Data visualization with ggplot2\nThere are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the ggplot2 package is scheduled for self learning.\n\nRecommended. Read:\n\n R4DS Chapter 3 Data visualisation\nCHEATSHEET: Data visualization with ggplot2 cheatsheet\n\nRecommended. Practice:\n\n Primers: Data Visualization Basics\n Primers: Exploratory data analysis\n Primers: Bar Charts\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n Primers: Overplotting\n Primers: Customize plots\n\nOptional. Practice:\n\n Open Intro. Interactive. Visualizing categorical data (takes time to load)\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n\nOptional. Watch + Practice:\n\n webinar: Tidyverse visualization manipulation basics\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides\n Visualising categorical data video + slides"
   }
 ]

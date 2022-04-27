@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.314">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduard Bukin">
+<meta name="dcterms.date" content="2022-04-27">
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - AE03-01 Import, cleaning, summary plot</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">AE03-01 Import, cleaning, summary plot</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../">
+      <img src="../../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setups" id="toc-setups" class="nav-link active" data-scroll-target="#setups">Setups</a></li>
+  <li><a href="#exercise-1.-load-clean-and-plot-data-from-excel" id="toc-exercise-1.-load-clean-and-plot-data-from-excel" class="nav-link" data-scroll-target="#exercise-1.-load-clean-and-plot-data-from-excel">Exercise 1. Load clean and plot data from Excel</a>
+  <ul class="collapse">
+  <li><a href="#ex.-1.1-inspect-the-file-in-excel-readxlexcel_sheets" id="toc-ex.-1.1-inspect-the-file-in-excel-readxlexcel_sheets" class="nav-link" data-scroll-target="#ex.-1.1-inspect-the-file-in-excel-readxlexcel_sheets">Ex. 1.1 Inspect the file in excel: <code>readxl::excel_sheets()</code></a></li>
+  <li><a href="#ex.-1.2-load-data-from-the-sheet-readxlread_excel...-sheet-____-utilshead" id="toc-ex.-1.2-load-data-from-the-sheet-readxlread_excel...-sheet-____-utilshead" class="nav-link" data-scroll-target="#ex.-1.2-load-data-from-the-sheet-readxlread_excel...-sheet-____-utilshead">Ex. 1.2 Load data from the sheet: <code>readxl::read_excel(..., sheet = ____)</code>, <code>utils::head()</code></a></li>
+  <li><a href="#ex.-1.3-cleaning-variables-names-janitorclean_names...-basenames" id="toc-ex.-1.3-cleaning-variables-names-janitorclean_names...-basenames" class="nav-link" data-scroll-target="#ex.-1.3-cleaning-variables-names-janitorclean_names...-basenames">Ex. 1.3 Cleaning variables names: <code>janitor::clean_names(...)</code> , <code>base::names()</code></a></li>
+  <li><a href="#ex.-1.4-cleaning-variables-names-dplyrrename" id="toc-ex.-1.4-cleaning-variables-names-dplyrrename" class="nav-link" data-scroll-target="#ex.-1.4-cleaning-variables-names-dplyrrename">Ex. 1.4 Cleaning variables names: <code>dplyr::rename()</code></a></li>
+  <li><a href="#ex.-1.5-removing-first-row-with-irrelevant-data-dplyrslice" id="toc-ex.-1.5-removing-first-row-with-irrelevant-data-dplyrslice" class="nav-link" data-scroll-target="#ex.-1.5-removing-first-row-with-irrelevant-data-dplyrslice">Ex. 1.5 Removing first row with irrelevant data <code>dplyr::slice()</code></a></li>
+  <li><a href="#ex.-1.6-mutating-variables-types-dplyrmutate-baseas.numeric." id="toc-ex.-1.6-mutating-variables-types-dplyrmutate-baseas.numeric." class="nav-link" data-scroll-target="#ex.-1.6-mutating-variables-types-dplyrmutate-baseas.numeric.">Ex. 1.6 Mutating variables types: <code>dplyr::mutate()</code>, <code>base::as.numeric()</code>.</a></li>
+  <li><a href="#ex.-1.7-mutating-date-variable-dplyrmutate-janitorconvert_to_date." id="toc-ex.-1.7-mutating-date-variable-dplyrmutate-janitorconvert_to_date." class="nav-link" data-scroll-target="#ex.-1.7-mutating-date-variable-dplyrmutate-janitorconvert_to_date.">Ex. 1.7 Mutating date variable: <code>dplyr::mutate()</code>, <code>janitor::convert_to_date()</code>.</a></li>
+  <li><a href="#ex.-1.8-use-skimrskim-to-generate-summary-statistics-of-the-data" id="toc-ex.-1.8-use-skimrskim-to-generate-summary-statistics-of-the-data" class="nav-link" data-scroll-target="#ex.-1.8-use-skimrskim-to-generate-summary-statistics-of-the-data">Ex. 1.8 Use <code>skimr::skim()</code> to generate summary statistics of the data</a></li>
+  <li><a href="#ex.-1.9-plot-a-time-series-of-all-four-variables-using-ggplot2-package" id="toc-ex.-1.9-plot-a-time-series-of-all-four-variables-using-ggplot2-package" class="nav-link" data-scroll-target="#ex.-1.9-plot-a-time-series-of-all-four-variables-using-ggplot2-package">Ex. 1.9 Plot a time-series of all four variables using <code>ggplot2</code> package</a></li>
+  <li><a href="#solution-to-the-exercise-2" id="toc-solution-to-the-exercise-2" class="nav-link" data-scroll-target="#solution-to-the-exercise-2">Solution to the exercise 2</a></li>
+  </ul></li>
+  <li><a href="#exercise-2.-optional-import-from-a-.csv-coma-separated-file" id="toc-exercise-2.-optional-import-from-a-.csv-coma-separated-file" class="nav-link" data-scroll-target="#exercise-2.-optional-import-from-a-.csv-coma-separated-file">Exercise 2. OPTIONAL Import from a <code>.csv</code>: coma separated file</a>
+  <ul class="collapse">
+  <li><a href="#simple-csv-file-readrread_csv-dplyrglimpse-basesummary-utilsview" id="toc-simple-csv-file-readrread_csv-dplyrglimpse-basesummary-utilsview" class="nav-link" data-scroll-target="#simple-csv-file-readrread_csv-dplyrglimpse-basesummary-utilsview">2.1 Simple CSV file: <code>readr::read_csv()</code>, <code>dplyr::glimpse()</code> , <code>base::summary()</code> , <code>utils::View()</code></a></li>
+  <li><a href="#large-and-complex-csv-file" id="toc-large-and-complex-csv-file" class="nav-link" data-scroll-target="#large-and-complex-csv-file">2.2 Large and complex CSV file</a></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
+  </ul></li>
+  <li><a href="#exercise-3.-optional.-janitor-for-cleaning-data-in-r" id="toc-exercise-3.-optional.-janitor-for-cleaning-data-in-r" class="nav-link" data-scroll-target="#exercise-3.-optional.-janitor-for-cleaning-data-in-r">Exercise 3. OPTIONAL. <code>janitor</code> for cleaning data in R</a>
+  <ul class="collapse">
+  <li><a href="#make-all-variables-named-as-values-in-the-first-row." id="toc-make-all-variables-named-as-values-in-the-first-row." class="nav-link" data-scroll-target="#make-all-variables-named-as-values-in-the-first-row.">3.1 Make all variables named as values in the first row.</a></li>
+  <li><a href="#make-all-names-nice" id="toc-make-all-names-nice" class="nav-link" data-scroll-target="#make-all-names-nice">3.2 Make all names nice</a></li>
+  <li><a href="#make-variable-hire_data-as-date" id="toc-make-variable-hire_data-as-date" class="nav-link" data-scroll-target="#make-variable-hire_data-as-date">3.3 Make variable <code>hire_data</code> as date</a></li>
+  <li><a href="#make-variable-percent_allocated-as-numeric" id="toc-make-variable-percent_allocated-as-numeric" class="nav-link" data-scroll-target="#make-variable-percent_allocated-as-numeric">3.4 Make variable <code>percent_allocated</code> as numeric</a></li>
+  <li><a href="#solutions-1" id="toc-solutions-1" class="nav-link" data-scroll-target="#solutions-1">Solutions</a></li>
+  </ul></li>
+  <li><a href="#functional-reference" id="toc-functional-reference" class="nav-link" data-scroll-target="#functional-reference">Functional reference</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">AE03-01 Import, cleaning, summary plot</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduard Bukin </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 27, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="setups" class="level2">
+<h2 class="anchored" data-anchor-id="setups">Setups</h2>
+<p>We will us <code>tidyverse</code> for data wrangling and <code>readr</code> and <code>readxl</code> for data import.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)       <span class="co"># install.packages("readr")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)      <span class="co"># install.packages("readxl")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)     <span class="co"># install.packages("janitor")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)       <span class="co"># install.packages("skimr")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-1.-load-clean-and-plot-data-from-excel" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1.-load-clean-and-plot-data-from-excel">Exercise 1. Load clean and plot data from Excel</h2>
+<p>Here, we will explore the data from the file called <code>commodity-prices.xlsx</code> in the <code>data</code> folder.</p>
+<section id="ex.-1.1-inspect-the-file-in-excel-readxlexcel_sheets" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.1-inspect-the-file-in-excel-readxlexcel_sheets">Ex. 1.1 Inspect the file in excel: <code>readxl::excel_sheets()</code></h3>
+<p>Open the file in Excel and inspect it.</p>
+<ul>
+<li>What sheets are there?</li>
+<li>Where is the data?</li>
+</ul>
+<p>Use function <code>excel_sheets()</code> to check what sheets does R sees in this file. Please note that you need to provide path to the file manually. Thus:</p>
+<ol type="1">
+<li><p>Create an object <code>path_prices</code></p>
+<ul>
+<li>and assign to it a value of the string with the path to the file.</li>
+<li>This string may look like: <code>./path_to_folder/file_name.ext</code>.</li>
+<li>Make sure that you specify the path exactly as it is with the file extension.</li>
+<li>Make sure that in the path, there are no extra spaces of characters which are not present in the file path.</li>
+</ul></li>
+<li><p>Execute function <code>excel_sheets()</code> specifying in the arguments path to the file.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># path_prices &lt;- "______"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># excel_sheets(path = _______)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What does the <code>excel_sheets()</code> tells us?</p>
+</section>
+<section id="ex.-1.2-load-data-from-the-sheet-readxlread_excel...-sheet-____-utilshead" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.2-load-data-from-the-sheet-readxlread_excel...-sheet-____-utilshead">Ex. 1.2 Load data from the sheet: <code>readxl::read_excel(..., sheet = ____)</code>, <code>utils::head()</code></h3>
+<p>You need to use function <code>read_excel()</code> to load data.</p>
+<ul>
+<li>Check help for this function in the console!</li>
+<li>Save data in the <code>environment</code> under the object name <code>prices_dta</code>.</li>
+<li><code>glimpse()</code> at the data</li>
+<li>us function <code>head()</code> with the data and explain what it does</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta &lt;- </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ________(path_prices)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta %&gt;% </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   ________()</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta %&gt;% </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you can see, the data is loaded into R, but there are problems:</p>
+<ul>
+<li>Variables names are long, bulky, contain spaces and it is difficult to use them.</li>
+<li>All variables are in <code>&lt;chr&gt;</code>, which means character, when it should be numerical <code>&lt;dbl&gt;</code>.</li>
+<li>First row in the data contains text, which is irrelevant to the data.</li>
+<li>The data is not tidy! We need to clean it.</li>
+</ul>
+</section>
+<section id="ex.-1.3-cleaning-variables-names-janitorclean_names...-basenames" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.3-cleaning-variables-names-janitorclean_names...-basenames">Ex. 1.3 Cleaning variables names: <code>janitor::clean_names(...)</code> , <code>base::names()</code></h3>
+<p>Currently variables names are very long.</p>
+<ul>
+<li>Note, we use <code>names()</code> function to check variables names.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta %&gt;% names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can simplify these names and make them machine readable and usable using function <code>janitor::clean_names()</code>.</p>
+<ul>
+<li><p>check help for this function <code>?clean_names</code></p></li>
+<li><p>run it on the data and check the variables names</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta %&gt;% </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   __________() %&gt;% </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Are those variables names useful now?</p>
+</section>
+<section id="ex.-1.4-cleaning-variables-names-dplyrrename" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.4-cleaning-variables-names-dplyrrename">Ex. 1.4 Cleaning variables names: <code>dplyr::rename()</code></h3>
+<p>Well, no, these variables names are not useful. We still need to <code>rename()</code> them into something shorter. For this, we use <code>dplyr::rename()</code> . See help <a href="https://dplyr.tidyverse.org/reference/rename.html">here</a>.</p>
+<p>The logit is:</p>
+<ul>
+<li>we supply data into <code>rename()</code> with pipe: <code>data %&gt;% rename()</code>.</li>
+<li>in the <code>rename()</code> , we specify what should be the new name on the left hand side and old name on the right hand
+<ul>
+<li><code>data %&gt;% rename(new_name = OLD_NAME)</code>.</li>
+</ul></li>
+<li>we do not use any quotation marks.</li>
+<li>Remember to repeat the data cleaning step with <code>janitor::lean_names()</code>.</li>
+</ul>
+<p>Here is the example with the longest variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta %&gt;% </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   clean_names() %&gt;% </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt) %&gt;% </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Follow this example to rename variables into <code>date</code>, <code>oil</code>, <code>maize</code> and <code>urea</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta %&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   clean_names() %&gt;% </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          maize = ______________, </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          date = ______________, </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#          ______________ = ______________, </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#          ______________ = ______________) %&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Did it work?</p>
+</section>
+<section id="ex.-1.5-removing-first-row-with-irrelevant-data-dplyrslice" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.5-removing-first-row-with-irrelevant-data-dplyrslice">Ex. 1.5 Removing first row with irrelevant data <code>dplyr::slice()</code></h3>
+<p>Use function <code>slice(prices_dta, -1)</code>. Check help for <code>dplyr::slice()</code>.</p>
+<ul>
+<li>with argument <code>-1</code> we are telling to R to drop row with the number <code>1</code>;</li>
+<li>Note, wen we use pipeline <code>%&gt;%</code> we do not need to specify data frame name <code>prices_dta</code> within the brackets <code>(…)</code> of the <code>slice()</code> call!</li>
+<li>Remember to copy all the code from before, where you renamed the variables.</li>
+<li>Assign value of this long pipe to the new object named <code>prices_dta_1</code>. This object will stand for the intermediary step in the data cleaning process.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_1 &lt;- </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   prices_dta %&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   </span><span class="al">###</span><span class="co"> Place here the R code with renaming </span><span class="al">###</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   </span><span class="al">###</span><span class="co"> Place here the R code with renaming </span><span class="al">###</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   </span><span class="al">###</span><span class="co"> Place here the R code with renaming </span><span class="al">###</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   slice(___) %&gt;% </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If everything alright with the data now? Let us use <code>summary()</code> to summaries the variables and extract some numerical features:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_1 %&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   summary()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Are these results meaningful?</p>
+</section>
+<section id="ex.-1.6-mutating-variables-types-dplyrmutate-baseas.numeric." class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.6-mutating-variables-types-dplyrmutate-baseas.numeric.">Ex. 1.6 Mutating variables types: <code>dplyr::mutate()</code>, <code>base::as.numeric()</code>.</h3>
+<p>As we say on the previous step, all variables have the type <code>character</code> or <code>&lt;chr&gt;</code>. As this is text, it is not possible to make summary statistics out of it. <code>R</code> simply does not understand that we want to used those variables as numbers as we need to explain this to <code>R</code>.</p>
+<p>We need to:</p>
+<ul>
+<li><p><code>mutate()</code> existing variables (see definition of mutate <a href="https://dictionary.cambridge.org/dictionary/english/mutate">here</a>)</p></li>
+<li><p>the help on the <code>mutate()</code> function is <a href="https://dplyr.tidyverse.org/reference/mutate.html">here</a> with more <a href="https://dplyr.tidyverse.org/articles/colwise.html">case example here</a> and a dedicated <a href="https://dplyr.tidyverse.org/articles/colwise.html">Chapter 5.5 in R4DS</a>;</p></li>
+<li><p>and convert them to <code>numeric</code> or <code>double</code> type referred as <code>&lt;dbl&gt;</code></p></li>
+<li><p>to convert variable type, we use <code>as.numeric()</code>, see: <code>?as.numeric</code> or run <code>as.numeric(c("-.1"," 2.7 ","B"))</code> in console.</p></li>
+</ul>
+<p>Here is the example that should work for one column:</p>
+<ul>
+<li><p>Note, it will only work if you made previous cleaning steps correctly.</p></li>
+<li><p>please un-commencement it.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_1 %&gt;% </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(oil = as.numeric(oil)) %&gt;% </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As you can see now, <code>oil</code> variable has numeric format. Thus, when we run <code>summary()</code> we get description of the numerical values there:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_1 %&gt;% </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(oil = as.numeric(oil)) %&gt;% </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   summary()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, your turn to mutate all variable as numeric.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_1 %&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(oil = as.numeric(oil),</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#          wheat = ____________(____),</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          _____ = ____________(urea),</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          _____ = ____________(____),</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#          _____ = ____________(____)) %&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-1.7-mutating-date-variable-dplyrmutate-janitorconvert_to_date." class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.7-mutating-date-variable-dplyrmutate-janitorconvert_to_date.">Ex. 1.7 Mutating date variable: <code>dplyr::mutate()</code>, <code>janitor::convert_to_date()</code>.</h3>
+<p>Check results of the previous chunk!</p>
+<ul>
+<li>It is clear that <code>date</code> variable is not a date, but a series of a number instead.</li>
+<li>This is because Excel stores date as a number of days since January 1, 1990. Thus, 33664 is March 1, 1992.</li>
+<li>We need to convert such date notations to some real dates using function <code>janitor::convert_to_date()</code>.</li>
+<li>See: <code>?convert_to_date</code>.</li>
+<li>Convert date to the type <code>&lt;date&gt;</code> in the same way as variable type conversion at the previous step.</li>
+<li>Assign new object <code>prices_dta_clean</code> with the value of the data frame with all cleaning steps.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean &lt;- </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   prices_dta_1 %&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(oil = as.numeric(oil),</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          wheat = ____________(____),</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          _____ = ____________(urea),</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#          _____ = ____________(____),</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#          date = convert_to_date(____)) </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean %&gt;% glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have manage to clean the data!</p>
+<p>Do data <code>summary()</code> of the data to see what the variables are about.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-1.8-use-skimrskim-to-generate-summary-statistics-of-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.8-use-skimrskim-to-generate-summary-statistics-of-the-data">Ex. 1.8 Use <code>skimr::skim()</code> to generate summary statistics of the data</h3>
+<p>Go to <a href="https://docs.ropensci.org/skimr/">skimr website</a> and learn how to use function <code>skim()</code>. Apply it to the <code>prices_dta_clean</code> data frame below and discuss how the results are different from <code>summary()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)       <span class="co"># install.packages("skimr")</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean %&gt;% </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   _____()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-1.9-plot-a-time-series-of-all-four-variables-using-ggplot2-package" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-1.9-plot-a-time-series-of-all-four-variables-using-ggplot2-package">Ex. 1.9 Plot a time-series of all four variables using <code>ggplot2</code> package</h3>
+<p>Plotting according to the <code>grammar of graphics</code> (<code>gg</code>) using package <code>ggplot2</code> is a rewarding process. But, we need to follow some steps.</p>
+<ol type="1">
+<li>We need to make data clean and tidy.
+<ul>
+<li>Ideally, data has to be in the long format, but wide data may also work</li>
+</ul></li>
+<li>Send data to <code>ggplot()</code> function to initiate a plot.
+<ul>
+<li>Note, we use <code>%&gt;%</code> (pipe) for this step: <code>data %&gt;% ggplot()</code></li>
+</ul></li>
+<li>Start adding (<code>+</code>) various <code>aesthetics</code> to the plot using <code>aes()</code> function:
+<ul>
+<li>Note, inside the ggplot builder we use <code>+</code>, not a pipe! <code>data %&gt;% ggplot() + aes(x, y)</code></li>
+</ul></li>
+<li>Add geometries using <code>+</code>
+<ul>
+<li><code>data %&gt;% ggplot() + aes(x, y) + geom_line()</code></li>
+</ul></li>
+</ol>
+<p>Let us give it a try! Let us convert existing data to the plot basis and add an aesthetics for <code>x</code> axis:</p>
+<ul>
+<li>Use <code>date</code> as an aesthetics for <code>x</code> axis, <code>wheat</code> for <code>y</code> axis and a string <code>"wheat"</code> for <code>color</code>.</li>
+<li>Do not use quotation marks in <code>aes</code> for <code>x</code> and <code>y</code>.</li>
+<li>Do USE quotation marks in <code>aes</code> for <code>colour</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean %&gt;% </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   aes(____ = date, y = _____, color = "_____") </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R created a grid for a plot, but no plot. This is because, we did not add any geometries! Let us add a <code>geom_path()</code> to the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean %&gt;% </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   aes(____ = date, y = _____, color = "_____") </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_path(aes(y = _______, colour = "Maize")) + </span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_path(aes(y = _______, colour = "_____"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we shall add another line to the plot with the Maize prices:</p>
+<ul>
+<li>we need to add a line with a new <code>geom_path()</code>, and</li>
+<li>specify <code>aes()</code> inside <code>geom_path()</code>,</li>
+<li>for example <code>geom_path(aes(y = maize, colour = "Maize"))</code>.</li>
+<li>do not forget <code>+</code>.</li>
+</ul>
+<p>Go ahead:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean %&gt;% </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   aes(____ = date, y = _____, color = "_____") </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_path(_____(y = ______, colour = "_____"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Add another line with `geom_path`, this time adding the oil prices to the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prices_dta_clean %&gt;% </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   aes(____ = date, y = _____, color = "_____") </span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   _________() + </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_path(_____(y = ______, colour = "_____")) + </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_path(_____(y = ______, colour = "_____"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solution-to-the-exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="solution-to-the-exercise-2">Solution to the exercise 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>prices_dta_clean <span class="ot">&lt;-</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_excel</span>(<span class="st">"data/commodity-prices.xlsx"</span>, <span class="at">sheet =</span>  <span class="st">"data"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">wheat =</span> soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">maize =</span> yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> day_month_year, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">oil =</span> crude_oil_brent_usd_per_barrel, </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">urea =</span> urea_f_o_b_black_sea_usd_per_mt) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">oil =</span> <span class="fu">as.numeric</span>(oil),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">wheat =</span> <span class="fu">as.numeric</span>(wheat),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">maize =</span> <span class="fu">as.numeric</span>(maize),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">urea =</span> <span class="fu">as.numeric</span>(urea),</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">convert_to_date</span>(date)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(prices_dta_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 359
+Columns: 5
+$ date  &lt;date&gt; 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…
+$ oil   &lt;dbl&gt; 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…
+$ wheat &lt;dbl&gt; 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …
+$ maize &lt;dbl&gt; 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…
+$ urea  &lt;dbl&gt; 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prices_dta_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      date                 oil             wheat           maize       
+ Min.   :1992-03-01   Min.   : 10.41   Min.   : 85.3   Min.   : 75.27  
+ 1st Qu.:1999-08-16   1st Qu.: 20.93   1st Qu.:137.3   1st Qu.:104.16  
+ Median :2007-02-01   Median : 46.17   Median :175.4   Median :150.15  
+ Mean   :2007-01-30   Mean   : 50.48   Mean   :185.3   Mean   :155.62  
+ 3rd Qu.:2014-07-16   3rd Qu.: 71.81   3rd Qu.:220.3   3rd Qu.:176.88  
+ Max.   :2022-01-01   Max.   :132.83   Max.   :419.6   Max.   :333.05  
+                                       NA's   :1                       
+      urea       
+ Min.   : 62.75  
+ 1st Qu.:103.94  
+ Median :213.88  
+ Mean   :221.94  
+ 3rd Qu.:278.70  
+ Max.   :900.50  
+                 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(prices_dta_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">prices_dta_clean</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">359</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: left;">min</th>
+<th style="text-align: left;">max</th>
+<th style="text-align: left;">median</th>
+<th style="text-align: right;">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1992-03-01</td>
+<td style="text-align: left;">2022-01-01</td>
+<td style="text-align: left;">2007-02-01</td>
+<td style="text-align: right;">359</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">oil</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">50.48</td>
+<td style="text-align: right;">30.88</td>
+<td style="text-align: right;">10.41</td>
+<td style="text-align: right;">20.93</td>
+<td style="text-align: right;">46.17</td>
+<td style="text-align: right;">71.81</td>
+<td style="text-align: right;">132.83</td>
+<td style="text-align: left;">▇▃▃▂▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wheat</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">185.35</td>
+<td style="text-align: right;">65.07</td>
+<td style="text-align: right;">85.30</td>
+<td style="text-align: right;">137.26</td>
+<td style="text-align: right;">175.45</td>
+<td style="text-align: right;">220.31</td>
+<td style="text-align: right;">419.61</td>
+<td style="text-align: left;">▇▇▃▂▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">maize</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">155.62</td>
+<td style="text-align: right;">62.66</td>
+<td style="text-align: right;">75.27</td>
+<td style="text-align: right;">104.16</td>
+<td style="text-align: right;">150.15</td>
+<td style="text-align: right;">176.88</td>
+<td style="text-align: right;">333.05</td>
+<td style="text-align: left;">▇▆▂▂▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">urea</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">221.93</td>
+<td style="text-align: right;">137.63</td>
+<td style="text-align: right;">62.75</td>
+<td style="text-align: right;">103.94</td>
+<td style="text-align: right;">213.88</td>
+<td style="text-align: right;">278.70</td>
+<td style="text-align: right;">900.50</td>
+<td style="text-align: left;">▇▅▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>prices_dta_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> wheat, <span class="at">colour =</span> <span class="st">"Wheat"</span>) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">y =</span> maize, <span class="at">colour =</span> <span class="st">"Maize"</span>)) <span class="sc">+</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">y =</span> urea, <span class="at">colour =</span> <span class="st">"Urea"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-01-import-clean-sum-plot_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Same plot could be build build in a more simple way if we use long formatted data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>prices_dta_clean_long <span class="ot">&lt;-</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  prices_dta_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(oil<span class="sc">:</span>urea))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(prices_dta_clean_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,436
+Columns: 3
+$ date  &lt;date&gt; 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…
+$ name  &lt;chr&gt; "oil", "wheat", "maize", "urea", "oil", "wheat", "maize", "urea"…
+$ value &lt;dbl&gt; 17.45, 161.44, 117.00, 120.00, 18.63, 153.07, 108.52, 120.00, 19…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>prices_dta_clean_long <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value, <span class="at">colour =</span> name) <span class="sc">+</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-01-import-clean-sum-plot_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2.-optional-import-from-a-.csv-coma-separated-file" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2.-optional-import-from-a-.csv-coma-separated-file">Exercise 2. OPTIONAL Import from a <code>.csv</code>: coma separated file</h2>
+<p>Here is the example <a href="https://raw.githubusercontent.com/EBukin/datasets4examples/main/datasets-raw/NHIS2009.csv">NHIS 2009</a> data used in the <span class="citation" data-cites="Angrist2014">(<a href="#ref-Angrist2014" role="doc-biblioref">Angrist and Pischke 2014</a>)</span>. To load such data in R, we can use <code>readr</code> package from tidyverse <a href="https://readr.tidyverse.org/">readr</a>.</p>
+<p>One may use a visual import tool for data available in R studio. But remember to save the R code for data import in the script. Data import code must be a part of your analysis.</p>
+<p>The challenge is to specify the right path to the file that we want to import. For this exercise, this file is also saved in the folder <code>./data/NHIS2009.csv</code></p>
+<section id="simple-csv-file-readrread_csv-dplyrglimpse-basesummary-utilsview" class="level3">
+<h3 class="anchored" data-anchor-id="simple-csv-file-readrread_csv-dplyrglimpse-basesummary-utilsview">2.1 Simple CSV file: <code>readr::read_csv()</code>, <code>dplyr::glimpse()</code> , <code>base::summary()</code> , <code>utils::View()</code></h3>
+<p>In the folder <code>data</code> there is a file <code>chicken.csv</code>. Load it into the object chick.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># chick &lt;- read_csv(____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now inspect the data:</p>
+<ul>
+<li>use <code>glimpse(____)</code>;</li>
+<li>print the data set;</li>
+<li><code>View()</code> the data;</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Try function <code>summary(_____)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is the difference between summary and previous two ways of data exploration?</p>
+</section>
+<section id="large-and-complex-csv-file" class="level3">
+<h3 class="anchored" data-anchor-id="large-and-complex-csv-file">2.2 Large and complex CSV file</h3>
+<p>Loading larger CSV files is not different from loading small files. Below, load the file <code>NHIS2009.csv</code> from the folder <code>data</code> and then glimpse at it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solutions" class="level3">
+<h3 class="anchored" data-anchor-id="solutions">Solutions</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>chick <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/chicken.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+Rows: 5 Columns: 5
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: "," chr
+(3): chicken, sex, motto dbl (2): ...1, eggs_laid
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+• `` -&gt; `...1`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(chick)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5
+Columns: 5
+$ ...1      &lt;dbl&gt; 1, 2, 3, 4, 5
+$ chicken   &lt;chr&gt; "Foghorn Leghorn", "Chicken Little", "Ginger", "Camilla the …
+$ sex       &lt;chr&gt; "rooster", "hen", "hen", "hen", "rooster"
+$ eggs_laid &lt;dbl&gt; 0, 3, 12, 7, 0
+$ motto     &lt;chr&gt; "That's a joke, ah say, that's a joke, son.", "The sky is fa…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View(chick)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chick)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      ...1     chicken              sex              eggs_laid   
+ Min.   :1   Length:5           Length:5           Min.   : 0.0  
+ 1st Qu.:2   Class :character   Class :character   1st Qu.: 0.0  
+ Median :3   Mode  :character   Mode  :character   Median : 3.0  
+ Mean   :3                                         Mean   : 4.4  
+ 3rd Qu.:4                                         3rd Qu.: 7.0  
+ Max.   :5                                         Max.   :12.0  
+    motto          
+ Length:5          
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>nhis <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/NHIS2009.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 80634 Columns: 40
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (38): year, inc1, inc2, inc3, inc4, inc5, inc6, inc7, inc8, serial, hhwe...
+lgl  (2): fml, marradult
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3.-optional.-janitor-for-cleaning-data-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3.-optional.-janitor-for-cleaning-data-in-r">Exercise 3. OPTIONAL. <code>janitor</code> for cleaning data in R</h2>
+<p>we follow the data cleaning exercise form the <a href="https://github.com/sfirke/janitor">janitor webpage</a>. Data set is called <code>dirty_data.xlsx</code> and it is located in: <code>./data/dirty_data.xlsx</code> or on the <a href="https://github.com/sfirke/janitor/raw/main/dirty_data.xlsx">github</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ddta <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./data/dirty_data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `` -&gt; `...2`
+• `` -&gt; `...3`
+• `` -&gt; `...5`
+• `` -&gt; `...6`
+• `` -&gt; `...7`
+• `` -&gt; `...8`
+• `` -&gt; `...9`
+• `` -&gt; `...10`
+• `` -&gt; `...11`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ddta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 14
+Columns: 11
+$ `Data most recently refreshed on:` &lt;chr&gt; "First Name", "Jason", "Jason", "Al…
+$ ...2                               &lt;chr&gt; "Last Name", "Bourne", "Bourne", "K…
+$ ...3                               &lt;chr&gt; "Employee Status", "Teacher", "Teac…
+$ `Dec-27 2020`                      &lt;chr&gt; "Subject", "PE", "Drafting", "Music…
+$ ...5                               &lt;chr&gt; "Hire Date", "39690", "43479", "371…
+$ ...6                               &lt;chr&gt; "% Allocated", "0.75", "0.25", "1",…
+$ ...7                               &lt;chr&gt; "Full time?", "Yes", "Yes", "Yes", …
+$ ...8                               &lt;chr&gt; "do not edit! ---&gt;", NA, NA, NA, NA…
+$ ...9                               &lt;chr&gt; "Certification", "Physical ed", "Ph…
+$ ...10                              &lt;chr&gt; "Certification", "Theater", "Theate…
+$ ...11                              &lt;chr&gt; "Active?", "YES", "YES", "YES", "YE…</code></pre>
+</div>
+</div>
+<p>As you can see, this data is dirty. The problems are:</p>
+<ul>
+<li>Variables names are wrong, they are in fact in the first row of data.</li>
+<li>All variables are in character type, when in fact some variables are in different format.</li>
+<li>There are some columns that are empty.</li>
+<li>There are some rows that are empty.</li>
+</ul>
+<section id="make-all-variables-named-as-values-in-the-first-row." class="level3">
+<h3 class="anchored" data-anchor-id="make-all-variables-named-as-values-in-the-first-row.">3.1 Make all variables named as values in the first row.</h3>
+<p>Use function <code>row_to_names()</code> and specify the parameter <code>row_number</code> to 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ddta %&gt;% </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ____________(__________ = 1) %&gt;% </span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-all-names-nice" class="level3">
+<h3 class="anchored" data-anchor-id="make-all-names-nice">3.2 Make all names nice</h3>
+<p>Currently, all names are (insert your code form previous step):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ddta %&gt;% </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ____________(__________ = 1) %&gt;% </span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use function <code>clean_names()</code>, to make names nice.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ddta %&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ____________(__________ = 1) %&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ____________() %&gt;% </span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-variable-hire_data-as-date" class="level3">
+<h3 class="anchored" data-anchor-id="make-variable-hire_data-as-date">3.3 Make variable <code>hire_data</code> as date</h3>
+<p>To convert variable types to meaningful numeric variables, we need to use some more functions. Specifically, functions <code>convert_to_date()</code>. In addition, we need to use function <code>mutate()</code> to tell r to modify existing variable.</p>
+<p>Here is the example, where we use mutate to modify existing variable <code>Sepal.Width</code> with the same variable but as character string instead of a number.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 5
+$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
+$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…
+$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
+$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
+$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sepal.Width =</span> <span class="fu">as.character</span>(Sepal.Width)) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 5
+$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
+$ Sepal.Width  &lt;chr&gt; "3.5", "3", "3.2", "3.1", "3.6", "3.9", "3.4", "3.4", "2.…
+$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
+$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
+$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+</div>
+</div>
+<p>Use the example from above to modify the variable <code>hire_date</code> with its values converted to date using function <code>convert_to_date</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ddta %&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ____________(__________ = 1) %&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ____________() %&gt;% </span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(_________ = ____________(hire_date)) %&gt;% </span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="make-variable-percent_allocated-as-numeric" class="level3">
+<h3 class="anchored" data-anchor-id="make-variable-percent_allocated-as-numeric">3.4 Make variable <code>percent_allocated</code> as numeric</h3>
+<p>Same as above, but now using function <code>as.numeric()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ddta %&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______________(__________ = 1) %&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ______________() %&gt;%</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(_________ = ____________(hire_date),</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          percent_allocated = ________(___________)) %&gt;%</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   glimpse()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solutions-1" class="level3">
+<h3 class="anchored" data-anchor-id="solutions-1">Solutions</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ddta <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./data/dirty_data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `` -&gt; `...2`
+• `` -&gt; `...3`
+• `` -&gt; `...5`
+• `` -&gt; `...6`
+• `` -&gt; `...7`
+• `` -&gt; `...8`
+• `` -&gt; `...9`
+• `` -&gt; `...10`
+• `` -&gt; `...11`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r fold-hide code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>ddta <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_to_names</span>(<span class="at">row_number =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hire_date =</span> <span class="fu">as.numeric</span>(hire_date),</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">percent_allocated =</span> <span class="fu">as.numeric</span>(percent_allocated)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in row_to_names(., row_number = 1): Row 1 does not provide unique names.
+Consider running clean_names() after row_to_names().</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 13
+Columns: 11
+$ first_name        &lt;chr&gt; "Jason", "Jason", "Alicia", "Ada", "Desus", "Chien-S…
+$ last_name         &lt;chr&gt; "Bourne", "Bourne", "Keys", "Lovelace", "Nice", "Wu"…
+$ employee_status   &lt;chr&gt; "Teacher", "Teacher", "Teacher", "Teacher", "Adminis…
+$ subject           &lt;chr&gt; "PE", "Drafting", "Music", NA, "Dean", "Physics", "C…
+$ hire_date         &lt;dbl&gt; 39690, 43479, 37118, 38572, 42791, 11037, 11037, NA,…
+$ percent_allocated &lt;dbl&gt; 0.75, 0.25, 1.00, 1.00, 1.00, 0.50, 0.50, NA, 0.50, …
+$ full_time         &lt;chr&gt; "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", NA,…
+$ do_not_edit       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
+$ certification     &lt;chr&gt; "Physical ed", "Physical ed", "Instr. music", "PENDI…
+$ certification_2   &lt;chr&gt; "Theater", "Theater", "Vocal music", "Computers", NA…
+$ active            &lt;chr&gt; "YES", "YES", "YES", "YES", "YES", "YES", "YES", NA,…</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="functional-reference" class="level2">
+<h2 class="anchored" data-anchor-id="functional-reference">Functional reference</h2>
+<p>In this exercise, we shall practice the following:</p>
+<p>Loading data:</p>
+<ul>
+<li><code>readr::read_csv()</code> and <code>readxl::excel_sheets()</code> with <code>readxl::read_excel()</code>;</li>
+</ul>
+<p>Inspecting data:</p>
+<ul>
+<li><code>dplyr::glimpse()</code>, <code>utils::View()</code>, <code>utils::head()</code>, <code>base::names()</code>;</li>
+</ul>
+<p>Data summary:</p>
+<ul>
+<li><p><code>base::summary()</code>; Renaming variables:</p></li>
+<li><p><code>janitor::clean_names(...)</code>, <code>dplyr::rename()</code>;</p></li>
+</ul>
+<p>Removing undesired observations/row by their number in the data with:</p>
+<ul>
+<li><code>dplyr::slice()</code>;</li>
+</ul>
+<p>Mutating/modifying types of existing variables:</p>
+<ul>
+<li><code>dplyr::mutate()</code></li>
+</ul>
+<p>Converting excel dates to R-relevant <code>&lt;date&gt;</code> variable type:</p>
+<ul>
+<li><code>janitor::convert_to_date()</code> and <code>janitor::excel_numeric_to_date()</code>.</li>
+</ul>
+<p>Summary statistics with:</p>
+<ul>
+<li><code>skimr::skim()</code>.</li>
+</ul>
+<p>Plotting time series with:</p>
+<ul>
+<li><code>ggplot2::ggplot()</code>, <code>ggplot2::aes()</code>, <code>ggplot2::geom_path()</code>.</li>
+</ul>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Angrist2014" class="csl-entry" role="doc-biblioentry">
+Angrist, Joshua D., and Jörn-Steffen Pischke. 2014. <em>Mastering’metrics: The Path from Cause to Effect</em>. Princeton University Press.
+</div>
+</div></section></div></main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
