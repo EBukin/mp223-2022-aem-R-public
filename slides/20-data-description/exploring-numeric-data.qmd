@@ -1,0 +1,856 @@
+---
+title: "Exploring numerical data"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    multiplex: false
+    slide-number: true
+    incremental: true 
+    chalkboard: false
+    smaller: false
+    scrollable: true
+
+execute:
+  freeze: auto
+  
+bibliography: ../../references.bib
+---
+
+# R setup{.smaller}
+
+```{r}
+#| echo: true
+#| 
+library(tidyverse)
+library(alr4)
+library(skimr)
+
+# set default theme and larger font size for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+
+# set default figure parameters for knitr
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "80%"
+)
+```
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "80%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(1123581321)
+```
+
+```{r}
+#| echo: false
+library(magick)   
+library(magrittr)    
+get_image <- function(x) {
+  here::here("slides", "50-data-wrangling", "img", x) 
+}
+```
+
+
+# The data in use {.smaller}
+
+`UN11` data set on National statistics from the United Nations mostly from 2009-2011 from [@weisberg2005a].
+
+```{r}
+library(alr4)
+un_dta <- UN11 %>% as_tibble()
+glimpse(un_dta)
+```
+
+# Summary statistics
+
+## Summary of a single variables
+
+```{r}
+un_dta %>% pull(fertility) %>% mean()
+```
+
+. . .
+
+```{r}
+mean(un_dta$fertility)
+```
+
+. . .
+
+```{r}
+un_dta %>% pull(fertility) %>% sd()
+```
+
+. . .
+
+```{r}
+sd(un_dta$fertility)
+```
+
+
+
+## Using `dplyr::summarise()` (1/3)
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/summarise-01.png")
+```
+
+
+## Using `dplyr::summarise()` (2/3)
+
+```{r}
+un_dta %>%
+  summarise(
+    mean_fert = mean(fertility)
+  ) 
+```
+
+
+## Using `dplyr::summarise()` (2/3)
+
+```{r}
+un_dta %>%
+  summarise(
+    mean_fert = mean(fertility),
+    sd_ppgdp = sd(ppgdp)
+  ) 
+```
+
+## Using `dplyr::summarise()` (2/3)
+
+```{r}
+un_dta %>%
+  summarise(
+    mean_fert = mean(fertility),
+    sd_ppgdp = sd(ppgdp),
+    med_lifeExpF = median(lifeExpF)
+  ) 
+```
+
+## Using `dplyr::summarise()` (3/3)
+
+```{r}
+un_dta %>%
+  summarise(across(
+    c(fertility),
+    list(
+      means = mean
+    )
+  )) %>% 
+  rotate_df()
+```
+
+## Using `dplyr::summarise()` (3/3)
+
+```{r}
+un_dta %>%
+  summarise(across(
+    c(fertility, ppgdp),
+    list(
+      means = mean
+    )
+  )) %>% 
+  rotate_df()
+```
+
+## Using `dplyr::summarise()` (3/3)
+
+```{r}
+un_dta %>%
+  summarise(across(
+    c(fertility, ppgdp),
+    list(
+      means = mean,
+      medians = ~ median(., na.rm = TRUE)
+    )
+  )) %>% 
+  rotate_df()
+```
+
+## Using `dplyr::summarise()` (3/3)
+
+```{r}
+un_dta %>%
+  summarise(across(
+    c(fertility, ppgdp),
+    list(
+      means = mean,
+      medians = ~ median(., na.rm = TRUE),
+      sd = ~ sd(., na.rm = TRUE),
+      n_nonmis = ~ sum(!is.na(.))
+    )
+  )) %>% 
+  rotate_df()
+```
+
+## Using `dplyr::group_by()` + `dplyr::summarise()` (1/3)
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/group_by-01.png")
+```
+
+## Using `dplyr::group_by()` + `dplyr::summarise()` (2/3)
+
+```{r}
+un_dta %>% 
+  # group_by(region) %>% 
+  summarise(mean_fert = mean(fertility),
+            sd_ppgdp = sd(ppgdp),
+            med_lifeExpF = median(lifeExpF))
+```
+
+## Using `dplyr::group_by()` + `dplyr::summarise()` (2/3)
+
+```{r}
+un_dta %>% 
+  group_by(region) %>% 
+  summarise(mean_fert = mean(fertility),
+            sd_ppgdp = sd(ppgdp),
+            med_lifeExpF = median(lifeExpF))
+```
+
+## Using `dplyr::group_by()` + `dplyr::summarise()` (3/3)
+
+```{r}
+un_dta %>%
+  group_by(group) %>%
+  summarise(across(
+    c(fertility, ppgdp),
+    list(
+      means = mean,
+      medians = ~ median(., na.rm = TRUE),
+      sd = ~ sd(., na.rm = TRUE),
+      n_nonmis = ~ sum(!is.na(.))
+    )
+  ))
+```
+
+## `skimr` package
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/skimr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+
+Package for Summary statistics
+
+-   Documentation [ropensci/skimr](https://docs.ropensci.org/skimr/) + [Source code](https://github.com/ropensci/skimr/)
+
+-   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
+
+-   Key functions: `skimr::skim()`
+
+:::
+:::
+
+## `skim()` of the UN data {.smaller}
+
+```{r, render = knitr::normal_print}
+#| eval: false
+library(skimr)
+un_dta %>% skim()
+```
+
+```{r, render = knitr::normal_print}
+#| echo: false
+options(width = 150)
+un_dta %>% skim()
+options(width = 90)
+```
+
+
+## `skim()` of the UN data by group {.smaller}
+
+
+```{r, render = knitr::normal_print}
+#| eval: false
+un_dta %>% group_by(group) %>% skim()
+```
+
+
+```{r, render = knitr::normal_print}
+#| echo: false
+options(width = 150)
+un_dta %>% group_by(group) %>% skim()
+options(width = 90)
+```
+
+
+
+## `report` package
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/report-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+
+Package for Summary statistics!
+
+-   Documentation [easystats/skimr](report://easystats.github.io/report/)
+
+-   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
+
+-   Key functions: `skimr::skim()`
+
+::::  callout-important
+This is an experimental package! It does not support some types of the variables and may break or produce an error.
+::::
+
+:::
+:::
+
+## `report` the UN data {.smaller}
+
+```{r, render = knitr::normal_print}
+#| eval: false
+library(report)
+un_dta %>% report() %>% as_tibble()
+```
+```{r, render = knitr::normal_print}
+#| echo: false
+options(width = 350)
+un_dta %>% report() %>% as_tibble() %>% print(n = 40)
+options(width = 90)
+```
+
+
+## `report` the UN data by group {.smaller}
+
+```{r, render = knitr::normal_print}
+#| eval: false
+un_dta %>% group_by(group) %>% report() %>% as_tibble()
+```
+
+```{r, render = knitr::normal_print}
+#| echo: false
+options(width = 350)
+un_dta %>% group_by(group) %>% report() %>% as_tibble() %>% print(n = 40)
+options(width = 90)
+```
+
+# Univariate data: Boxplot
+
+
+## Boxplot: basics
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/boxplot_explanation.png")
+```
+
+. . .
+
+::::  callout-important
+Check out [https://www.r-graph-gallery.com/boxplot.html](https://www.r-graph-gallery.com/boxplot.html);
+
+Boxplot explanation: [https://www.data-to-viz.com/caveat/boxplot.html](https://www.data-to-viz.com/caveat/boxplot.html)
+::::
+
+:::: footer
+Image source: [https://www.leansigmacorporation.com/box-plot-with-minitab/](https://www.leansigmacorporation.com/box-plot-with-minitab/)
+::::
+
+## Boxplot (1/4)
+
+```{r}
+un_dta %>% 
+  ggplot()
+```
+
+## Boxplot (2/4)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = fertility)
+```
+
+## Boxplot (3/4)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = fertility) + 
+  geom_boxplot()
+```
+
+## Boxplot (4/4)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = fertility) + 
+  geom_boxplot() + 
+  labs(title = "Boxplot of fertility",
+       subtitle = "Based on UN country level data for 2010-2015",
+       y = "Fertility, children per woman",
+       x = "")
+```
+
+## Boxplot (4/4)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = fertility) + 
+  geom_boxplot()
+```
+
+## Boxplot by groups (1/3)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = fertility, x = region) + 
+  geom_boxplot()
+```
+
+
+## Boxplot by groups (2/3)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = fertility, x = region, colour = region) + 
+  geom_boxplot()
+```
+
+
+## Boxplot by groups (3/3)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(y = region, x = fertility, colour = region) + 
+  geom_boxplot() + 
+  theme(legend.position = "none")
+```
+## Causal question on boxplot!
+
+#### Does a country group has a causal effect on fertility?
+
+```{r}
+#| code-fold: true
+un_dta %>% 
+  ggplot() + 
+  aes(y = group, x = fertility, colour = group) + 
+  geom_boxplot() + 
+  theme(legend.position = "none")
+```
+
+# Univariate data: Histogram
+
+## Histogram: basics
+
+```{r}
+#| echo: false
+data.frame(
+  var1 = rnorm(1000),
+  var2 = rnorm(1000, mean=2)
+) %>% 
+  ggplot(aes(x=x) ) +
+  geom_histogram( aes(x = var1, y = ..density..), fill="#69b3a2" ) +
+  geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
+  geom_histogram( aes(x = var2, y = -..density..), fill= "#404080") +
+  geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
+  xlab("value of x") + ylab(NULL)
+```
+
+. . .
+
+::::  callout-important
+Check the gallery [https://r-graph-gallery.com/histogram.html](https://r-graph-gallery.com/histogram.html);
+
+Learn about histograms here: [THE BOXPLOT AND ITS PITFALLS](https://www.data-to-viz.com/graph/histogram.html)
+::::
+
+## Histogramus simplicius
+
+```{r}
+un_dta 
+```
+
+## Histogramus simplicius
+
+```{r}
+un_dta %>% 
+  ggplot()
+```
+
+## Histogramus simplicius
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp)
+```
+
+## Histogramus simplicius
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp) + 
+  geom_histogram() +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+# Histogram: bins
+
+## Histogram: bins
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp) + 
+  geom_histogram(bins = 50) +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+## Histogram: bins
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp) + 
+  geom_histogram(bins = 10) +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+## Histogram: bins
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp) + 
+  geom_histogram(bins = 3) +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+# Histogram by group
+
+## Histogram by group
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_histogram(bins = 10, colour = "black") +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+## Histogram by group
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_histogram(bins = 10, colour = "black", position = "dodge") +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+## Histogram by group
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_histogram(bins = 10, colour = "black") +
+  facet_grid(group ~ ., scales = "free_y") +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+# Histogram: variables transformation  
+
+## Histogram: `x` transformation (1)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_histogram(bins = 5, colour = "black") +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+## Histogram: `x` transformation (1)
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_histogram(bins = 5, colour = "black") +
+  scale_x_log10() +
+  labs(x = "GDP per capita, 2010 USD", y = "Frequency")
+```
+
+## Histogram: `x` transformation (1)
+
+```{r}
+un_dta %>%
+  mutate(log_ppgdp = log10(ppgdp)) %>% 
+  ggplot() + 
+  aes(x = log_ppgdp, fill = group) + 
+  geom_histogram(bins = 5, colour = "black") +
+  labs(x = "Log of GDP per capita (log base 10), 2010 USD", y = "Frequency")
+```
+
+
+## Histogram: `x` transformation (1)
+
+:::: callout-warning
+What is special about **bins width**, when we apply a transformation to `x`?
+::::
+
+. . .
+
+:::: callout-important
+
+Bins width start to vary, when we transform the data.
+
+This is opposed to the fixed bins width when data is not transformed.
+
+::::
+
+
+## Histogram: `x` transformation (1)
+
+Min, max and width of bins:
+
+::: columns
+::: {.column width="50%"}
+
+No transformation
+
+```{r}
+#| echo: false
+pp1 <- 
+  un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_histogram(bins = 10, colour = "black") 
+
+ggplot_build(pp1)$data[[1]] %>% 
+  distinct(xmin, xmax) %>% 
+  mutate(diff = xmax - xmin) %>% 
+  mutate(across(everything(), ~round(., 2)))
+```
+:::
+
+
+::: {.column width="50%"}
+
+`log10()` transformation
+
+```{r}
+#| echo: false
+pp2 <- 
+  un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  scale_x_log10() +
+  geom_histogram(bins = 10, colour = "black") 
+
+ggplot_build(pp2)$data[[1]] %>% 
+  distinct(xmin, xmax) %>% 
+  mutate(across(c(xmin, xmax), ~10 ^ (.))) %>% 
+  mutate(diff = xmax - xmin) %>% 
+  mutate(across(everything(), ~round(., 2)))
+```
+
+:::
+
+:::
+
+
+# Density plot
+
+## Density plot: basics
+
+::::  callout-important
+Check the gallery [https://r-graph-gallery.com/density-plot](https://r-graph-gallery.com/density-plot);
+
+Learn about density plots here: [https://www.data-to-viz.com/graph/density.html](https://www.data-to-viz.com/graph/density.html)
+::::
+
+## Density plot: example
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+  labs(x = "GDP per capita, 2010 USD", y = "Density")
+```
+## Density plot: `adjust`
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_density(alpha = 0.5, adjust = 0.1) +
+  scale_x_log10() +
+  labs(x = "GDP per capita, 2010 USD", y = "Density")
+```
+
+## Density plot: `adjust`
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_density(alpha = 0.5, adjust = 1) +
+  scale_x_log10() +
+  labs(x = "GDP per capita, 2010 USD", y = "Density")
+```
+
+## Density plot: `adjust`
+
+```{r}
+un_dta %>% 
+  ggplot() + 
+  aes(x = ppgdp, fill = group) + 
+  geom_density(alpha = 0.5, adjust = 10) +
+  scale_x_log10() +
+  labs(x = "GDP per capita, 2010 USD", y = "Density")
+```
+
+# Bivariate data: Scatter plot
+
+
+
+## Scatter plot: basics
+
+::::  callout-important
+
+Check the gallery [https://r-graph-gallery.com/scatterplot.html](https://r-graph-gallery.com/scatterplot.html);
+
+Learn more about scatter plots here: [https://www.data-to-viz.com/graph/scatter.html](https://www.data-to-viz.com/graph/scatter.html)
+
+::::
+
+## Simple scatter plot
+
+```{r}
+un_dta
+```
+
+## Simple scatter plot
+
+```{r}
+un_dta %>%
+  ggplot()
+```
+
+## Simple scatter plot
+
+```{r}
+un_dta %>%
+  ggplot() +
+  aes(x = lifeExpF, y = fertility) 
+```
+
+## Simple scatter plot
+
+```{r}
+un_dta %>%
+  ggplot() +
+  aes(x = lifeExpF, y = fertility) +
+  geom_point()
+```
+
+## Simple scatter plot
+
+```{r}
+un_dta %>%
+  ggplot() +
+  aes(x = lifeExpF, y = fertility) +
+  geom_point() +
+  labs(x = "Life expectancy of wemen at birth", y = "Fertility, children per woman")
+```
+
+
+## Scatter plot: make it rich with colour
+
+```{r}
+un_dta %>%
+  ggplot() +
+  aes(x = lifeExpF, y = fertility, color = group) +
+  geom_point() +
+  labs(x = "Life expectancy of wemen at birth", y = "Fertility, children per woman", color = "")
+```
+
+## Scatter plot: make it rich with size
+
+```{r}
+un_dta %>%
+  ggplot() +
+  aes(x = lifeExpF, y = fertility, color = group, size = ppgdp) +
+  geom_point() +
+  labs(x = "Life expectancy of wemen at birth", y = "Fertility, children per woman", color = "", size = "GDP/cap.")
+```
+
+
+# Takeaway
+
+## Takeaway {.smaller}
+
+Summary statistics:
+
+-   Extracting one variable with `pull()` and `$`;
+-   `dplyr::summarise()` + `dplyr::group_by()`;
+-   `skimr` + `report`;
+
+. . .
+
+Boxplot: `geom_boxplot()`, simple and by groups;
+
+. . .
+
+Histogram: `geom_histogram()`, `bins`, `scale_x_log10()`
+
+-    `bins` is important as it changes a perspective;
+-    data transformation changes bins width;
+
+. . .
+
+Scatter plot:
+
+-   Create plots with rich visual details;
+-   Be clear and explicit with labels;
+
+
+
+# References
+
+## References
