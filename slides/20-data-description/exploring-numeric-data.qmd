@@ -319,29 +319,29 @@ This is an experimental package! It does not support some types of the variables
 
 ```{r, render = knitr::normal_print}
 #| eval: false
-library(report)
-un_dta %>% report() %>% as_tibble()
+# library(report)
+# un_dta %>% report() %>% as_tibble()
 ```
 
 ```{r, render = knitr::normal_print}
 #| echo: false
-options(width = 350)
-un_dta %>% report() %>% as_tibble() %>% print(n = 40)
-options(width = 90)
+# options(width = 350)
+# un_dta %>% report() %>% as_tibble() %>% print(n = 40)
+# options(width = 90)
 ```
 
 ## `report` the UN data by group {.smaller}
 
 ```{r, render = knitr::normal_print}
 #| eval: false
-un_dta %>% group_by(group) %>% report() %>% as_tibble()
+# un_dta %>% group_by(group) %>% report() %>% as_tibble()
 ```
 
 ```{r, render = knitr::normal_print}
 #| echo: false
-options(width = 350)
-un_dta %>% group_by(group) %>% report::report() %>% as_tibble() %>% print(n = 40)
-options(width = 90)
+# options(width = 350)
+# un_dta %>% group_by(group) %>% report::report() %>% as_tibble() %>% print(n = 40)
+# options(width = 90)
 ```
 
 # Univariate data: Boxplot
