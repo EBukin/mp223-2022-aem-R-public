@@ -4,16 +4,12 @@ subtitle: "Data wrangling: Data import and manipulations"
 editor: visual
 ---
 
-::: callout-important
-The class is in-person. We meet in the PC room 216 in Zeughaus.
-:::
-
-## 🖥 [W03-00 Data](/slides/50-data-wrangling/50-wrangling-intro.html)[Workflow](/slides/50-data-wrangling/workflow-tidy-data-wrangling.html)[+ Tidy data + Wrangling](/slides/50-data-wrangling/50-wrangling-intro.html)
+## W03-00 DataWorkflow + Tidy data + Wrangling
 
 ::: callout-tip
 ## In class
 
--   slides [W03-00 Data](/slides/50-data-wrangling/50-wrangling-intro.html)[Workflow](/slides/50-data-wrangling/workflow-tidy-data-wrangling.html)[+ Tidy data + Wrangling](/slides/50-data-wrangling/50-wrangling-intro.html)
+-   🖥[W03-00 DataWorkflow + Tidy data + Wrangling](/slides/50-data-wrangling/workflow-tidy-data-wrangling.html)
 :::
 
 -   **Recommended. [Practice]{.underline}:**
@@ -27,7 +23,7 @@ The class is in-person. We meet in the PC room 216 in Zeughaus.
     -   ![](https://datasciencebox.org/dsbox.png){width="25"} Grammar of data wrangling [video](https://youtu.be/ZCaYBES_VEk) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d06-grammar-wrangle/u2-d06-grammar-wrangle.html#1)
     -   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
 
-## 🖥 [W03-01 Import data](/slides/50-data-wrangling/import-data.html)
+## W03-01 Import data
 
 ::: callout-tip
 ## In class
@@ -38,7 +34,7 @@ The class is in-person. We meet in the PC room 216 in Zeughaus.
 ::: callout-important
 ## `SELF STUDY`
 
--   slides [W03-02 Import data](/slides/50-data-wrangling/import-data.html)
+-   🖥[W03-02 Import data](/slides/50-data-wrangling/import-data.html)
 :::
 
 -   **Recommended.** Watch:
@@ -54,12 +50,12 @@ The class is in-person. We meet in the PC room 216 in Zeughaus.
     -   ![](https://datasciencebox.org/dsbox.png){width="25"}Importing data [video](https://youtu.be/tIMaRYiuEFA) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1)
     -   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/)
 
-## 🖥 [W03-02 Exploring numerical data](/slides/50-data-wrangling/exploring-numeric-data.html)
+## W03-02 Exploring numerical data
 
-::: {.callout-tip appearance="simple"}
+::: callout-tip
 ## In class
 
--   **slides** [W03-02 Exploring numerical data](/slides/50-data-wrangling/exploring-numeric-data.html)
+-   🖥[W03-02 Exploring numerical data](/slides/20-data-description/exploring-numeric-data.html)
 -   **exercise TBD**
 :::
 
@@ -83,7 +79,7 @@ The class is in-person. We meet in the PC room 216 in Zeughaus.
 ::: callout-tip
 ## In class
 
--   **slides** [W03-04 correlation `correlation`](/slides/20-data-description/correlation.html)
+-   🖥[W03-04 correlation `correlation`](/slides/20-data-description/correlation.html)
 :::
 
 ::: callout-important
@@ -98,10 +94,9 @@ The class is in-person. We meet in the PC room 216 in Zeughaus.
     -   [Interpretation of the strength of correlation](https://easystats.github.io/effectsize/articles/interpret.html)
 -   **Optional**. Read:
     -   [easystats/correlation](https://easystats.github.io/correlation/)
-
     -   [Correlation types](https://easystats.github.io/correlation/articles/types.html)
 
-## 📋 W03 - application exercise:
+## 📋 W03AE - application exercise:
 
 Download project from 📋 [`ae03-data-wrangling.zip`]() or the same on Ilias: 📋 [`ae03-data-wrangling.zip` on Ilias]().
 
@@ -115,10 +110,8 @@ Download project from 📋 [`ae03-data-wrangling.zip`]() or the same on Ilias: �
 ::: callout-important
 ## `SELF STUDY`
 
--   [ ] [`ae03-02-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-02-correlation.html)
+-   [`ae03-02-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-02-correlation.html)
 :::
-
--   **Recommended.** [Practice]{.underline}**:**
 
 ## 🖥 **`SELF STUDY`** Exploring categorical data
 
@@ -176,21 +169,3 @@ There are many ways how data could be visualized in R. We do touch numerous visu
     -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising data with ggplot2 [video](https://youtu.be/s2NF2J36ljE) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
     -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising numerical data [video](https://youtu.be/waBabVTI8ec) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1)
     -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising categorical data [video](https://youtu.be/21h3rEO8k2E) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1)
-
-##  📋 Application exercises (in class):
-
-Download project 📋 [`ae03-data-wrangling.zip`]() (same as 📋 [`ae03-data-wrangling.zip` on Ilias]());
-
--   [ ] [`ae03-01-import-clean-sum-plot.Rmd`](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html)
--   [ ] [`ae03-02-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-02-correlation.html)
-
-homework section in the file
-
--   [ ] `ae03-02-filter-observations.Rmd` + homework section in the file
--   [ ] `ae03-03-select-rename-variables.Rmd` + homework section in the file
--   [ ] `ae03-04-mutate.Rmd` + homework section in the file
--   [ ] `ae03-05-correlation.Rmd` + homework section in the file
--   [ ] `ae03-06-summary-statistics.Rmd` + homework section in the file
-
-::: callout-important
-:::

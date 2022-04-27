@@ -1,0 +1,363 @@
+---
+title: "Data Workflow + Tidy data + Wrangling"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    multiplex: false
+    slide-number: true
+    incremental: true 
+    chalkboard: false
+    smaller: false
+    scrollable: true
+
+execute:
+  freeze: auto
+  
+bibliography: ../../references.bib
+---
+
+## R setup {.smaller}
+
+```{r}
+#| echo: true
+#| 
+library(tidyverse)       # for data wrangling
+
+# set default theme and larger font size for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+
+# set default figure parameters for knitr
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "80%"
+)
+```
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "80%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(1123581321)
+```
+
+```{r}
+#| echo: false
+library(magick)   
+library(magrittr)    
+get_image <- function(x) {
+  here::here("slides", "50-data-wrangling", "img", x) 
+}
+```
+
+# Introduction
+
+## Data analysis workflow
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+:::
+
+```{r}
+#| echo: false
+get_image("data-science.png") %>%
+  magick::image_read() %>%
+  magick::image_ggplot(interpolate = TRUE)
+# knitr::include_graphics("./img/data-science.png")
+```
+
+## Tidy data (1/5)
+
+```{r}
+#| echo: false
+# get_image("tidy-1.png") %>%
+#   magick::image_read() %>%
+#   magick::image_ggplot(interpolate = TRUE)
+knitr::include_graphics("./img/tidy-1.png")
+```
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/tidy-data.html)
+:::
+
+## Tidy data (2/5) wide format
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tidy-2-wide.png")
+```
+
+::: footer
+See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+
+## Tidy data (3/5) long format
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tidy-2-long.png")
+```
+
+::: footer
+See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+
+## Tidy data (4/5) transformation
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tidy-2-transformation.png")
+```
+
+::: footer
+See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+
+## Tidy data (5/5). Learn more?
+
+### Read:
+
+-   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="50" height="73"} [R4DS Ch. 12. Tidy data](https://r4ds.had.co.nz/tidy-data.html#tidy-data)
+
+. . .
+
+Follow slides, videos and exercises:
+
+. . .
+
+-   Chapter [7.1.2 Wrangling and tidying data](https://datasciencebox.org/exploring-data.html?q=import#wrangling-and-tidying-data) in [Data Science in a Box](https://datasciencebox.org/)
+
+## Wrangling
+
+```{r}
+#| echo: false
+get_image("data-science-wrangle.png") %>%
+  magick::image_read() %>%
+  magick::image_ggplot(interpolate = TRUE)
+# knitr::include_graphics("./img/data-science-wrangle.png")
+```
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+:::
+
+## Wrangling: See also {.smaller}
+
+
+Read:
+
+-   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="50" height="73"} [R4DS: R for data science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund (book's [source code](https://github.com/hadley/r4ds)) [@Wickham2017R]
+-   [R4DS Ch 9. Wrangle](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro)
+
+. . .
+
+Watch
+
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} Grammar of data wrangling [video](https://youtu.be/ZCaYBES_VEk) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d06-grammar-wrangle/u2-d06-grammar-wrangle.html#1)
+
+-   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
+
+
+# Data wrangling
+
+## `dplyr` package
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/dplyr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does data wrangling.
+
+-   Documentation [tidyverse/dplyr](https://dplyr.tidyverse.org/) + [Source code](https://github.com/tidyverse/dplyr/)
+
+-   Cheat sheets [Data transformation with dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+
+-   Learn by doing [R4DS Ch 5. Data transformation](https://r4ds.had.co.nz/transform.html)
+:::
+:::
+
+## `dplyr` package: getting started {.smaller}
+
+Article: [Introduction to dplyr](https://dplyr.tidyverse.org/articles/dplyr.html)
+
+. . .
+
+Cheat sheets: [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+
+. . .
+
+Webinar: [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund
+
+. . .
+
+Interactive exercises (repeated on following slides)
+
+-   [Working with Tibbles](https://rstudio.cloud/learn/primers/2.1)
+-   [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2)
+-   [Filter observations](https://learnr-examples.shinyapps.io/ex-data-filter/)
+-   [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3)
+-   [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/)
+
+. . .
+
+Readings:
+
+-   [R4DS Chapter 5 Data transformation](https://r4ds.had.co.nz/transform.html#transform)
+
+## `dplyr::rename()` Rename columns
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/rename.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.4](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/rename.html) (see examples!)
+
+## `dplyr::mutate()` Create, modify, and delete columns
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/mutate.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.5](https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate) + [function reference](https://dplyr.tidyverse.org/reference/mutate.html)
+
+. . .
+
+-   Articles: [Add new columns with mutate](https://dplyr.tidyverse.org/articles/dplyr.html#add-new-columns-with-mutate) and [Column-wise operations](https://dplyr.tidyverse.org/articles/colwise.html)
+
+. . .
+
+-   Interactive exercises: [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3), [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/) and [Road Traffic Accidents](https://minecr.shinyapps.io/dsbox-02-accidents/)
+
+## `dplyr::filter()` (1/2) subset rows using column values
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/filter.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.2](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) + [function reference](https://dplyr.tidyverse.org/reference/filter.html) (see examples!)
+
+. . .
+
+-   Article: [Filter rows with filter()](https://dplyr.tidyverse.org/articles/dplyr.html#filter-rows-with-filter)
+
+. . .
+
+Interactive exercises: [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2) and [Filter observations](https://learnr-examples.shinyapps.io/ex-data-filter/).
+
+## `dplyr::filter()` (2/2) relies on logical operators
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/filter-helpers.png")
+```
+
+-   See: `?Comparison` and `?base::Logic`
+
+## `dplyr::select()` Subset columns using their names and types
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/select.png")
+```
+
+. . .
+
+-   Read about in [R4DS Ch. 5.4](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/select.html) (see examples!)
+
+. . .
+
+Interactive exercises: [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2)
+
+## Left for later
+
+-   `dplyr::summarise()`
+-   `dplyr::group_by()`
+-   `dplyr::arrange()`
+-   `dplyr::pull()`
+-   `dplyr::distinct()`
+-   `dplyr::count()`
+
+# Summary statistics
+
+## `skimr` package
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/skimr-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does Summary statistics
+
+-   Documentation [ropensci/skimr](https://docs.ropensci.org/skimr/) + [Source code](https://github.com/ropensci/skimr/)
+-   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
+
+Key functions: `skimr::skim()`.
+:::
+:::
+
+# Correlation
+
+## Correlation
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/correlation-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does Summary statistics
+
+-   Documentation [easystats/correlation](https://easystats.github.io/correlation/) + [Source code](https://github.com/easystats/correlation)
+
+-   Learn by doing [Using correlation](https://easystats.github.io/correlation/)
+
+Key functions: `correlation::correlation()`.
+:::
+:::
+
+# Histogram
+
+# Box plot
+
+# Scatter plot
+
+# References
+
+## References
