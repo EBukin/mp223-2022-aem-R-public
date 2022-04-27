@@ -10,7 +10,7 @@ format:
     transition: fade
     multiplex: false
     slide-number: true
-    incremental: FALSE 
+    incremental: false 
     chalkboard: false
     smaller: false
     scrollable: true
