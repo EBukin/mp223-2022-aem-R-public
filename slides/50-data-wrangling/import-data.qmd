@@ -10,7 +10,7 @@ format:
     transition: fade
     multiplex: false
     slide-number: true
-    incremental: true 
+    incremental: false 
     chalkboard: false
     smaller: false
     scrollable: true
@@ -21,7 +21,7 @@ execute:
 bibliography: ../../references.bib
 ---
 
-# R setup{.smaller}
+# R setup {.smaller}
 
 ```{r}
 #| echo: true
@@ -46,7 +46,7 @@ knitr::opts_chunk$set(
 
 # Data import
 
-## General notes
+## General notes {.smaller}
 
 Data import must be done in a reproducible way!
 
@@ -68,30 +68,20 @@ It is tricky to load data, because, we need to interact with the file system.
 Always save data import R code in your scripts!
 :::
 
-## Data import. Learn more?
+## Data import: more materials {.smaller}
 
-[Data Science in a Box](https://datasciencebox.org/):
-
--   ![](https://datasciencebox.org/dsbox.png){width="25"}Data types [video](https://www.youtube.com/watch?v=WsxLbtWbEfc&ab_channel=Mine%C3%87etinkaya-Rundel) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
-
+-   **Recommended.** Watch:
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Data types [video](https://www.youtube.com/watch?v=WsxLbtWbEfc&ab_channel=Mine%C3%87etinkaya-Rundel) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
+-   **Recommended**. Read:
+    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
+-   **Optional**. Read:
+    -   **CHEATSHEET:** [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+    -   [tidyverse/readxl](https://readxl.tidyverse.org/) + [tidyverse/readr](https://readr.tidyverse.org/reference/readr_example.html) + [janitor](https://sfirke.github.io/janitor/)
 -   **Optional.** Watch:
     -   ![](https://datasciencebox.org/dsbox.png){width="25"}[Importing and recoding data](https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data)
     -   ![](https://datasciencebox.org/dsbox.png){width="25"}Data classes [video](https://youtu.be/dozvSVQcqqg) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1)
     -   ![](https://datasciencebox.org/dsbox.png){width="25"}Importing data [video](https://youtu.be/tIMaRYiuEFA) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1)
-
-<!-- -->
-
--   **Optional**. Read:
-    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
-
-## List of relevnat functions {.smaller}
-
--   Loading data: `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
-
--   Renaming variables: `janitor::clean_names(...)`, `dplyr::rename()`;
-
--   Converting excel dates to R-relevant `<date>` variable type: `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
-
+    -   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/)
 
 # `readr` package (1/3)
 
@@ -305,3 +295,10 @@ Helps cleaning data and variables names
 
 -   `janitor::remove_empty()` - Remove empty rows and/or columns from a data.frame or matrix.
 
+# Takeaways
+
+-   Loading data: `readr::read_csv()` and `readxl::excel_sheets()` with `readxl::read_excel()`;
+
+-   Renaming variables: `janitor::clean_names(...)`, `dplyr::rename()`;
+
+-   Converting excel dates to R-relevant `<date>` variable type: `janitor::convert_to_date()` and `janitor::excel_numeric_to_date()`.
