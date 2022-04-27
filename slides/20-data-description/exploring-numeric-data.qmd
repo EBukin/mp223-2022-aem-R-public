@@ -21,7 +21,7 @@ execute:
 bibliography: ../../references.bib
 ---
 
-# R setup{.smaller}
+# R setup {.smaller}
 
 ```{r}
 #| echo: true
@@ -68,7 +68,6 @@ get_image <- function(x) {
 }
 ```
 
-
 # The data in use {.smaller}
 
 `UN11` data set on National statistics from the United Nations mostly from 2009-2011 from [@weisberg2005a].
@@ -105,15 +104,12 @@ un_dta %>% pull(fertility) %>% sd()
 sd(un_dta$fertility)
 ```
 
-
-
 ## Using `dplyr::summarise()` (1/3)
 
 ```{r}
 #| echo: false
 knitr::include_graphics("./img/summarise-01.png")
 ```
-
 
 ## Using `dplyr::summarise()` (2/3)
 
@@ -123,7 +119,6 @@ un_dta %>%
     mean_fert = mean(fertility)
   ) 
 ```
-
 
 ## Using `dplyr::summarise()` (2/3)
 
@@ -256,7 +251,6 @@ knitr::include_graphics("./img/skimr-logo.png")
 :::
 
 ::: {.column width="70%"}
-
 Package for Summary statistics
 
 -   Documentation [ropensci/skimr](https://docs.ropensci.org/skimr/) + [Source code](https://github.com/ropensci/skimr/)
@@ -264,7 +258,6 @@ Package for Summary statistics
 -   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
 
 -   Key functions: `skimr::skim()`
-
 :::
 :::
 
@@ -283,15 +276,12 @@ un_dta %>% skim()
 options(width = 90)
 ```
 
-
 ## `skim()` of the UN data by group {.smaller}
-
 
 ```{r, render = knitr::normal_print}
 #| eval: false
 un_dta %>% group_by(group) %>% skim()
 ```
-
 
 ```{r, render = knitr::normal_print}
 #| echo: false
@@ -299,8 +289,6 @@ options(width = 150)
 un_dta %>% group_by(group) %>% skim()
 options(width = 90)
 ```
-
-
 
 ## `report` package
 
@@ -313,7 +301,6 @@ knitr::include_graphics("./img/report-logo.png")
 :::
 
 ::: {.column width="70%"}
-
 Package for Summary statistics!
 
 -   Documentation [easystats/skimr](report://easystats.github.io/report/)
@@ -322,10 +309,9 @@ Package for Summary statistics!
 
 -   Key functions: `skimr::skim()`
 
-::::  callout-important
+::: callout-important
 This is an experimental package! It does not support some types of the variables and may break or produce an error.
-::::
-
+:::
 :::
 :::
 
@@ -336,13 +322,13 @@ This is an experimental package! It does not support some types of the variables
 library(report)
 un_dta %>% report() %>% as_tibble()
 ```
+
 ```{r, render = knitr::normal_print}
 #| echo: false
 options(width = 350)
 un_dta %>% report() %>% as_tibble() %>% print(n = 40)
 options(width = 90)
 ```
-
 
 ## `report` the UN data by group {.smaller}
 
@@ -354,12 +340,11 @@ un_dta %>% group_by(group) %>% report() %>% as_tibble()
 ```{r, render = knitr::normal_print}
 #| echo: false
 options(width = 350)
-un_dta %>% group_by(group) %>% report() %>% as_tibble() %>% print(n = 40)
+un_dta %>% group_by(group) %>% report::report() %>% as_tibble() %>% print(n = 40)
 options(width = 90)
 ```
 
 # Univariate data: Boxplot
-
 
 ## Boxplot: basics
 
@@ -370,15 +355,15 @@ knitr::include_graphics("./img/boxplot_explanation.png")
 
 . . .
 
-::::  callout-important
-Check out [https://www.r-graph-gallery.com/boxplot.html](https://www.r-graph-gallery.com/boxplot.html);
+::: callout-important
+Check out <https://www.r-graph-gallery.com/boxplot.html>;
 
-Boxplot explanation: [https://www.data-to-viz.com/caveat/boxplot.html](https://www.data-to-viz.com/caveat/boxplot.html)
-::::
+Boxplot explanation: <https://www.data-to-viz.com/caveat/boxplot.html>
+:::
 
-:::: footer
-Image source: [https://www.leansigmacorporation.com/box-plot-with-minitab/](https://www.leansigmacorporation.com/box-plot-with-minitab/)
-::::
+::: footer
+Image source: <https://www.leansigmacorporation.com/box-plot-with-minitab/>
+:::
 
 ## Boxplot (1/4)
 
@@ -435,7 +420,6 @@ un_dta %>%
   geom_boxplot()
 ```
 
-
 ## Boxplot by groups (2/3)
 
 ```{r}
@@ -444,7 +428,6 @@ un_dta %>%
   aes(y = fertility, x = region, colour = region) + 
   geom_boxplot()
 ```
-
 
 ## Boxplot by groups (3/3)
 
@@ -455,6 +438,7 @@ un_dta %>%
   geom_boxplot() + 
   theme(legend.position = "none")
 ```
+
 ## Causal question on boxplot!
 
 #### Does a country group has a causal effect on fertility?
@@ -488,11 +472,11 @@ data.frame(
 
 . . .
 
-::::  callout-important
-Check the gallery [https://r-graph-gallery.com/histogram.html](https://r-graph-gallery.com/histogram.html);
+::: callout-important
+Check the gallery <https://r-graph-gallery.com/histogram.html>;
 
 Learn about histograms here: [THE BOXPLOT AND ITS PITFALLS](https://www.data-to-viz.com/graph/histogram.html)
-::::
+:::
 
 ## Histogramus simplicius
 
@@ -590,7 +574,7 @@ un_dta %>%
   labs(x = "GDP per capita, 2010 USD", y = "Frequency")
 ```
 
-# Histogram: variables transformation  
+# Histogram: variables transformation
 
 ## Histogram: `x` transformation (1)
 
@@ -624,23 +608,19 @@ un_dta %>%
   labs(x = "Log of GDP per capita (log base 10), 2010 USD", y = "Frequency")
 ```
 
-
 ## Histogram: `x` transformation (1)
 
-:::: callout-warning
+::: callout-warning
 What is special about **bins width**, when we apply a transformation to `x`?
-::::
+:::
 
 . . .
 
-:::: callout-important
-
+::: callout-important
 Bins width start to vary, when we transform the data.
 
 This is opposed to the fixed bins width when data is not transformed.
-
-::::
-
+:::
 
 ## Histogram: `x` transformation (1)
 
@@ -648,7 +628,6 @@ Min, max and width of bins:
 
 ::: columns
 ::: {.column width="50%"}
-
 No transformation
 
 ```{r}
@@ -666,9 +645,7 @@ ggplot_build(pp1)$data[[1]] %>%
 ```
 :::
 
-
 ::: {.column width="50%"}
-
 `log10()` transformation
 
 ```{r}
@@ -686,21 +663,18 @@ ggplot_build(pp2)$data[[1]] %>%
   mutate(diff = xmax - xmin) %>% 
   mutate(across(everything(), ~round(., 2)))
 ```
-
 :::
-
 :::
-
 
 # Density plot
 
 ## Density plot: basics
 
-::::  callout-important
-Check the gallery [https://r-graph-gallery.com/density-plot](https://r-graph-gallery.com/density-plot);
+::: callout-important
+Check the gallery <https://r-graph-gallery.com/density-plot>;
 
-Learn about density plots here: [https://www.data-to-viz.com/graph/density.html](https://www.data-to-viz.com/graph/density.html)
-::::
+Learn about density plots here: <https://www.data-to-viz.com/graph/density.html>
+:::
 
 ## Density plot: example
 
@@ -712,6 +686,7 @@ un_dta %>%
   scale_x_log10() +
   labs(x = "GDP per capita, 2010 USD", y = "Density")
 ```
+
 ## Density plot: `adjust`
 
 ```{r}
@@ -747,17 +722,13 @@ un_dta %>%
 
 # Bivariate data: Scatter plot
 
-
-
 ## Scatter plot: basics
 
-::::  callout-important
+::: callout-important
+Check the gallery <https://r-graph-gallery.com/scatterplot.html>;
 
-Check the gallery [https://r-graph-gallery.com/scatterplot.html](https://r-graph-gallery.com/scatterplot.html);
-
-Learn more about scatter plots here: [https://www.data-to-viz.com/graph/scatter.html](https://www.data-to-viz.com/graph/scatter.html)
-
-::::
+Learn more about scatter plots here: <https://www.data-to-viz.com/graph/scatter.html>
+:::
 
 ## Simple scatter plot
 
@@ -799,7 +770,6 @@ un_dta %>%
   labs(x = "Life expectancy of wemen at birth", y = "Fertility, children per woman")
 ```
 
-
 ## Scatter plot: make it rich with colour
 
 ```{r}
@@ -820,7 +790,6 @@ un_dta %>%
   labs(x = "Life expectancy of wemen at birth", y = "Fertility, children per woman", color = "", size = "GDP/cap.")
 ```
 
-
 # Takeaway
 
 ## Takeaway {.smaller}
@@ -839,8 +808,8 @@ Boxplot: `geom_boxplot()`, simple and by groups;
 
 Histogram: `geom_histogram()`, `bins`, `scale_x_log10()`
 
--    `bins` is important as it changes a perspective;
--    data transformation changes bins width;
+-   `bins` is important as it changes a perspective;
+-   data transformation changes bins width;
 
 . . .
 
@@ -848,8 +817,6 @@ Scatter plot:
 
 -   Create plots with rich visual details;
 -   Be clear and explicit with labels;
-
-
 
 # References
 
