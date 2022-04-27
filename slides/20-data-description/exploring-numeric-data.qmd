@@ -156,7 +156,7 @@ un_dta %>%
       means = mean
     )
   )) %>% 
-  rotate_df()
+  t()
 ```
 
 ## Using `dplyr::summarise()` (3/3)
@@ -169,7 +169,7 @@ un_dta %>%
       means = mean
     )
   )) %>% 
-  rotate_df()
+  t()
 ```
 
 ## Using `dplyr::summarise()` (3/3)
@@ -183,7 +183,7 @@ un_dta %>%
       medians = ~ median(., na.rm = TRUE)
     )
   )) %>% 
-  rotate_df()
+  t()
 ```
 
 ## Using `dplyr::summarise()` (3/3)
@@ -199,7 +199,7 @@ un_dta %>%
       n_nonmis = ~ sum(!is.na(.))
     )
   )) %>% 
-  rotate_df()
+  t()
 ```
 
 ## Using `dplyr::group_by()` + `dplyr::summarise()` (1/3)
