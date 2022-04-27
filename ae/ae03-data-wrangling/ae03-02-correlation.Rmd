@@ -10,8 +10,6 @@ bibliography: ../../references.bib
 
 ## Setups
 
-We will us `tidyverse` for data wrangling and `readr` and `readxl` for data import.
-
 ```{r setup, message=FALSE}
 library(tidyverse)
 library(readr)       # install.packages("readr")
@@ -21,11 +19,15 @@ library(skimr)       # install.packages("skimr")
 library(lubridate)   # install.packages("lubridate")
 
 ggplot2::theme_set(ggplot2::theme_minimal())
+
+knitr::opts_chunk$set(out.width = 60)
 ```
 
 ## Data import and cleaning
 
-### Importing and cleaning data in wid format
+### Importing and cleaning data in the wide format
+
+Practically the same procedure that we did in the previous exercise.
 
 ```{r}
 p_wd <- 
@@ -48,84 +50,381 @@ p_wd <-
 glimpse(p_wd)
 ```
 
-### Converting data to long format
+### Converting data to the long format
 
 ```{r}
 p_lg <- 
   p_wd %>% 
   pivot_longer(cols = c(oil:urea), 
                names_to = "var", 
-               values_to = "price")
-
+               values_to = "price") %>% 
+  arrange(date, var)
 glimpse(p_lg)
 ```
 
+## Example: Computing prices index with some base
 
-## Exercise 2. Compute prices index (2010 = 100)
+Index of a variable with a base is a mathematical transformation of a variable, where each value of a variable is divided by the base value and then multiplied by 100.
 
+$$
+{I}_{i} = \frac{x_i}{x_{base}} \times 100
+$$
+
+This is easy in Excel, but tricky without it!
+
+Let us demonstrate the logic of calculations based on a simple example of **2 commodities (wheat and urea)** and **few month** in **year 2010**.
+
+#### Step 1. Filter a sub-sample
+
+As discussed above, we want to:
+
+-   `filter data, where year is 2010, month less than 6, var is "wheat" or "maize"`
+
+Which identically translate into R code as:
+
+-   `filter(data, year(date) == 2010, month(date) < 6, var %in% c("wheat", "maize"))`\`
+-   `filter data, where year is 2010, month less than 6, var is "wheat" or "maize"`
 
 ```{r}
-p_index <- 
-  p_lg %>% 
+p_lg_sb <- 
+  filter(p_lg, 
+         year(date) == 2010, 
+         month(date) < 6, 
+         var %in% c("wheat", "maize")) %>% 
+  arrange(var, date)
+p_lg_sb
+```
+
+#### Step 2. Create variable with the base for indexing
+
+Here we want to:
+
+-   `for each groups of commodities "var", mutate variable "base", which is equal to "price" when month is equal to 1 and year is equal to 2010`.
+
+In language of R this is:
+
+```{r}
+p_lg_sb %>% 
+  group_by(var) %>%           # 1. for each groups of commodities "var"
+  mutate(                     # 2. mutate
+    base = ifelse(            # 3. variable "base", which is equal to
+      month(date) == 1 &      # 5. when month is equal to 1 and
+        year(date) == 2010,   # 6. year is equal to 2010
+      price,                  # 4. "price"
+      NA                      # 7. missing value is in other cases
+      )
+    )
+```
+
+#### Step 3. Make sure that base is the same for all observations in each group `var`
+
+```{r}
+p_lg_sb %>% 
   group_by(var) %>% 
-  mutate(base = ifelse(year(date) == 2010, price, NA), 
-         base = mean(base, na.rm = TRUE),
-         index = price / base * 100,
-         fd = price - lag(price)) %>% 
-  select(-base) %>% 
-  ungroup() %>% 
-  pivot_longer(cols = c(price, index, fd), names_to = "type")
-p_index %>% glimpse()
-p_index %>% 
-  pivot_wider(names_from = c(var, type),
-              values_from = c(value)) %>% 
-  glimpse()
+  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% 
+  tidyr::fill(base, .direction = "updown")
 ```
 
-## Exercise 3. Plot prices time series
+#### Step 4. Calculate index
 
 ```{r}
-p_index %>% 
-  filter(type == "index", var %in% c("urea", "wheat", "oil")) %>% 
-  ggplot() + 
-  aes(x = date, y = value, color = var) +
-  geom_path() + 
-  labs(y = "Price index (2010 = 100)",
-       color = "Commodity")
+p_lg_sb %>% 
+  group_by(var) %>% 
+  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% 
+  tidyr::fill(base, .direction = "updown") %>% 
+  mutate(index = price / base * 100)
 ```
 
-## Does Urea prices drive wheat prices?
+#### Optional example: calculate index, where base is average of month 2 and 3
 
 ```{r}
-
+p_lg_sb %>%
+  group_by(var) %>%
+  mutate(base = ifelse(month(date) %in% c(2,3) & 
+                         year(date) == 2010, 
+                       price, 
+                       NA)) %>% 
+  mutate(base_full = mean(base, na.rm = TRUE)) %>% 
+  mutate(index = price / base_full * 100)
 ```
 
+Note, we specify `mean(…, na.rm = TRUE)` because when we compute mean, there are some missing observations in the variable. Mean of a vector with missing observation will return `NA`.
 
+```{r}
+mean(c(1, 2, 3, 4, NA))
+```
 
-## Exercise 4. Correlation between 
+If we specify parameter to ignore `NA` in the data, we will get a result:
 
+```{r}
+mean(c(1, 2, 3, 4, NA), na.rm = TRUE)
+```
+
+## Exercise 1. Compute prices index with base mean prices in 2010
+
+Following the previous examples, let us compute:
+
+-   Step 1. for each **group** of `var`;
+-   Step 2. **mutate** `base_part`, which contains `price` **if** `year` is 2010 and `NA` in **else** cases;
+-   Step 3. **mutate** `base` with the `mean()` value of `base_part` price with parameter `na.rm = TRUE`;
+-   Step 4. **mutate** price `index` against such `base`;
+-   Step 5. **ungroup** data
+-   Step 6. **select** variables `date`, `var`, `price` and `index`
+
+```{r}
+# p_index <- 
+#   p_lg %>%
+#   ________() %>%                               # step 1.
+#   ______(                                      # step 2.
+#     base_part = 
+#       ifelse(year(_____) == 2010, price, ____)
+#     ) %>% 
+#   ______(                                      # step 3.
+#     base = ______(_______, na.rm = TRUE)
+#     ) %>%  
+#   mutate(index = ____ / _____ * 100) %>%       # step 4.
+#   ungroup() %>%                                # step 5.
+#   select(date, var, price, index)              # step 6.
+# 
+# glimpse(p_index)
+```
+
+## Exercise 2. Plot time series of indexes for wheat and urea
+
+Before plotting we need to `filter var when it is %in% "wehat" or "urea"`;
+
+Remember from the previous exercises: `ggplot()` + `aes()` + `geom_path()`
+
+-   Use `labs(x = "", y = "", title = "")` to give meaningful labels to the plot.
+
+```{r}
+# p_index %>% 
+#   ______(var %in% c("wheat", ______)) %>% 
+#   ______() + 
+#   aes(x = _____, y = _______, colour = var) + 
+#   geom_path() + 
+#   labs()
+```
+
+Answer the following questions:
+
+-   Can we conclude, based on the plot, that surging prices of `urea` cause the `wheat` prices to surge?
+
+-   What could be a theoretical explanation for this?
+
+-   What could be the theoretical mechanism of `urea` prices effect on `wheat`?
+
+## Exercise 3. Build a correlation table between price indices of different commodities
+
+First, we need to convert our data to wide format again:
+
+```{r}
+# p_index_wd <-
+#   p_index %>% 
+#   pivot_wider(names_from = var, values_from = c(price, index))
+# glimpse(p_index_wd)
+```
+
+To make a correlation table, we use package `correlation` and a function with the same name. We use summary to convert correlation table with extensive results to a compact matrix
+
+-   We `select` only those variables, where names `contains()` string `index`.
 
 ```{r}
 library(correlation)
 
+# p_index_wd %>% 
+#   select(contains("index")) %>% 
+#   correlation() %>% 
+#   summary()
+
+# p_index_wd %>% 
+#   select(contains("price")) %>% 
+#   correlation() %>% 
+#   summary()
+```
+
+-   Does this correlation coefficients suggests about causation if we assume that theory does justifies causal relationship?
+
+Run the same correlations but without `summary()`. What are the differences?
+
+```{r}
+# p_index_wd %>% 
+#   ______(_______("index")) %>% 
+#   _________()
+
+# ______ %>% 
+#   ______(______("price")) %>% 
+#   ______() 
+```
+
+## Exercise 4. Compute a first difference of indices with lag 1
+
+First difference is a change of value in the next period, compared to the previous one. To compute it, we use function `lag()` and perform similar mutate operations.
+
+#### Simple example of a first difference
+
+Before, we computed index in the following way:
+
+```{r}
+p_lg_sb %>% 
+  group_by(var) %>% 
+  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% 
+  tidyr::fill(base, .direction = "updown") %>% 
+  mutate(index = price / base * 100)
+```
+
+let us `mutate()` the `index_fd` variable:
+
+```{r}
+p_lg_sb %>% 
+  group_by(var) %>% 
+  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% 
+  tidyr::fill(base, .direction = "updown") %>% 
+  mutate(index = price / base * 100) %>% 
+  mutate(index_fd = index - lag(index))
+```
+
+Using simple example, let us compute the first difference of the index for the entire data.
+
+```{r}
+# p_index_fd <- 
+#   ______ %>% 
+#   group_by(______) %>% 
+#   mutate(index_fd = ______ - lag(______)) %>% 
+#   ungroup() %>% 
+#   select(date, var, index_fd) %>% 
+#   pivot_wider(names_from = var, 
+#               values_from = c(index_fd))
+#
+# p_index_fd %>% 
+#   glimpse()
+```
+
+## Exercise 5. Build a correlation table between first differences of indices for different commodities
+
+As the same exercise before, we use `correlation` package and the same function.
+
+```{r}
+# p_index_fd %>% 
+#   correlation() %>% 
+#   summary()
+```
+
+-   Based on this results, does urea prices causes surges in the wheat prices?
+
+-   What kind of causal relationship could be there?
+
+## Exercise 6. Compute first differences with lag 2 and 3
+
+```{r}
+# p_index_fd_lags <- 
+#   p_index %>% 
+#   group_by(var) %>% 
+#   mutate(fd = index - lag(index, 1)) %>% 
+#   ungroup() %>% 
+#   select(date, var, contains("fd")) %>% 
+#   pivot_wider(names_from = var, 
+#               values_from = c(contains("fd"))) %>% 
+#   mutate(urea_fd1 = urea,
+#          urea_fd2 = lag(urea, 2),
+#          urea_fd3 = lag(urea, 3),
+#          urea_fd4 = lag(urea, 4),
+#          urea_fd5 = lag(urea, 5)
+#   )
+# 
+# correlation(p_index_fd_lags) %>% summary()
+```
+
+## Solutions
+
+```{r}
+p_wd <- 
+  read_excel("data/commodity-prices.xlsx", sheet =  "data") %>% 
+  clean_names() %>% 
+  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, 
+        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, 
+        date = day_month_year, 
+        oil = crude_oil_brent_usd_per_barrel, 
+        urea = urea_f_o_b_black_sea_usd_per_mt) %>%
+  slice(-1) %>% 
+  mutate(
+    oil = as.numeric(oil),
+    wheat = as.numeric(wheat),
+    maize = as.numeric(maize),
+    urea = as.numeric(urea),
+    date = convert_to_date(date)
+  ) 
+
+p_lg <- 
+  p_wd %>% 
+  pivot_longer(cols = c(oil:urea), 
+               names_to = "var", 
+               values_to = "price") %>% 
+  arrange(var, date)
+```
+
+### Ex. 1
+
+```{r}
+p_index <- 
+  p_lg %>%
+  group_by() %>%                               # step 1.
+  mutate(                                      # step 2.
+    base_part = 
+      ifelse(year(date) == 2010, price, NA)
+    ) %>% 
+  mutate(                                      # step 3.
+    base = mean(base_part, na.rm = TRUE)
+    ) %>%  
+  mutate(index = price / base * 100) %>%       # step 4.
+  ungroup() %>%                                # step 5.
+  select(date, var, price, index)              # step 6.
+
+glimpse(p_index)
+```
+
+### Ex. 2
+
+```{r}
 p_index %>% 
-  filter(type %in% c("price")) %>% 
-  pivot_wider(names_from = c(var, type), 
-              values_from = c(value)) %>% 
+  filter(var %in% c("wheat", "urea")) %>%
+  ggplot() + 
+  aes(x = date, y = index, colour = var) + 
+  geom_path() + 
+  labs(x = "Date", y = "Price index, 2010 = 100",
+       title = "Price indices of key commodities",
+       colour = NULL)
+```
+
+### Ex. 3
+
+```{r}
+p_index_wd <-
+  p_index %>% 
+  pivot_wider(names_from = var, values_from = c(price, index))
+
+library(correlation)
+
+p_index_wd %>% 
+  select(contains("index")) %>% 
   correlation() %>% 
   summary()
 
-p_index %>% 
-  filter(type %in% c("index")) %>% 
-  pivot_wider(names_from = c(var, type), 
-              values_from = c(value)) %>% 
+p_index_wd %>% 
+  select(contains("price")) %>% 
   correlation() %>% 
   summary()
+```
 
-p_index %>% 
-  filter(type %in% c("fd")) %>% 
-  pivot_wider(names_from = c(var, type), 
-              values_from = c(value)) %>% 
-  correlation() %>% 
-  summary()
+### Ex. 4
+
+```{r}
+p_index_fd <- 
+  p_index %>% 
+  group_by(var) %>% 
+  mutate(index_fd = index - lag(index)) %>% 
+  ungroup() %>% 
+  select(date, var, index_fd) %>% 
+  pivot_wider(names_from = var,
+              values_from = c(index_fd))
 ```

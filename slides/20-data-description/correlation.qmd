@@ -1,0 +1,342 @@
+---
+title: "Correlation"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    multiplex: true
+    slide-number: true
+    incremental: true 
+    chalkboard: true
+    smaller: false
+    scrollable: true
+
+execute:
+  freeze: auto
+  
+bibliography: ../../references.bib
+---
+
+# R setup
+
+## R setup {.smaller}
+
+```{r}
+library(tidyverse)       # for data wrangling
+library(palmerpenguins)
+library(correlation)
+
+# set default theme and larger font size for ggplot2
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+
+# set default figure parameters for knitr
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "80%"
+)
+```
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 8,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "80%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(1123581321)
+```
+
+```{r}
+#| echo: false
+library(magick)   
+library(magrittr)    
+get_image <- function(x) {
+  here::here("slides", "50-data-wrangling", "img", x) 
+}
+```
+
+# Correlation
+
+## Definitions
+
+> In statistics, correlation or dependence is any statistical relationship, whether causal or not, between two random variables or bivariate data.
+
+. . .
+
+Most common are following [method of correlation](https://easystats.github.io/correlation/articles/types.html#different-methods-for-correlations):
+
+-   Pearson's correlation
+-   Spearman's rank correlation
+
+. . .
+
+Both, capture **linear** relationship.
+
+## Examples
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/cor-examples.png")
+```
+
+## Computation with `correlation`
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/correlation-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does Summary statistics
+
+-   Documentation [easystats/correlation](https://easystats.github.io/correlation/) + [Source code](https://github.com/easystats/correlation)
+
+-   Learn by doing [Using correlation](https://easystats.github.io/correlation/)
+
+Key functions: `correlation::correlation()`.
+:::
+:::
+
+# Pinguins and correlation
+
+## Correlation in pinguins data
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/palmerpenguins.png")
+```
+
+## The data
+
+```{r}
+glimpse(penguins)
+```
+
+## Scatter plot {.smaller}
+
+::: panel-tabset
+### Plot
+
+```{r}
+#| echo: false
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(aes(color = species, shape = species)) +
+  labs(
+    title = "Flipper and bill length",
+    x = "Flipper length (mm)",
+    y = "Bill length (mm)",
+    color = "Penguin species",
+    shape = "Penguin species"
+  ) 
+```
+
+### Code
+
+```{r}
+#| eval: false
+library(palmerpenguins)
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(aes(color = species, shape = species)) +
+  labs(
+    title = "Flipper and bill length",
+    x = "Flipper length (mm)",
+    y = "Bill length (mm)",
+    color = "Penguin species",
+    shape = "Penguin species"
+  ) 
+```
+:::
+
+## `correlation()` usage 1
+
+```{r}
+penguins %>% correlation()
+```
+
+## `correlation()` usage 2 + `summary()`
+
+```{r}
+penguins %>% correlation() %>% summary()
+```
+
+## `correlation()` usage 3 + `as_tibble()`
+
+```{r}
+penguins %>% correlation() %>% as_tibble()
+```
+
+# Correlation in commodity prices
+
+## What commodity causes surges? (1/3)
+
+. . .
+
+```{r}
+#| echo: false
+#| 
+library(tidyverse)
+library(readr)       # install.packages("readr")
+library(readxl)      # install.packages("readxl")
+library(janitor)     # install.packages("janitor")
+library(skimr)       # install.packages("skimr")
+library(lubridate)   # install.packages("lubridate")
+
+prices <- 
+  read_excel("data/commodity-prices.xlsx", sheet =  "data") %>% 
+  clean_names() %>% 
+  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, 
+        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, 
+        date = day_month_year, 
+        oil = crude_oil_brent_usd_per_barrel, 
+        urea = urea_f_o_b_black_sea_usd_per_mt) %>%
+  slice(-1) %>% 
+  mutate(
+    oil = as.numeric(oil),
+    wheat = as.numeric(wheat),
+    maize = as.numeric(maize),
+    urea = as.numeric(urea),
+    date = convert_to_date(date)
+  ) %>% 
+  pivot_longer(cols = c(oil:urea), 
+               names_to = "var", 
+               values_to = "price") %>% 
+  arrange(date, var) %>%
+  group_by() %>%                               # step 1.
+  mutate(                                      # step 2.
+    base_part = 
+      ifelse(year(date) == 2010, price, NA)
+    ) %>% 
+  mutate(                                      # step 3.
+    base = mean(base_part, na.rm = TRUE)
+    ) %>%  
+  mutate(index = price / base * 100) %>%       # step 4.
+  ungroup() %>%                                # step 5.
+  select(date, var, price, index)              # step 6.
+
+prices %>% 
+  filter(var %in% c("wheat", "urea", "maize", "oil")) %>%
+  ggplot() + 
+  aes(x = date, y = index, colour = var) + 
+  geom_path() + 
+  labs(y = "Price index, 2010 = 100",
+       title = "Monthly price indices of four key commodities",
+       colour = NULL) +
+  scale_x_date(date_minor_breaks = "1 year")
+```
+
+## What commodity causes surges? (2/3)
+
+```{r}
+#| echo: false
+#| 
+prices %>% 
+  filter(var %in% c("wheat", "urea")) %>%
+  ggplot() + 
+  aes(x = date, y = index, colour = var) + 
+  geom_path() + 
+  labs(y = "Price index, 2010 = 100",
+       title = "Monthly price indices of four key commodities",
+       colour = NULL) +
+  scale_x_date(date_minor_breaks = "1 year")
+```
+
+## What commodity causes surges? (3/3)
+
+-   Can we conclude, based on the plot, that surging prices of `urea` cause the `wheat` prices to surge?
+
+-   What could be a theoretical explanation for this?
+
+-   What could be the theoretical mechanism of `urea` prices effect on `wheat`?
+
+-   How can we test empirically, if there is any (co)relationship?
+
+## Prices correlation (1/2)
+
+```{r}
+#| echo: false
+prices %>% 
+  pivot_wider(names_from = var, values_from = c(price, index)) %>% 
+  select(contains("index")) %>% 
+  correlation() %>% 
+  summary()
+```
+
+. . .
+
+-   If we **assume that theoretical causation from Urea to Wheat prices is possible!**
+
+-   Does high and significant correlation suggest about causal relationship?
+
+## First Difference and corelation (1/2)
+
+. . .
+
+```{r}
+#| echo: false
+#| 
+p_index_fd <- 
+  prices %>% 
+  group_by(var) %>% 
+  mutate(index_fd = index - lag(index)) %>% 
+  ungroup() %>% 
+  select(date, var, index_fd) %>% 
+  pivot_wider(names_from = var,
+              values_from = c(index_fd), names_prefix = "index_fd_")
+p_index_fd %>% 
+  correlation() %>% 
+  summary()
+```
+
+## First Difference and corelation (2/2)
+
+First Difference removed linear trends from the data.
+
+. . .
+
+There might be some different chains of reaction here. For example:
+
+1.  Oil price may affect Urea prices as it is an important production factor
+
+2.  Oil price may affect maize price as it is a baleful competitor
+
+3.  Maize price affect wheat as they are the substitute.
+
+## Recap:
+
+-   Correlation: linear relationship;
+
+-   Does not implies causation because of no Ceteris Paribus;
+
+    -   Simultaneity proble in time series.
+
+-   First difference helps to remove serial trend;
+
+## Homework
+
+. . .
+
+### Do exercise [`ae03-02-correlation.Rmd`]()
+
+Includes:
+
+-   Data import;
+-   Correlation;
+-   Time Series plotting;
