@@ -72,33 +72,11 @@ Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
 
 ```{r}
 #| echo: false
-# get_image("data-science.png") %>%
-#   magick::image_read() %>%
-#   magick::image_ggplot(interpolate = TRUE)
-knitr::include_graphics("./img/data-science.png")
+get_image("data-science.png") %>%
+  magick::image_read() %>%
+  magick::image_ggplot(interpolate = TRUE)
+# knitr::include_graphics("./img/data-science.png")
 ```
-
-## Wrangling
-
-```{r}
-#| echo: false
-# get_image("data-science-wrangle.png") %>% 
-#   magick::image_read() %>%
-#   magick::image_ggplot(interpolate = TRUE)
-knitr::include_graphics("./img/data-science-wrangle.png")
-```
-
-::: footer
-Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
-:::
-
-. . .
-
-### See also:
-
-R4DS: [R for data science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund (book's [source code](https://github.com/hadley/r4ds))
-
--   Part Wrangle [Chapter 9](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro) in [@Wickham2017R]
 
 ## Tidy data (1/5)
 
@@ -149,16 +127,46 @@ See: [Data transformation with dplyr cheatsheet](https://raw.githubusercontent.c
 
 ## Tidy data (5/5). Learn more?
 
-Read: [R4DS Ch. 12. Tidy data](https://r4ds.had.co.nz/tidy-data.html#tidy-data)
+### Read:
+
+-   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="50" height="73"} [R4DS Ch. 12. Tidy data](https://r4ds.had.co.nz/tidy-data.html#tidy-data)
 
 . . .
 
-Follow slides, videos and exercises: 
+Follow slides, videos and exercises:
 
 . . .
 
--   Chapter [7.1.2 Wrangling and tidying data ](https://datasciencebox.org/exploring-data.html?q=import#wrangling-and-tidying-data) in [Data Science in a Box](https://datasciencebox.org/)
+-   Chapter [7.1.2 Wrangling and tidying data](https://datasciencebox.org/exploring-data.html?q=import#wrangling-and-tidying-data) in [Data Science in a Box](https://datasciencebox.org/)
 
+## Wrangling
+
+```{r}
+#| echo: false
+get_image("data-science-wrangle.png") %>%
+  magick::image_read() %>%
+  magick::image_ggplot(interpolate = TRUE)
+# knitr::include_graphics("./img/data-science-wrangle.png")
+```
+
+::: footer
+Image source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+:::
+
+## Wrangling: See also {.smaller}
+
+### Read:
+
+-   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="50" height="73"} [R4DS: R for data science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund (book's [source code](https://github.com/hadley/r4ds)) [@Wickham2017R]
+-   [R4DS Ch 9. Wrangle](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro)
+
+. . .
+
+### Watch
+
+-   ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} Grammar of data wrangling [video](https://youtu.be/ZCaYBES_VEk) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d06-grammar-wrangle/u2-d06-grammar-wrangle.html#1)
+
+-   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
 
 # Data import
 
@@ -169,14 +177,14 @@ Data import must be done in a reproducible way!
 . . .
 
 -   `Raw data` must be stored together with the project.
-
--   Data import and cleaning should be done with the scripts.
+-   Data import and cleaning should be done with scripts.
 
 . . .
 
 It is tricky to load data, because, we need to interact with the file system.
 
--   You may use interactive Users Interface to load data.
+-   You may use interactive Users Interface to load data once,
+-   But you should use R code to reload same data again.
 
 . . .
 
@@ -186,13 +194,21 @@ Always save data import R code in your scripts!
 
 ## Data import. Learn more?
 
-[Data Science in a Box](https://datasciencebox.org/): 
+[Data Science in a Box](https://datasciencebox.org/):
 
--   Unit 2 - Deck 10: Data types [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1) and [video](https://youtu.be/dozvSVQcqqg)
+-   ![](https://datasciencebox.org/dsbox.png){width="25"}Data types [video](https://www.youtube.com/watch?v=WsxLbtWbEfc&ab_channel=Mine%C3%87etinkaya-Rundel) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
 
--   Unit 2 - Deck 12: Importing data [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1) and [video](https://youtu.be/tIMaRYiuEFA)
+<!-- -->
 
-Read: [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
+-   **Optional.** Watch:
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}[Importing and recoding data](https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data)
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Data classes [video](https://youtu.be/dozvSVQcqqg) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1)
+    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Importing data [video](https://youtu.be/tIMaRYiuEFA) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1)
+
+<!-- -->
+
+-   **Optional**. Read:
+    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
 
 ## List of relevnat functions {.smaller}
 
@@ -443,7 +459,6 @@ Does data wrangling.
 
 -   Learn by doing [R4DS Ch 5. Data transformation](https://r4ds.had.co.nz/transform.html)
 :::
-
 :::
 
 ## `dplyr` package: getting started {.smaller}
@@ -483,7 +498,7 @@ knitr::include_graphics("./img/rename.png")
 
 . . .
 
--   Read about in [R4DS Ch. 5.4 ](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/rename.html) (see examples!)
+-   Read about in [R4DS Ch. 5.4](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/rename.html) (see examples!)
 
 ## `dplyr::mutate()` Create, modify, and delete columns
 
@@ -494,7 +509,7 @@ knitr::include_graphics("./img/mutate.png")
 
 . . .
 
--   Read about in [R4DS Ch. 5.5 ](https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate) + [function reference](https://dplyr.tidyverse.org/reference/mutate.html)
+-   Read about in [R4DS Ch. 5.5](https://r4ds.had.co.nz/transform.html#add-new-variables-with-mutate) + [function reference](https://dplyr.tidyverse.org/reference/mutate.html)
 
 . . .
 
@@ -502,7 +517,7 @@ knitr::include_graphics("./img/mutate.png")
 
 . . .
 
--   Interactive exercises:  [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3),  [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/) and [Road Traffic Accidents](https://minecr.shinyapps.io/dsbox-02-accidents/)
+-   Interactive exercises: [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3), [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/) and [Road Traffic Accidents](https://minecr.shinyapps.io/dsbox-02-accidents/)
 
 ## `dplyr::filter()` (1/2) subset rows using column values
 
@@ -513,7 +528,7 @@ knitr::include_graphics("./img/filter.png")
 
 . . .
 
--   Read about in [R4DS Ch. 5.2 ](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) + [function reference](https://dplyr.tidyverse.org/reference/filter.html) (see examples!)
+-   Read about in [R4DS Ch. 5.2](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) + [function reference](https://dplyr.tidyverse.org/reference/filter.html) (see examples!)
 
 . . .
 
@@ -541,7 +556,7 @@ knitr::include_graphics("./img/select.png")
 
 . . .
 
--   Read about in [R4DS Ch. 5.4 ](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/select.html) (see examples!)
+-   Read about in [R4DS Ch. 5.4](https://r4ds.had.co.nz/transform.html#select) + [function reference](https://dplyr.tidyverse.org/reference/select.html) (see examples!)
 
 . . .
 
@@ -558,7 +573,7 @@ Interactive exercises: [Isolating Data with dplyr](https://rstudio.cloud/learn/p
 
 # Summary statistics
 
-## `skimr` package (1/3)
+## `skimr` package
 
 ::: columns
 ::: {.column width="30%"}
@@ -575,12 +590,32 @@ Does Summary statistics
 -   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
 
 Key functions: `skimr::skim()`.
-
 :::
-
 :::
 
 # Correlation
+
+## Correlation
+
+::: columns
+::: {.column width="30%"}
+```{r}
+#| echo: false
+knitr::include_graphics("./img/correlation-logo.png")
+```
+:::
+
+::: {.column width="70%"}
+Does Summary statistics
+
+-   Documentation [easystats/correlation](https://easystats.github.io/correlation/) + [Source code](https://github.com/easystats/correlation)
+
+-   Learn by doing [Using correlation](https://easystats.github.io/correlation/)
+
+Key functions: `correlation::correlation()`.
+:::
+:::
+
 
 
 # Histogram
@@ -588,7 +623,6 @@ Key functions: `skimr::skim()`.
 # Box plot
 
 # Scatter plot
-
 
 # References
 
