@@ -10,7 +10,7 @@ format:
     transition: fade
     multiplex: false
     slide-number: true
-    incremental: true 
+    incremental: false 
     chalkboard: false
     smaller: false
     scrollable: true
@@ -265,7 +265,7 @@ prices %>%
 
 -   Can we conclude, based on the plot, that surging prices of `urea` cause the `wheat` prices to surge?
 
--   What could be a theoretical explanation for this?
+-   What could be the theoretical explanation for this cause and effect relationship?
 
 -   What could be the theoretical mechanism of `urea` prices effect on `wheat`?
 
@@ -322,7 +322,7 @@ There might be some different chains of reaction here. For example:
 
 3.  Maize price affect wheat as they are the substitute.
 
-## Recap:
+# Takeaway:
 
 -   Correlation: linear relationship;
 
@@ -331,15 +331,3 @@ There might be some different chains of reaction here. For example:
     -   Simultaneity problem in time series.
 
 -   First difference helps to remove serial trend;
-
-## Homework
-
-. . .
-
-### Do exercise [`ae03-02-correlation.Rmd`]()
-
-Includes:
-
--   Data import;
--   Correlation;
--   Time Series plotting;

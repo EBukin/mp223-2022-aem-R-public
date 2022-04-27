@@ -28,7 +28,7 @@ editor: visual
 ::: callout-tip
 ## In class
 
--   exercise [`ae03-01-import-clean-sum-plot.Rmd`](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html)
+-   📋[`ae03-01-import-clean-sum-plot.Rmd`](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html)
 :::
 
 ::: callout-important
@@ -56,7 +56,7 @@ editor: visual
 ## In class
 
 -   🖥[W03-02 Exploring numerical data](/slides/20-data-description/exploring-numeric-data.html)
--   **exercise TBD**
+-   📋**TBD**
 :::
 
 -   **Recommended.** [Practice]{.underline}**:**
@@ -74,7 +74,7 @@ editor: visual
     -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising data with ggplot2 [video](https://youtu.be/s2NF2J36ljE) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
     -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising numerical data [video](https://youtu.be/waBabVTI8ec) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1)
 
-## 🖥 [W03-03 Correlation](/slides/20-data-description/correlation.html)
+## 🖥 W03-03 Correlation
 
 ::: callout-tip
 ## In class
@@ -85,7 +85,7 @@ editor: visual
 ::: callout-important
 ## `SELF STUDY`
 
--   **exercise** [`ae03-03-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-03-correlation.html)
+-   📋[`ae03-03-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-03-correlation.html)
 :::
 
 -   **Recommended.** [Practice]{.underline}**:**
