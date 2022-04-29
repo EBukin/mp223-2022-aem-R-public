@@ -4,23 +4,19 @@ date: "`r Sys.Date()`"
 output: 
   html_document:
     code_folding: show
-bibliography: ../../references.bib
 ---
-
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-This exercise is adopted from  [ata Science in a Box](https://datasciencebox.org/exploring-data.html?q=import#visualising-data).
+This exercise is adopted from [ata Science in a Box](https://datasciencebox.org/exploring-data.html?q=import#visualising-data).
 
 # Learning goals
 
--   Visualising numerical and categorical data and interpreting visualisations
+-   Visualizing numerical and categorical data and interpreting visualizations
 -   Recreating visualizations
 -   Getting more practice using with R, RStudio, Git, and GitHub
-
-
 
 ## Setup
 
@@ -30,8 +26,7 @@ library(tidyverse)
 
 ## Data
 
-The dataset for this assignment can be found as a csv file in the `data` folder of your repository.
-You can read it in using the following.
+The data set for this assignment can be found as a csv file in the `data` folder of your repository. You can read it in using the following.
 
 ```{r load-data, message=FALSE, eval=TRUE}
 plastic_waste <- read_csv("data/plastic-waste.csv")
@@ -67,8 +62,7 @@ Compute summary statistics using `skimr::skim()` and `report::report()`. Load th
 # _______()
 ```
 
-
-# Exercises 3. 
+# Exercises 3.
 
 Let's start by taking a look at the distribution of plastic waste per capita in 2010.
 
@@ -86,14 +80,13 @@ plastic_waste %>%
   filter(plastic_waste_per_cap > 3.5)
 ```
 
-Did you expect this result?
-You might consider doing some research on Trinidad and Tobago to see why plastic waste per capita is so high there, or whether this is a data error.
+Did you expect this result? You might consider doing some research on Trinidad and Tobago to see why plastic waste per capita is so high there, or whether this is a data error.
 
 1.  Plot, using histograms, the distribution of plastic waste per capita faceted by continent. What can you say about how the continents compare to each other in terms of their plastic waste per capita?
 
 Another way of visualizing numerical data is using density plots.
 
-Duilt a density plot below.
+Built a density plot below.
 
 ```{r plastic_waste_per_cap-dens}
 #
@@ -106,21 +99,17 @@ And compare distributions across continents by colouring density curves by conti
 #
 ```
 
-Transform the variable of plastic waste per capita to observe more informative density plot. 
-
+Transform the variable of plastic waste per capita to observe more informative density plot.
 
 ```{r}
 #
 
 ```
 
-# Exercises 4. 
+# Exercises 4.
 
 Built a box plot of plastic sate by continent
 
+# Exercises 5.
 
-# Exercises 5. 
-
-Build a scatter plot of plastic waste per capital and GDP per capital. 
-
-
+Build a scatter plot of plastic waste per capital and GDP per capital.

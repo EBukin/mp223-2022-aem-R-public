@@ -1,0 +1,162 @@
+---
+title: "AE03-02 Exploring data on plstic waste"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+---
+
+
+This exercise is adopted from [Data Science in a Box](https://datasciencebox.org/exploring-data.html?q=import#visualising-data).
+
+# Learning goals
+
+-   Visualizing numerical and categorical data and interpreting visualizations
+-   Recreating visualizations
+-   Getting more practice using with R, RStudio, Git, and GitHub
+
+## Setup
+
+```{r load-packages, message=FALSE, eval=TRUE}
+library(tidyverse)
+```
+
+## Data
+
+The data set for this assignment can be found as a csv file in the `data` folder of your repository. You can read it in using the following.
+
+```{r load-data, message=FALSE, eval=TRUE}
+plastic_waste <- read_csv("data/plastic-waste.csv")
+```
+
+The variable descriptions are as follows:
+
+-   `code`: 3 Letter country code
+-   `entity`: Country name
+-   `continent`: Continent name
+-   `year`: Year
+-   `gdp_per_cap`: GDP per capita constant 2011 international \$, rate
+-   `plastic_waste_per_cap`: Amount of plastic waste per capita in kg/day
+-   `mismanaged_plastic_waste_per_cap`: Amount of mismanaged plastic waste per capita in kg/day
+-   `mismanaged_plastic_waste`: Tonnes of mismanaged plastic waste
+-   `coastal_pop`: Number of individuals living on/near coast
+-   `total_pop`: Total population according to Gapminder
+
+# Exercises 1.
+
+Glimpse at the data
+
+```{r}
+plastic_waste %>% glimpse()
+plastic_waste %>% head()
+```
+
+# Exercises 2.
+
+Compute summary statistics using `skimr::skim()` . Load the package first or even install it if needed.
+
+```{r}
+library(skimr)
+plastic_waste %>% skim()
+```
+
+Summary statistics by continent.
+
+```{r}
+plastic_waste %>% 
+  group_by(continent) %>% 
+  skim()
+```
+
+# Exercises 3.
+
+Let's start by taking a look at the distribution of plastic waste per capita in 2010.
+
+```{r plastic_waste_per_cap-hist, eval=TRUE}
+plastic_waste %>% 
+  ggplot() +
+  aes(x = plastic_waste_per_cap) +
+  geom_histogram()
+```
+
+One country stands out as an unusual observation at the top of the distribution.
+
+One way of identifying this country is to filter the data for countries where plastic waste per capita is greater than 3.5 kg/person.
+
+```{r plastic_waste_per_cap-max, eval=TRUE}
+plastic_waste %>%
+  filter(plastic_waste_per_cap > 3.5)
+```
+
+Did you expect this result? You might consider doing some research on Trinidad and Tobago to see why plastic waste per capita is so high there, or whether this is a data error.
+
+Another way of visualizing numerical data is using density plots.
+
+Built a density plot below.
+
+```{r plastic_waste_per_cap-dens}
+plastic_waste %>% 
+  ggplot() +
+  aes(x = plastic_waste_per_cap) +
+  geom_density()
+```
+
+And compare distributions across continents by colouring density curves by continent.
+
+```{r plastic_waste_per_cap-dens-color}
+plastic_waste %>% 
+  ggplot() +
+  aes(x = plastic_waste_per_cap, color = continent) +
+  geom_density()
+```
+
+Transform the variable of plastic waste per capita to observe more informative density plot.
+
+```{r}
+plastic_waste %>% 
+  mutate(plastic_waste_per_1000_pple = 
+           plastic_waste_per_cap * 1000) %>% 
+  ggplot() +
+  aes(x = plastic_waste_per_1000_pple, 
+      color = continent) +
+  geom_density() + 
+  scale_x_log10() + 
+  labs(x = "Amount of plastic waste per 1000 people, kg / day")
+```
+
+# Exercises 4.
+
+Built a box plot of plastic sate by continent
+
+```{r}
+plastic_waste %>% 
+  mutate(plastic_waste_per_100_pple = 
+           plastic_waste_per_cap * 100 * 365 / 1000) %>% 
+  ggplot() +
+  aes(x = plastic_waste_per_100_pple,
+      y = continent, 
+      color = continent) +
+  geom_boxplot() + 
+  scale_x_log10() + 
+  labs(x = "Amount of plastic waste per 100 people, MT / year", 
+       y = NULL)
+```
+
+# Exercises 5.
+
+Build a scatter plot of plastic waste per capital and GDP per capital.
+
+```{r}
+plastic_waste %>% 
+  mutate(plastic_waste_per_1000_pple = 
+           plastic_waste_per_cap * 100 * 365 / 1000) %>% 
+  ggplot() +
+  aes(x = plastic_waste_per_1000_pple,
+      y = gdp_per_cap, 
+      color = continent,
+      size = total_pop) +
+  geom_point() + 
+  scale_x_log10() + 
+  scale_y_log10() + 
+  labs(x = "Amount of plastic waste per 100 people, MT / year")
+```
