@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.314">
+<meta name="generator" content="quarto-0.9.328">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eduard Bukin">
-<meta name="dcterms.date" content="2022-04-27">
+<meta name="dcterms.date" content="2022-04-29">
 
 <title>mp223 Applied Econometric Methods for the Socials Sciences - AE03-01 Import, cleaning, summary plot</title>
 <style>
@@ -80,25 +80,6 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -282,7 +263,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 27, 2022</p>
+      <p class="date">April 29, 2022</p>
     </div>
   </div>
     
@@ -829,7 +810,7 @@ $ value &lt;dbl&gt; 17.45, 161.44, 117.00, 120.00, 18.63, 153.07, 108.52, 120.00
 </section>
 <section id="exercise-2.-optional-import-from-a-.csv-coma-separated-file" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-2.-optional-import-from-a-.csv-coma-separated-file">Exercise 2. OPTIONAL Import from a <code>.csv</code>: coma separated file</h2>
-<p>Here is the example <a href="https://raw.githubusercontent.com/EBukin/datasets4examples/main/datasets-raw/NHIS2009.csv">NHIS 2009</a> data used in the <span class="citation" data-cites="Angrist2014">(<a href="#ref-Angrist2014" role="doc-biblioref">Angrist and Pischke 2014</a>)</span>. To load such data in R, we can use <code>readr</code> package from tidyverse <a href="https://readr.tidyverse.org/">readr</a>.</p>
+<p>Here is the example <a href="https://raw.githubusercontent.com/EBukin/datasets4examples/main/datasets-raw/NHIS2009.csv">NHIS 2009</a> data used in the <span class="citation" data-cites="Angrist2014">[@Angrist2014]</span>. To load such data in R, we can use <code>readr</code> package from tidyverse <a href="https://readr.tidyverse.org/">readr</a>.</p>
 <p>One may use a visual import tool for data available in R studio. But remember to save the R code for data import in the script. Data import code must be a part of your analysis.</p>
 <p>The challenge is to specify the right path to the file that we want to import. For this exercise, this file is also saved in the folder <code>./data/NHIS2009.csv</code></p>
 <section id="simple-csv-file-readrread_csv-dplyrglimpse-basesummary-utilsview" class="level3">
@@ -1114,14 +1095,9 @@ $ active            &lt;chr&gt; "YES", "YES", "YES", "YES", "YES", "YES", "YES",
 </ul>
 
 
-
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-Angrist2014" class="csl-entry" role="doc-biblioentry">
-Angrist, Joshua D., and Jörn-Steffen Pischke. 2014. <em>Mastering’metrics: The Path from Cause to Effect</em>. Princeton University Press.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const disableStylesheet = (stylesheets) => {

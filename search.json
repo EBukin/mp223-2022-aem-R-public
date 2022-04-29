@@ -1,395 +1,115 @@
 [
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html",
-    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html",
-    "title": "AE03-01 Import, cleaning, summary plot",
-    "section": "",
-    "text": "We will us tidyverse for data wrangling and readr and readxl for data import.\n\nlibrary(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")"
+    "objectID": "slides/00-introduction/00-introduction.html#mp223---applied-econometrics-methods-for-the-social-sciences",
+    "href": "slides/00-introduction/00-introduction.html#mp223---applied-econometrics-methods-for-the-social-sciences",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "MP223 - Applied Econometrics Methods for the Social Sciences",
+    "text": "MP223 - Applied Econometrics Methods for the Social Sciences\nAuthor: Eduard Bukin (StudIP profile)\nEmail: eduardbukin@agrar.uni-giessen.de,\nTelephone: +49 641 99-37055\nOffice: Zeughaus (Senckenbergstr. 3). Room: 132.\nOffice hours: Part time (better to make an appointment)"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-1.-load-clean-and-plot-data-from-excel",
-    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-1.-load-clean-and-plot-data-from-excel",
-    "title": "AE03-01 Import, cleaning, summary plot",
-    "section": "Exercise 1. Load clean and plot data from Excel",
-    "text": "Exercise 1. Load clean and plot data from Excel\nHere, we will explore the data from the file called commodity-prices.xlsx in the data folder.\n\nEx. 1.1 Inspect the file in excel: readxl::excel_sheets()\nOpen the file in Excel and inspect it.\n\nWhat sheets are there?\nWhere is the data?\n\nUse function excel_sheets() to check what sheets does R sees in this file. Please note that you need to provide path to the file manually. Thus:\n\nCreate an object path_prices\n\nand assign to it a value of the string with the path to the file.\nThis string may look like: ./path_to_folder/file_name.ext.\nMake sure that you specify the path exactly as it is with the file extension.\nMake sure that in the path, there are no extra spaces of characters which are not present in the file path.\n\nExecute function excel_sheets() specifying in the arguments path to the file.\n\n\nlibrary(readxl)\n# path_prices <- \"______\"\n# excel_sheets(path = _______)\n\nWhat does the excel_sheets() tells us?\n\n\nEx. 1.2 Load data from the sheet: readxl::read_excel(..., sheet = ____), utils::head()\nYou need to use function read_excel() to load data.\n\nCheck help for this function in the console!\nSave data in the environment under the object name prices_dta.\nglimpse() at the data\nus function head() with the data and explain what it does\n\n\n# prices_dta <- \n#   ________(path_prices)\n\n# prices_dta %>% \n#   ________()\n\n# prices_dta %>% \n#   head()\n\nAs you can see, the data is loaded into R, but there are problems:\n\nVariables names are long, bulky, contain spaces and it is difficult to use them.\nAll variables are in <chr>, which means character, when it should be numerical <dbl>.\nFirst row in the data contains text, which is irrelevant to the data.\nThe data is not tidy! We need to clean it.\n\n\n\nEx. 1.3 Cleaning variables names: janitor::clean_names(...) , base::names()\nCurrently variables names are very long.\n\nNote, we use names() function to check variables names.\n\n\n# prices_dta %>% names()\n\nWe can simplify these names and make them machine readable and usable using function janitor::clean_names().\n\ncheck help for this function ?clean_names\nrun it on the data and check the variables names\n\n\n# prices_dta %>% \n#   __________() %>% \n#   names()\n\nAre those variables names useful now?\n\n\nEx. 1.4 Cleaning variables names: dplyr::rename()\nWell, no, these variables names are not useful. We still need to rename() them into something shorter. For this, we use dplyr::rename() . See help here.\nThe logit is:\n\nwe supply data into rename() with pipe: data %>% rename().\nin the rename() , we specify what should be the new name on the left hand side and old name on the right hand\n\ndata %>% rename(new_name = OLD_NAME).\n\nwe do not use any quotation marks.\nRemember to repeat the data cleaning step with janitor::lean_names().\n\nHere is the example with the longest variable:\n\n# prices_dta %>% \n#   clean_names() %>% \n#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt) %>% \n#   names()\n\nFollow this example to rename variables into date, oil, maize and urea.\n\n# prices_dta %>%\n#   clean_names() %>% \n#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n#          maize = ______________, \n#          date = ______________, \n#          ______________ = ______________, \n#          ______________ = ______________) %>%\n#   names()\n\nDid it work?\n\n\nEx. 1.5 Removing first row with irrelevant data dplyr::slice()\nUse function slice(prices_dta, -1). Check help for dplyr::slice().\n\nwith argument -1 we are telling to R to drop row with the number 1;\nNote, wen we use pipeline %>% we do not need to specify data frame name prices_dta within the brackets (…) of the slice() call!\nRemember to copy all the code from before, where you renamed the variables.\nAssign value of this long pipe to the new object named prices_dta_1. This object will stand for the intermediary step in the data cleaning process.\n\n\n# prices_dta_1 <- \n#   prices_dta %>%\n#   ### Place here the R code with renaming ###\n#   ### Place here the R code with renaming ###\n#   ### Place here the R code with renaming ###\n#   slice(___) %>% \n#   glimpse()\n\nIf everything alright with the data now? Let us use summary() to summaries the variables and extract some numerical features:\n\n# prices_dta_1 %>%\n#   summary()\n\nAre these results meaningful?\n\n\nEx. 1.6 Mutating variables types: dplyr::mutate(), base::as.numeric().\nAs we say on the previous step, all variables have the type character or <chr>. As this is text, it is not possible to make summary statistics out of it. R simply does not understand that we want to used those variables as numbers as we need to explain this to R.\nWe need to:\n\nmutate() existing variables (see definition of mutate here)\nthe help on the mutate() function is here with more case example here and a dedicated Chapter 5.5 in R4DS;\nand convert them to numeric or double type referred as <dbl>\nto convert variable type, we use as.numeric(), see: ?as.numeric or run as.numeric(c(\"-.1\",\" 2.7 \",\"B\")) in console.\n\nHere is the example that should work for one column:\n\nNote, it will only work if you made previous cleaning steps correctly.\nplease un-commencement it.\n\n\n# prices_dta_1 %>% \n#   mutate(oil = as.numeric(oil)) %>% \n#   glimpse()\n\nAs you can see now, oil variable has numeric format. Thus, when we run summary() we get description of the numerical values there:\n\n# prices_dta_1 %>% \n#   mutate(oil = as.numeric(oil)) %>% \n#   summary()\n\nNow, your turn to mutate all variable as numeric.\n\n# prices_dta_1 %>%\n#   mutate(oil = as.numeric(oil),\n#          wheat = ____________(____),\n#          _____ = ____________(urea),\n#          _____ = ____________(____),\n#          _____ = ____________(____)) %>%\n#   glimpse()\n\n\n\nEx. 1.7 Mutating date variable: dplyr::mutate(), janitor::convert_to_date().\nCheck results of the previous chunk!\n\nIt is clear that date variable is not a date, but a series of a number instead.\nThis is because Excel stores date as a number of days since January 1, 1990. Thus, 33664 is March 1, 1992.\nWe need to convert such date notations to some real dates using function janitor::convert_to_date().\nSee: ?convert_to_date.\nConvert date to the type <date> in the same way as variable type conversion at the previous step.\nAssign new object prices_dta_clean with the value of the data frame with all cleaning steps.\n\n\n# prices_dta_clean <- \n#   prices_dta_1 %>%\n#   mutate(oil = as.numeric(oil),\n#          wheat = ____________(____),\n#          _____ = ____________(urea),\n#          _____ = ____________(____),\n#          date = convert_to_date(____)) \n# prices_dta_clean %>% glimpse()\n\nWe have manage to clean the data!\nDo data summary() of the data to see what the variables are about.\n\n# \n\n\n\nEx. 1.8 Use skimr::skim() to generate summary statistics of the data\nGo to skimr website and learn how to use function skim(). Apply it to the prices_dta_clean data frame below and discuss how the results are different from summary().\n\nlibrary(skimr)       # install.packages(\"skimr\")\n# prices_dta_clean %>% \n#   _____()\n\n\n\nEx. 1.9 Plot a time-series of all four variables using ggplot2 package\nPlotting according to the grammar of graphics (gg) using package ggplot2 is a rewarding process. But, we need to follow some steps.\n\nWe need to make data clean and tidy.\n\nIdeally, data has to be in the long format, but wide data may also work\n\nSend data to ggplot() function to initiate a plot.\n\nNote, we use %>% (pipe) for this step: data %>% ggplot()\n\nStart adding (+) various aesthetics to the plot using aes() function:\n\nNote, inside the ggplot builder we use +, not a pipe! data %>% ggplot() + aes(x, y)\n\nAdd geometries using +\n\ndata %>% ggplot() + aes(x, y) + geom_line()\n\n\nLet us give it a try! Let us convert existing data to the plot basis and add an aesthetics for x axis:\n\nUse date as an aesthetics for x axis, wheat for y axis and a string \"wheat\" for color.\nDo not use quotation marks in aes for x and y.\nDo USE quotation marks in aes for colour.\n\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n\nR created a grid for a plot, but no plot. This is because, we did not add any geometries! Let us add a geom_path() to the plot.\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(aes(y = _______, colour = \"Maize\")) + \n#   geom_path(aes(y = _______, colour = \"_____\"))\n\nNow, we shall add another line to the plot with the Maize prices:\n\nwe need to add a line with a new geom_path(), and\nspecify aes() inside geom_path(),\nfor example geom_path(aes(y = maize, colour = \"Maize\")).\ndo not forget +.\n\nGo ahead:\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(_____(y = ______, colour = \"_____\"))\n\nAdd another line with `geom_path`, this time adding the oil prices to the plot.\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(_____(y = ______, colour = \"_____\")) + \n#   geom_path(_____(y = ______, colour = \"_____\"))\n\n\n\nSolution to the exercise 2\n\nprices_dta_clean <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\nglimpse(prices_dta_clean)\n\nRows: 359\nColumns: 5\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ oil   <dbl> 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…\n$ wheat <dbl> 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …\n$ maize <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ urea  <dbl> 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …\n\nsummary(prices_dta_clean)\n\n      date                 oil             wheat           maize       \n Min.   :1992-03-01   Min.   : 10.41   Min.   : 85.3   Min.   : 75.27  \n 1st Qu.:1999-08-16   1st Qu.: 20.93   1st Qu.:137.3   1st Qu.:104.16  \n Median :2007-02-01   Median : 46.17   Median :175.4   Median :150.15  \n Mean   :2007-01-30   Mean   : 50.48   Mean   :185.3   Mean   :155.62  \n 3rd Qu.:2014-07-16   3rd Qu.: 71.81   3rd Qu.:220.3   3rd Qu.:176.88  \n Max.   :2022-01-01   Max.   :132.83   Max.   :419.6   Max.   :333.05  \n                                       NA's   :1                       \n      urea       \n Min.   : 62.75  \n 1st Qu.:103.94  \n Median :213.88  \n Mean   :221.94  \n 3rd Qu.:278.70  \n Max.   :900.50  \n                 \n\nskim(prices_dta_clean)\n\n\nData summary\n\n\nName\nprices_dta_clean\n\n\nNumber of rows\n359\n\n\nNumber of columns\n5\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nDate\n1\n\n\nnumeric\n4\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: Date\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\ndate\n0\n1\n1992-03-01\n2022-01-01\n2007-02-01\n359\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\noil\n0\n1\n50.48\n30.88\n10.41\n20.93\n46.17\n71.81\n132.83\n▇▃▃▂▁\n\n\nwheat\n1\n1\n185.35\n65.07\n85.30\n137.26\n175.45\n220.31\n419.61\n▇▇▃▂▁\n\n\nmaize\n0\n1\n155.62\n62.66\n75.27\n104.16\n150.15\n176.88\n333.05\n▇▆▂▂▁\n\n\nurea\n0\n1\n221.93\n137.63\n62.75\n103.94\n213.88\n278.70\n900.50\n▇▅▁▁▁\n\n\n\n\nprices_dta_clean %>% \n  ggplot() + \n  aes(x = date, y = wheat, colour = \"Wheat\") + \n  geom_path() + \n  geom_path(aes(y = maize, colour = \"Maize\")) + \n  geom_path(aes(y = urea, colour = \"Urea\"))\n\nWarning: Removed 1 row(s) containing missing values (geom_path).\n\n\n\n\n\nSame plot could be build build in a more simple way if we use long formatted data.\n\nprices_dta_clean_long <- \n  prices_dta_clean %>% \n  pivot_longer(cols = c(oil:urea))\n\nglimpse(prices_dta_clean_long)\n\nRows: 1,436\nColumns: 3\n$ date  <date> 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…\n$ name  <chr> \"oil\", \"wheat\", \"maize\", \"urea\", \"oil\", \"wheat\", \"maize\", \"urea\"…\n$ value <dbl> 17.45, 161.44, 117.00, 120.00, 18.63, 153.07, 108.52, 120.00, 19…\n\nprices_dta_clean_long %>% \n  ggplot() + \n  aes(x = date, y = value, colour = name) + \n  geom_path()\n\nWarning: Removed 1 row(s) containing missing values (geom_path)."
+    "objectID": "slides/00-introduction/00-introduction.html#introduction",
+    "href": "slides/00-introduction/00-introduction.html#introduction",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Introduction",
+    "text": "Introduction\nWelcome to the MP223 - Applied Econometrics Methods for the Social Sciences!"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-2.-optional-import-from-a-.csv-coma-separated-file",
-    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-2.-optional-import-from-a-.csv-coma-separated-file",
-    "title": "AE03-01 Import, cleaning, summary plot",
-    "section": "Exercise 2. OPTIONAL Import from a .csv: coma separated file",
-    "text": "Exercise 2. OPTIONAL Import from a .csv: coma separated file\nHere is the example NHIS 2009 data used in the (Angrist and Pischke 2014). To load such data in R, we can use readr package from tidyverse readr.\nOne may use a visual import tool for data available in R studio. But remember to save the R code for data import in the script. Data import code must be a part of your analysis.\nThe challenge is to specify the right path to the file that we want to import. For this exercise, this file is also saved in the folder ./data/NHIS2009.csv\n\n2.1 Simple CSV file: readr::read_csv(), dplyr::glimpse() , base::summary() , utils::View()\nIn the folder data there is a file chicken.csv. Load it into the object chick.\n\nlibrary(readr)\n# chick <- read_csv(____)\n\nNow inspect the data:\n\nuse glimpse(____);\nprint the data set;\nView() the data;\n\n\n#\n\nTry function summary(_____).\n\n# \n\nWhat is the difference between summary and previous two ways of data exploration?\n\n\n2.2 Large and complex CSV file\nLoading larger CSV files is not different from loading small files. Below, load the file NHIS2009.csv from the folder data and then glimpse at it:\n\n# \n\n\n\nSolutions\n\nchick <- read_csv(\"data/chicken.csv\")\n\nNew names:\nRows: 5 Columns: 5\n── Column specification\n──────────────────────────────────────────────────────── Delimiter: \",\" chr\n(3): chicken, sex, motto dbl (2): ...1, eggs_laid\nℹ Use `spec()` to retrieve the full column specification for this data. ℹ\nSpecify the column types or set `show_col_types = FALSE` to quiet this message.\n• `` -> `...1`\n\nglimpse(chick)\n\nRows: 5\nColumns: 5\n$ ...1      <dbl> 1, 2, 3, 4, 5\n$ chicken   <chr> \"Foghorn Leghorn\", \"Chicken Little\", \"Ginger\", \"Camilla the …\n$ sex       <chr> \"rooster\", \"hen\", \"hen\", \"hen\", \"rooster\"\n$ eggs_laid <dbl> 0, 3, 12, 7, 0\n$ motto     <chr> \"That's a joke, ah say, that's a joke, son.\", \"The sky is fa…\n\n# View(chick)\nsummary(chick)\n\n      ...1     chicken              sex              eggs_laid   \n Min.   :1   Length:5           Length:5           Min.   : 0.0  \n 1st Qu.:2   Class :character   Class :character   1st Qu.: 0.0  \n Median :3   Mode  :character   Mode  :character   Median : 3.0  \n Mean   :3                                         Mean   : 4.4  \n 3rd Qu.:4                                         3rd Qu.: 7.0  \n Max.   :5                                         Max.   :12.0  \n    motto          \n Length:5          \n Class :character  \n Mode  :character  \n                   \n                   \n                   \n\nnhis <- read_csv(\"data/NHIS2009.csv\")\n\nRows: 80634 Columns: 40\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (38): year, inc1, inc2, inc3, inc4, inc5, inc6, inc7, inc8, serial, hhwe...\nlgl  (2): fml, marradult\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+    "objectID": "slides/00-introduction/00-introduction.html#lecturers-christoph-funk",
+    "href": "slides/00-introduction/00-introduction.html#lecturers-christoph-funk",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Lecturers: Christoph Funk",
+    "text": "Lecturers: Christoph Funk\nChristoph.Funk@wirtschaft.uni-giessen.de. Website.\nPost Doc.\n\nCenter for international Development and Environmental Research (ZEU) Justus Liebig Universität\n\n2020 - PhD in economics from Justus Liebig University Giessen\nResearch interests: - SDG monitoring - Climate change vulnerability - Adaptation strategies - Energy economics - Econometric modelling"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-3.-optional.-janitor-for-cleaning-data-in-r",
-    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-3.-optional.-janitor-for-cleaning-data-in-r",
-    "title": "AE03-01 Import, cleaning, summary plot",
-    "section": "Exercise 3. OPTIONAL. janitor for cleaning data in R",
-    "text": "Exercise 3. OPTIONAL. janitor for cleaning data in R\nwe follow the data cleaning exercise form the janitor webpage. Data set is called dirty_data.xlsx and it is located in: ./data/dirty_data.xlsx or on the github.\n\nddta <- read_excel(\"./data/dirty_data.xlsx\")\n\nNew names:\n• `` -> `...2`\n• `` -> `...3`\n• `` -> `...5`\n• `` -> `...6`\n• `` -> `...7`\n• `` -> `...8`\n• `` -> `...9`\n• `` -> `...10`\n• `` -> `...11`\n\nglimpse(ddta)\n\nRows: 14\nColumns: 11\n$ `Data most recently refreshed on:` <chr> \"First Name\", \"Jason\", \"Jason\", \"Al…\n$ ...2                               <chr> \"Last Name\", \"Bourne\", \"Bourne\", \"K…\n$ ...3                               <chr> \"Employee Status\", \"Teacher\", \"Teac…\n$ `Dec-27 2020`                      <chr> \"Subject\", \"PE\", \"Drafting\", \"Music…\n$ ...5                               <chr> \"Hire Date\", \"39690\", \"43479\", \"371…\n$ ...6                               <chr> \"% Allocated\", \"0.75\", \"0.25\", \"1\",…\n$ ...7                               <chr> \"Full time?\", \"Yes\", \"Yes\", \"Yes\", …\n$ ...8                               <chr> \"do not edit! --->\", NA, NA, NA, NA…\n$ ...9                               <chr> \"Certification\", \"Physical ed\", \"Ph…\n$ ...10                              <chr> \"Certification\", \"Theater\", \"Theate…\n$ ...11                              <chr> \"Active?\", \"YES\", \"YES\", \"YES\", \"YE…\n\n\nAs you can see, this data is dirty. The problems are:\n\nVariables names are wrong, they are in fact in the first row of data.\nAll variables are in character type, when in fact some variables are in different format.\nThere are some columns that are empty.\nThere are some rows that are empty.\n\n\n3.1 Make all variables named as values in the first row.\nUse function row_to_names() and specify the parameter row_number to 1.\n\n# ddta %>% \n#   ____________(__________ = 1) %>% \n#   glimpse()\n\n\n\n3.2 Make all names nice\nCurrently, all names are (insert your code form previous step):\n\n# ddta %>% \n#   ____________(__________ = 1) %>% \n#   names()\n\nUse function clean_names(), to make names nice.\n\n# ddta %>%\n#   ____________(__________ = 1) %>%\n#   ____________() %>% \n#   glimpse()\n\n\n\n3.3 Make variable hire_data as date\nTo convert variable types to meaningful numeric variables, we need to use some more functions. Specifically, functions convert_to_date(). In addition, we need to use function mutate() to tell r to modify existing variable.\nHere is the example, where we use mutate to modify existing variable Sepal.Width with the same variable but as character string instead of a number.\n\niris %>% glimpse()\n\nRows: 150\nColumns: 5\n$ Sepal.Length <dbl> 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  <dbl> 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…\n$ Petal.Length <dbl> 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  <dbl> 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      <fct> setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\niris %>% \n  mutate(Sepal.Width = as.character(Sepal.Width)) %>% \n  glimpse()\n\nRows: 150\nColumns: 5\n$ Sepal.Length <dbl> 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  <chr> \"3.5\", \"3\", \"3.2\", \"3.1\", \"3.6\", \"3.9\", \"3.4\", \"3.4\", \"2.…\n$ Petal.Length <dbl> 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  <dbl> 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      <fct> setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\n\nUse the example from above to modify the variable hire_date with its values converted to date using function convert_to_date.\n\n#ddta %>%\n#   ____________(__________ = 1) %>%\n#   ____________() %>% \n#   mutate(_________ = ____________(hire_date)) %>% \n#  glimpse()\n\n\n\n3.4 Make variable percent_allocated as numeric\nSame as above, but now using function as.numeric().\n\n# ddta %>%\n#   ______________(__________ = 1) %>%\n#   ______________() %>%\n#   mutate(_________ = ____________(hire_date),\n#          percent_allocated = ________(___________)) %>%\n#   glimpse()\n\n\n\nSolutions\n\nddta <- read_excel(\"./data/dirty_data.xlsx\")\n\nNew names:\n• `` -> `...2`\n• `` -> `...3`\n• `` -> `...5`\n• `` -> `...6`\n• `` -> `...7`\n• `` -> `...8`\n• `` -> `...9`\n• `` -> `...10`\n• `` -> `...11`\n\nddta %>%\n  row_to_names(row_number = 1) %>%\n  clean_names() %>%\n  mutate(hire_date = as.numeric(hire_date),\n         percent_allocated = as.numeric(percent_allocated)) %>%\n  glimpse()\n\nWarning in row_to_names(., row_number = 1): Row 1 does not provide unique names.\nConsider running clean_names() after row_to_names().\n\n\nRows: 13\nColumns: 11\n$ first_name        <chr> \"Jason\", \"Jason\", \"Alicia\", \"Ada\", \"Desus\", \"Chien-S…\n$ last_name         <chr> \"Bourne\", \"Bourne\", \"Keys\", \"Lovelace\", \"Nice\", \"Wu\"…\n$ employee_status   <chr> \"Teacher\", \"Teacher\", \"Teacher\", \"Teacher\", \"Adminis…\n$ subject           <chr> \"PE\", \"Drafting\", \"Music\", NA, \"Dean\", \"Physics\", \"C…\n$ hire_date         <dbl> 39690, 43479, 37118, 38572, 42791, 11037, 11037, NA,…\n$ percent_allocated <dbl> 0.75, 0.25, 1.00, 1.00, 1.00, 0.50, 0.50, NA, 0.50, …\n$ full_time         <chr> \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", NA,…\n$ do_not_edit       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA\n$ certification     <chr> \"Physical ed\", \"Physical ed\", \"Instr. music\", \"PENDI…\n$ certification_2   <chr> \"Theater\", \"Theater\", \"Vocal music\", \"Computers\", NA…\n$ active            <chr> \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", NA,…"
+    "objectID": "slides/00-introduction/00-introduction.html#lecturers-vladimir-otrachshenko",
+    "href": "slides/00-introduction/00-introduction.html#lecturers-vladimir-otrachshenko",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Lecturers: Vladimir Otrachshenko",
+    "text": "Lecturers: Vladimir Otrachshenko\nVladimir.Otrachshenko@zeu.uni-giessen.de. Website.\nSenior Researcher.\n\nCenter for international Development and Environmental Research (ZEU) Justus Liebig Universität\n\n2013 - PhD in Economics from Nova School of Business and Economics, Lisbon, Portugal\nResearch interests:\n\nEnvironmental and Resource Economics\nClimate Change\nHealth and Population Economics"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#functional-reference",
-    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#functional-reference",
-    "title": "AE03-01 Import, cleaning, summary plot",
-    "section": "Functional reference",
-    "text": "Functional reference\nIn this exercise, we shall practice the following:\nLoading data:\n\nreadr::read_csv() and readxl::excel_sheets() with readxl::read_excel();\n\nInspecting data:\n\ndplyr::glimpse(), utils::View(), utils::head(), base::names();\n\nData summary:\n\nbase::summary(); Renaming variables:\njanitor::clean_names(...), dplyr::rename();\n\nRemoving undesired observations/row by their number in the data with:\n\ndplyr::slice();\n\nMutating/modifying types of existing variables:\n\ndplyr::mutate()\n\nConverting excel dates to R-relevant <date> variable type:\n\njanitor::convert_to_date() and janitor::excel_numeric_to_date().\n\nSummary statistics with:\n\nskimr::skim().\n\nPlotting time series with:\n\nggplot2::ggplot(), ggplot2::aes(), ggplot2::geom_path()."
+    "objectID": "slides/00-introduction/00-introduction.html#lecturers-eduard-bukin",
+    "href": "slides/00-introduction/00-introduction.html#lecturers-eduard-bukin",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Lecturers: Eduard Bukin",
+    "text": "Lecturers: Eduard Bukin\neduardbukin@agrar.uni-giessen.de, (StudIP profile)\nData science enthusiast, econometrics practitioner. PhD Student.\n\nInstitute of Agricultural Policy and Market Research\n\n2015 – MSc in Rural Development:\n\nGhent University, Belgium\n\nResearch interests:\n\nRestructuring and productivity change in agriculture\nLand and labor factor markets in agriculture"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html",
-    "title": "AE03-03 Correlation",
-    "section": "",
-    "text": "library(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")\nlibrary(lubridate)   # install.packages(\"lubridate\")\n\nggplot2::theme_set(ggplot2::theme_minimal())\n\nknitr::opts_chunk$set(out.width = 60)"
+    "objectID": "slides/00-introduction/00-introduction.html#your-turn",
+    "href": "slides/00-introduction/00-introduction.html#your-turn",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Your turn!",
+    "text": "Your turn!\nPlease introduce yourself\n\nWhat is your name?\nWhere do you come from?\n\n\nWhat do you study?\nWhat is your background?\n\n\nWhat are your expectations?"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#data-import-and-cleaning",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#data-import-and-cleaning",
-    "title": "AE03-03 Correlation",
-    "section": "Data import and cleaning",
-    "text": "Data import and cleaning\n\nImporting and cleaning data in the wide format\nPractically the same procedure that we did in the previous exercise.\n\np_wd <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\nglimpse(p_wd)\n\nRows: 359\nColumns: 5\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ oil   <dbl> 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…\n$ wheat <dbl> 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …\n$ maize <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ urea  <dbl> 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …\n\n\n\n\nConverting data to the long format\n\np_lg <- \n  p_wd %>% \n  pivot_longer(cols = c(oil:urea), \n               names_to = \"var\", \n               values_to = \"price\") %>% \n  arrange(date, var)\nglimpse(p_lg)\n\nRows: 1,436\nColumns: 3\n$ date  <date> 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…\n$ var   <chr> \"maize\", \"oil\", \"urea\", \"wheat\", \"maize\", \"oil\", \"urea\", \"wheat\"…\n$ price <dbl> 117.00, 17.45, 120.00, 161.44, 108.52, 18.63, 120.00, 153.07, 10…"
+    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-14",
+    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-14",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Course structure and overview (1/4)",
+    "text": "Course structure and overview (1/4)\nMP223 - Applied Econometrics Methods for the Social Sciences is taught in presence.\n\n\nEvery Wednesday 14:00 - 18:00, Room: Senckenbergstr. 03, 216 (Ze-PC2)\nWear a mask all the time.\nGet a new mask from a lecturer for every lecture.\nOptional, make a COVID-19 speed tests if you do no feel well (ask the test from a lecturer).\nPlease, do not show up if you are sick."
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#example-computing-prices-index-with-some-base",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#example-computing-prices-index-with-some-base",
-    "title": "AE03-03 Correlation",
-    "section": "Example: Computing prices index with some base",
-    "text": "Example: Computing prices index with some base\nIndex of a variable with a base is a mathematical transformation of a variable, where each value of a variable is divided by the base value and then multiplied by 100.\n\\[\n{I}_{i} = \\frac{x_i}{x_{base}} \\times 100\n\\]\nThis is easy in Excel, but tricky without it!\nLet us demonstrate the logic of calculations based on a simple example of 2 commodities (wheat and urea) and few month in year 2010.\n\nStep 1. Filter a sub-sample\nAs discussed above, we want to:\n\nfilter data, where year is 2010, month less than 6, var is \"wheat\" or \"maize\"\n\nWhich identically translate into R code as:\n\nfilter(data, year(date) == 2010, month(date) < 6, var %in% c(\"wheat\", \"maize\"))`\nfilter data, where year is 2010, month less than 6, var is \"wheat\" or \"maize\"\n\n\np_lg_sb <- \n  filter(p_lg, \n         year(date) == 2010, \n         month(date) < 6, \n         var %in% c(\"wheat\", \"maize\")) %>% \n  arrange(var, date)\np_lg_sb\n\n# A tibble: 10 × 3\n   date       var   price\n   <date>     <chr> <dbl>\n 1 2010-01-01 maize  167.\n 2 2010-02-01 maize  162.\n 3 2010-03-01 maize  159.\n 4 2010-04-01 maize  157.\n 5 2010-05-01 maize  163.\n 6 2010-01-01 wheat  199.\n 7 2010-02-01 wheat  192.\n 8 2010-03-01 wheat  190.\n 9 2010-04-01 wheat  188.\n10 2010-05-01 wheat  190.\n\n\n\n\nStep 2. Create variable with the base for indexing\nHere we want to:\n\nfor each groups of commodities \"var\", mutate variable \"base\", which is equal to \"price\" when month is equal to 1 and year is equal to 2010.\n\nIn language of R this is:\n\np_lg_sb %>% \n  group_by(var) %>%           # 1. for each groups of commodities \"var\"\n  mutate(                     # 2. mutate\n    base = ifelse(            # 3. variable \"base\", which is equal to\n      month(date) == 1 &      # 5. when month is equal to 1 and\n        year(date) == 2010,   # 6. year is equal to 2010\n      price,                  # 4. \"price\"\n      NA                      # 7. missing value is in other cases\n      )\n    )\n\n# A tibble: 10 × 4\n# Groups:   var [2]\n   date       var   price  base\n   <date>     <chr> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167.\n 2 2010-02-01 maize  162.   NA \n 3 2010-03-01 maize  159.   NA \n 4 2010-04-01 maize  157.   NA \n 5 2010-05-01 maize  163.   NA \n 6 2010-01-01 wheat  199.  199.\n 7 2010-02-01 wheat  192.   NA \n 8 2010-03-01 wheat  190.   NA \n 9 2010-04-01 wheat  188.   NA \n10 2010-05-01 wheat  190.   NA \n\n\n\n\nStep 3. Make sure that base is the same for all observations in each group var\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\")\n\n# A tibble: 10 × 4\n# Groups:   var [2]\n   date       var   price  base\n   <date>     <chr> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167.\n 2 2010-02-01 maize  162.  167.\n 3 2010-03-01 maize  159.  167.\n 4 2010-04-01 maize  157.  167.\n 5 2010-05-01 maize  163.  167.\n 6 2010-01-01 wheat  199.  199.\n 7 2010-02-01 wheat  192.  199.\n 8 2010-03-01 wheat  190.  199.\n 9 2010-04-01 wheat  188.  199.\n10 2010-05-01 wheat  190.  199.\n\n\n\n\nStep 4. Calculate index\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100)\n\n# A tibble: 10 × 5\n# Groups:   var [2]\n   date       var   price  base index\n   <date>     <chr> <dbl> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167. 100  \n 2 2010-02-01 maize  162.  167.  96.7\n 3 2010-03-01 maize  159.  167.  95.1\n 4 2010-04-01 maize  157.  167.  93.9\n 5 2010-05-01 maize  163.  167.  97.7\n 6 2010-01-01 wheat  199.  199. 100  \n 7 2010-02-01 wheat  192.  199.  96.5\n 8 2010-03-01 wheat  190.  199.  95.6\n 9 2010-04-01 wheat  188.  199.  94.5\n10 2010-05-01 wheat  190.  199.  95.7\n\n\n\n\nOptional example: calculate index, where base is average of month 2 and 3\n\np_lg_sb %>%\n  group_by(var) %>%\n  mutate(base = ifelse(month(date) %in% c(2,3) & \n                         year(date) == 2010, \n                       price, \n                       NA)) %>% \n  mutate(base_full = mean(base, na.rm = TRUE)) %>% \n  mutate(index = price / base_full * 100)\n\n# A tibble: 10 × 6\n# Groups:   var [2]\n   date       var   price  base base_full index\n   <date>     <chr> <dbl> <dbl>     <dbl> <dbl>\n 1 2010-01-01 maize  167.   NA       160. 104. \n 2 2010-02-01 maize  162.  162.      160. 101. \n 3 2010-03-01 maize  159.  159.      160.  99.1\n 4 2010-04-01 maize  157.   NA       160.  97.9\n 5 2010-05-01 maize  163.   NA       160. 102. \n 6 2010-01-01 wheat  199.   NA       191. 104. \n 7 2010-02-01 wheat  192.  192.      191. 100. \n 8 2010-03-01 wheat  190.  190.      191.  99.5\n 9 2010-04-01 wheat  188.   NA       191.  98.4\n10 2010-05-01 wheat  190.   NA       191.  99.7\n\n\nNote, we specify mean(…, na.rm = TRUE) because when we compute mean, there are some missing observations in the variable. Mean of a vector with missing observation will return NA.\n\nmean(c(1, 2, 3, 4, NA))\n\n[1] NA\n\n\nIf we specify parameter to ignore NA in the data, we will get a result:\n\nmean(c(1, 2, 3, 4, NA), na.rm = TRUE)\n\n[1] 2.5"
+    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-24",
+    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-24",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Course structure and overview (2/4)",
+    "text": "Course structure and overview (2/4)\n\nOnline resources:\n\nIlias is used for materials dissemination;\nStudIP is only used for announcements.\n\n\n\nRough course structure is in the Course Plan on Ilias.\n\n\nAlmost every week will have a checklist\n\nsummary of materials from the class;\nkey materials to cover on your own;"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010",
-    "title": "AE03-03 Correlation",
-    "section": "Exercise 1. Compute prices index with base mean prices in 2010",
-    "text": "Exercise 1. Compute prices index with base mean prices in 2010\nFollowing the previous examples, let us compute:\n\nStep 1. for each group of var;\nStep 2. mutate base_part, which contains price if year is 2010 and NA in else cases;\nStep 3. mutate base with the mean() value of base_part price with parameter na.rm = TRUE;\nStep 4. mutate price index against such base;\nStep 5. ungroup data\nStep 6. select variables date, var, price and index\n\n\n# p_index <- \n#   p_lg %>%\n#   ________() %>%                               # step 1.\n#   ______(                                      # step 2.\n#     base_part = \n#       ifelse(year(_____) == 2010, price, ____)\n#     ) %>% \n#   ______(                                      # step 3.\n#     base = ______(_______, na.rm = TRUE)\n#     ) %>%  \n#   mutate(index = ____ / _____ * 100) %>%       # step 4.\n#   ungroup() %>%                                # step 5.\n#   select(date, var, price, index)              # step 6.\n# \n# glimpse(p_index)"
+    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-34",
+    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-34",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Course structure and overview (3/4)",
+    "text": "Course structure and overview (3/4)\nLectures\n\nSlides on Ilias. No pre-recording;\n“Takeaways” slides in th end of a lecture (if available);\n\n\nApplication exercises in class\n\nSometimes have pre requisites (watch a video, read a paper)\nSometimes require preparation in advance;\n\n\n\n\nSeminar discussions - definitely require preparation (reading papers) in advance;\n\n\n\nApplication exercises at home\n\nSome are mandatory, some are optional but highly recommended.\nWith /or without video guidance."
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea",
-    "title": "AE03-03 Correlation",
-    "section": "Exercise 2. Plot time series of indexes for wheat and urea",
-    "text": "Exercise 2. Plot time series of indexes for wheat and urea\nBefore plotting we need to filter var when it is %in% \"wehat\" or \"urea\";\nRemember from the previous exercises: ggplot() + aes() + geom_path()\n\nUse labs(x = \"\", y = \"\", title = \"\") to give meaningful labels to the plot.\n\n\n# p_index %>% \n#   ______(var %in% c(\"wheat\", ______)) %>% \n#   ______() + \n#   aes(x = _____, y = _______, colour = var) + \n#   geom_path() + \n#   labs()\n\nAnswer the following questions:\n\nCan we conclude, based on the plot, that surging prices of urea cause the wheat prices to surge?\nWhat could be a theoretical explanation for this?\nWhat could be the theoretical mechanism of urea prices effect on wheat?"
+    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-44",
+    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-44",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Course structure and overview (4/4)",
+    "text": "Course structure and overview (4/4)\nExamination:\n\n60% written exam\n\n\n\n40% practical homework on R analysis.\n\nWill be disseminated on the week 4-6.\nDeadline: end of semester."
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities",
-    "title": "AE03-03 Correlation",
-    "section": "Exercise 3. Build a correlation table between price indices of different commodities",
-    "text": "Exercise 3. Build a correlation table between price indices of different commodities\nFirst, we need to convert our data to wide format again:\n\n# p_index_wd <-\n#   p_index %>% \n#   pivot_wider(names_from = var, values_from = c(price, index))\n# glimpse(p_index_wd)\n\nTo make a correlation table, we use package correlation and a function with the same name. We use summary to convert correlation table with extensive results to a compact matrix\n\nWe select only those variables, where names contains() string index.\n\n\nlibrary(correlation)\n\n# p_index_wd %>% \n#   select(contains(\"index\")) %>% \n#   correlation() %>% \n#   summary()\n\n# p_index_wd %>% \n#   select(contains(\"price\")) %>% \n#   correlation() %>% \n#   summary()\n\n\nDoes this correlation coefficients suggests about causation if we assume that theory does justifies causal relationship?\n\nRun the same correlations but without summary(). What are the differences?\n\n# p_index_wd %>% \n#   ______(_______(\"index\")) %>% \n#   _________()\n\n# ______ %>% \n#   ______(______(\"price\")) %>% \n#   ______()"
+    "objectID": "slides/00-introduction/00-introduction.html#any-questions",
+    "href": "slides/00-introduction/00-introduction.html#any-questions",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Any questions?",
+    "text": "Any questions?"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-4.-compute-a-first-difference-of-indices-with-lag-1",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-4.-compute-a-first-difference-of-indices-with-lag-1",
-    "title": "AE03-03 Correlation",
-    "section": "Exercise 4. Compute a first difference of indices with lag 1",
-    "text": "Exercise 4. Compute a first difference of indices with lag 1\nFirst difference is a change of value in the next period, compared to the previous one. To compute it, we use function lag() and perform similar mutate operations.\n\nSimple example of a first difference\nBefore, we computed index in the following way:\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100)\n\n# A tibble: 10 × 5\n# Groups:   var [2]\n   date       var   price  base index\n   <date>     <chr> <dbl> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167. 100  \n 2 2010-02-01 maize  162.  167.  96.7\n 3 2010-03-01 maize  159.  167.  95.1\n 4 2010-04-01 maize  157.  167.  93.9\n 5 2010-05-01 maize  163.  167.  97.7\n 6 2010-01-01 wheat  199.  199. 100  \n 7 2010-02-01 wheat  192.  199.  96.5\n 8 2010-03-01 wheat  190.  199.  95.6\n 9 2010-04-01 wheat  188.  199.  94.5\n10 2010-05-01 wheat  190.  199.  95.7\n\n\nlet us mutate() the index_fd variable:\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100) %>% \n  mutate(index_fd = index - lag(index))\n\n# A tibble: 10 × 6\n# Groups:   var [2]\n   date       var   price  base index index_fd\n   <date>     <chr> <dbl> <dbl> <dbl>    <dbl>\n 1 2010-01-01 maize  167.  167. 100     NA    \n 2 2010-02-01 maize  162.  167.  96.7   -3.29 \n 3 2010-03-01 maize  159.  167.  95.1   -1.64 \n 4 2010-04-01 maize  157.  167.  93.9   -1.18 \n 5 2010-05-01 maize  163.  167.  97.7    3.77 \n 6 2010-01-01 wheat  199.  199. 100     NA    \n 7 2010-02-01 wheat  192.  199.  96.5   -3.51 \n 8 2010-03-01 wheat  190.  199.  95.6   -0.926\n 9 2010-04-01 wheat  188.  199.  94.5   -1.11 \n10 2010-05-01 wheat  190.  199.  95.7    1.29 \n\n\nUsing simple example, let us compute the first difference of the index for the entire data.\n\n# p_index_fd <- \n#   ______ %>% \n#   group_by(______) %>% \n#   mutate(index_fd = ______ - lag(______)) %>% \n#   ungroup() %>% \n#   select(date, var, index_fd) %>% \n#   pivot_wider(names_from = var, \n#               values_from = c(index_fd))\n#\n# p_index_fd %>% \n#   glimpse()"
+    "objectID": "slides/00-introduction/00-introduction.html#plan-for-today",
+    "href": "slides/00-introduction/00-introduction.html#plan-for-today",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Plan for today",
+    "text": "Plan for today\nNext 45 minutes: Application Exercise 01 - Soft introduction to R\n\nin class we will do “ae01a-vaccination.Rmd” everything else is at home;\n\n\nTwo Lectures (90 min):\n\nCeteris Paribus\nSelection Bias\n\n\n\nApplication Exercise at home.\n\nSee the check list."
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities",
-    "title": "AE03-03 Correlation",
-    "section": "Exercise 5. Build a correlation table between first differences of indices for different commodities",
-    "text": "Exercise 5. Build a correlation table between first differences of indices for different commodities\nAs the same exercise before, we use correlation package and the same function.\n\n# p_index_fd %>% \n#   correlation() %>% \n#   summary()\n\n\nBased on this results, does urea prices causes surges in the wheat prices?\nWhat kind of causal relationship could be there?"
+    "objectID": "slides/00-introduction/00-introduction.html#application-exercise-01---soft-introduction-to-r",
+    "href": "slides/00-introduction/00-introduction.html#application-exercise-01---soft-introduction-to-r",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Application Exercise 01 - Soft introduction to R",
+    "text": "Application Exercise 01 - Soft introduction to R\n\nTurn on your PC\n\n\n\n\n\n\nImportant\n\n\nLogin: ZH-user-pcl\nPassword: V5-senc!3ken\n\n\n\n\n\nWrite them down and remember.\nSame password an login will be used on all PCs in Zeughaus."
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-6.-compute-first-differences-with-lag-2-and-3",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-6.-compute-first-differences-with-lag-2-and-3",
-    "title": "AE03-03 Correlation",
-    "section": "Exercise 6. Compute first differences with lag 2 and 3",
-    "text": "Exercise 6. Compute first differences with lag 2 and 3\n\n# p_index_fd_lags <- \n#   p_index %>% \n#   group_by(var) %>% \n#   mutate(fd = index - lag(index, 1)) %>% \n#   ungroup() %>% \n#   select(date, var, contains(\"fd\")) %>% \n#   pivot_wider(names_from = var, \n#               values_from = c(contains(\"fd\"))) %>% \n#   mutate(urea_fd1 = urea,\n#          urea_fd2 = lag(urea, 2),\n#          urea_fd3 = lag(urea, 3),\n#          urea_fd4 = lag(urea, 4),\n#          urea_fd5 = lag(urea, 5)\n#   )\n# \n# correlation(p_index_fd_lags) %>% summary()"
+    "objectID": "slides/00-introduction/00-introduction.html#log-into-studip-and-ilias",
+    "href": "slides/00-introduction/00-introduction.html#log-into-studip-and-ilias",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Log into studIP and Ilias",
+    "text": "Log into studIP and Ilias\n\nLog into your studIP;\n\n\nFollow to “Ilias >> Kurs (ID 301421) in JLUG”;\n\n\n\n\n\n\n\n\n\n\n\nLog in to Ilias;\n\n\nDownload ae01-soft-intro-to-R.zip to downloads;"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#solutions",
-    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#solutions",
-    "title": "AE03-03 Correlation",
-    "section": "Solutions",
-    "text": "Solutions\n\np_wd <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\np_lg <- \n  p_wd %>% \n  pivot_longer(cols = c(oil:urea), \n               names_to = \"var\", \n               values_to = \"price\") %>% \n  arrange(var, date)\n\n\nEx. 1\n\np_index <- \n  p_lg %>%\n  group_by() %>%                               # step 1.\n  mutate(                                      # step 2.\n    base_part = \n      ifelse(year(date) == 2010, price, NA)\n    ) %>% \n  mutate(                                      # step 3.\n    base = mean(base_part, na.rm = TRUE)\n    ) %>%  \n  mutate(index = price / base * 100) %>%       # step 4.\n  ungroup() %>%                                # step 5.\n  select(date, var, price, index)              # step 6.\n\nglimpse(p_index)\n\nRows: 1,436\nColumns: 4\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ var   <chr> \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"…\n$ price <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ index <dbl> 59.72918, 55.40009, 55.97185, 56.61509, 52.45447, 49.49864, 50.0…\n\n\n\n\nEx. 2\n\np_index %>% \n  filter(var %in% c(\"wheat\", \"urea\")) %>%\n  ggplot() + \n  aes(x = date, y = index, colour = var) + \n  geom_path() + \n  labs(x = \"Date\", y = \"Price index, 2010 = 100\",\n       title = \"Price indices of key commodities\",\n       colour = NULL)\n\nWarning: Removed 1 row(s) containing missing values (geom_path).\n\n\n\n\n\n\n\nEx. 3\n\np_index_wd <-\n  p_index %>% \n  pivot_wider(names_from = var, values_from = c(price, index))\n\nlibrary(correlation)\n\np_index_wd %>% \n  select(contains(\"index\")) %>% \n  correlation() %>% \n  summary()\n\nRegistered S3 method overwritten by 'parameters':\n  method                         from      \n  format.parameters_distribution datawizard\n\n\n# Correlation Matrix (pearson-method)\n\nParameter   | index_wheat | index_urea | index_oil\n--------------------------------------------------\nindex_maize |     0.89*** |    0.77*** |   0.81***\nindex_oil   |     0.79*** |    0.80*** |          \nindex_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\np_index_wd %>% \n  select(contains(\"price\")) %>% \n  correlation() %>% \n  summary()\n\n# Correlation Matrix (pearson-method)\n\nParameter   | price_wheat | price_urea | price_oil\n--------------------------------------------------\nprice_maize |     0.89*** |    0.77*** |   0.81***\nprice_oil   |     0.79*** |    0.80*** |          \nprice_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\n\n\n\nEx. 4\n\np_index_fd <- \n  p_index %>% \n  group_by(var) %>% \n  mutate(index_fd = index - lag(index)) %>% \n  ungroup() %>% \n  select(date, var, index_fd) %>% \n  pivot_wider(names_from = var,\n              values_from = c(index_fd))"
+    "objectID": "slides/00-introduction/00-introduction.html#setup-working-folders",
+    "href": "slides/00-introduction/00-introduction.html#setup-working-folders",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Setup working folders",
+    "text": "Setup working folders\n\nNavigate to your user folder: C > Users > Name of your user account;\n\n\n\nCreate there a course folder names {your initial}-mk223-2022.\n\nUse it for your course for all in-class work;\non my pc the course folder is called eb-mk223-2022;\nthe full path is C:\\Users\\ZH-user-pcl\\eb-mk223-2022;\n\n\n\n\n\nPaste ae01-soft-intro-to-R.zip from downloads to the course folder;\n\n\n\n\nUnzip ae01-soft-intro-to-R.zip into ae01-soft-intro-to-R;"
   },
   {
-    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic waste.html",
-    "href": "ae/ae03-data-wrangling/ae03-02-plastic waste.html",
-    "title": "AE03-02 Exploring data on plstic waste",
-    "section": "",
-    "text": "This exercise is adopted from ata Science in a Box."
-  },
-  {
-    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#setup",
-    "href": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#setup",
-    "title": "AE03-02 Exploring data on plstic waste",
-    "section": "Setup",
-    "text": "Setup\n\nlibrary(tidyverse)"
-  },
-  {
-    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#data",
-    "href": "ae/ae03-data-wrangling/ae03-02-plastic waste.html#data",
-    "title": "AE03-02 Exploring data on plstic waste",
-    "section": "Data",
-    "text": "Data\nThe dataset for this assignment can be found as a csv file in the data folder of your repository. You can read it in using the following.\n\nplastic_waste <- read_csv(\"data/plastic-waste.csv\")\n\nThe variable descriptions are as follows:\n\ncode: 3 Letter country code\nentity: Country name\ncontinent: Continent name\nyear: Year\ngdp_per_cap: GDP per capita constant 2011 international $, rate\nplastic_waste_per_cap: Amount of plastic waste per capita in kg/day\nmismanaged_plastic_waste_per_cap: Amount of mismanaged plastic waste per capita in kg/day\nmismanaged_plastic_waste: Tonnes of mismanaged plastic waste\ncoastal_pop: Number of individuals living on/near coast\ntotal_pop: Total population according to Gapminder"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "mp223 Applied Econometric Methods for the Social Sciences (SoSe 2022)",
-    "section": "",
-    "text": "This is the website where most lectures, R application exercises and supplementary materials are developed for the course MP223 Applied Econometric Methods for the Social Sciences (SoSe 2022). it is not a substitute of course Ilias or course StudIP pages, but rather a convenient way of making the slides accessible, downloadable and nice."
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#r-setup",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#r-setup",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "R setup",
-    "text": "R setup\n\nlibrary(tidyverse)       # for data wrangling\n\n# set default theme and larger font size for ggplot2\nggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))\n\n# set default figure parameters for knitr\nknitr::opts_chunk$set(\n  fig.width = 8,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"80%\"\n)"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#data-analysis-workflow",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#data-analysis-workflow",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Data analysis workflow",
-    "text": "Data analysis workflow\n\nImage source: R4DS"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-14",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-14",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (1/4)",
-    "text": "Tidy data (1/4)\n\n\nImage source: R4DS"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-24-wide-format",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-24-wide-format",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (2/4) wide format",
-    "text": "Tidy data (2/4) wide format\n\n\nSee: Data transformation with dplyr cheatsheet"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-34-long-format",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-34-long-format",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (3/4) long format",
-    "text": "Tidy data (3/4) long format\n\n\nSee: Data transformation with dplyr cheatsheet"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-44-transformation",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-44-transformation",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (4/4) transformation",
-    "text": "Tidy data (4/4) transformation\n\n\nSee: Data transformation with dplyr cheatsheet"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#wrangling",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#wrangling",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Wrangling",
-    "text": "Wrangling\n\n\nImage source: R4DS"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-and-wrangling-see-also",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-and-wrangling-see-also",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data and Wrangling: See also",
-    "text": "Tidy data and Wrangling: See also\n R4DS: R for data science by Hadley Wickham and Garrett Grolemund (book’s source code) (Wickham and Grolemund 2017)\n\nRecommended. Practice:\n\n Primers: Programming basics\n7.1.2 Wrangling and tidying data in Data Science in a Box\n\nRecommended. Read:\n\n R4DS Ch 9. Wrangle\n R4DS Ch. 12. Tidy data\nCHEATSHEET: Data tidying with tidyr cheatsheet\n\nOptional. Watch:\n\n Tidy data video + slides\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#takeaways",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#takeaways",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Takeaways",
-    "text": "Takeaways\n\nTidy data: Wide + long formats\nData analysis workflow\nLearning materials"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#references",
-    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#references",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "References",
-    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science. O’Reilly Media. http://r4ds.had.co.nz/."
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#general-notes",
-    "href": "slides/50-data-wrangling/import-data.html#general-notes",
-    "title": "Import data",
-    "section": "General notes",
-    "text": "General notes\nData import must be done in a reproducible way!\n\n\nRaw data must be stored together with the project.\nData import and cleaning should be done with scripts.\n\n\n\nIt is tricky to load data, because, we need to interact with the file system.\n\nYou may use interactive Users Interface to load data once,\nBut you should use R code to reload same data again.\n\n\n\n\n\n\n\n\n\nImportant\n\n\nAlways save data import R code in your scripts!"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#data-import-more-materials",
-    "href": "slides/50-data-wrangling/import-data.html#data-import-more-materials",
-    "title": "Import data",
-    "section": "Data import: more materials",
-    "text": "Data import: more materials\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#readr-package-23-key-functions",
-    "href": "slides/50-data-wrangling/import-data.html#readr-package-23-key-functions",
-    "title": "Import data",
-    "section": "readr package (2/3) key functions",
-    "text": "readr package (2/3) key functions\n\n\n\nread_csv() - for a coma separate data in the text file\nread_dta() - for Stata data files.\n\n\nThe file, which we want to read is in\n\n\n[1] \"/home/runner/work/_temp/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/readr/2.1.2/9c59de1357dc209868b5feb5c9f0fe2f/readr/extdata/chickens.csv\"\n\n\nInstead of specifying the path to this file, we use readr_example(\"chickens.csv\").\n\n\nRows: 5\nColumns: 4\n$ chicken   <chr> \"Foghorn Leghorn\", \"Chicken Little\", \"Ginger\", \"Camilla the …\n$ sex       <chr> \"rooster\", \"hen\", \"hen\", \"hen\", \"rooster\"\n$ eggs_laid <dbl> 0, 3, 12, 7, 0\n$ motto     <chr> \"That's a joke, ah say, that's a joke, son.\", \"The sky is fa…"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#readr-package-33-user-interface",
-    "href": "slides/50-data-wrangling/import-data.html#readr-package-33-user-interface",
-    "title": "Import data",
-    "section": "readr package (3/3) user interface",
-    "text": "readr package (3/3) user interface\n\nStep 1Step 2Step 3Step 4Step 5"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#readxl-package-23-basic-usage",
-    "href": "slides/50-data-wrangling/import-data.html#readxl-package-23-basic-usage",
-    "title": "Import data",
-    "section": "readxl package (2/3) Basic usage",
-    "text": "readxl package (2/3) Basic usage\n\nStep 1 Path to the fileStep 2 SheetsStep 3 Data in R\n\n\n\nFirst, locate the file.\n\n\n\n[1] \"/home/runner/work/_temp/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/readxl/1.4.0/170c35f745563bb307e963bde0197e4f/readxl/extdata/datasets.xls\"\n\n\n\nThen, open it manually to see if it is alright.\n\n\n\n\nThen, check what sheets re present there:\n\n\n\n[1] \"iris\"     \"mtcars\"   \"chickwts\" \"quakes\"  \n\n\n\n\n\n\nRows: 71\nColumns: 2\n$ weight <dbl> 179, 160, 136, 227, 217, 168, 108, 124, 143, 140, 309, 229, 181…\n$ feed   <chr> \"horsebean\", \"horsebean\", \"horsebean\", \"horsebean\", \"horsebean\"…"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#readxl-package-33-user-interface",
-    "href": "slides/50-data-wrangling/import-data.html#readxl-package-33-user-interface",
-    "title": "Import data",
-    "section": "readxl package (3/3) user interface",
-    "text": "readxl package (3/3) user interface\n\nStep 1Step 2Step 3Step 4Step 5"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/import-data.html#janitor-package-22-key-functions",
-    "href": "slides/50-data-wrangling/import-data.html#janitor-package-22-key-functions",
-    "title": "Import data",
-    "section": "janitor package (2/2) key functions",
-    "text": "janitor package (2/2) key functions\n\njanitor::clean_names() - Cleans names of an object (usually a data.frame).\njanitor::row_to_names(row_number = 1) - Elevate a row to be the column names of a data.frame.\njanitor::convert_to_date() + excel_numeric_to_date() - Convert many date and datetime formats as may be received from Microsoft Excel\njanitor::remove_empty() - Remove empty rows and/or columns from a data.frame or matrix."
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#r-setup",
-    "href": "slides/50-data-wrangling/dplyr.html#r-setup",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "R setup",
-    "text": "R setup\n\nlibrary(tidyverse)       # for data wrangling\n\n# set default theme and larger font size for ggplot2\nggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))\n\n# set default figure parameters for knitr\nknitr::opts_chunk$set(\n  fig.width = 8,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"80%\"\n)"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#data-analysis-workflow",
-    "href": "slides/50-data-wrangling/dplyr.html#data-analysis-workflow",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Data analysis workflow",
-    "text": "Data analysis workflow\n\nImage source: R4DS"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-15",
-    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-15",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (1/5)",
-    "text": "Tidy data (1/5)\n\n\nImage source: R4DS"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-25-wide-format",
-    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-25-wide-format",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (2/5) wide format",
-    "text": "Tidy data (2/5) wide format\n\n\nSee: Data transformation with dplyr cheatsheet"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-35-long-format",
-    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-35-long-format",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (3/5) long format",
-    "text": "Tidy data (3/5) long format\n\n\nSee: Data transformation with dplyr cheatsheet"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-45-transformation",
-    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-45-transformation",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (4/5) transformation",
-    "text": "Tidy data (4/5) transformation\n\n\nSee: Data transformation with dplyr cheatsheet"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-55.-learn-more",
-    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-55.-learn-more",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Tidy data (5/5). Learn more?",
-    "text": "Tidy data (5/5). Learn more?\nRead:\n\n R4DS Ch. 12. Tidy data\n\n\nFollow slides, videos and exercises:\n\n\n\nChapter 7.1.2 Wrangling and tidying data in Data Science in a Box"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#wrangling",
-    "href": "slides/50-data-wrangling/dplyr.html#wrangling",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Wrangling",
-    "text": "Wrangling\n\n\nImage source: R4DS"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#wrangling-see-also",
-    "href": "slides/50-data-wrangling/dplyr.html#wrangling-see-also",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Wrangling: See also",
-    "text": "Wrangling: See also\nRead:\n\n R4DS: R for data science by Hadley Wickham and Garrett Grolemund (book’s source code) (Wickham and Grolemund 2017)\nR4DS Ch 9. Wrangle\n\n\nWatch\n\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyr-package",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyr-package",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr package",
-    "text": "dplyr package\n\n\n\n\n\n\n\n\n\n\n\n\nDoes data wrangling.\n\nDocumentation tidyverse/dplyr + Source code\nCheat sheets Data transformation with dplyr\nLearn by doing R4DS Ch 5. Data transformation"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyr-package-getting-started",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyr-package-getting-started",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr package: getting started",
-    "text": "dplyr package: getting started\nArticle: Introduction to dplyr\n\nCheat sheets: Data transformation with dplyr\n\n\nWebinar: Data wrangling with R and RStudio by Garrett Grolemund\n\n\nInteractive exercises (repeated on following slides)\n\nWorking with Tibbles\nIsolating Data with dplyr\nFilter observations\nDerive Information with dplyr\nSummarizing data\n\n\n\nReadings:\n\nR4DS Chapter 5 Data transformation"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrrename-rename-columns",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyrrename-rename-columns",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr::rename() Rename columns",
-    "text": "dplyr::rename() Rename columns\n\n\n\nRead about in R4DS Ch. 5.4 + function reference (see examples!)"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrmutate-create-modify-and-delete-columns",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyrmutate-create-modify-and-delete-columns",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr::mutate() Create, modify, and delete columns",
-    "text": "dplyr::mutate() Create, modify, and delete columns\n\n\n\nRead about in R4DS Ch. 5.5 + function reference\n\n\n\n\nArticles: Add new columns with mutate and Column-wise operations\n\n\n\n\nInteractive exercises: Derive Information with dplyr, Summarizing data and Road Traffic Accidents"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrfilter-12-subset-rows-using-column-values",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyrfilter-12-subset-rows-using-column-values",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr::filter() (1/2) subset rows using column values",
-    "text": "dplyr::filter() (1/2) subset rows using column values\n\n\n\nRead about in R4DS Ch. 5.2 + function reference (see examples!)\n\n\n\n\nArticle: Filter rows with filter()\n\n\n\nInteractive exercises: Isolating Data with dplyr and Filter observations."
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrfilter-22-relies-on-logical-operators",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyrfilter-22-relies-on-logical-operators",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr::filter() (2/2) relies on logical operators",
-    "text": "dplyr::filter() (2/2) relies on logical operators\n\n\nSee: ?Comparison and ?base::Logic"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrselect-subset-columns-using-their-names-and-types",
-    "href": "slides/50-data-wrangling/dplyr.html#dplyrselect-subset-columns-using-their-names-and-types",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "dplyr::select() Subset columns using their names and types",
-    "text": "dplyr::select() Subset columns using their names and types\n\n\n\nRead about in R4DS Ch. 5.4 + function reference (see examples!)\n\n\n\nInteractive exercises: Isolating Data with dplyr"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#left-for-later",
-    "href": "slides/50-data-wrangling/dplyr.html#left-for-later",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Left for later",
-    "text": "Left for later\n\ndplyr::summarise()\ndplyr::group_by()\ndplyr::arrange()\ndplyr::pull()\ndplyr::distinct()\ndplyr::count()"
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#skimr-package",
-    "href": "slides/50-data-wrangling/dplyr.html#skimr-package",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "skimr package",
-    "text": "skimr package\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation ropensci/skimr + Source code\nLearn by doing Using Skimr\n\nKey functions: skimr::skim()."
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#correlation-1",
-    "href": "slides/50-data-wrangling/dplyr.html#correlation-1",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "Correlation",
-    "text": "Correlation\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation easystats/correlation + Source code\nLearn by doing Using correlation\n\nKey functions: correlation::correlation()."
-  },
-  {
-    "objectID": "slides/50-data-wrangling/dplyr.html#references-1",
-    "href": "slides/50-data-wrangling/dplyr.html#references-1",
-    "title": "Data Workflow + Tidy data + Wrangling",
-    "section": "References",
-    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science. O’Reilly Media. http://r4ds.had.co.nz/."
+    "objectID": "slides/00-introduction/00-introduction.html#launch-the-r-studio-from-the-project-ae01-soft-intro-to-r",
+    "href": "slides/00-introduction/00-introduction.html#launch-the-r-studio-from-the-project-ae01-soft-intro-to-r",
+    "title": "Introduction. Organisation. Setup.",
+    "section": "Launch the R Studio from the project “ae01-soft-intro-to-R”",
+    "text": "Launch the R Studio from the project “ae01-soft-intro-to-R”\n\n\nNavigate to ae01-soft-intro-to-R in your course folder\n\n\n\n\nOpen ae01-soft-intro-to-R.Rproj that has R studio icon and .Rproj extension:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsta210-s22.github.io/website"
   },
   {
     "objectID": "slides/20-data-description/exploring-numeric-data.html#summary-of-a-single-variables",
@@ -1085,123 +805,263 @@
     "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nPearson, Karl, and Alice Lee. 1903. “On the Laws of Inheritance in Man: I. Inheritance of Physical Characters.” Biometrika 2 (4): 357. https://doi.org/10.2307/2331507.\n\n\nWeisberg, Sanford. 2005. Applied Linear Regression. John Wiley & Sons, Inc. https://doi.org/10.1002/0471704091."
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#mp223---applied-econometrics-methods-for-the-social-sciences",
-    "href": "slides/00-introduction/00-introduction.html#mp223---applied-econometrics-methods-for-the-social-sciences",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "MP223 - Applied Econometrics Methods for the Social Sciences",
-    "text": "MP223 - Applied Econometrics Methods for the Social Sciences\nAuthor: Eduard Bukin (StudIP profile)\nEmail: eduardbukin@agrar.uni-giessen.de,\nTelephone: +49 641 99-37055\nOffice: Zeughaus (Senckenbergstr. 3). Room: 132.\nOffice hours: Part time (better to make an appointment)"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#r-setup",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#r-setup",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "R setup",
+    "text": "R setup\n\nlibrary(tidyverse)       # for data wrangling\n\n# set default theme and larger font size for ggplot2\nggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))\n\n# set default figure parameters for knitr\nknitr::opts_chunk$set(\n  fig.width = 8,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"80%\"\n)"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#introduction",
-    "href": "slides/00-introduction/00-introduction.html#introduction",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Introduction",
-    "text": "Introduction\nWelcome to the MP223 - Applied Econometrics Methods for the Social Sciences!"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#data-analysis-workflow",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#data-analysis-workflow",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Data analysis workflow",
+    "text": "Data analysis workflow\n\nImage source: R4DS"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#lecturers-christoph-funk",
-    "href": "slides/00-introduction/00-introduction.html#lecturers-christoph-funk",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Lecturers: Christoph Funk",
-    "text": "Lecturers: Christoph Funk\nChristoph.Funk@wirtschaft.uni-giessen.de. Website.\nPost Doc.\n\nCenter for international Development and Environmental Research (ZEU) Justus Liebig Universität\n\n2020 - PhD in economics from Justus Liebig University Giessen\nResearch interests: - SDG monitoring - Climate change vulnerability - Adaptation strategies - Energy economics - Econometric modelling"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-14",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-14",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (1/4)",
+    "text": "Tidy data (1/4)\n\n\nImage source: R4DS"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#lecturers-vladimir-otrachshenko",
-    "href": "slides/00-introduction/00-introduction.html#lecturers-vladimir-otrachshenko",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Lecturers: Vladimir Otrachshenko",
-    "text": "Lecturers: Vladimir Otrachshenko\nVladimir.Otrachshenko@zeu.uni-giessen.de. Website.\nSenior Researcher.\n\nCenter for international Development and Environmental Research (ZEU) Justus Liebig Universität\n\n2013 - PhD in Economics from Nova School of Business and Economics, Lisbon, Portugal\nResearch interests:\n\nEnvironmental and Resource Economics\nClimate Change\nHealth and Population Economics"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-24-wide-format",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-24-wide-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (2/4) wide format",
+    "text": "Tidy data (2/4) wide format\n\n\nSee: Data transformation with dplyr cheatsheet"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#lecturers-eduard-bukin",
-    "href": "slides/00-introduction/00-introduction.html#lecturers-eduard-bukin",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Lecturers: Eduard Bukin",
-    "text": "Lecturers: Eduard Bukin\neduardbukin@agrar.uni-giessen.de, (StudIP profile)\nData science enthusiast, econometrics practitioner. PhD Student.\n\nInstitute of Agricultural Policy and Market Research\n\n2015 – MSc in Rural Development:\n\nGhent University, Belgium\n\nResearch interests:\n\nRestructuring and productivity change in agriculture\nLand and labor factor markets in agriculture"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-34-long-format",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-34-long-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (3/4) long format",
+    "text": "Tidy data (3/4) long format\n\n\nSee: Data transformation with dplyr cheatsheet"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#your-turn",
-    "href": "slides/00-introduction/00-introduction.html#your-turn",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Your turn!",
-    "text": "Your turn!\nPlease introduce yourself\n\nWhat is your name?\nWhere do you come from?\n\n\nWhat do you study?\nWhat is your background?\n\n\nWhat are your expectations?"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-44-transformation",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-44-transformation",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (4/4) transformation",
+    "text": "Tidy data (4/4) transformation\n\n\nSee: Data transformation with dplyr cheatsheet"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-14",
-    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-14",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Course structure and overview (1/4)",
-    "text": "Course structure and overview (1/4)\nMP223 - Applied Econometrics Methods for the Social Sciences is taught in presence.\n\n\nEvery Wednesday 14:00 - 18:00, Room: Senckenbergstr. 03, 216 (Ze-PC2)\nWear a mask all the time.\nGet a new mask from a lecturer for every lecture.\nOptional, make a COVID-19 speed tests if you do no feel well (ask the test from a lecturer).\nPlease, do not show up if you are sick."
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#wrangling",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#wrangling",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Wrangling",
+    "text": "Wrangling\n\n\nImage source: R4DS"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-24",
-    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-24",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Course structure and overview (2/4)",
-    "text": "Course structure and overview (2/4)\n\nOnline resources:\n\nIlias is used for materials dissemination;\nStudIP is only used for announcements.\n\n\n\nRough course structure is in the Course Plan on Ilias.\n\n\nAlmost every week will have a checklist\n\nsummary of materials from the class;\nkey materials to cover on your own;"
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-and-wrangling-see-also",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#tidy-data-and-wrangling-see-also",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data and Wrangling: See also",
+    "text": "Tidy data and Wrangling: See also\n R4DS: R for data science by Hadley Wickham and Garrett Grolemund (book’s source code) (Wickham and Grolemund 2017)\n\nRecommended. Practice:\n\n Primers: Programming basics\n7.1.2 Wrangling and tidying data in Data Science in a Box\n\nRecommended. Read:\n\n R4DS Ch 9. Wrangle\n R4DS Ch. 12. Tidy data\nCHEATSHEET: Data tidying with tidyr cheatsheet\n\nOptional. Watch:\n\n Tidy data video + slides\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-34",
-    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-34",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Course structure and overview (3/4)",
-    "text": "Course structure and overview (3/4)\nLectures\n\nSlides on Ilias. No pre-recording;\n“Takeaways” slides in th end of a lecture (if available);\n\n\nApplication exercises in class\n\nSometimes have pre requisites (watch a video, read a paper)\nSometimes require preparation in advance;\n\n\n\n\nSeminar discussions - definitely require preparation (reading papers) in advance;\n\n\n\nApplication exercises at home\n\nSome are mandatory, some are optional but highly recommended.\nWith /or without video guidance."
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#takeaways",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#takeaways",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nTidy data: Wide + long formats\nData analysis workflow\nLearning materials"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#course-structure-and-overview-44",
-    "href": "slides/00-introduction/00-introduction.html#course-structure-and-overview-44",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Course structure and overview (4/4)",
-    "text": "Course structure and overview (4/4)\nExamination:\n\n60% written exam\n\n\n\n40% practical homework on R analysis.\n\nWill be disseminated on the week 4-6.\nDeadline: end of semester."
+    "objectID": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#references",
+    "href": "slides/50-data-wrangling/workflow-tidy-data-wrangling.html#references",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science. O’Reilly Media. http://r4ds.had.co.nz/."
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#any-questions",
-    "href": "slides/00-introduction/00-introduction.html#any-questions",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Any questions?",
-    "text": "Any questions?"
+    "objectID": "slides/50-data-wrangling/dplyr.html#r-setup",
+    "href": "slides/50-data-wrangling/dplyr.html#r-setup",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "R setup",
+    "text": "R setup\n\nlibrary(tidyverse)       # for data wrangling\n\n# set default theme and larger font size for ggplot2\nggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))\n\n# set default figure parameters for knitr\nknitr::opts_chunk$set(\n  fig.width = 8,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"80%\"\n)"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#plan-for-today",
-    "href": "slides/00-introduction/00-introduction.html#plan-for-today",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Plan for today",
-    "text": "Plan for today\nNext 45 minutes: Application Exercise 01 - Soft introduction to R\n\nin class we will do “ae01a-vaccination.Rmd” everything else is at home;\n\n\nTwo Lectures (90 min):\n\nCeteris Paribus\nSelection Bias\n\n\n\nApplication Exercise at home.\n\nSee the check list."
+    "objectID": "slides/50-data-wrangling/dplyr.html#data-analysis-workflow",
+    "href": "slides/50-data-wrangling/dplyr.html#data-analysis-workflow",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Data analysis workflow",
+    "text": "Data analysis workflow\n\nImage source: R4DS"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#application-exercise-01---soft-introduction-to-r",
-    "href": "slides/00-introduction/00-introduction.html#application-exercise-01---soft-introduction-to-r",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Application Exercise 01 - Soft introduction to R",
-    "text": "Application Exercise 01 - Soft introduction to R\n\nTurn on your PC\n\n\n\n\n\n\nImportant\n\n\nLogin: ZH-user-pcl\nPassword: V5-senc!3ken\n\n\n\n\n\nWrite them down and remember.\nSame password an login will be used on all PCs in Zeughaus."
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-15",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-15",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (1/5)",
+    "text": "Tidy data (1/5)\n\n\nImage source: R4DS"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#log-into-studip-and-ilias",
-    "href": "slides/00-introduction/00-introduction.html#log-into-studip-and-ilias",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Log into studIP and Ilias",
-    "text": "Log into studIP and Ilias\n\nLog into your studIP;\n\n\nFollow to “Ilias >> Kurs (ID 301421) in JLUG”;\n\n\n\n\n\n\n\n\n\n\n\nLog in to Ilias;\n\n\nDownload ae01-soft-intro-to-R.zip to downloads;"
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-25-wide-format",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-25-wide-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (2/5) wide format",
+    "text": "Tidy data (2/5) wide format\n\n\nSee: Data transformation with dplyr cheatsheet"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#setup-working-folders",
-    "href": "slides/00-introduction/00-introduction.html#setup-working-folders",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Setup working folders",
-    "text": "Setup working folders\n\nNavigate to your user folder: C > Users > Name of your user account;\n\n\n\nCreate there a course folder names {your initial}-mk223-2022.\n\nUse it for your course for all in-class work;\non my pc the course folder is called eb-mk223-2022;\nthe full path is C:\\Users\\ZH-user-pcl\\eb-mk223-2022;\n\n\n\n\n\nPaste ae01-soft-intro-to-R.zip from downloads to the course folder;\n\n\n\n\nUnzip ae01-soft-intro-to-R.zip into ae01-soft-intro-to-R;"
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-35-long-format",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-35-long-format",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (3/5) long format",
+    "text": "Tidy data (3/5) long format\n\n\nSee: Data transformation with dplyr cheatsheet"
   },
   {
-    "objectID": "slides/00-introduction/00-introduction.html#launch-the-r-studio-from-the-project-ae01-soft-intro-to-r",
-    "href": "slides/00-introduction/00-introduction.html#launch-the-r-studio-from-the-project-ae01-soft-intro-to-r",
-    "title": "Introduction. Organisation. Setup.",
-    "section": "Launch the R Studio from the project “ae01-soft-intro-to-R”",
-    "text": "Launch the R Studio from the project “ae01-soft-intro-to-R”\n\n\nNavigate to ae01-soft-intro-to-R in your course folder\n\n\n\n\nOpen ae01-soft-intro-to-R.Rproj that has R studio icon and .Rproj extension:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsta210-s22.github.io/website"
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-45-transformation",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-45-transformation",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (4/5) transformation",
+    "text": "Tidy data (4/5) transformation\n\n\nSee: Data transformation with dplyr cheatsheet"
   },
   {
-    "objectID": "articles/external-materials.html",
-    "href": "articles/external-materials.html",
-    "title": "Materials and external sources for learning R",
-    "section": "",
-    "text": "R4DS: R for data science by Hadley Wickham and Garrett Grolemund (source code)\n\n\n\nRStudio cheat sheets (here) on:\n\nData import with readr, readxl, and googlesheets4 cheatsheet\nData transformation with dplyr cheatsheet\nData tidying with tidyr cheatsheet\n\nRStudio Webinars + sourcode:\n\nData wrangling with R and RStudio by Garrett Grolemund\nTidyverse visualization manipulation basics by Garrett Grolemund\nWhat’s new with readxl? with Jenny Bryan\n\nTutorials from INBO Tutorials:\n\nR for beginners from Research Institute for Nature and Forest (INBO) in Belgium"
+    "objectID": "slides/50-data-wrangling/dplyr.html#tidy-data-55.-learn-more",
+    "href": "slides/50-data-wrangling/dplyr.html#tidy-data-55.-learn-more",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Tidy data (5/5). Learn more?",
+    "text": "Tidy data (5/5). Learn more?\nRead:\n\n R4DS Ch. 12. Tidy data\n\n\nFollow slides, videos and exercises:\n\n\n\nChapter 7.1.2 Wrangling and tidying data in Data Science in a Box"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#wrangling",
+    "href": "slides/50-data-wrangling/dplyr.html#wrangling",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Wrangling",
+    "text": "Wrangling\n\n\nImage source: R4DS"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#wrangling-see-also",
+    "href": "slides/50-data-wrangling/dplyr.html#wrangling-see-also",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Wrangling: See also",
+    "text": "Wrangling: See also\nRead:\n\n R4DS: R for data science by Hadley Wickham and Garrett Grolemund (book’s source code) (Wickham and Grolemund 2017)\nR4DS Ch 9. Wrangle\n\n\nWatch\n\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyr-package",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyr-package",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr package",
+    "text": "dplyr package\n\n\n\n\n\n\n\n\n\n\n\n\nDoes data wrangling.\n\nDocumentation tidyverse/dplyr + Source code\nCheat sheets Data transformation with dplyr\nLearn by doing R4DS Ch 5. Data transformation"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyr-package-getting-started",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyr-package-getting-started",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr package: getting started",
+    "text": "dplyr package: getting started\nArticle: Introduction to dplyr\n\nCheat sheets: Data transformation with dplyr\n\n\nWebinar: Data wrangling with R and RStudio by Garrett Grolemund\n\n\nInteractive exercises (repeated on following slides)\n\nWorking with Tibbles\nIsolating Data with dplyr\nFilter observations\nDerive Information with dplyr\nSummarizing data\n\n\n\nReadings:\n\nR4DS Chapter 5 Data transformation"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrrename-rename-columns",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrrename-rename-columns",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::rename() Rename columns",
+    "text": "dplyr::rename() Rename columns\n\n\n\nRead about in R4DS Ch. 5.4 + function reference (see examples!)"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrmutate-create-modify-and-delete-columns",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrmutate-create-modify-and-delete-columns",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::mutate() Create, modify, and delete columns",
+    "text": "dplyr::mutate() Create, modify, and delete columns\n\n\n\nRead about in R4DS Ch. 5.5 + function reference\n\n\n\n\nArticles: Add new columns with mutate and Column-wise operations\n\n\n\n\nInteractive exercises: Derive Information with dplyr, Summarizing data and Road Traffic Accidents"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrfilter-12-subset-rows-using-column-values",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrfilter-12-subset-rows-using-column-values",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::filter() (1/2) subset rows using column values",
+    "text": "dplyr::filter() (1/2) subset rows using column values\n\n\n\nRead about in R4DS Ch. 5.2 + function reference (see examples!)\n\n\n\n\nArticle: Filter rows with filter()\n\n\n\nInteractive exercises: Isolating Data with dplyr and Filter observations."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrfilter-22-relies-on-logical-operators",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrfilter-22-relies-on-logical-operators",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::filter() (2/2) relies on logical operators",
+    "text": "dplyr::filter() (2/2) relies on logical operators\n\n\nSee: ?Comparison and ?base::Logic"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#dplyrselect-subset-columns-using-their-names-and-types",
+    "href": "slides/50-data-wrangling/dplyr.html#dplyrselect-subset-columns-using-their-names-and-types",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "dplyr::select() Subset columns using their names and types",
+    "text": "dplyr::select() Subset columns using their names and types\n\n\n\nRead about in R4DS Ch. 5.4 + function reference (see examples!)\n\n\n\nInteractive exercises: Isolating Data with dplyr"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#left-for-later",
+    "href": "slides/50-data-wrangling/dplyr.html#left-for-later",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Left for later",
+    "text": "Left for later\n\ndplyr::summarise()\ndplyr::group_by()\ndplyr::arrange()\ndplyr::pull()\ndplyr::distinct()\ndplyr::count()"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#skimr-package",
+    "href": "slides/50-data-wrangling/dplyr.html#skimr-package",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "skimr package",
+    "text": "skimr package\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation ropensci/skimr + Source code\nLearn by doing Using Skimr\n\nKey functions: skimr::skim()."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#correlation-1",
+    "href": "slides/50-data-wrangling/dplyr.html#correlation-1",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "Correlation",
+    "text": "Correlation\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Summary statistics\n\nDocumentation easystats/correlation + Source code\nLearn by doing Using correlation\n\nKey functions: correlation::correlation()."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/dplyr.html#references-1",
+    "href": "slides/50-data-wrangling/dplyr.html#references-1",
+    "title": "Data Workflow + Tidy data + Wrangling",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data Science. O’Reilly Media. http://r4ds.had.co.nz/."
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#general-notes",
+    "href": "slides/50-data-wrangling/import-data.html#general-notes",
+    "title": "Import data",
+    "section": "General notes",
+    "text": "General notes\nData import must be done in a reproducible way!\n\n\nRaw data must be stored together with the project.\nData import and cleaning should be done with scripts.\n\n\n\nIt is tricky to load data, because, we need to interact with the file system.\n\nYou may use interactive Users Interface to load data once,\nBut you should use R code to reload same data again.\n\n\n\n\n\n\n\n\n\nImportant\n\n\nAlways save data import R code in your scripts!"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#data-import-more-materials",
+    "href": "slides/50-data-wrangling/import-data.html#data-import-more-materials",
+    "title": "Import data",
+    "section": "Data import: more materials",
+    "text": "Data import: more materials\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readr-package-23-key-functions",
+    "href": "slides/50-data-wrangling/import-data.html#readr-package-23-key-functions",
+    "title": "Import data",
+    "section": "readr package (2/3) key functions",
+    "text": "readr package (2/3) key functions\n\n\n\nread_csv() - for a coma separate data in the text file\nread_dta() - for Stata data files.\n\n\nThe file, which we want to read is in\n\n\n[1] \"/home/runner/work/_temp/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/readr/2.1.2/9c59de1357dc209868b5feb5c9f0fe2f/readr/extdata/chickens.csv\"\n\n\nInstead of specifying the path to this file, we use readr_example(\"chickens.csv\").\n\n\nRows: 5\nColumns: 4\n$ chicken   <chr> \"Foghorn Leghorn\", \"Chicken Little\", \"Ginger\", \"Camilla the …\n$ sex       <chr> \"rooster\", \"hen\", \"hen\", \"hen\", \"rooster\"\n$ eggs_laid <dbl> 0, 3, 12, 7, 0\n$ motto     <chr> \"That's a joke, ah say, that's a joke, son.\", \"The sky is fa…"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readr-package-33-user-interface",
+    "href": "slides/50-data-wrangling/import-data.html#readr-package-33-user-interface",
+    "title": "Import data",
+    "section": "readr package (3/3) user interface",
+    "text": "readr package (3/3) user interface\n\nStep 1Step 2Step 3Step 4Step 5"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readxl-package-23-basic-usage",
+    "href": "slides/50-data-wrangling/import-data.html#readxl-package-23-basic-usage",
+    "title": "Import data",
+    "section": "readxl package (2/3) Basic usage",
+    "text": "readxl package (2/3) Basic usage\n\nStep 1 Path to the fileStep 2 SheetsStep 3 Data in R\n\n\n\nFirst, locate the file.\n\n\n\n[1] \"/home/runner/work/_temp/renv/cache/v5/R-4.2/x86_64-pc-linux-gnu/readxl/1.4.0/170c35f745563bb307e963bde0197e4f/readxl/extdata/datasets.xls\"\n\n\n\nThen, open it manually to see if it is alright.\n\n\n\n\nThen, check what sheets re present there:\n\n\n\n[1] \"iris\"     \"mtcars\"   \"chickwts\" \"quakes\"  \n\n\n\n\n\n\nRows: 71\nColumns: 2\n$ weight <dbl> 179, 160, 136, 227, 217, 168, 108, 124, 143, 140, 309, 229, 181…\n$ feed   <chr> \"horsebean\", \"horsebean\", \"horsebean\", \"horsebean\", \"horsebean\"…"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#readxl-package-33-user-interface",
+    "href": "slides/50-data-wrangling/import-data.html#readxl-package-33-user-interface",
+    "title": "Import data",
+    "section": "readxl package (3/3) user interface",
+    "text": "readxl package (3/3) user interface\n\nStep 1Step 2Step 3Step 4Step 5"
+  },
+  {
+    "objectID": "slides/50-data-wrangling/import-data.html#janitor-package-22-key-functions",
+    "href": "slides/50-data-wrangling/import-data.html#janitor-package-22-key-functions",
+    "title": "Import data",
+    "section": "janitor package (2/2) key functions",
+    "text": "janitor package (2/2) key functions\n\njanitor::clean_names() - Cleans names of an object (usually a data.frame).\njanitor::row_to_names(row_number = 1) - Elevate a row to be the column names of a data.frame.\njanitor::convert_to_date() + excel_numeric_to_date() - Convert many date and datetime formats as may be received from Microsoft Excel\njanitor::remove_empty() - Remove empty rows and/or columns from a data.frame or matrix."
   },
   {
     "objectID": "weeks/week01-checklist.html",
@@ -1236,35 +1096,35 @@
     "href": "weeks/week03-checklist.html",
     "title": "Week 3",
     "section": "",
-    "text": "In class\n\n\n\n\n🖥W03-00 DataWorkflow + Tidy data + Wrangling\n\n\n\n\nRecommended. Practice:\n\n Primers: Programming basics\n\nRecommended. Read:\n\n R4DS Ch 9. Wrangle\n R4DS Ch. 12. Tidy data\nCHEATSHEET: Data tidying with tidyr cheatsheet\n\nOptional. Watch:\n\n Tidy data video + slides\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
+    "text": "In class\n\n\n\n\nSLIDES: 🖥W03-00 Data Workflow + Tidy data + Wrangling\n\n\n\n\nRecommended. Practice:\n\n Primers: Programming basics\n\nRecommended. Read:\n\n R4DS Ch 9. Wrangle\n R4DS Ch. 12. Tidy data\nCHEATSHEET: Data tidying with tidyr cheatsheet\n\nOptional. Watch:\n\n Tidy data video + slides\n Grammar of data wrangling video + slides\n webinar: Data wrangling with R and RStudio"
   },
   {
     "objectID": "weeks/week03-checklist.html#w03-01-import-data",
     "href": "weeks/week03-checklist.html#w03-01-import-data",
     "title": "Week 3",
     "section": "W03-01 Import data",
-    "text": "W03-01 Import data\n\n\n\n\n\n\nIn class\n\n\n\n\n📋ae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\n🖥W03-02 Import data\n\n\n\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?"
+    "text": "W03-01 Import data\n\n\n\n\n\n\nIn class\n\n\n\n\nApplication Exercise: 📋ae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nSLIDES: 🖥W03-02 Import data\n\n\n\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?"
   },
   {
     "objectID": "weeks/week03-checklist.html#w03-02-exploring-numerical-data",
     "href": "weeks/week03-checklist.html#w03-02-exploring-numerical-data",
     "title": "Week 3",
     "section": "W03-02 Exploring numerical data",
-    "text": "W03-02 Exploring numerical data\n\n\n\n\n\n\nIn class\n\n\n\n\n🖥W03-02 Exploring numerical data\n📋TBD\n\n\n\n\nRecommended. Practice:\n\n Primers: Derive Information with dplyr\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n Open Intro. Interactive. Summarizing data (takes time to load)\n Primers: Data Visualization Basics\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n\nOptional. Read:\n\n IMS: Chapter 5 Exploring numerical data\n\nOptional. Watch + Practice:\n\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides"
+    "text": "W03-02 Exploring numerical data\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nSLIDES: 🖥W03-02 Exploring numerical data\nApplication Exercise: 📋 AE03-02 Exploring data on plstic waste + Solution to the ae03-02: ae03-02-plastic-waste-solutions.rmd\n\n\n\n\nRecommended. Practice:\n\n Primers: Derive Information with dplyr\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n Open Intro. Interactive. Summarizing data (takes time to load)\n Primers: Data Visualization Basics\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n\nOptional. Read:\n\n IMS: Chapter 5 Exploring numerical data\n\nOptional. Watch + Practice:\n\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides"
   },
   {
     "objectID": "weeks/week03-checklist.html#w03-03-correlation",
     "href": "weeks/week03-checklist.html#w03-03-correlation",
     "title": "Week 3",
     "section": "🖥 W03-03 Correlation",
-    "text": "🖥 W03-03 Correlation\n\n\n\n\n\n\nIn class\n\n\n\n\n🖥W03-04 correlation correlation\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\n📋ae03-03-correlation.Rmd\n\n\n\n\nRecommended. Practice:\n\n Primers: Exploratory data analysis\n\nRecommended. Read:\n\nInterpretation of the strength of correlation\n\nOptional. Read:\n\neasystats/correlation\nCorrelation types"
+    "text": "🖥 W03-03 Correlation\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W03-04 correlation correlation\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nApplication Exercise: 📋ae03-03-correlation.Rmd\n\n\n\n\nRecommended. Practice:\n\n Primers: Exploratory data analysis\n\nRecommended. Read:\n\nInterpretation of the strength of correlation\n\nOptional. Read:\n\neasystats/correlation\nCorrelation types"
   },
   {
     "objectID": "weeks/week03-checklist.html#w03ae---application-exercise",
     "href": "weeks/week03-checklist.html#w03ae---application-exercise",
     "title": "Week 3",
     "section": "📋 W03AE - application exercise:",
-    "text": "📋 W03AE - application exercise:\nDownload project from 📋 ae03-data-wrangling.zip or the same on Ilias: 📋 ae03-data-wrangling.zip on Ilias.\n\n\n\n\n\n\nIn class\n\n\n\n\nae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nae03-02-correlation.Rmd"
+    "text": "📋 W03AE - application exercise:\nDownload project from 📋 ae03-data-wrangling.zip or the same on Ilias: 📋 ae03-data-wrangling.zip on Ilias.\n\n\n\n\n\n\nIn class\n\n\n\n\nApplication Exercise: 📋ae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nApplication Exercise: 📋 ae03-02-correlation.Rmd\nApplication Exercise: 📋 ae03-02-plastic-waste.rmd"
   },
   {
     "objectID": "weeks/week03-checklist.html#self-study-exploring-categorical-data",
@@ -1286,5 +1146,166 @@
     "title": "Week 3",
     "section": "🖥 SELF STUDY Data visualization with ggplot2",
     "text": "🖥 SELF STUDY Data visualization with ggplot2\nThere are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the ggplot2 package is scheduled for self learning.\n\nRecommended. Read:\n\n R4DS Chapter 3 Data visualisation\nCHEATSHEET: Data visualization with ggplot2 cheatsheet\n\nRecommended. Practice:\n\n Primers: Data Visualization Basics\n Primers: Exploratory data analysis\n Primers: Bar Charts\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n Primers: Overplotting\n Primers: Customize plots\n\nOptional. Practice:\n\n Open Intro. Interactive. Visualizing categorical data (takes time to load)\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n\nOptional. Watch + Practice:\n\n webinar: Tidyverse visualization manipulation basics\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides\n Visualising categorical data video + slides"
+  },
+  {
+    "objectID": "articles/external-materials.html",
+    "href": "articles/external-materials.html",
+    "title": "Materials and external sources for learning R",
+    "section": "",
+    "text": "R4DS: R for data science by Hadley Wickham and Garrett Grolemund (source code)\n\n\n\nRStudio cheat sheets (here) on:\n\nData import with readr, readxl, and googlesheets4 cheatsheet\nData transformation with dplyr cheatsheet\nData tidying with tidyr cheatsheet\n\nRStudio Webinars + sourcode:\n\nData wrangling with R and RStudio by Garrett Grolemund\nTidyverse visualization manipulation basics by Garrett Grolemund\nWhat’s new with readxl? with Jenny Bryan\n\nTutorials from INBO Tutorials:\n\nR for beginners from Research Institute for Nature and Forest (INBO) in Belgium"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html",
+    "title": "AE03-03 Correlation",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")\nlibrary(lubridate)   # install.packages(\"lubridate\")\n\nggplot2::theme_set(ggplot2::theme_minimal())\n\nknitr::opts_chunk$set(out.width = 60)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#data-import-and-cleaning",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#data-import-and-cleaning",
+    "title": "AE03-03 Correlation",
+    "section": "Data import and cleaning",
+    "text": "Data import and cleaning\n\nImporting and cleaning data in the wide format\nPractically the same procedure that we did in the previous exercise.\n\np_wd <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\nglimpse(p_wd)\n\nRows: 359\nColumns: 5\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ oil   <dbl> 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…\n$ wheat <dbl> 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …\n$ maize <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ urea  <dbl> 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …\n\n\n\n\nConverting data to the long format\n\np_lg <- \n  p_wd %>% \n  pivot_longer(cols = c(oil:urea), \n               names_to = \"var\", \n               values_to = \"price\") %>% \n  arrange(date, var)\nglimpse(p_lg)\n\nRows: 1,436\nColumns: 3\n$ date  <date> 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…\n$ var   <chr> \"maize\", \"oil\", \"urea\", \"wheat\", \"maize\", \"oil\", \"urea\", \"wheat\"…\n$ price <dbl> 117.00, 17.45, 120.00, 161.44, 108.52, 18.63, 120.00, 153.07, 10…"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#example-computing-prices-index-with-some-base",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#example-computing-prices-index-with-some-base",
+    "title": "AE03-03 Correlation",
+    "section": "Example: Computing prices index with some base",
+    "text": "Example: Computing prices index with some base\nIndex of a variable with a base is a mathematical transformation of a variable, where each value of a variable is divided by the base value and then multiplied by 100.\n\\[\n{I}_{i} = \\frac{x_i}{x_{base}} \\times 100\n\\]\nThis is easy in Excel, but tricky without it!\nLet us demonstrate the logic of calculations based on a simple example of 2 commodities (wheat and urea) and few month in year 2010.\n\nStep 1. Filter a sub-sample\nAs discussed above, we want to:\n\nfilter data, where year is 2010, month less than 6, var is \"wheat\" or \"maize\"\n\nWhich identically translate into R code as:\n\nfilter(data, year(date) == 2010, month(date) < 6, var %in% c(\"wheat\", \"maize\"))`\nfilter data, where year is 2010, month less than 6, var is \"wheat\" or \"maize\"\n\n\np_lg_sb <- \n  filter(p_lg, \n         year(date) == 2010, \n         month(date) < 6, \n         var %in% c(\"wheat\", \"maize\")) %>% \n  arrange(var, date)\np_lg_sb\n\n# A tibble: 10 × 3\n   date       var   price\n   <date>     <chr> <dbl>\n 1 2010-01-01 maize  167.\n 2 2010-02-01 maize  162.\n 3 2010-03-01 maize  159.\n 4 2010-04-01 maize  157.\n 5 2010-05-01 maize  163.\n 6 2010-01-01 wheat  199.\n 7 2010-02-01 wheat  192.\n 8 2010-03-01 wheat  190.\n 9 2010-04-01 wheat  188.\n10 2010-05-01 wheat  190.\n\n\n\n\nStep 2. Create variable with the base for indexing\nHere we want to:\n\nfor each groups of commodities \"var\", mutate variable \"base\", which is equal to \"price\" when month is equal to 1 and year is equal to 2010.\n\nIn language of R this is:\n\np_lg_sb %>% \n  group_by(var) %>%           # 1. for each groups of commodities \"var\"\n  mutate(                     # 2. mutate\n    base = ifelse(            # 3. variable \"base\", which is equal to\n      month(date) == 1 &      # 5. when month is equal to 1 and\n        year(date) == 2010,   # 6. year is equal to 2010\n      price,                  # 4. \"price\"\n      NA                      # 7. missing value is in other cases\n      )\n    )\n\n# A tibble: 10 × 4\n# Groups:   var [2]\n   date       var   price  base\n   <date>     <chr> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167.\n 2 2010-02-01 maize  162.   NA \n 3 2010-03-01 maize  159.   NA \n 4 2010-04-01 maize  157.   NA \n 5 2010-05-01 maize  163.   NA \n 6 2010-01-01 wheat  199.  199.\n 7 2010-02-01 wheat  192.   NA \n 8 2010-03-01 wheat  190.   NA \n 9 2010-04-01 wheat  188.   NA \n10 2010-05-01 wheat  190.   NA \n\n\n\n\nStep 3. Make sure that base is the same for all observations in each group var\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\")\n\n# A tibble: 10 × 4\n# Groups:   var [2]\n   date       var   price  base\n   <date>     <chr> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167.\n 2 2010-02-01 maize  162.  167.\n 3 2010-03-01 maize  159.  167.\n 4 2010-04-01 maize  157.  167.\n 5 2010-05-01 maize  163.  167.\n 6 2010-01-01 wheat  199.  199.\n 7 2010-02-01 wheat  192.  199.\n 8 2010-03-01 wheat  190.  199.\n 9 2010-04-01 wheat  188.  199.\n10 2010-05-01 wheat  190.  199.\n\n\n\n\nStep 4. Calculate index\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100)\n\n# A tibble: 10 × 5\n# Groups:   var [2]\n   date       var   price  base index\n   <date>     <chr> <dbl> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167. 100  \n 2 2010-02-01 maize  162.  167.  96.7\n 3 2010-03-01 maize  159.  167.  95.1\n 4 2010-04-01 maize  157.  167.  93.9\n 5 2010-05-01 maize  163.  167.  97.7\n 6 2010-01-01 wheat  199.  199. 100  \n 7 2010-02-01 wheat  192.  199.  96.5\n 8 2010-03-01 wheat  190.  199.  95.6\n 9 2010-04-01 wheat  188.  199.  94.5\n10 2010-05-01 wheat  190.  199.  95.7\n\n\n\n\nOptional example: calculate index, where base is average of month 2 and 3\n\np_lg_sb %>%\n  group_by(var) %>%\n  mutate(base = ifelse(month(date) %in% c(2,3) & \n                         year(date) == 2010, \n                       price, \n                       NA)) %>% \n  mutate(base_full = mean(base, na.rm = TRUE)) %>% \n  mutate(index = price / base_full * 100)\n\n# A tibble: 10 × 6\n# Groups:   var [2]\n   date       var   price  base base_full index\n   <date>     <chr> <dbl> <dbl>     <dbl> <dbl>\n 1 2010-01-01 maize  167.   NA       160. 104. \n 2 2010-02-01 maize  162.  162.      160. 101. \n 3 2010-03-01 maize  159.  159.      160.  99.1\n 4 2010-04-01 maize  157.   NA       160.  97.9\n 5 2010-05-01 maize  163.   NA       160. 102. \n 6 2010-01-01 wheat  199.   NA       191. 104. \n 7 2010-02-01 wheat  192.  192.      191. 100. \n 8 2010-03-01 wheat  190.  190.      191.  99.5\n 9 2010-04-01 wheat  188.   NA       191.  98.4\n10 2010-05-01 wheat  190.   NA       191.  99.7\n\n\nNote, we specify mean(…, na.rm = TRUE) because when we compute mean, there are some missing observations in the variable. Mean of a vector with missing observation will return NA.\n\nmean(c(1, 2, 3, 4, NA))\n\n[1] NA\n\n\nIf we specify parameter to ignore NA in the data, we will get a result:\n\nmean(c(1, 2, 3, 4, NA), na.rm = TRUE)\n\n[1] 2.5"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-1.-compute-prices-index-with-base-mean-prices-in-2010",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 1. Compute prices index with base mean prices in 2010",
+    "text": "Exercise 1. Compute prices index with base mean prices in 2010\nFollowing the previous examples, let us compute:\n\nStep 1. for each group of var;\nStep 2. mutate base_part, which contains price if year is 2010 and NA in else cases;\nStep 3. mutate base with the mean() value of base_part price with parameter na.rm = TRUE;\nStep 4. mutate price index against such base;\nStep 5. ungroup data\nStep 6. select variables date, var, price and index\n\n\n# p_index <- \n#   p_lg %>%\n#   ________() %>%                               # step 1.\n#   ______(                                      # step 2.\n#     base_part = \n#       ifelse(year(_____) == 2010, price, ____)\n#     ) %>% \n#   ______(                                      # step 3.\n#     base = ______(_______, na.rm = TRUE)\n#     ) %>%  \n#   mutate(index = ____ / _____ * 100) %>%       # step 4.\n#   ungroup() %>%                                # step 5.\n#   select(date, var, price, index)              # step 6.\n# \n# glimpse(p_index)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-2.-plot-time-series-of-indexes-for-wheat-and-urea",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 2. Plot time series of indexes for wheat and urea",
+    "text": "Exercise 2. Plot time series of indexes for wheat and urea\nBefore plotting we need to filter var when it is %in% \"wehat\" or \"urea\";\nRemember from the previous exercises: ggplot() + aes() + geom_path()\n\nUse labs(x = \"\", y = \"\", title = \"\") to give meaningful labels to the plot.\n\n\n# p_index %>% \n#   ______(var %in% c(\"wheat\", ______)) %>% \n#   ______() + \n#   aes(x = _____, y = _______, colour = var) + \n#   geom_path() + \n#   labs()\n\nAnswer the following questions:\n\nCan we conclude, based on the plot, that surging prices of urea cause the wheat prices to surge?\nWhat could be a theoretical explanation for this?\nWhat could be the theoretical mechanism of urea prices effect on wheat?"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-3.-build-a-correlation-table-between-price-indices-of-different-commodities",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 3. Build a correlation table between price indices of different commodities",
+    "text": "Exercise 3. Build a correlation table between price indices of different commodities\nFirst, we need to convert our data to wide format again:\n\n# p_index_wd <-\n#   p_index %>% \n#   pivot_wider(names_from = var, values_from = c(price, index))\n# glimpse(p_index_wd)\n\nTo make a correlation table, we use package correlation and a function with the same name. We use summary to convert correlation table with extensive results to a compact matrix\n\nWe select only those variables, where names contains() string index.\n\n\nlibrary(correlation)\n\n# p_index_wd %>% \n#   select(contains(\"index\")) %>% \n#   correlation() %>% \n#   summary()\n\n# p_index_wd %>% \n#   select(contains(\"price\")) %>% \n#   correlation() %>% \n#   summary()\n\n\nDoes this correlation coefficients suggests about causation if we assume that theory does justifies causal relationship?\n\nRun the same correlations but without summary(). What are the differences?\n\n# p_index_wd %>% \n#   ______(_______(\"index\")) %>% \n#   _________()\n\n# ______ %>% \n#   ______(______(\"price\")) %>% \n#   ______()"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-4.-compute-a-first-difference-of-indices-with-lag-1",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-4.-compute-a-first-difference-of-indices-with-lag-1",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 4. Compute a first difference of indices with lag 1",
+    "text": "Exercise 4. Compute a first difference of indices with lag 1\nFirst difference is a change of value in the next period, compared to the previous one. To compute it, we use function lag() and perform similar mutate operations.\n\nSimple example of a first difference\nBefore, we computed index in the following way:\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100)\n\n# A tibble: 10 × 5\n# Groups:   var [2]\n   date       var   price  base index\n   <date>     <chr> <dbl> <dbl> <dbl>\n 1 2010-01-01 maize  167.  167. 100  \n 2 2010-02-01 maize  162.  167.  96.7\n 3 2010-03-01 maize  159.  167.  95.1\n 4 2010-04-01 maize  157.  167.  93.9\n 5 2010-05-01 maize  163.  167.  97.7\n 6 2010-01-01 wheat  199.  199. 100  \n 7 2010-02-01 wheat  192.  199.  96.5\n 8 2010-03-01 wheat  190.  199.  95.6\n 9 2010-04-01 wheat  188.  199.  94.5\n10 2010-05-01 wheat  190.  199.  95.7\n\n\nlet us mutate() the index_fd variable:\n\np_lg_sb %>% \n  group_by(var) %>% \n  mutate(base = ifelse(month(date) == 1 & year(date) == 2010, price, NA)) %>% \n  tidyr::fill(base, .direction = \"updown\") %>% \n  mutate(index = price / base * 100) %>% \n  mutate(index_fd = index - lag(index))\n\n# A tibble: 10 × 6\n# Groups:   var [2]\n   date       var   price  base index index_fd\n   <date>     <chr> <dbl> <dbl> <dbl>    <dbl>\n 1 2010-01-01 maize  167.  167. 100     NA    \n 2 2010-02-01 maize  162.  167.  96.7   -3.29 \n 3 2010-03-01 maize  159.  167.  95.1   -1.64 \n 4 2010-04-01 maize  157.  167.  93.9   -1.18 \n 5 2010-05-01 maize  163.  167.  97.7    3.77 \n 6 2010-01-01 wheat  199.  199. 100     NA    \n 7 2010-02-01 wheat  192.  199.  96.5   -3.51 \n 8 2010-03-01 wheat  190.  199.  95.6   -0.926\n 9 2010-04-01 wheat  188.  199.  94.5   -1.11 \n10 2010-05-01 wheat  190.  199.  95.7    1.29 \n\n\nUsing simple example, let us compute the first difference of the index for the entire data.\n\n# p_index_fd <- \n#   ______ %>% \n#   group_by(______) %>% \n#   mutate(index_fd = ______ - lag(______)) %>% \n#   ungroup() %>% \n#   select(date, var, index_fd) %>% \n#   pivot_wider(names_from = var, \n#               values_from = c(index_fd))\n#\n# p_index_fd %>% \n#   glimpse()"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-5.-build-a-correlation-table-between-first-differences-of-indices-for-different-commodities",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 5. Build a correlation table between first differences of indices for different commodities",
+    "text": "Exercise 5. Build a correlation table between first differences of indices for different commodities\nAs the same exercise before, we use correlation package and the same function.\n\n# p_index_fd %>% \n#   correlation() %>% \n#   summary()\n\n\nBased on this results, does urea prices causes surges in the wheat prices?\nWhat kind of causal relationship could be there?"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-6.-compute-first-differences-with-lag-2-and-3",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#exercise-6.-compute-first-differences-with-lag-2-and-3",
+    "title": "AE03-03 Correlation",
+    "section": "Exercise 6. Compute first differences with lag 2 and 3",
+    "text": "Exercise 6. Compute first differences with lag 2 and 3\n\n# p_index_fd_lags <- \n#   p_index %>% \n#   group_by(var) %>% \n#   mutate(fd = index - lag(index, 1)) %>% \n#   ungroup() %>% \n#   select(date, var, contains(\"fd\")) %>% \n#   pivot_wider(names_from = var, \n#               values_from = c(contains(\"fd\"))) %>% \n#   mutate(urea_fd1 = urea,\n#          urea_fd2 = lag(urea, 2),\n#          urea_fd3 = lag(urea, 3),\n#          urea_fd4 = lag(urea, 4),\n#          urea_fd5 = lag(urea, 5)\n#   )\n# \n# correlation(p_index_fd_lags) %>% summary()"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html#solutions",
+    "href": "ae/ae03-data-wrangling/ae03-03-correlation.html#solutions",
+    "title": "AE03-03 Correlation",
+    "section": "Solutions",
+    "text": "Solutions\n\np_wd <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\np_lg <- \n  p_wd %>% \n  pivot_longer(cols = c(oil:urea), \n               names_to = \"var\", \n               values_to = \"price\") %>% \n  arrange(var, date)\n\n\nEx. 1\n\np_index <- \n  p_lg %>%\n  group_by() %>%                               # step 1.\n  mutate(                                      # step 2.\n    base_part = \n      ifelse(year(date) == 2010, price, NA)\n    ) %>% \n  mutate(                                      # step 3.\n    base = mean(base_part, na.rm = TRUE)\n    ) %>%  \n  mutate(index = price / base * 100) %>%       # step 4.\n  ungroup() %>%                                # step 5.\n  select(date, var, price, index)              # step 6.\n\nglimpse(p_index)\n\nRows: 1,436\nColumns: 4\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ var   <chr> \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"maize\", \"…\n$ price <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ index <dbl> 59.72918, 55.40009, 55.97185, 56.61509, 52.45447, 49.49864, 50.0…\n\n\n\n\nEx. 2\n\np_index %>% \n  filter(var %in% c(\"wheat\", \"urea\")) %>%\n  ggplot() + \n  aes(x = date, y = index, colour = var) + \n  geom_path() + \n  labs(x = \"Date\", y = \"Price index, 2010 = 100\",\n       title = \"Price indices of key commodities\",\n       colour = NULL)\n\nWarning: Removed 1 row(s) containing missing values (geom_path).\n\n\n\n\n\n\n\nEx. 3\n\np_index_wd <-\n  p_index %>% \n  pivot_wider(names_from = var, values_from = c(price, index))\n\nlibrary(correlation)\n\np_index_wd %>% \n  select(contains(\"index\")) %>% \n  correlation() %>% \n  summary()\n\nRegistered S3 method overwritten by 'parameters':\n  method                         from      \n  format.parameters_distribution datawizard\n\n\n# Correlation Matrix (pearson-method)\n\nParameter   | index_wheat | index_urea | index_oil\n--------------------------------------------------\nindex_maize |     0.89*** |    0.77*** |   0.81***\nindex_oil   |     0.79*** |    0.80*** |          \nindex_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\np_index_wd %>% \n  select(contains(\"price\")) %>% \n  correlation() %>% \n  summary()\n\n# Correlation Matrix (pearson-method)\n\nParameter   | price_wheat | price_urea | price_oil\n--------------------------------------------------\nprice_maize |     0.89*** |    0.77*** |   0.81***\nprice_oil   |     0.79*** |    0.80*** |          \nprice_urea  |     0.76*** |            |          \n\np-value adjustment method: Holm (1979)\n\n\n\n\nEx. 4\n\np_index_fd <- \n  p_index %>% \n  group_by(var) %>% \n  mutate(index_fd = index - lag(index)) %>% \n  ungroup() %>% \n  select(date, var, index_fd) %>% \n  pivot_wider(names_from = var,\n              values_from = c(index_fd))"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "",
+    "text": "This exercise is adopted from Data Science in a Box."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html#setup",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html#setup",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html#data",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html#data",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "Data",
+    "text": "Data\nThe data set for this assignment can be found as a csv file in the data folder of your repository. You can read it in using the following.\n\nplastic_waste <- read_csv(\"data/plastic-waste.csv\")\n\nThe variable descriptions are as follows:\n\ncode: 3 Letter country code\nentity: Country name\ncontinent: Continent name\nyear: Year\ngdp_per_cap: GDP per capita constant 2011 international $, rate\nplastic_waste_per_cap: Amount of plastic waste per capita in kg/day\nmismanaged_plastic_waste_per_cap: Amount of mismanaged plastic waste per capita in kg/day\nmismanaged_plastic_waste: Tonnes of mismanaged plastic waste\ncoastal_pop: Number of individuals living on/near coast\ntotal_pop: Total population according to Gapminder"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "",
+    "text": "We will us tidyverse for data wrangling and readr and readxl for data import.\n\nlibrary(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-1.-load-clean-and-plot-data-from-excel",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-1.-load-clean-and-plot-data-from-excel",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Exercise 1. Load clean and plot data from Excel",
+    "text": "Exercise 1. Load clean and plot data from Excel\nHere, we will explore the data from the file called commodity-prices.xlsx in the data folder.\n\nEx. 1.1 Inspect the file in excel: readxl::excel_sheets()\nOpen the file in Excel and inspect it.\n\nWhat sheets are there?\nWhere is the data?\n\nUse function excel_sheets() to check what sheets does R sees in this file. Please note that you need to provide path to the file manually. Thus:\n\nCreate an object path_prices\n\nand assign to it a value of the string with the path to the file.\nThis string may look like: ./path_to_folder/file_name.ext.\nMake sure that you specify the path exactly as it is with the file extension.\nMake sure that in the path, there are no extra spaces of characters which are not present in the file path.\n\nExecute function excel_sheets() specifying in the arguments path to the file.\n\n\nlibrary(readxl)\n# path_prices <- \"______\"\n# excel_sheets(path = _______)\n\nWhat does the excel_sheets() tells us?\n\n\nEx. 1.2 Load data from the sheet: readxl::read_excel(..., sheet = ____), utils::head()\nYou need to use function read_excel() to load data.\n\nCheck help for this function in the console!\nSave data in the environment under the object name prices_dta.\nglimpse() at the data\nus function head() with the data and explain what it does\n\n\n# prices_dta <- \n#   ________(path_prices)\n\n# prices_dta %>% \n#   ________()\n\n# prices_dta %>% \n#   head()\n\nAs you can see, the data is loaded into R, but there are problems:\n\nVariables names are long, bulky, contain spaces and it is difficult to use them.\nAll variables are in <chr>, which means character, when it should be numerical <dbl>.\nFirst row in the data contains text, which is irrelevant to the data.\nThe data is not tidy! We need to clean it.\n\n\n\nEx. 1.3 Cleaning variables names: janitor::clean_names(...) , base::names()\nCurrently variables names are very long.\n\nNote, we use names() function to check variables names.\n\n\n# prices_dta %>% names()\n\nWe can simplify these names and make them machine readable and usable using function janitor::clean_names().\n\ncheck help for this function ?clean_names\nrun it on the data and check the variables names\n\n\n# prices_dta %>% \n#   __________() %>% \n#   names()\n\nAre those variables names useful now?\n\n\nEx. 1.4 Cleaning variables names: dplyr::rename()\nWell, no, these variables names are not useful. We still need to rename() them into something shorter. For this, we use dplyr::rename() . See help here.\nThe logit is:\n\nwe supply data into rename() with pipe: data %>% rename().\nin the rename() , we specify what should be the new name on the left hand side and old name on the right hand\n\ndata %>% rename(new_name = OLD_NAME).\n\nwe do not use any quotation marks.\nRemember to repeat the data cleaning step with janitor::lean_names().\n\nHere is the example with the longest variable:\n\n# prices_dta %>% \n#   clean_names() %>% \n#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt) %>% \n#   names()\n\nFollow this example to rename variables into date, oil, maize and urea.\n\n# prices_dta %>%\n#   clean_names() %>% \n#   rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n#          maize = ______________, \n#          date = ______________, \n#          ______________ = ______________, \n#          ______________ = ______________) %>%\n#   names()\n\nDid it work?\n\n\nEx. 1.5 Removing first row with irrelevant data dplyr::slice()\nUse function slice(prices_dta, -1). Check help for dplyr::slice().\n\nwith argument -1 we are telling to R to drop row with the number 1;\nNote, wen we use pipeline %>% we do not need to specify data frame name prices_dta within the brackets (…) of the slice() call!\nRemember to copy all the code from before, where you renamed the variables.\nAssign value of this long pipe to the new object named prices_dta_1. This object will stand for the intermediary step in the data cleaning process.\n\n\n# prices_dta_1 <- \n#   prices_dta %>%\n#   ### Place here the R code with renaming ###\n#   ### Place here the R code with renaming ###\n#   ### Place here the R code with renaming ###\n#   slice(___) %>% \n#   glimpse()\n\nIf everything alright with the data now? Let us use summary() to summaries the variables and extract some numerical features:\n\n# prices_dta_1 %>%\n#   summary()\n\nAre these results meaningful?\n\n\nEx. 1.6 Mutating variables types: dplyr::mutate(), base::as.numeric().\nAs we say on the previous step, all variables have the type character or <chr>. As this is text, it is not possible to make summary statistics out of it. R simply does not understand that we want to used those variables as numbers as we need to explain this to R.\nWe need to:\n\nmutate() existing variables (see definition of mutate here)\nthe help on the mutate() function is here with more case example here and a dedicated Chapter 5.5 in R4DS;\nand convert them to numeric or double type referred as <dbl>\nto convert variable type, we use as.numeric(), see: ?as.numeric or run as.numeric(c(\"-.1\",\" 2.7 \",\"B\")) in console.\n\nHere is the example that should work for one column:\n\nNote, it will only work if you made previous cleaning steps correctly.\nplease un-commencement it.\n\n\n# prices_dta_1 %>% \n#   mutate(oil = as.numeric(oil)) %>% \n#   glimpse()\n\nAs you can see now, oil variable has numeric format. Thus, when we run summary() we get description of the numerical values there:\n\n# prices_dta_1 %>% \n#   mutate(oil = as.numeric(oil)) %>% \n#   summary()\n\nNow, your turn to mutate all variable as numeric.\n\n# prices_dta_1 %>%\n#   mutate(oil = as.numeric(oil),\n#          wheat = ____________(____),\n#          _____ = ____________(urea),\n#          _____ = ____________(____),\n#          _____ = ____________(____)) %>%\n#   glimpse()\n\n\n\nEx. 1.7 Mutating date variable: dplyr::mutate(), janitor::convert_to_date().\nCheck results of the previous chunk!\n\nIt is clear that date variable is not a date, but a series of a number instead.\nThis is because Excel stores date as a number of days since January 1, 1990. Thus, 33664 is March 1, 1992.\nWe need to convert such date notations to some real dates using function janitor::convert_to_date().\nSee: ?convert_to_date.\nConvert date to the type <date> in the same way as variable type conversion at the previous step.\nAssign new object prices_dta_clean with the value of the data frame with all cleaning steps.\n\n\n# prices_dta_clean <- \n#   prices_dta_1 %>%\n#   mutate(oil = as.numeric(oil),\n#          wheat = ____________(____),\n#          _____ = ____________(urea),\n#          _____ = ____________(____),\n#          date = convert_to_date(____)) \n# prices_dta_clean %>% glimpse()\n\nWe have manage to clean the data!\nDo data summary() of the data to see what the variables are about.\n\n# \n\n\n\nEx. 1.8 Use skimr::skim() to generate summary statistics of the data\nGo to skimr website and learn how to use function skim(). Apply it to the prices_dta_clean data frame below and discuss how the results are different from summary().\n\nlibrary(skimr)       # install.packages(\"skimr\")\n# prices_dta_clean %>% \n#   _____()\n\n\n\nEx. 1.9 Plot a time-series of all four variables using ggplot2 package\nPlotting according to the grammar of graphics (gg) using package ggplot2 is a rewarding process. But, we need to follow some steps.\n\nWe need to make data clean and tidy.\n\nIdeally, data has to be in the long format, but wide data may also work\n\nSend data to ggplot() function to initiate a plot.\n\nNote, we use %>% (pipe) for this step: data %>% ggplot()\n\nStart adding (+) various aesthetics to the plot using aes() function:\n\nNote, inside the ggplot builder we use +, not a pipe! data %>% ggplot() + aes(x, y)\n\nAdd geometries using +\n\ndata %>% ggplot() + aes(x, y) + geom_line()\n\n\nLet us give it a try! Let us convert existing data to the plot basis and add an aesthetics for x axis:\n\nUse date as an aesthetics for x axis, wheat for y axis and a string \"wheat\" for color.\nDo not use quotation marks in aes for x and y.\nDo USE quotation marks in aes for colour.\n\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n\nR created a grid for a plot, but no plot. This is because, we did not add any geometries! Let us add a geom_path() to the plot.\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(aes(y = _______, colour = \"Maize\")) + \n#   geom_path(aes(y = _______, colour = \"_____\"))\n\nNow, we shall add another line to the plot with the Maize prices:\n\nwe need to add a line with a new geom_path(), and\nspecify aes() inside geom_path(),\nfor example geom_path(aes(y = maize, colour = \"Maize\")).\ndo not forget +.\n\nGo ahead:\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(_____(y = ______, colour = \"_____\"))\n\nAdd another line with `geom_path`, this time adding the oil prices to the plot.\n\n# prices_dta_clean %>% \n#   _________() + \n#   aes(____ = date, y = _____, color = \"_____\") \n#   _________() + \n#   geom_path(_____(y = ______, colour = \"_____\")) + \n#   geom_path(_____(y = ______, colour = \"_____\"))\n\n\n\nSolution to the exercise 2\n\nprices_dta_clean <- \n  read_excel(\"data/commodity-prices.xlsx\", sheet =  \"data\") %>% \n  clean_names() %>% \n  rename(wheat = soft_red_winter_wheat_no_2_f_o_b_us_gulf_usd_per_mt, \n        maize = yellow_maize_no_2_f_o_b_us_gulf_usd_per_mt, \n        date = day_month_year, \n        oil = crude_oil_brent_usd_per_barrel, \n        urea = urea_f_o_b_black_sea_usd_per_mt) %>%\n  slice(-1) %>% \n  mutate(\n    oil = as.numeric(oil),\n    wheat = as.numeric(wheat),\n    maize = as.numeric(maize),\n    urea = as.numeric(urea),\n    date = convert_to_date(date)\n  ) \n\nglimpse(prices_dta_clean)\n\nRows: 359\nColumns: 5\n$ date  <date> 1992-03-01, 1992-04-01, 1992-05-01, 1992-06-01, 1992-07-01, 199…\n$ oil   <dbl> 17.45, 18.63, 19.50, 20.83, 20.17, 19.62, 20.15, 20.08, 18.88, 1…\n$ wheat <dbl> 161.44, 153.07, 139.72, 140.36, 129.93, 118.80, 131.47, 137.42, …\n$ maize <dbl> 117.00, 108.52, 109.64, 110.90, 102.75, 96.96, 98.05, 95.11, 94.…\n$ urea  <dbl> 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 120.00, 116.88, …\n\nsummary(prices_dta_clean)\n\n      date                 oil             wheat           maize       \n Min.   :1992-03-01   Min.   : 10.41   Min.   : 85.3   Min.   : 75.27  \n 1st Qu.:1999-08-16   1st Qu.: 20.93   1st Qu.:137.3   1st Qu.:104.16  \n Median :2007-02-01   Median : 46.17   Median :175.4   Median :150.15  \n Mean   :2007-01-30   Mean   : 50.48   Mean   :185.3   Mean   :155.62  \n 3rd Qu.:2014-07-16   3rd Qu.: 71.81   3rd Qu.:220.3   3rd Qu.:176.88  \n Max.   :2022-01-01   Max.   :132.83   Max.   :419.6   Max.   :333.05  \n                                       NA's   :1                       \n      urea       \n Min.   : 62.75  \n 1st Qu.:103.94  \n Median :213.88  \n Mean   :221.94  \n 3rd Qu.:278.70  \n Max.   :900.50  \n                 \n\nskim(prices_dta_clean)\n\n\nData summary\n\n\nName\nprices_dta_clean\n\n\nNumber of rows\n359\n\n\nNumber of columns\n5\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nDate\n1\n\n\nnumeric\n4\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: Date\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nmedian\nn_unique\n\n\n\n\ndate\n0\n1\n1992-03-01\n2022-01-01\n2007-02-01\n359\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\noil\n0\n1\n50.48\n30.88\n10.41\n20.93\n46.17\n71.81\n132.83\n▇▃▃▂▁\n\n\nwheat\n1\n1\n185.35\n65.07\n85.30\n137.26\n175.45\n220.31\n419.61\n▇▇▃▂▁\n\n\nmaize\n0\n1\n155.62\n62.66\n75.27\n104.16\n150.15\n176.88\n333.05\n▇▆▂▂▁\n\n\nurea\n0\n1\n221.93\n137.63\n62.75\n103.94\n213.88\n278.70\n900.50\n▇▅▁▁▁\n\n\n\n\nprices_dta_clean %>% \n  ggplot() + \n  aes(x = date, y = wheat, colour = \"Wheat\") + \n  geom_path() + \n  geom_path(aes(y = maize, colour = \"Maize\")) + \n  geom_path(aes(y = urea, colour = \"Urea\"))\n\nWarning: Removed 1 row(s) containing missing values (geom_path).\n\n\n\n\n\nSame plot could be build build in a more simple way if we use long formatted data.\n\nprices_dta_clean_long <- \n  prices_dta_clean %>% \n  pivot_longer(cols = c(oil:urea))\n\nglimpse(prices_dta_clean_long)\n\nRows: 1,436\nColumns: 3\n$ date  <date> 1992-03-01, 1992-03-01, 1992-03-01, 1992-03-01, 1992-04-01, 199…\n$ name  <chr> \"oil\", \"wheat\", \"maize\", \"urea\", \"oil\", \"wheat\", \"maize\", \"urea\"…\n$ value <dbl> 17.45, 161.44, 117.00, 120.00, 18.63, 153.07, 108.52, 120.00, 19…\n\nprices_dta_clean_long %>% \n  ggplot() + \n  aes(x = date, y = value, colour = name) + \n  geom_path()\n\nWarning: Removed 1 row(s) containing missing values (geom_path)."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-2.-optional-import-from-a-.csv-coma-separated-file",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-2.-optional-import-from-a-.csv-coma-separated-file",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Exercise 2. OPTIONAL Import from a .csv: coma separated file",
+    "text": "Exercise 2. OPTIONAL Import from a .csv: coma separated file\nHere is the example NHIS 2009 data used in the [@Angrist2014]. To load such data in R, we can use readr package from tidyverse readr.\nOne may use a visual import tool for data available in R studio. But remember to save the R code for data import in the script. Data import code must be a part of your analysis.\nThe challenge is to specify the right path to the file that we want to import. For this exercise, this file is also saved in the folder ./data/NHIS2009.csv\n\n2.1 Simple CSV file: readr::read_csv(), dplyr::glimpse() , base::summary() , utils::View()\nIn the folder data there is a file chicken.csv. Load it into the object chick.\n\nlibrary(readr)\n# chick <- read_csv(____)\n\nNow inspect the data:\n\nuse glimpse(____);\nprint the data set;\nView() the data;\n\n\n#\n\nTry function summary(_____).\n\n# \n\nWhat is the difference between summary and previous two ways of data exploration?\n\n\n2.2 Large and complex CSV file\nLoading larger CSV files is not different from loading small files. Below, load the file NHIS2009.csv from the folder data and then glimpse at it:\n\n# \n\n\n\nSolutions\n\nchick <- read_csv(\"data/chicken.csv\")\n\nNew names:\nRows: 5 Columns: 5\n── Column specification\n──────────────────────────────────────────────────────── Delimiter: \",\" chr\n(3): chicken, sex, motto dbl (2): ...1, eggs_laid\nℹ Use `spec()` to retrieve the full column specification for this data. ℹ\nSpecify the column types or set `show_col_types = FALSE` to quiet this message.\n• `` -> `...1`\n\nglimpse(chick)\n\nRows: 5\nColumns: 5\n$ ...1      <dbl> 1, 2, 3, 4, 5\n$ chicken   <chr> \"Foghorn Leghorn\", \"Chicken Little\", \"Ginger\", \"Camilla the …\n$ sex       <chr> \"rooster\", \"hen\", \"hen\", \"hen\", \"rooster\"\n$ eggs_laid <dbl> 0, 3, 12, 7, 0\n$ motto     <chr> \"That's a joke, ah say, that's a joke, son.\", \"The sky is fa…\n\n# View(chick)\nsummary(chick)\n\n      ...1     chicken              sex              eggs_laid   \n Min.   :1   Length:5           Length:5           Min.   : 0.0  \n 1st Qu.:2   Class :character   Class :character   1st Qu.: 0.0  \n Median :3   Mode  :character   Mode  :character   Median : 3.0  \n Mean   :3                                         Mean   : 4.4  \n 3rd Qu.:4                                         3rd Qu.: 7.0  \n Max.   :5                                         Max.   :12.0  \n    motto          \n Length:5          \n Class :character  \n Mode  :character  \n                   \n                   \n                   \n\nnhis <- read_csv(\"data/NHIS2009.csv\")\n\nRows: 80634 Columns: 40\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\ndbl (38): year, inc1, inc2, inc3, inc4, inc5, inc6, inc7, inc8, serial, hhwe...\nlgl  (2): fml, marradult\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-3.-optional.-janitor-for-cleaning-data-in-r",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#exercise-3.-optional.-janitor-for-cleaning-data-in-r",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Exercise 3. OPTIONAL. janitor for cleaning data in R",
+    "text": "Exercise 3. OPTIONAL. janitor for cleaning data in R\nwe follow the data cleaning exercise form the janitor webpage. Data set is called dirty_data.xlsx and it is located in: ./data/dirty_data.xlsx or on the github.\n\nddta <- read_excel(\"./data/dirty_data.xlsx\")\n\nNew names:\n• `` -> `...2`\n• `` -> `...3`\n• `` -> `...5`\n• `` -> `...6`\n• `` -> `...7`\n• `` -> `...8`\n• `` -> `...9`\n• `` -> `...10`\n• `` -> `...11`\n\nglimpse(ddta)\n\nRows: 14\nColumns: 11\n$ `Data most recently refreshed on:` <chr> \"First Name\", \"Jason\", \"Jason\", \"Al…\n$ ...2                               <chr> \"Last Name\", \"Bourne\", \"Bourne\", \"K…\n$ ...3                               <chr> \"Employee Status\", \"Teacher\", \"Teac…\n$ `Dec-27 2020`                      <chr> \"Subject\", \"PE\", \"Drafting\", \"Music…\n$ ...5                               <chr> \"Hire Date\", \"39690\", \"43479\", \"371…\n$ ...6                               <chr> \"% Allocated\", \"0.75\", \"0.25\", \"1\",…\n$ ...7                               <chr> \"Full time?\", \"Yes\", \"Yes\", \"Yes\", …\n$ ...8                               <chr> \"do not edit! --->\", NA, NA, NA, NA…\n$ ...9                               <chr> \"Certification\", \"Physical ed\", \"Ph…\n$ ...10                              <chr> \"Certification\", \"Theater\", \"Theate…\n$ ...11                              <chr> \"Active?\", \"YES\", \"YES\", \"YES\", \"YE…\n\n\nAs you can see, this data is dirty. The problems are:\n\nVariables names are wrong, they are in fact in the first row of data.\nAll variables are in character type, when in fact some variables are in different format.\nThere are some columns that are empty.\nThere are some rows that are empty.\n\n\n3.1 Make all variables named as values in the first row.\nUse function row_to_names() and specify the parameter row_number to 1.\n\n# ddta %>% \n#   ____________(__________ = 1) %>% \n#   glimpse()\n\n\n\n3.2 Make all names nice\nCurrently, all names are (insert your code form previous step):\n\n# ddta %>% \n#   ____________(__________ = 1) %>% \n#   names()\n\nUse function clean_names(), to make names nice.\n\n# ddta %>%\n#   ____________(__________ = 1) %>%\n#   ____________() %>% \n#   glimpse()\n\n\n\n3.3 Make variable hire_data as date\nTo convert variable types to meaningful numeric variables, we need to use some more functions. Specifically, functions convert_to_date(). In addition, we need to use function mutate() to tell r to modify existing variable.\nHere is the example, where we use mutate to modify existing variable Sepal.Width with the same variable but as character string instead of a number.\n\niris %>% glimpse()\n\nRows: 150\nColumns: 5\n$ Sepal.Length <dbl> 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  <dbl> 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…\n$ Petal.Length <dbl> 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  <dbl> 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      <fct> setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\niris %>% \n  mutate(Sepal.Width = as.character(Sepal.Width)) %>% \n  glimpse()\n\nRows: 150\nColumns: 5\n$ Sepal.Length <dbl> 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  <chr> \"3.5\", \"3\", \"3.2\", \"3.1\", \"3.6\", \"3.9\", \"3.4\", \"3.4\", \"2.…\n$ Petal.Length <dbl> 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  <dbl> 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      <fct> setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\n\nUse the example from above to modify the variable hire_date with its values converted to date using function convert_to_date.\n\n#ddta %>%\n#   ____________(__________ = 1) %>%\n#   ____________() %>% \n#   mutate(_________ = ____________(hire_date)) %>% \n#  glimpse()\n\n\n\n3.4 Make variable percent_allocated as numeric\nSame as above, but now using function as.numeric().\n\n# ddta %>%\n#   ______________(__________ = 1) %>%\n#   ______________() %>%\n#   mutate(_________ = ____________(hire_date),\n#          percent_allocated = ________(___________)) %>%\n#   glimpse()\n\n\n\nSolutions\n\nddta <- read_excel(\"./data/dirty_data.xlsx\")\n\nNew names:\n• `` -> `...2`\n• `` -> `...3`\n• `` -> `...5`\n• `` -> `...6`\n• `` -> `...7`\n• `` -> `...8`\n• `` -> `...9`\n• `` -> `...10`\n• `` -> `...11`\n\nddta %>%\n  row_to_names(row_number = 1) %>%\n  clean_names() %>%\n  mutate(hire_date = as.numeric(hire_date),\n         percent_allocated = as.numeric(percent_allocated)) %>%\n  glimpse()\n\nWarning in row_to_names(., row_number = 1): Row 1 does not provide unique names.\nConsider running clean_names() after row_to_names().\n\n\nRows: 13\nColumns: 11\n$ first_name        <chr> \"Jason\", \"Jason\", \"Alicia\", \"Ada\", \"Desus\", \"Chien-S…\n$ last_name         <chr> \"Bourne\", \"Bourne\", \"Keys\", \"Lovelace\", \"Nice\", \"Wu\"…\n$ employee_status   <chr> \"Teacher\", \"Teacher\", \"Teacher\", \"Teacher\", \"Adminis…\n$ subject           <chr> \"PE\", \"Drafting\", \"Music\", NA, \"Dean\", \"Physics\", \"C…\n$ hire_date         <dbl> 39690, 43479, 37118, 38572, 42791, 11037, 11037, NA,…\n$ percent_allocated <dbl> 0.75, 0.25, 1.00, 1.00, 1.00, 0.50, 0.50, NA, 0.50, …\n$ full_time         <chr> \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", NA,…\n$ do_not_edit       <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA\n$ certification     <chr> \"Physical ed\", \"Physical ed\", \"Instr. music\", \"PENDI…\n$ certification_2   <chr> \"Theater\", \"Theater\", \"Vocal music\", \"Computers\", NA…\n$ active            <chr> \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", \"YES\", NA,…"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#functional-reference",
+    "href": "ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html#functional-reference",
+    "title": "AE03-01 Import, cleaning, summary plot",
+    "section": "Functional reference",
+    "text": "Functional reference\nIn this exercise, we shall practice the following:\nLoading data:\n\nreadr::read_csv() and readxl::excel_sheets() with readxl::read_excel();\n\nInspecting data:\n\ndplyr::glimpse(), utils::View(), utils::head(), base::names();\n\nData summary:\n\nbase::summary(); Renaming variables:\njanitor::clean_names(...), dplyr::rename();\n\nRemoving undesired observations/row by their number in the data with:\n\ndplyr::slice();\n\nMutating/modifying types of existing variables:\n\ndplyr::mutate()\n\nConverting excel dates to R-relevant <date> variable type:\n\njanitor::convert_to_date() and janitor::excel_numeric_to_date().\n\nSummary statistics with:\n\nskimr::skim().\n\nPlotting time series with:\n\nggplot2::ggplot(), ggplot2::aes(), ggplot2::geom_path()."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic-waste.html",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic-waste.html",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "",
+    "text": "This exercise is adopted from ata Science in a Box."
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic-waste.html#setup",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic-waste.html#setup",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "ae/ae03-data-wrangling/ae03-02-plastic-waste.html#data",
+    "href": "ae/ae03-data-wrangling/ae03-02-plastic-waste.html#data",
+    "title": "AE03-02 Exploring data on plstic waste",
+    "section": "Data",
+    "text": "Data\nThe data set for this assignment can be found as a csv file in the data folder of your repository. You can read it in using the following.\n\nplastic_waste <- read_csv(\"data/plastic-waste.csv\")\n\nThe variable descriptions are as follows:\n\ncode: 3 Letter country code\nentity: Country name\ncontinent: Continent name\nyear: Year\ngdp_per_cap: GDP per capita constant 2011 international $, rate\nplastic_waste_per_cap: Amount of plastic waste per capita in kg/day\nmismanaged_plastic_waste_per_cap: Amount of mismanaged plastic waste per capita in kg/day\nmismanaged_plastic_waste: Tonnes of mismanaged plastic waste\ncoastal_pop: Number of individuals living on/near coast\ntotal_pop: Total population according to Gapminder"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "mp223 Applied Econometric Methods for the Social Sciences (SoSe 2022)",
+    "section": "",
+    "text": "This is the website where most lectures, R application exercises and supplementary materials are developed for the course MP223 Applied Econometric Methods for the Social Sciences (SoSe 2022). it is not a substitute of course Ilias or course StudIP pages, but rather a convenient way of making the slides accessible, downloadable and nice."
   }
 ]

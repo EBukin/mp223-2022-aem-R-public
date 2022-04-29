@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.328">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-04-29">
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - AE03-02 Exploring data on plstic waste</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">AE03-02 Exploring data on plstic waste</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../">
+      <img src="../../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  </ul></li>
+  <li><a href="#exercises-1." id="toc-exercises-1." class="nav-link" data-scroll-target="#exercises-1.">Exercises 1.</a></li>
+  <li><a href="#exercises-2." id="toc-exercises-2." class="nav-link" data-scroll-target="#exercises-2.">Exercises 2.</a></li>
+  <li><a href="#exercises-3." id="toc-exercises-3." class="nav-link" data-scroll-target="#exercises-3.">Exercises 3.</a></li>
+  <li><a href="#exercises-4." id="toc-exercises-4." class="nav-link" data-scroll-target="#exercises-4.">Exercises 4.</a></li>
+  <li><a href="#exercises-5." id="toc-exercises-5." class="nav-link" data-scroll-target="#exercises-5.">Exercises 5.</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">AE03-02 Exploring data on plstic waste</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 29, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>This exercise is adopted from <a href="https://datasciencebox.org/exploring-data.html?q=import#visualising-data">Data Science in a Box</a>.</p>
+<section id="learning-goals" class="level1">
+<h1>Learning goals</h1>
+<ul>
+<li>Visualizing numerical and categorical data and interpreting visualizations</li>
+<li>Recreating visualizations</li>
+<li>Getting more practice using with R, RStudio, Git, and GitHub</li>
+</ul>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The data set for this assignment can be found as a csv file in the <code>data</code> folder of your repository. You can read it in using the following.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/plastic-waste.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The variable descriptions are as follows:</p>
+<ul>
+<li><code>code</code>: 3 Letter country code</li>
+<li><code>entity</code>: Country name</li>
+<li><code>continent</code>: Continent name</li>
+<li><code>year</code>: Year</li>
+<li><code>gdp_per_cap</code>: GDP per capita constant 2011 international $, rate</li>
+<li><code>plastic_waste_per_cap</code>: Amount of plastic waste per capita in kg/day</li>
+<li><code>mismanaged_plastic_waste_per_cap</code>: Amount of mismanaged plastic waste per capita in kg/day</li>
+<li><code>mismanaged_plastic_waste</code>: Tonnes of mismanaged plastic waste</li>
+<li><code>coastal_pop</code>: Number of individuals living on/near coast</li>
+<li><code>total_pop</code>: Total population according to Gapminder</li>
+</ul>
+</section>
+</section>
+<section id="exercises-1." class="level1">
+<h1>Exercises 1.</h1>
+<p>Glimpse at the data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 240
+Columns: 10
+$ code                             &lt;chr&gt; "AFG", "ALB", "DZA", "ASM", "AND", "A…
+$ entity                           &lt;chr&gt; "Afghanistan", "Albania", "Algeria", …
+$ continent                        &lt;chr&gt; "Asia", "Europe", "Africa", "Oceania"…
+$ year                             &lt;dbl&gt; 2010, 2010, 2010, 2010, 2010, 2010, 2…
+$ gdp_per_cap                      &lt;dbl&gt; 1614.255, 9927.182, 12870.603, NA, NA…
+$ plastic_waste_per_cap            &lt;dbl&gt; NA, 0.069, 0.144, NA, NA, 0.062, 0.25…
+$ mismanaged_plastic_waste_per_cap &lt;dbl&gt; NA, 0.032, 0.086, NA, NA, 0.045, 0.01…
+$ mismanaged_plastic_waste         &lt;dbl&gt; NA, 29705, 520555, NA, NA, 62528, 52,…
+$ coastal_pop                      &lt;dbl&gt; NA, 2530533, 16556580, NA, NA, 379004…
+$ total_pop                        &lt;dbl&gt; 31411743, 3204284, 35468208, 68420, 8…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  code  entity     continent  year gdp_per_cap plastic_waste_p… mismanaged_plas…
+  &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 AFG   Afghanist… Asia       2010       1614.           NA               NA    
+2 ALB   Albania    Europe     2010       9927.            0.069            0.032
+3 DZA   Algeria    Africa     2010      12871.            0.144            0.086
+4 ASM   American … Oceania    2010         NA            NA               NA    
+5 AND   Andorra    Europe     2010         NA            NA               NA    
+6 AGO   Angola     Africa     2010       5898.            0.062            0.045
+# … with 3 more variables: mismanaged_plastic_waste &lt;dbl&gt;, coastal_pop &lt;dbl&gt;,
+#   total_pop &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="exercises-2." class="level1">
+<h1>Exercises 2.</h1>
+<p>Compute summary statistics using <code>skimr::skim()</code> . Load the package first or even install it if needed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">Piped data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">240</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 19%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">code</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">233</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">entity</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">233</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">continent</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.0</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">17682.60</td>
+<td style="text-align: right;">19908.70</td>
+<td style="text-align: right;">660.21</td>
+<td style="text-align: right;">3816.04</td>
+<td style="text-align: right;">10436.37</td>
+<td style="text-align: right;">23107.79</td>
+<td style="text-align: right;">125140.8</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">3.6</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">171569.84</td>
+<td style="text-align: right;">726640.23</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2245.00</td>
+<td style="text-align: right;">16259.00</td>
+<td style="text-align: right;">80759.00</td>
+<td style="text-align: right;">8819717.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">10944246.95</td>
+<td style="text-align: right;">30930553.85</td>
+<td style="text-align: right;">596.00</td>
+<td style="text-align: right;">257904.00</td>
+<td style="text-align: right;">1986723.00</td>
+<td style="text-align: right;">7573074.00</td>
+<td style="text-align: right;">262892387.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">30936344.00</td>
+<td style="text-align: right;">124266269.69</td>
+<td style="text-align: right;">50.00</td>
+<td style="text-align: right;">532412.00</td>
+<td style="text-align: right;">5413332.50</td>
+<td style="text-align: right;">19703072.25</td>
+<td style="text-align: right;">1341335152.0</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Summary statistics by continent.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">Piped data</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">240</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">continent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: left;">continent</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">entity</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">entity</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">entity</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">entity</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">entity</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">entity</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: left;">continent</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2010.00</td>
+<td style="text-align: right;">2.010000e+03</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">5442.00</td>
+<td style="text-align: right;">7093.30</td>
+<td style="text-align: right;">660.21</td>
+<td style="text-align: right;">1406.43</td>
+<td style="text-align: right;">2365.68</td>
+<td style="text-align: right;">6170.47</td>
+<td style="text-align: right;">3.372337e+04</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">23227.78</td>
+<td style="text-align: right;">27752.65</td>
+<td style="text-align: right;">1614.26</td>
+<td style="text-align: right;">4407.30</td>
+<td style="text-align: right;">10973.97</td>
+<td style="text-align: right;">31249.36</td>
+<td style="text-align: right;">1.251408e+05</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">29171.33</td>
+<td style="text-align: right;">17957.04</td>
+<td style="text-align: right;">3910.86</td>
+<td style="text-align: right;">16564.70</td>
+<td style="text-align: right;">26198.77</td>
+<td style="text-align: right;">39630.60</td>
+<td style="text-align: right;">9.174329e+04</td>
+<td style="text-align: left;">▇▇▃▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.63</td>
+<td style="text-align: right;">18133.37</td>
+<td style="text-align: right;">14693.41</td>
+<td style="text-align: right;">1502.03</td>
+<td style="text-align: right;">7966.22</td>
+<td style="text-align: right;">12561.91</td>
+<td style="text-align: right;">23364.65</td>
+<td style="text-align: right;">5.639501e+04</td>
+<td style="text-align: left;">▇▃▂▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">9233.16</td>
+<td style="text-align: right;">12110.15</td>
+<td style="text-align: right;">1731.54</td>
+<td style="text-align: right;">3037.73</td>
+<td style="text-align: right;">4231.67</td>
+<td style="text-align: right;">7162.18</td>
+<td style="text-align: right;">4.146404e+04</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gdp_per_cap</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">12440.43</td>
+<td style="text-align: right;">4971.02</td>
+<td style="text-align: right;">5407.47</td>
+<td style="text-align: right;">8836.64</td>
+<td style="text-align: right;">12556.19</td>
+<td style="text-align: right;">16679.33</td>
+<td style="text-align: right;">1.944205e+04</td>
+<td style="text-align: left;">▇▇▁▇▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">3.600000e-01</td>
+<td style="text-align: left;">▇▅▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">6.900000e-01</td>
+<td style="text-align: left;">▇▅▂▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">4.800000e-01</td>
+<td style="text-align: left;">▇▇▇▁▂</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">3.600000e+00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">3.300000e-01</td>
+<td style="text-align: left;">▇▁▁▃▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plastic_waste_per_cap</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">5.900000e-01</td>
+<td style="text-align: left;">▇▃▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">1.700000e-01</td>
+<td style="text-align: left;">▇▇▆▂▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">3.000000e-01</td>
+<td style="text-align: left;">▇▃▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">6.000000e-02</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">1.900000e-01</td>
+<td style="text-align: left;">▇▃▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">2.400000e-01</td>
+<td style="text-align: left;">▆▇▁▂▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste_per_cap</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">2.200000e-01</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">123364.73</td>
+<td style="text-align: right;">227741.77</td>
+<td style="text-align: right;">96.00</td>
+<td style="text-align: right;">15996.25</td>
+<td style="text-align: right;">34961.50</td>
+<td style="text-align: right;">69788.75</td>
+<td style="text-align: right;">9.670120e+05</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">574429.02</td>
+<td style="text-align: right;">1482265.25</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5599.00</td>
+<td style="text-align: right;">33747.00</td>
+<td style="text-align: right;">480493.00</td>
+<td style="text-align: right;">8.819717e+06</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">31355.72</td>
+<td style="text-align: right;">82280.10</td>
+<td style="text-align: right;">62.00</td>
+<td style="text-align: right;">2502.50</td>
+<td style="text-align: right;">10997.00</td>
+<td style="text-align: right;">25006.75</td>
+<td style="text-align: right;">4.859370e+05</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">35790.18</td>
+<td style="text-align: right;">59840.20</td>
+<td style="text-align: right;">11.00</td>
+<td style="text-align: right;">294.00</td>
+<td style="text-align: right;">2865.50</td>
+<td style="text-align: right;">73833.75</td>
+<td style="text-align: right;">2.754240e+05</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">10569.95</td>
+<td style="text-align: right;">21106.05</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">426.25</td>
+<td style="text-align: right;">2165.50</td>
+<td style="text-align: right;">8620.50</td>
+<td style="text-align: right;">8.983500e+04</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mismanaged_plastic_waste</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">101595.67</td>
+<td style="text-align: right;">133049.24</td>
+<td style="text-align: right;">5.00</td>
+<td style="text-align: right;">17157.00</td>
+<td style="text-align: right;">67087.50</td>
+<td style="text-align: right;">121481.50</td>
+<td style="text-align: right;">4.714040e+05</td>
+<td style="text-align: left;">▇▃▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">4817735.85</td>
+<td style="text-align: right;">6335427.38</td>
+<td style="text-align: right;">6839.00</td>
+<td style="text-align: right;">858697.75</td>
+<td style="text-align: right;">1994069.00</td>
+<td style="text-align: right;">6782124.50</td>
+<td style="text-align: right;">2.747711e+07</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">30428085.05</td>
+<td style="text-align: right;">58277023.87</td>
+<td style="text-align: right;">596.00</td>
+<td style="text-align: right;">1124249.00</td>
+<td style="text-align: right;">6048920.00</td>
+<td style="text-align: right;">22890252.00</td>
+<td style="text-align: right;">2.628924e+08</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;">6892015.69</td>
+<td style="text-align: right;">10594720.27</td>
+<td style="text-align: right;">33483.00</td>
+<td style="text-align: right;">550160.00</td>
+<td style="text-align: right;">2729103.50</td>
+<td style="text-align: right;">8590222.00</td>
+<td style="text-align: right;">4.325889e+07</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5498696.42</td>
+<td style="text-align: right;">18491616.02</td>
+<td style="text-align: right;">5173.00</td>
+<td style="text-align: right;">66873.75</td>
+<td style="text-align: right;">251974.50</td>
+<td style="text-align: right;">3305490.75</td>
+<td style="text-align: right;">1.129250e+08</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">1231487.00</td>
+<td style="text-align: right;">3701294.94</td>
+<td style="text-align: right;">1379.00</td>
+<td style="text-align: right;">21562.00</td>
+<td style="text-align: right;">130575.50</td>
+<td style="text-align: right;">267439.50</td>
+<td style="text-align: right;">1.723595e+07</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coastal_pop</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">12003834.17</td>
+<td style="text-align: right;">20681096.17</td>
+<td style="text-align: right;">2602.00</td>
+<td style="text-align: right;">485492.00</td>
+<td style="text-align: right;">6010799.00</td>
+<td style="text-align: right;">14347930.25</td>
+<td style="text-align: right;">7.469677e+07</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">17624731.03</td>
+<td style="text-align: right;">26749851.97</td>
+<td style="text-align: right;">4118.00</td>
+<td style="text-align: right;">1798031.75</td>
+<td style="text-align: right;">9373146.50</td>
+<td style="text-align: right;">19703072.25</td>
+<td style="text-align: right;">1.584232e+08</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">83878532.55</td>
+<td style="text-align: right;">250240369.56</td>
+<td style="text-align: right;">596.00</td>
+<td style="text-align: right;">3659834.50</td>
+<td style="text-align: right;">14138255.00</td>
+<td style="text-align: right;">48073298.00</td>
+<td style="text-align: right;">1.341335e+09</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">16241523.63</td>
+<td style="text-align: right;">27387302.63</td>
+<td style="text-align: right;">29244.00</td>
+<td style="text-align: right;">1857545.00</td>
+<td style="text-align: right;">5413332.50</td>
+<td style="text-align: right;">10873886.00</td>
+<td style="text-align: right;">1.429582e+08</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: left;">North America</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">15933532.15</td>
+<td style="text-align: right;">55717986.49</td>
+<td style="text-align: right;">5934.00</td>
+<td style="text-align: right;">72995.25</td>
+<td style="text-align: right;">374345.50</td>
+<td style="text-align: right;">6091785.50</td>
+<td style="text-align: right;">3.103839e+08</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">1657649.68</td>
+<td style="text-align: right;">4893477.78</td>
+<td style="text-align: right;">50.00</td>
+<td style="text-align: right;">20334.00</td>
+<td style="text-align: right;">101802.00</td>
+<td style="text-align: right;">265790.50</td>
+<td style="text-align: right;">2.226838e+07</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">total_pop</td>
+<td style="text-align: left;">South America</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">30196303.54</td>
+<td style="text-align: right;">51854582.96</td>
+<td style="text-align: right;">231151.00</td>
+<td style="text-align: right;">3368786.00</td>
+<td style="text-align: right;">14464739.00</td>
+<td style="text-align: right;">29076512.00</td>
+<td style="text-align: right;">1.949465e+08</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="exercises-3." class="level1">
+<h1>Exercises 3.</h1>
+<p>Let’s start by taking a look at the distribution of plastic waste per capita in 2010.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> plastic_waste_per_cap) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing non-finite values (stat_bin).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-02-plastic-waste-solutions_files/figure-html/plastic_waste_per_cap-hist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>One country stands out as an unusual observation at the top of the distribution.</p>
+<p>One way of identifying this country is to filter the data for countries where plastic waste per capita is greater than 3.5 kg/person.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(plastic_waste_per_cap <span class="sc">&gt;</span> <span class="fl">3.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 10
+  code  entity     continent  year gdp_per_cap plastic_waste_p… mismanaged_plas…
+  &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 TTO   Trinidad … North Am…  2010      31261.              3.6             0.19
+# … with 3 more variables: mismanaged_plastic_waste &lt;dbl&gt;, coastal_pop &lt;dbl&gt;,
+#   total_pop &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Did you expect this result? You might consider doing some research on Trinidad and Tobago to see why plastic waste per capita is so high there, or whether this is a data error.</p>
+<p>Another way of visualizing numerical data is using density plots.</p>
+<p>Built a density plot below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> plastic_waste_per_cap) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-02-plastic-waste-solutions_files/figure-html/plastic_waste_per_cap-dens-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>And compare distributions across continents by colouring density curves by continent.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> plastic_waste_per_cap, <span class="at">color =</span> continent) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-02-plastic-waste-solutions_files/figure-html/plastic_waste_per_cap-dens-color-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Transform the variable of plastic waste per capita to observe more informative density plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plastic_waste_per_1000_pple =</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>           plastic_waste_per_cap <span class="sc">*</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> plastic_waste_per_1000_pple, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> continent) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Amount of plastic waste per 1000 people, kg / day"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing non-finite values (stat_density).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-02-plastic-waste-solutions_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercises-4." class="level1">
+<h1>Exercises 4.</h1>
+<p>Built a box plot of plastic sate by continent</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plastic_waste_per_100_pple =</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>           plastic_waste_per_cap <span class="sc">*</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">365</span> <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> plastic_waste_per_100_pple,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> continent, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> continent) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Amount of plastic waste per 100 people, MT / year"</span>, </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing non-finite values (stat_boxplot).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-02-plastic-waste-solutions_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercises-5." class="level1">
+<h1>Exercises 5.</h1>
+<p>Build a scatter plot of plastic waste per capital and GDP per capital.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plastic_waste <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plastic_waste_per_1000_pple =</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           plastic_waste_per_cap <span class="sc">*</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">365</span> <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> plastic_waste_per_1000_pple,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> gdp_per_cap, </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> continent,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> total_pop) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span> </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Amount of plastic waste per 100 people, MT / year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 91 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae03-02-plastic-waste-solutions_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
