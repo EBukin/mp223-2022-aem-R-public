@@ -34,14 +34,14 @@ knitr::opts_chunk$set(
 
 ## Data
 
-We use data from (Blackburn and Neumark, 1992) on wage determinants. Variables present are: 
+We use data from (Blackburn and Neumark, 1992) on wage determinants. Variables present are:
 
--  $wage$ - monthly earnings in USD;
--  $educ$ - years of education;
--  $exper$ - years of experiences;
--  $black$ - dummy variable representing individuals which are not Caucasian;
+-   $wage$ - monthly earnings in USD;
+-   $educ$ - years of education;
+-   $exper$ - years of experiences;
+-   $black$ - dummy variable representing individuals which are not Caucasian;
 
-See:  Blackburn, M. and Neumark, D. (1992) Unobserved Ability, Efficiency Wages, and Interindustry Wage Differentials. The Quarterly Journal of Economics , Vol. 107, No. 4. Oxford University Press (OUP). p. 1421-1436
+See: Blackburn, M. and Neumark, D. (1992) Unobserved Ability, Efficiency Wages, and Interindustry Wage Differentials. The Quarterly Journal of Economics , Vol. 107, No. 4. Oxford University Press (OUP). p. 1421-1436
 
 ```{r}
 wage_dta <- 
@@ -65,7 +65,6 @@ Compute a new variables `caucasian` that takes values "yes" and "no" for each pe
 #          caucasian = as.factor(caucasian))
 # glimpse(_____)
 ```
-
 
 ## Ex. 2. Descriptive statistics
 
@@ -93,7 +92,7 @@ What is the difference compare to the previous plot?
 # ggpairs(_________, _________)
 ```
 
-## Ex. 4. Fit regressions 
+## Ex. 4. Fit regressions
 
 Dependent variable is `wage`, independent are: `educ`, `exper` and `black`
 
@@ -108,7 +107,6 @@ Dependent variable is `wage`, independent are: `educ`, `exper` and `black`
 # fit1
 ```
 
- 
 ## Ex. 6. Make a summary of regression results
 
 ```{r}
@@ -157,8 +155,7 @@ Use function `plot()`. Put fitted as an `x` argument and residuals as `y`.
 # plot(x = _____, ___ = ________)
 ```
 
-
-## Ex. 12. Make a plot of residuals vs fitted using  `check_model` from `performance` package
+## Ex. 12. Make a plot of residuals vs fitted using `check_model` from `performance` package
 
 See: `?performance`
 
@@ -166,8 +163,8 @@ See: `?performance`
 # check_model(fit1, check = "linearity")
 ```
 
-
 ## Solutions
+
 ```{r}
 #| code-fold: true
 library(tidyverse)
@@ -214,4 +211,3 @@ plot(x = fitted_vector, y = resid_vector)
 
 check_model(fit1, check = "linearity")
 ```
-

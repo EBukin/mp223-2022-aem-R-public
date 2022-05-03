@@ -1,0 +1,40 @@
+---
+title: "AE04-02 Multiple Linear Regression: linearity"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+---
+
+# Setup
+
+```{r}
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+```
+
+## Goals
+
+-   Perform a linear regression analysis;
+-   Learn how to test linearity assumption;
+-   Practice linear transformation;
+-   Exerciser coefficients interpretation with linear transformation;
+
+## Data
+
+Load data below.
+
+Data is in the file `data/homeprices.csv`
+
+```{r}
+
+```
