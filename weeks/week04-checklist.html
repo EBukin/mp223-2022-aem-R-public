@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.345">
+<meta name="generator" content="quarto-0.9.348">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -15,6 +15,25 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -23,6 +42,7 @@ ul.task-list{list-style: none;}
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../weeks/week03-checklist.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -131,6 +151,11 @@ ul.task-list{list-style: none;}
   <a href="../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../weeks/week04-checklist.html" class="sidebar-item-text sidebar-link active">Week 4</a>
+  </div>
+</li>
     </ul>
   </li>
     </ul>
@@ -146,12 +171,9 @@ ul.task-list{list-style: none;}
   <ul class="collapse">
   <li><a href="#w04-00-simple-regression-analysis" id="toc-w04-00-simple-regression-analysis" class="nav-link" data-scroll-target="#w04-00-simple-regression-analysis">W04-00 Simple regression analysis</a></li>
   <li><a href="#w04-01-multiple-regression" id="toc-w04-01-multiple-regression" class="nav-link" data-scroll-target="#w04-01-multiple-regression">W04-01 Multiple Regression</a></li>
-  <li><a href="#w03-02-exploring-numerical-data" id="toc-w03-02-exploring-numerical-data" class="nav-link" data-scroll-target="#w03-02-exploring-numerical-data">W03-02 Exploring numerical data</a></li>
-  <li><a href="#w03-03-correlation" id="toc-w03-03-correlation" class="nav-link" data-scroll-target="#w03-03-correlation">🖥 W03-03 Correlation</a></li>
-  <li><a href="#w03ae---application-exercise" id="toc-w03ae---application-exercise" class="nav-link" data-scroll-target="#w03ae---application-exercise">📋 W03AE - application exercise:</a></li>
-  <li><a href="#self-study-exploring-categorical-data" id="toc-self-study-exploring-categorical-data" class="nav-link" data-scroll-target="#self-study-exploring-categorical-data">🖥 <strong><code>SELF STUDY</code></strong> Exploring categorical data</a></li>
-  <li><a href="#self-study-wrangle-with-dplyr" id="toc-self-study-wrangle-with-dplyr" class="nav-link" data-scroll-target="#self-study-wrangle-with-dplyr">🖥 <strong><code>SELF STUDY</code></strong> Wrangle with <code>dplyr</code></a></li>
-  <li><a href="#self-study-data-visualization-with-ggplot2" id="toc-self-study-data-visualization-with-ggplot2" class="nav-link" data-scroll-target="#self-study-data-visualization-with-ggplot2">🖥 <strong><code>SELF STUDY</code></strong> Data visualization with <code>ggplot2</code></a></li>
+  <li><a href="#w04-02-linearity" id="toc-w04-02-linearity" class="nav-link" data-scroll-target="#w04-02-linearity">W04-02 Linearity</a></li>
+  <li><a href="#w04-03-hedonic-prices-model" id="toc-w04-03-hedonic-prices-model" class="nav-link" data-scroll-target="#w04-03-hedonic-prices-model">W04-03 Hedonic prices model</a></li>
+  <li><a href="#w04-02-omitted-variable-bias" id="toc-w04-02-omitted-variable-bias" class="nav-link" data-scroll-target="#w04-02-omitted-variable-bias">W04-02 Omitted variable bias</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/weeks/week04-checklist.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -193,9 +215,11 @@ ul.task-list{list-style: none;}
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>SLIDES:</strong> 🖥W04-00 Simple regression</li>
-<li><strong>Application Exercise:</strong> 📋<code>ae04-01-simple-regression-from-slides.R</code></li>
-<li></li>
+<li><strong>SLIDES:</strong> 🖥<a href="../slides/10-simple-regression/10-simple-regression.html">W04-00 Simple regression</a></li>
+<li><strong>Application Exercise:</strong> 📋<code>ae04-00-simple-regression-from-slides-HW.R</code>
+<ul>
+<li>Perform all the R analysis from slides in an R script.</li>
+</ul></li>
 </ul>
 </div>
 </div>
@@ -206,7 +230,7 @@ ul.task-list{list-style: none;}
 </ul></li>
 <li><strong>Recommended.</strong> Read:
 <ul>
-<li>📖 Introduction to Modern Statistics. <a href="https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html">Ch. 7 Linear Regression with a single predictor</a></li>
+<li>📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-slr.html#model-slr">Ch. 7 Linear Regression with a single predictor</a></li>
 </ul></li>
 </ul>
 </section>
@@ -223,252 +247,129 @@ In class
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>SLIDES:</strong> 🖥W04-01 Multiple Regression + Linearity assumption</li>
-<li><strong>Application Exercise:</strong> 📋<code>ae04-02-MLR-hedonic-prices.Rmd</code></li>
+<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/multiple-regression.html">W04-01 Multiple Regression</a></li>
+<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-01-MLR.html">ae04-01-MLR.Rmd</a></li>
 </ul>
 </div>
 </div>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-<code>SELF STUDY</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>Application Exercise:</strong> 📋<code>ae04-03-housing-prices.Rmd</code></li>
-</ul>
-</div>
-</div>
-<ul>
-<li><strong>Recommended.</strong> Watch:
-<ul>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25">Data types <a href="https://www.youtube.com/watch?v=WsxLbtWbEfc&amp;ab_channel=Mine%C3%87etinkaya-Rundel">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1">slides</a></li>
-</ul></li>
-<li><strong>Recommended</strong>. Read:
-<ul>
-<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/data-import.html#data-import">R4DS Ch. 11 Data import</a></li>
-</ul></li>
-<li><strong>Optional</strong>. Read:
-<ul>
-<li><strong>CHEATSHEET:</strong> <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf">Data import with the tidyverse</a></li>
-<li><a href="https://readxl.tidyverse.org/">tidyverse/readxl</a> + <a href="https://readr.tidyverse.org/reference/readr_example.html">tidyverse/readr</a> + <a href="https://sfirke.github.io/janitor/">janitor</a></li>
-</ul></li>
-<li><strong>Optional.</strong> Watch:
-<ul>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"><a href="https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data">Importing and recoding data</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25">Data classes <a href="https://youtu.be/dozvSVQcqqg">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1">slides</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25">Importing data <a href="https://youtu.be/tIMaRYiuEFA">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1">slides</a></li>
-<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/">What’s new with readxl?</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="w03-02-exploring-numerical-data" class="level2">
-<h2 class="anchored" data-anchor-id="w03-02-exploring-numerical-data">W03-02 Exploring numerical data</h2>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-<code>SELF STUDY</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>SLIDES:</strong> 🖥<a href="../slides/20-data-description/exploring-numeric-data.html">W03-02 Exploring numerical data</a></li>
-<li><strong>Application Exercise:</strong> 📋 <a href="../ae/ae03-data-wrangling/ae03-02-plastic-waste.html"><code>AE03-02 Exploring data on plstic waste</code></a> + Solution to the ae03-02: <a href="../ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html"><code>ae03-02-plastic-waste-solutions.rmd</code></a></li>
-</ul>
-</div>
-</div>
-<ul>
-<li><strong>Recommended.</strong> <u>Practice</u><strong>:</strong>
-<ul>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.3">Derive Information with dplyr</a></li>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-02/">Visualizing numerical data</a> (takes time to load)</li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/1.1">Data Visualization Basics</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.3">Histograms</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.4">Boxplots and Counts</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.5">Scatterplots</a></li>
-</ul></li>
-<li><strong>Optional.</strong> Read:
-<ul>
-<li><img src="https://openintro-ims.netlify.app/images/IMS1_front_cover.png" width="25" height="31"> <a href="https://openintro-ims.netlify.app/explore-numerical.html">IMS: Chapter 5 Exploring numerical data</a></li>
-</ul></li>
-<li><strong>Optional</strong>. Watch + Practice:
-<ul>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Data and visualisation <a href="https://youtu.be/FddF4b_GuTI">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1">slides</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising data with ggplot2 <a href="https://youtu.be/s2NF2J36ljE">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1">slides</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising numerical data <a href="https://youtu.be/waBabVTI8ec">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1">slides</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="w03-03-correlation" class="level2">
-<h2 class="anchored" data-anchor-id="w03-03-correlation">🖥 W03-03 Correlation</h2>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-In class
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>SLIDES:</strong> 🖥<a href="slides/20-data-description/correlation.html">W03-04 correlation correlation</a></li>
-</ul>
-</div>
-</div>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-<code>SELF STUDY</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae03-data-wrangling/ae03-03-correlation.html"><code>ae03-03-correlation.Rmd</code></a></li>
-</ul>
-</div>
-</div>
-<ul>
-<li><strong>Recommended.</strong> <u>Practice</u><strong>:</strong>
-<ul>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.1">Exploratory data analysis</a></li>
-</ul></li>
-<li><strong>Recommended</strong>. Read:
-<ul>
-<li><a href="https://easystats.github.io/effectsize/articles/interpret.html">Interpretation of the strength of correlation</a></li>
-</ul></li>
-<li><strong>Optional</strong>. Read:
-<ul>
-<li><a href="https://easystats.github.io/correlation/">easystats/correlation</a></li>
-<li><a href="https://easystats.github.io/correlation/articles/types.html">Correlation types</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="w03ae---application-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="w03ae---application-exercise">📋 W03AE - application exercise:</h2>
-<p>Download project from 📋 <a href=""><code>ae03-data-wrangling.zip</code></a> or the same on Ilias: 📋 <a href=""><code>ae03-data-wrangling.zip</code> on Ilias</a>.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-In class
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Application Exercise: 📋<a href="../ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html"><code>ae03-01-import-clean-sum-plot.Rmd</code></a></li>
-</ul>
-</div>
-</div>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-<code>SELF STUDY</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>Application Exercise:</strong> 📋 <a href="../ae/ae03-data-wrangling/ae03-02-correlation.html"><code>ae03-02-correlation.Rmd</code></a></li>
-<li><strong>Application Exercise:</strong> 📋 <a href="../ae/ae03-data-wrangling/ae03-02-plastic-waste.html"><code>ae03-02-plastic-waste.rmd</code></a></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="self-study-exploring-categorical-data" class="level2">
-<h2 class="anchored" data-anchor-id="self-study-exploring-categorical-data">🖥 <strong><code>SELF STUDY</code></strong> Exploring categorical data</h2>
 <ul>
 <li><strong>Recommended.</strong> Practice:
 <ul>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-01/">Visualizing categorical data</a> (takes time to load)</li>
+<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html">Multiple Regression</a></li>
 </ul></li>
-<li><strong>Recommended</strong>. Watch + Practice:
+<li><strong>Recommended</strong>. Read:
 <ul>
-<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/">Tidyverse visualization manipulation basics</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising categorical data <a href="https://youtu.be/21h3rEO8k2E">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1">slides</a></li>
+<li><img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> Chapter 2. Regression in <span class="citation" data-cites="Angrist2014">(<a href="#ref-Angrist2014" role="doc-biblioref">Angrist and Pischke 2014</a>)</span></li>
 </ul></li>
 <li><strong>Optional.</strong> Read:
 <ul>
-<li><img src="https://openintro-ims.netlify.app/images/IMS1_front_cover.png" width="25" height="31"> <a href="https://openintro-ims.netlify.app/explore-categorical.html#explore-categorical">IMS: Chapter 4 Exploring categorical data</a></li>
+<li>📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-mlr.html#model-mlr">Ch. 8 Linear regression with multiple predictors</a></li>
 </ul></li>
 </ul>
 </section>
-<section id="self-study-wrangle-with-dplyr" class="level2">
-<h2 class="anchored" data-anchor-id="self-study-wrangle-with-dplyr">🖥 <strong><code>SELF STUDY</code></strong> Wrangle with <code>dplyr</code></h2>
-<p>We use <code>dplyr</code> every day in any exercise. Thus, there is no point to dedicate specific time to it. Use this list of materials to guide your learning process. Most of the core functions of <code>dplyr</code> are covered in data other parts of the course.</p>
-<p>Materials listed here may repeat the ones listed before.</p>
+<section id="w04-02-linearity" class="level2">
+<h2 class="anchored" data-anchor-id="w04-02-linearity">W04-02 Linearity</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p><strong>Recommended.</strong> Read<strong>:</strong></p>
-<ul>
-<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/transform.html#transform">R4DS Chapter 5 Data transformation</a></li>
-<li><strong>CHEATSHEET:</strong> <a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">Data transformation with dplyr</a></li>
-<li><a href="https://dplyr.tidyverse.org/">tidyverse/dplyr</a></li>
-</ul></li>
-<li><p><strong>Recommended.</strong> <u>Practice</u><strong>:</strong></p>
-<ul>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.1">Working with Tibbles</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.2">Isolating Data with dplyr</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/2.3">Derive Information with dplyr</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://learnr-examples.shinyapps.io/ex-data-filter/">Filter observations</a></li>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-03/">Summarizing data</a> (takes time to load)</li>
-<li>Interactive tutorial based on R4DS Ch. 5.6 <a href="https://learnr-examples.shinyapps.io/ex-data-summarise/">Summarizing data</a></li>
-</ul></li>
+<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/linearity.html">W04-02 Linearity</a></li>
+<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html">ae04-02-MLR-linearity.Rmd</a></li>
 </ul>
+</div>
+</div>
 </section>
-<section id="self-study-data-visualization-with-ggplot2" class="level2">
-<h2 class="anchored" data-anchor-id="self-study-data-visualization-with-ggplot2">🖥 <strong><code>SELF STUDY</code></strong> Data visualization with <code>ggplot2</code></h2>
-<p>There are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the <code>ggplot2</code> package is scheduled for self learning.</p>
+<section id="w04-03-hedonic-prices-model" class="level2">
+<h2 class="anchored" data-anchor-id="w04-03-hedonic-prices-model">W04-03 Hedonic prices model</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><strong>Recommended.</strong> Read:
+<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/hedonic-regression.html">W04-03 Hedonic Prices Model</a></li>
+</ul>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>SELF STUDY</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="25" height="38"> <a href="https://r4ds.had.co.nz/data-visualisation.html#data-visualisation">R4DS Chapter 3 Data visualisation</a></li>
-<li>CHEATSHEET: <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf">Data visualization with ggplot2 cheatsheet</a></li>
-</ul></li>
-<li><strong>Recommended.</strong> <u>Practice</u><strong>:</strong>
+<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html">ae04-03-hedonic-land-prices-HW.Rmd</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="w04-02-omitted-variable-bias" class="level2">
+<h2 class="anchored" data-anchor-id="w04-02-omitted-variable-bias">W04-02 Omitted variable bias</h2>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+In class
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/1.1">Data Visualization Basics</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.1">Exploratory data analysis</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.2">Bar Charts</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.3">Histograms</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.4">Boxplots and Counts</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.5">Scatterplots</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.7">Overplotting</a></li>
-<li><img src="../slides/50-data-wrangling/img/RStudiocloud.svg" width="77" height="16"> Primers: <a href="https://rstudio.cloud/learn/primers/3.8">Customize plots</a></li>
-</ul></li>
-<li><strong>Optional.</strong> Practice:
+<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/ovb.html">W04-02 Omitted variable bias</a></li>
+</ul>
+</div>
+</div>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+<code>SELF STUDY</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-01/">Visualizing categorical data</a> (takes time to load)</li>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Interactive. <a href="https://openintro.shinyapps.io/ims-02-explore-02/">Visualizing numerical data</a> (takes time to load)</li>
-</ul></li>
-<li><strong>Optional</strong>. Watch + Practice:
+<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-04-ability-premium-HW.html">ae04-04-ability-premium-HW.Rmd</a></li>
+<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-05-slides-ovb-HW.html">ae04-05-slides-ovb-HW.Rmd</a></li>
+</ul>
+</div>
+</div>
 <ul>
-<li><img src="https://www.rstudio.com/assets/img/logo.svg" width="50" height="16"> webinar: <a href="https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/">Tidyverse visualization manipulation basics</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Data and visualisation <a href="https://youtu.be/FddF4b_GuTI">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1">slides</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising data with ggplot2 <a href="https://youtu.be/s2NF2J36ljE">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1">slides</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising numerical data <a href="https://youtu.be/waBabVTI8ec">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1">slides</a></li>
-<li><img src="https://datasciencebox.org/dsbox.png" class="img-fluid" width="25"> Visualising categorical data <a href="https://youtu.be/21h3rEO8k2E">video</a> + <a href="https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1">slides</a></li>
+<li><p><strong>Recommended.</strong> Watch:</p>
+<ul>
+<li><img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> <img src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" class="img-fluid" width="20"> <a href="https://youtu.be/OwNxEaOF8yY">Regression Part I: Call in the CIA</a></li>
+<li><img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> <img src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" class="img-fluid" width="20"> <a href="https://youtu.be/KKJ-2_UUhnc">Regression Part II: Theory</a></li>
 </ul></li>
 </ul>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Angrist2014" class="csl-entry" role="doc-biblioentry">
+Angrist, Joshua D., and Jörn-Steffen Pischke. 2014. <em>Mastering’metrics: The Path from Cause to Effect</em>. Princeton University Press.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const disableStylesheet = (stylesheets) => {
@@ -645,6 +546,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../weeks/week03-checklist.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 3</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

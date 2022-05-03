@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.345">
+  <meta name="generator" content="quarto-0.9.348">
 
   <meta name="author" content="Eduard Bukin">
   <title>mp223 Applied Econometric Methods for the Socials Sciences - Multiple Lnear Regression</title>
@@ -406,8 +406,8 @@
 <span id="cb1-12"><a href="#cb1-12"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
 <span id="cb1-13"><a href="#cb1-13"></a></span>
 <span id="cb1-14"><a href="#cb1-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">8</span>,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
 <span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
 <span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
 <span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
@@ -470,25 +470,214 @@
 </div>
 </section>
 
-<section id="plan" class="title-slide slide level1 center">
-<h1>Plan</h1>
-<p>Regression example interpretation</p>
+<section>
+<section id="multiple-linear-regression" class="title-slide slide level1 center">
+<h1>Multiple Linear Regression</h1>
+
+</section>
+<section id="overview" class="slide level2">
+<h2>Overview</h2>
+<div>
+<p><span class="math display">\[y = \hat {\beta}_{0} + \hat {\beta}_{1}x_1 + \hat {\beta}_{2}x_2 + \hat {\beta}_{3}x_3 + \cdots + \hat {\beta}_{k}x_k + \hat u\]</span></p>
 <ul>
-<li>Practical</li>
+<li class="fragment"><p><span class="math inline">\(\hat u\)</span> - Error term, or disturbance containing factors other than <span class="math inline">\(x_1, x_2, \cdots, x_k\)</span> that affect <span class="math inline">\(y\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(\hat {\beta}_{0}\)</span> - intercept (constant term);</p></li>
+<li class="fragment"><p><span class="math inline">\(\hat {\beta}_{1}\)</span>, <span class="math inline">\(\hat {\beta}_{2}\)</span>, <span class="math inline">\(\hat {\beta}_{k}\)</span> - coefficients / parameters associated with <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, … <span class="math inline">\(x_k\)</span>;</p></li>
+<li class="fragment"><p><span class="math inline">\(k\)</span> - entire set of independent variables;</p></li>
 </ul>
-<p>Bias and Efficiency</p>
+</div>
+</section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<div>
 <ul>
-<li><p>Linearity</p></li>
-<li><p>Linear transformation</p></li>
-<li><p>Practical on hedonic prices.</p></li>
+<li class="fragment"><p>To incorporate more explanatory factors into a model;</p></li>
+<li class="fragment"><p>Explicitly hold fixed (some) other factors;</p></li>
+<li class="fragment"><p>Allow for more flexible functional forms;</p></li>
 </ul>
-<p>HW practical on housing prices.</p>
+</div>
+</section>
+<section id="interpretation" class="slide level2 smaller">
+<h2>Interpretation</h2>
+<ul>
+<li>The multiple linear regression shows the effect of each variable, holding other explanatory variables fixed;</li>
+</ul>
+<div class="fragment">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-2_d2cf98baba61507cb89c885f94d91309">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-2-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>We assume that all unobserved factors do not change if the explanatory variables are changed.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="examples-of-the-multiple-regression" class="slide level2">
+<h2>Examples of the multiple regression</h2>
+<h3 id="wage-equation">1. Wage equation</h3>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-3-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="average-test-scores-and-per-student-spending">2. Average test scores and per student spending</h3>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 class="smaller" id="family-income-and-family-consumption">3. Family income and family consumption</h3>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-5_28a61d488e2570a0ceb44fe8a7ec369f">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%"></p>
+</div>
+</div>
+<div>
+<ul>
+<li class="fragment">two explanatory variables;</li>
+<li class="fragment">consumption is explained as a quadratic function of income;</li>
+<li class="fragment">great care when when interpreting the coefficients;</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-6_355adcb99fee65f90218915d947e5641">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="ceo-salary-sales-and-ceo-tenure">4. CEO salary, sales and CEO tenure</h3>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%" class="r-stretch"><div>
+<ul>
+<li class="fragment"><p>Model assumes a constant elasticity relationship between CEO salary and the sales of his or her firm.</p></li>
+<li class="fragment"><p>Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.</p></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="application-exercise" class="title-slide slide level1 center">
+<h1>Application Exercise</h1>
+
+</section>
+<section id="multiple-regression-with-a-dummy-variable" class="slide level2">
+<h2>Multiple regression with a dummy variable</h2>
+</section></section>
+<section>
+<section id="bias-and-efficiency" class="title-slide slide level1 center">
+<h1>Bias and Efficiency</h1>
+
+</section>
+<section id="sampling-from-the-population" class="slide level2">
+<h2>Sampling from the population</h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%" class="r-stretch"><div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-9_ea7bbbbcf84a9e7749cb37ad9affbae7">
+
+</div>
+</section>
+<section id="unbiased-and-efficient" class="slide level2">
+<h2>Unbiased and efficient</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">One sample</a></li><li><a href="#tabset-1-2">Two samples</a></li><li><a href="#tabset-1-3">Ten samples</a></li><li><a href="#tabset-1-4">500 samples</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-10_6f65aa6103fb5b805cda32c0868c8fbe">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-11_fd5fb6370a77aa4ce7634312f7d7f71a">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-12_c003b157b7ec04ae436c921c239ef541">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-4">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-13_bafc99e24cfadc548fd5c3e06e2fab82">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="unbiased-but-inefficient" class="slide level2">
+<h2>Unbiased but <strong>inefficient</strong></h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-14-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="biased-but-efficient" class="slide level2">
+<h2><strong>Biased</strong> but efficient</h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="biased-and-inefficient" class="slide level2">
+<h2><strong>Biased</strong> and <strong>inefficient</strong></h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-16-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="all-four-cases" class="slide level2">
+<h2>All four cases</h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="assumptions-what-why-blue" class="slide level2 smaller">
+<h2>Assumptions… What? Why? BLUE?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ol type="1">
+<li class="fragment">Linearity</li>
+<li class="fragment">Error Terms with Mean Zero and Random Sampling</li>
+<li class="fragment">No Perfect Collinearity</li>
+<li class="fragment">Zero Conditional Mean (No Endogeneity)</li>
+<li class="fragment">Error Terms Homoscedasticity (No Autocorrelation)</li>
+<li class="fragment">Error Terms Normality</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<ol type="1">
+<li class="fragment"><p>OLS is <strong>unbiased</strong> (Gauss-Markov Theorem)</p>
+<ul>
+<li class="fragment">When assumptions 1 to 4 are satisfied</li>
+</ul></li>
+<li class="fragment"><p>OLS is BLUE (Gauss-Markov Theorem). AKA (<strong>Best</strong> Linear <strong>Unbiased</strong> Estimator or <strong>unbiased and efficient</strong>)</p>
+<ul>
+<li class="fragment">When assumptions 1to 4 + 5 are satisfied</li>
+</ul></li>
+<li class="fragment"><p>OLS is a Classical linear model (CLM)</p>
+<ul>
+<li class="fragment"><p>When assumptions 1 to 5 + 6 are satisfied</p></li>
+<li class="fragment"><p>the OLS has a stronger efficiency property</p></li>
+<li class="fragment"><p>the OLS estimators are the minimum-variance unbiased estimators.</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
 
 
 <img src="../../img/jlu-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

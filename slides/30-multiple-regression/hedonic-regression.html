@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.345">
+  <meta name="generator" content="quarto-0.9.348">
 
   <meta name="author" content="Eduard Bukin">
   <title>mp223 Applied Econometric Methods for the Socials Sciences - Hedonic model</title>
@@ -425,7 +425,7 @@
 <span id="cb1-12"><a href="#cb1-12"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
 <span id="cb1-13"><a href="#cb1-13"></a></span>
 <span id="cb1-14"><a href="#cb1-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">8</span>,</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">10</span>,</span>
 <span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.5</span>,</span>
 <span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
 <span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
@@ -494,7 +494,12 @@
 <h1>Problem Setting</h1>
 <p>We would like to assess the effect of the “Conservation Reserve Program” (CPR) on the agricultural land prices in Minnesota in 2002-2011.</p>
 <div class="fragment">
-<p>Conservation Reserve Program is a subsidy that obligates a farm NOT TO GROW ANY CROPS on the enrolled land in exchange for a fixed monetary compensation;</p>
+<p>Conservation Reserve Program</p>
+<ul>
+<li><p>is a subsidy</p></li>
+<li><p>obligates farms NOT TO GROW ANY CROPS on the enrolled land</p></li>
+<li><p>pays monetary compensation in exchange;</p></li>
+</ul>
 </div>
 <div class="fragment">
 <p>As this is a risk less income, it may increase the land price.</p>
@@ -505,12 +510,11 @@
 </section>
 <section id="hedonic-model-overview" class="slide level2">
 <h2>Hedonic Model overview</h2>
-<p>Hedonic prices is an econometric approach of quantifying monetary values of various differentiated characteristics that a subject of economic exchange.</p>
+<p>Hedonic prices is an econometric approach of quantifying monetary values of differentiated characteristics of goods and services, which are subjects of economic exchange.</p>
 <div class="fragment">
 <p>For example, agricultural land.</p>
 <ul>
-<li><p>It has such characteristics as: location, slope, environmental limitation, farmers’ accessibility, climate, rainfall, soil salinity, nutrient content, irrigation availability and other.</p></li>
-<li><p>Some could be affected by landowner, some cannot, but all of it contribute to the final value of land.</p></li>
+<li>It has such characteristics as: location, slope, environmental limitation, farmers’ accessibility, climate, expected rainfall, soil salinity, nutrient content, irrigation availability and other.</li>
 </ul>
 </div>
 </section>
@@ -526,6 +530,7 @@
 <p><span class="math inline">\(\tilde{z}\)</span> - land characteristics in control of land owner;</p>
 <p><span class="math inline">\(r\)</span> - inputs prices;</p>
 <p><span class="math inline">\(\beta\)</span> - technologies and opportunities such as credit availability;</p>
+<p><span class="math inline">\(\pi^{S^{'}}\)</span> - expected profit of agricultural producers from land;</p>
 </div>
 </section>
 <section id="hedonic-theory-22" class="slide level2">
@@ -548,8 +553,8 @@
 </div>
 </div>
 </section>
-<section id="what-are-those-differentiated-land-characteristics" class="slide level2 smaller">
-<h2>What are those differentiated land characteristics?</h2>
+<section id="what-are-the-differentiated-land-characteristics" class="slide level2 smaller">
+<h2>What are the differentiated land characteristics?</h2>
 <h3 id="affected-by-land-owner">Affected by land owner:</h3>
 <ul>
 <li>a.</li>
@@ -566,20 +571,22 @@
 <section>
 <section id="data" class="title-slide slide level1 smaller center">
 <h1>Data</h1>
-<p>Data comes from <span class="citation" data-cites="taff2007compensated">(<a href="#/ref-taff2007compensated" role="doc-biblioref" onclick="return false;">Taff and Weisberg 2007</a>)</span>.</p>
+<p>Data set <code>MinnLand</code> from <span class="citation" data-cites="taff2007compensated">(<a href="#/ref-taff2007compensated" role="doc-biblioref" onclick="return false;">Taff and Weisberg 2007</a>)</span>.</p>
+<div>
 <ul>
-<li>acrePrice - sale price in dollars per acre;</li>
-<li>acres - size of the farm in acres;</li>
-<li>region - region in the state Minnesota;</li>
-<li>year - year of the land sales translation;</li>
-<li>crpPct - the percentage of all farm acres enrolled in CRP;</li>
-<li>tillable - percentage of farm acreaage that is rated arable by the assessor;</li>
-<li>productivity - average agronomic productivity scaled 1 to 100, with larger numbers for more productive land;</li>
+<li class="fragment"><code>acrePrice</code> - sale price in dollars per acre;</li>
+<li class="fragment"><code>acres</code> - size of the farm in acres;</li>
+<li class="fragment"><code>region</code> - region in the state Minnesota;</li>
+<li class="fragment"><code>year</code> - year of the land sales translation;</li>
+<li class="fragment"><code>crpPct</code> - the percentage of all farm acres enrolled in CRP;</li>
+<li class="fragment"><code>tillable</code> - percentage of farm acreage that is rated arable by the assessor;</li>
+<li class="fragment"><code>productivity</code> - average agronomic productivity scaled 1 to 100, with larger numbers for more productive land;</li>
 </ul>
+</div>
 </section>
 <section id="loading-data" class="slide level2">
 <h2>Loading data</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-2_6cbcfcd2fe9a7c5c82a1911e9c2bf973">
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-2_5f3c1f26f5f40d5ac2b87672dfa81693">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>dta <span class="ot">&lt;-</span> </span>
@@ -605,7 +612,7 @@ $ productivity &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </section>
 <section id="summary-statistics-12" class="slide level2">
 <h2>Summary statistics (1/2)</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-3_3dfc01af84426f7f1b92e6dfe45a9906">
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-3_5b01370016ded4de9e8977b1efecfdc9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dta <span class="sc">%&gt;%</span></span>
@@ -644,7 +651,7 @@ $ productivity &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </section>
 <section id="summary-statistics-22" class="slide level2 smaller">
 <h2>Summary statistics (2/2)</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-4_71dbc58f4d973316917ad8a306a45376">
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-4_755f7e4cef5de46bdf36c2cd331064c7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -741,13 +748,13 @@ $ productivity &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </section>
 <section id="visual-inspection-scatter-plots" class="slide level2 smaller">
 <h2>Visual inspection: scatter plots</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-5_e8586a26ca7de64c2ef613646fba314a">
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-5_cc55825a5f4f942f93358e8a1a7fcd80">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dta <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(acrePrice, acres, tillable, </span>
 <span id="cb7-3"><a href="#cb7-3"></a>         crpPct, productivity) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">ggpairs</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
@@ -760,7 +767,7 @@ $ productivity &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </section>
 <section id="regression.-summary" class="slide level2 smaller">
 <h2>Regression. Summary</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-6_635e57bcad4885648108bf85e78401dd">
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-6_8f46585bf36fd38fbaeca73615b591ca">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
@@ -805,7 +812,7 @@ F-statistic: 942.8 on 10 and 8776 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="regression.-interpretation-of-the-coefficients" class="slide level2 smaller">
 <h2>Regression. Interpretation of the coefficients</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-7_3c20080a7d99a7f25c80d89869323d95">
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-7_390c2502c5b60589eec2a378009f0e3d">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">parameters</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter              | Coefficient |      SE |                   95% CI | t(8776) |      p
@@ -824,9 +831,9 @@ productivity           |       24.45 |    1.08 | [     22.33,      26.56] |   22
 </div>
 </div>
 </section>
-<section id="checking-linearity-12" class="slide level2">
-<h2>Checking Linearity 1/2</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-8_7a54de30f0a79593625b53837d8faea5">
+<section id="checking-linearity-13" class="slide level2">
+<h2>Checking Linearity 1/3</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-8_1f1c10f61f14d9eed56bcff7e8f06ca2">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">check_model</span>(fit1, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$NCV</code></pre>
@@ -834,9 +841,9 @@ productivity           |       24.45 |    1.08 | [     22.33,      26.56] |   22
 
 </div>
 <img data-src="hedonic-regression_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%" class="r-stretch"></section>
-<section id="checking-linearity-22" class="slide level2">
-<h2>Checking Linearity 2/2</h2>
-<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-9_d79bec5e1f81b740d3a3ea8869848cf3">
+<section id="checking-linearity-23" class="slide level2">
+<h2>Checking Linearity 2/3</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-9_7231704b9771e41cef8d5e440b70bb67">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">residualPlots</span>(fit1, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Test stat Pr(&gt;|Test stat|)    
@@ -851,6 +858,21 @@ Tukey test     11.0991        &lt; 2.2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+</section>
+<section id="checking-linearity-33" class="slide level2">
+<h2>Checking Linearity 3/3</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-10_82a813d84c999fba3fac14e9582e9d09">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">residualPlots</span>(fit1, <span class="at">test =</span> <span class="cn">FALSE</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="hedonic-regression_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+</div>
+<div class="cell-output-display">
+<p><img data-src="hedonic-regression_files/figure-revealjs/unnamed-chunk-10-2.png" style="width:100.0%"></p>
+</div>
+</div>
 </section></section>
 <section>
 <section id="takeaways" class="title-slide slide level1 center">
@@ -860,20 +882,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="takeaway" class="slide level2 smaller">
 <h2>Takeaway</h2>
 <ul>
-<li>Simple linear regression</li>
-<li>OLS</li>
+<li>Multiple linear regression</li>
+<li>Hedonic model</li>
 <li>Slope and Intercept (interpretation)</li>
-<li>Fitted values</li>
-<li>Residuals</li>
 <li>Residuals vs Fitted</li>
 </ul>
-<div class="fragment">
-<ul>
-<li>fitting regression: <code>fit()</code></li>
-<li>regression summary: <code>summary()</code>, <code>tidy()</code>, <code>glance()</code>, <code>parameters()</code>, <code>performance()</code> , <code>check_model()</code> , <code>fitted()</code> , <code>residuals()</code> , <code>resid()</code></li>
-<li>packages: <code>broom</code>, <code>parameters</code> and <code>performance</code></li>
-</ul>
-</div>
 </section></section>
 <section id="homework" class="title-slide slide level1 center">
 <h1>Homework</h1>

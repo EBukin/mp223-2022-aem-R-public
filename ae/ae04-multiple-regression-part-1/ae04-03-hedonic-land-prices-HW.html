@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.345">
+<meta name="generator" content="quarto-0.9.348">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -197,6 +197,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week04-checklist.html" class="sidebar-item-text sidebar-link">Week 4</a>
+  </div>
+</li>
     </ul>
   </li>
     </ul>
@@ -231,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae04-regression/ae04-02-MLR-hedonic-prices.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -268,8 +273,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>✔ ggplot2 3.3.5     ✔ purrr   0.3.4
-✔ tibble  3.1.6     ✔ dplyr   1.0.8
+<pre><code>✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.7     ✔ dplyr   1.0.9
 ✔ tidyr   1.2.0     ✔ stringr 1.4.0
 ✔ readr   2.1.2     ✔ forcats 0.5.1</code></pre>
 </div>
@@ -350,57 +355,67 @@ Attaching package: 'texreg'</code></pre>
 
     extract</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>my_gof <span class="ot">&lt;-</span> <span class="cf">function</span>(fit_obj, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  sum_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_obj)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  stars <span class="ot">&lt;-</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pf</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">2</span>], </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">3</span>],</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">symnum</span>(<span class="at">corr =</span> <span class="cn">FALSE</span>, <span class="at">na =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">cutpoints =</span> <span class="fu">c</span>(<span class="dv">0</span>,  .<span class="dv">001</span>,.<span class="dv">01</span>,.<span class="dv">05</span>,  <span class="dv">1</span>),</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">symbols   =</span>  <span class="fu">c</span>(<span class="st">"***"</span>,<span class="st">"**"</span>,<span class="st">"*"</span>,<span class="st">" "</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.character</span>()</span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.align =</span> <span class="st">"center"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.retina =</span> <span class="dv">1</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>my_gof <span class="ot">&lt;-</span> <span class="cf">function</span>(fit_obj, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  sum_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_obj)</span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `R^2` = sum_fit$r.squared %&gt;% round(digits),</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `Adj. R^2` = sum_fit$adj.r.squared %&gt;% round(digits),</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `Num. obs.` = sum_fit$residuals %&gt;% length(),</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Num. df</span><span class="st">`</span> <span class="ot">=</span> sum_fit<span class="sc">$</span>df[[<span class="dv">2</span>]],</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">F statistic</span><span class="st">`</span> <span class="ot">=</span> </span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_c</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits), <span class="st">" "</span>, stars)</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Function for screening many regressors</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>screen_many_regs <span class="ot">&lt;-</span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(fit_obj_list, ..., <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">single.row =</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">class</span>(fit_obj_list) <span class="sc">==</span> <span class="st">"lm"</span>) </span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>      fit_obj_list <span class="ot">&lt;-</span> <span class="fu">list</span>(fit_obj_list)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...)) <span class="sc">&gt;</span> <span class="dv">0</span>)  </span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>      fit_obj_list <span class="ot">&lt;-</span> fit_obj_list <span class="sc">%&gt;%</span> <span class="fu">append</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...))</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># browser()</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    fit_obj_list <span class="sc">%&gt;%</span></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">screenreg</span>(</span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.note =</span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map2_chr</span>(., <span class="fu">seq_along</span>(.), <span class="sc">~</span> {</span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_c</span>(<span class="st">"Model "</span>, .y, <span class="st">" "</span>, <span class="fu">as.character</span>(.x<span class="sc">$</span>call)[[<span class="dv">2</span>]])</span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>          }) <span class="sc">%&gt;%</span></span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(<span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>, .) <span class="sc">%&gt;%</span></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) ,</span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits =</span> digits,</span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">single.row =</span> single.row,</span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.gof.rows =</span></span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map</span>(., <span class="sc">~</span><span class="fu">my_gof</span>(.x, digits)) <span class="sc">%&gt;%</span></span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map</span>(unlist),</span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">reorder.gof =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  stars <span class="ot">&lt;-</span> </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pf</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">2</span>], </span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">3</span>],</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">symnum</span>(<span class="at">corr =</span> <span class="cn">FALSE</span>, <span class="at">na =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">cutpoints =</span> <span class="fu">c</span>(<span class="dv">0</span>,  .<span class="dv">001</span>,.<span class="dv">01</span>,.<span class="dv">05</span>,  <span class="dv">1</span>),</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">symbols   =</span>  <span class="fu">c</span>(<span class="st">"***"</span>,<span class="st">"**"</span>,<span class="st">"*"</span>,<span class="st">" "</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.character</span>()</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `R^2` = sum_fit$r.squared %&gt;% round(digits),</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `Adj. R^2` = sum_fit$adj.r.squared %&gt;% round(digits),</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `Num. obs.` = sum_fit$residuals %&gt;% length(),</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Num. df</span><span class="st">`</span> <span class="ot">=</span> sum_fit<span class="sc">$</span>df[[<span class="dv">2</span>]],</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">F statistic</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_c</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits), <span class="st">" "</span>, stars)</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Function for screening many regressors</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>screen_many_regs <span class="ot">&lt;-</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(fit_obj_list, ..., <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">single.row =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">class</span>(fit_obj_list) <span class="sc">==</span> <span class="st">"lm"</span>) </span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>      fit_obj_list <span class="ot">&lt;-</span> <span class="fu">list</span>(fit_obj_list)</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...)) <span class="sc">&gt;</span> <span class="dv">0</span>)  </span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>      fit_obj_list <span class="ot">&lt;-</span> fit_obj_list <span class="sc">%&gt;%</span> <span class="fu">append</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...))</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># browser()</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>    fit_obj_list <span class="sc">%&gt;%</span></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">screenreg</span>(</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.note =</span></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map2_chr</span>(., <span class="fu">seq_along</span>(.), <span class="sc">~</span> {</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_c</span>(<span class="st">"Model "</span>, .y, <span class="st">" "</span>, <span class="fu">as.character</span>(.x<span class="sc">$</span>call)[[<span class="dv">2</span>]])</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>          }) <span class="sc">%&gt;%</span></span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(<span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>, .) <span class="sc">%&gt;%</span></span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) ,</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits =</span> digits,</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">single.row =</span> single.row,</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.gof.rows =</span></span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map</span>(., <span class="sc">~</span><span class="fu">my_gof</span>(.x, digits)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>          <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map</span>(unlist),</span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">reorder.gof =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="goals" class="level1">
@@ -417,7 +432,7 @@ Attaching package: 'texreg'</code></pre>
 <h1>Exercise</h1>
 <section id="data-loading" class="level2">
 <h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  alr4<span class="sc">::</span>MinnLand <span class="sc">%&gt;%</span> </span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span></span>
@@ -426,15 +441,16 @@ Attaching package: 'texreg'</code></pre>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>         tillable, crpPct, productivity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Glimpse at the data:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(dta)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="summary-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
-<p>This is a simple short-cut ot the summary statistics.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a simple short-cut to the summary statistics.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(modelsummary)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -603,7 +619,7 @@ Attaching package: 'texreg'</code></pre>
 <section id="do-yourself-at-home" class="level3">
 <h3 class="anchored" data-anchor-id="do-yourself-at-home">Do yourself at home!</h3>
 <p>In the code chunk below, adopt the R code used to prepare data summary manually. Run it step by step and comment on what it does between each component of the pipe.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dta %&gt;%</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   _______(id = _______()) %&gt;% </span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   _______(</span></span>
@@ -630,7 +646,7 @@ Attaching package: 'texreg'</code></pre>
 <section id="visual-inspection" class="level2">
 <h2 class="anchored" data-anchor-id="visual-inspection">Visual inspection</h2>
 <p>We reply on the visual inspection of data to build some prior expectations. We will use function <code>ggpairs()</code> from <code>GGally</code>. Insert function name where appropriate:</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dta %&gt;%</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(acrePrice, acres, tillable, </span></span>
@@ -641,7 +657,7 @@ Attaching package: 'texreg'</code></pre>
 <section id="regression-1" class="level2">
 <h2 class="anchored" data-anchor-id="regression-1">Regression 1</h2>
 <p>Let us fit the basic regression and summarize the results.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit1 &lt;- lm(</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   acrePrice ~ _____ + _____ + _____ + _____ + ____ + _____,</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = dta</span></span>
@@ -652,9 +668,11 @@ Attaching package: 'texreg'</code></pre>
 <ul>
 <li>Provide object with the fitted regression;</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(_____)</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># performance(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(_____)</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># performance(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="linearity-visual-inspection" class="level3">
 <h3 class="anchored" data-anchor-id="linearity-visual-inspection">Linearity: visual inspection</h3>
@@ -662,20 +680,22 @@ Attaching package: 'texreg'</code></pre>
 <ul>
 <li>Provide object with the fitted regression;</li>
 </ul>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(_____, which = 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also rely on the <code>performance</code> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check_model(_____, check = "linearity", panel = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># check_model(_____, check = "linearity", panel = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What do you conclude about the linearity assumption based on these results?</p>
 </section>
 <section id="linearity-statistical-test" class="level3">
 <h3 class="anchored" data-anchor-id="linearity-statistical-test">Linearity: statistical test</h3>
 <p>What does the <code>residualPlots()</code> test and plots show us?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residualPlots(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># residualPlots(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What we conclude based on this linearity test?</p>
 </section>
@@ -683,7 +703,7 @@ Attaching package: 'texreg'</code></pre>
 <section id="regression-2" class="level2">
 <h2 class="anchored" data-anchor-id="regression-2">Regression 2</h2>
 <p>Let us transform the dependent variable with a logarithm!</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit2 &lt;- lm(</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   log(acrePrice) ~ _______________,</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = _____</span></span>
@@ -693,14 +713,14 @@ Attaching package: 'texreg'</code></pre>
 <section id="regressions-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="regressions-comparison">Regressions comparison</h3>
 <p>Let us compare regression 1 and 2 using function <code>screen_many_regs</code>.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># screen_many_regs(_______, fit2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="linearity-assumption" class="level3">
 <h3 class="anchored" data-anchor-id="linearity-assumption">Linearity assumption</h3>
 <p>Is the linearity assumption fulfilled now?</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residualPlots(___________)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -708,7 +728,7 @@ Attaching package: 'texreg'</code></pre>
 </section>
 <section id="solutions" class="level1">
 <h1>Solutions</h1>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
@@ -925,7 +945,11 @@ Removed 9717 rows containing missing values (geom_point).</code></pre>
 <pre><code>Warning: Removed 9717 rows containing non-finite values (stat_density).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae04-03-hedonic-land-prices-HW_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <details>
 <summary>Code</summary>
@@ -974,7 +998,11 @@ F-statistic: 942.8 on 10 and 8776 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit1, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae04-03-hedonic-land-prices-HW_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <details>
 <summary>Code</summary>
@@ -982,7 +1010,11 @@ F-statistic: 942.8 on 10 and 8776 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae04-03-hedonic-land-prices-HW_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Test stat Pr(&gt;|Test stat|)    
@@ -1075,7 +1107,11 @@ Model 2 log(acrePrice) ~ crpPct + acres + region + year + tillable + productivit
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-4.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae04-03-hedonic-land-prices-HW_files/figure-html/unnamed-chunk-15-4.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Test stat Pr(&gt;|Test stat|)    
