@@ -12,7 +12,7 @@ bibliography: ../references.bib
 ::: callout-tip
 ## `SELF STUDY`
 
--   **SLIDES:** 🖥[W04-00 Simple regression](C:/Users/EB2/GDriveJLU/mp223-2022-aem-R-public/slides/10-simple-regression/10-simple-regression.html)
+-   **SLIDES:** 🖥[W04-00 Simple regression](/slides/10-simple-regression/10-simple-regression.html)
 -   **Application Exercise:** 📋`ae04-00-simple-regression-from-slides-HW.R`
     -   Perform all the R analysis from slides in an R script.
 :::
@@ -20,7 +20,7 @@ bibliography: ../references.bib
 -   **Recommended.** Practice:
     -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Lab. [Simple Regression](https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html)
 -   **Recommended.** Read:
-    -   📖 Introduction to Modern Statistics. [Ch. 7 Linear Regression with a single predictor](https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html)
+    -   📖 Introduction to Modern Statistics. [Ch. 7 Linear Regression with a single predictor](https://openintro-ims.netlify.app/model-slr.html#model-slr)
 
 ## W04-01 Multiple Regression
 

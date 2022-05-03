@@ -105,8 +105,7 @@ screen_many_regs <-
 
 ## Overview
 
-::: {.incremental}
-
+::: incremental
 $$y = \hat {\beta}_{0} + \hat {\beta}_{1}x_1 + \hat {\beta}_{2}x_2 + \hat {\beta}_{3}x_3 + \cdots + \hat {\beta}_{k}x_k + \hat u$$
 
 -   $\hat u$ - Error term, or disturbance containing factors other than $x_1, x_2, \cdots, x_k$ that affect $y$
@@ -116,19 +115,16 @@ $$y = \hat {\beta}_{0} + \hat {\beta}_{1}x_1 + \hat {\beta}_{2}x_2 + \hat {\beta
 -   $\hat {\beta}_{1}$, $\hat {\beta}_{2}$, $\hat {\beta}_{k}$ - coefficients / parameters associated with $x_1$, $x_2$, ... $x_k$;
 
 -   $k$ - entire set of independent variables;
-
 :::
 
 ## Motivation
 
-::: {.incremental}
-
+::: incremental
 -   To incorporate more explanatory factors into a model;
 
 -   Explicitly hold fixed (some) other factors;
 
 -   Allow for more flexible functional forms;
-
 :::
 
 ## Interpretation {.smaller}
@@ -150,7 +146,7 @@ library(magick)
 . . .
 
 ::: callout-important
-We must assumed that all unobserved factors do not change if the explanatory variables are changed.
+We assume that all unobserved factors do not change if the explanatory variables are changed.
 :::
 
 ## Examples of the multiple regression
@@ -165,8 +161,7 @@ We must assumed that all unobserved factors do not change if the explanatory var
   image_ggplot(interpolate = TRUE)
 ```
 
-
----
+------------------------------------------------------------------------
 
 ### 2. Average test scores and per student spending
 
@@ -178,8 +173,7 @@ We must assumed that all unobserved factors do not change if the explanatory var
   image_ggplot(interpolate = TRUE)
 ```
 
-
----
+------------------------------------------------------------------------
 
 ### 3. Family income and family consumption {.smaller}
 
@@ -191,12 +185,10 @@ We must assumed that all unobserved factors do not change if the explanatory var
   image_ggplot(interpolate = TRUE)
 ```
 
-::: {.incremental}
-
+::: incremental
 -   two explanatory variables;
 -   consumption is explained as a quadratic function of income;
 -   great care when when interpreting the coefficients;
-
 :::
 
 . . .
@@ -209,7 +201,7 @@ We must assumed that all unobserved factors do not change if the explanatory var
   image_ggplot(interpolate = TRUE)
 ```
 
----
+------------------------------------------------------------------------
 
 ### 4. CEO salary, sales and CEO tenure
 
@@ -221,18 +213,15 @@ We must assumed that all unobserved factors do not change if the explanatory var
   image_ggplot(interpolate = TRUE)
 ```
 
-::: {.incremental}
-
+::: incremental
 -   Model assumes a constant elasticity relationship between CEO salary and the sales of his or her firm.
 
 -   Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.
-
 :::
 
 # Application Exercise
 
 ## Multiple regression with a dummy variable
-
 
 # Bias and Efficiency
 
@@ -456,4 +445,3 @@ bias_plots_dta %>%
     -   the OLS estimators are the minimum-variance unbiased estimators.
 :::
 :::
- 
