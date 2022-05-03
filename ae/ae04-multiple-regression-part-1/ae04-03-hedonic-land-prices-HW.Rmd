@@ -9,8 +9,11 @@ output:
 # Setup
 
 ```{r}
-library(tidyverse)       # for data wrangling
-library(alr4)            # for the data sets #
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
 library(GGally)
 library(parameters)
 library(performance)
@@ -115,8 +118,8 @@ Glimpse at the data:
 This is a simple short-cut to the summary statistics.
 
 ```{r}
-#library(modelsummary)
-dta %>% datasummary_skim()
+library(modelsummary)
+#dta %>% datasummary_skim()
 ```
 
 ### Do yourself at home!

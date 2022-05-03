@@ -9,6 +9,9 @@ output:
 # Setup
 
 ```{r}
+#| message: false
+#| warning: false
+
 library(tidyverse)
 library(wooldridge)
 library(modelsummary)

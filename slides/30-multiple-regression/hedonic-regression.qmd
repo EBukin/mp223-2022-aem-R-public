@@ -240,7 +240,7 @@ dta %>%
 
 ```{r}
 #| code-fold: true
-dta %>% datasummary_skim(output = "markdown")
+dta %>% datasummary_skim(output = "data.frame")
 ```
 
 ## Visual inspection: scatter plots {.smaller}

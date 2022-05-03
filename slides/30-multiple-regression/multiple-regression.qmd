@@ -151,6 +151,8 @@ We assume that all unobserved factors do not change if the explanatory variables
 
 ## Examples of the multiple regression
 
+------------------------------------------------------------------------
+
 ### 1. Wage equation
 
 ```{r}
@@ -179,7 +181,7 @@ We assume that all unobserved factors do not change if the explanatory variables
 
 ```{r}
 #| echo: false
-#| fig-asp: 0.2
+#| fig-asp: 0.15
 "./img/ex2-exmple-02.png" %>%
   image_read() %>%
   image_ggplot(interpolate = TRUE)
@@ -219,9 +221,9 @@ We assume that all unobserved factors do not change if the explanatory variables
 -   Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.
 :::
 
-# Application Exercise
+# Application Exercise 1: Multiple regression with a dummy variable
 
-## Multiple regression with a dummy variable
+`AE04-01 Multiple Linear Regression`
 
 # Bias and Efficiency
 
@@ -231,6 +233,7 @@ We assume that all unobserved factors do not change if the explanatory variables
 #| echo: false
 library(ggforce)
 library(tidyverse)
+library(concaveman)
 
 cir_coord <- function(radius, n, x0 = 0, y0 = 0) {
   r <- radius*runif(n)
@@ -248,7 +251,7 @@ cir_coord <- function(radius, n, x0 = 0, y0 = 0) {
 
 
 n <- 7
-set.seed(123)
+set.seed(12113)
 list(
   c("Population", str_c("Sample ", 1:n)),
   c(500, round(runif(n, 50, 100))),
@@ -271,14 +274,13 @@ list(
   ggplot() +
   aes(x, y, group = Type, colour = Type, fill = Type) +
   geom_point() +
-  geom_mark_hull(aes(fill = Type, label = Type, description = descr)) +
+  geom_mark_hull(aes(fill = Type, label = Type, description = descr), concavity = 5) +
   xlim(-10, 35) +
   # ylim(-15, 15) +
   theme_void() +
   theme(legend.position="bottom") +
   labs(title = "Repeated sampling from the same population",
        subtitle = "Each sample estimate a different mean and variance. Populational meand and variance are unknown.")
-
 ```
 
 ```{r echo=FALSE, fig.width=13}
@@ -333,12 +335,15 @@ make_plt <-
   }
 ```
 
-## Unbiased and efficient
+## Unbiased and efficient {.smaller}
 
 ::: panel-tabset
-## One sample
+## 1 sample
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
   slice(1) %>% 
@@ -347,9 +352,12 @@ bias_plots_dta %>%
   scale_color_manual(values = c("red", "blue"))
 ```
 
-## Two samples
+## 2 samples
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
   slice(1:2) %>%
@@ -358,9 +366,12 @@ bias_plots_dta %>%
   scale_color_manual(values = c("red", "blue"))
 ```
 
-## Ten samples
+## 10 samples
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
   slice(1:10) %>%
@@ -371,7 +382,10 @@ bias_plots_dta %>%
 
 ## 500 samples
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
   # slice(1) %>% 
@@ -383,7 +397,10 @@ bias_plots_dta %>%
 
 ## Unbiased but **inefficient**
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 == "Unbiased", Type2 != "Efficient") %>% 
   make_plt  +
@@ -392,7 +409,10 @@ bias_plots_dta %>%
 
 ## **Biased** but efficient
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 != "Unbiased", Type2 == "Efficient") %>% 
   make_plt  +
@@ -401,7 +421,10 @@ bias_plots_dta %>%
 
 ## **Biased** and **inefficient**
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-width: 8
 bias_plots_dta %>% 
   filter(Type1 != "Unbiased", Type2 != "Efficient") %>% 
   make_plt  +
@@ -410,38 +433,30 @@ bias_plots_dta %>%
 
 ## All four cases
 
-```{r echo=FALSE, fig.width=13}
+```{r}
+#| echo: false
+#| fig-width: 10
 bias_plots_dta %>% 
   make_plt 
 ```
 
-## Assumptions... What? Why? BLUE? {.smaller}
+# Assumptions of the MLR {.smaller}
 
-::: columns
-::: {.incremental .column width="50%"}
-1.  Linearity
-2.  Error Terms with Mean Zero and Random Sampling
-3.  No Perfect Collinearity
-4.  Zero Conditional Mean (No Endogeneity)
-5.  Error Terms Homoscedasticity (No Autocorrelation)
-6.  Error Terms Normality
-:::
+## Assumptions? What? Why? BLUE? {.smaller}
 
-::: {.column .incremental width="50%"}
-1.  OLS is **unbiased** (Gauss-Markov Theorem)
+::: incremental
+1.  OLS is **unbiased** (Gauss-Markov Theorem), when assumptions 1 to 4 are satisfied:
 
-    -   When assumptions 1 to 4 are satisfied
+    1.  Linearity
+    2.  Random Sampling
+    3.  No Collinearity
+    4.  No Endogeneity
 
-2.  OLS is BLUE (Gauss-Markov Theorem). AKA (**Best** Linear **Unbiased** Estimator or **unbiased and efficient**)
+2.  OLS is BLUE (Gauss-Markov Theorem). AKA (**Best** Linear **Unbiased** Estimator or **unbiased and efficient**), when assumptions 1 to 4 + 5 are satisfied
 
-    -   When assumptions 1to 4 + 5 are satisfied
+    5.  Homoscedasticity (No Autocorrelation)
 
-3.  OLS is a Classical linear model (CLM)
+3.  OLS is a Classical linear model (CLM), when assumptions 1 to 5 + 6 are satisfied
 
-    -   When assumptions 1 to 5 + 6 are satisfied
-
-    -   the OLS has a stronger efficiency property
-
-    -   the OLS estimators are the minimum-variance unbiased estimators.
-:::
+    6.  Error Terms Normality
 :::

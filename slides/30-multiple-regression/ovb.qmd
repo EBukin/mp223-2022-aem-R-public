@@ -180,12 +180,13 @@ $\textit{Biased effect of treatment in short} = \\ \textit{True effect of treatm
 
 ### Omitted Variable Bias (3/3)
 
-$\textit{OVB} = \\ \beta^s - \beta^l = \pi_1 \times \gamma = \\ \textit{Regression of omitted on included } \times \\ \textit{Effect of Omitted Variable in long}$
-
+::: incremental
+-   $\textit{OVB} = \\ \beta^s - \beta^l = \pi_1 \times \gamma = \\ \textit{Regression of omitted on included } \times \\ \textit{Effect of Omitted Variable in long}$
 -   $\beta^s$ is the biased effect of treatment in short;
 -   $\beta^l$ is the true effect of treatment in long;
 -   $\pi_1^l$ is the coef. of treatment in the auxiliary of omitted on included (indep. in short);
 -   $\gamma$ is the coef. of Omitted variable in long regression;
+:::
 
 ## Why OVB formula is important? {.smaller}
 
@@ -209,17 +210,22 @@ $\textit{OVB} = \\ \beta^s - \beta^l = \pi_1 \times \gamma = \\ \textit{Regressi
 
 ## How to resolve the OVB?
 
+::: incremental
 -   No solution!
+
     -   Find proxies
     -   Develop an elaborate research design
+
 -   Acknowledge presence of the OVB
+
 -   Discuss the extent of bias
+:::
 
 # Example 1: Empirical proof of the OVB
 
-## MLR: fertility rates and development
+## MLR: fertility rates and development {.smaller}
 
-We explore `UN11` data from [@weisberg2005applied]
+We explore `UN11` data from [@weisberg2005a]
 
 -   It has 199 observations and 6 variables
 
@@ -229,7 +235,7 @@ We explore `UN11` data from [@weisberg2005applied]
     -   `lifeExpF` - Female life expectancy, years;
     -   `ppgdp` - Per capita gross domestic product in US dollars;
     -   `pctUrban` - Percent of Urban population;
-    -   `group` - variable with 3 values "oecd", "africa" and "others" to indicate if the country belonged respectively to the Organization for Economic Co-operation and Development, African continent, and other countries.
+    -   `group` - variable with 3 values "oecd", "africa" and "others";
     -   `africa`, `other` and `oecd` - dummy variables taking values of 1 if a country is in respectively Africa, other countries or OECD.
 
 ## Research question
@@ -242,7 +248,7 @@ How does the life expectancy affect fertility?
 
 . . .
 
-$\hat{fertility} = f(\textit{lifeExpF}, \textit{pctUrban}, \textit{group})$
+Short model: $\hat{fertility} = f(\textit{lifeExpF}, \textit{pctUrban}, \textit{group})$
 
 . . .
 
@@ -276,7 +282,7 @@ glimpse(un_dta)
 
 ```{r}
 #| code-fold: true
-un_dta %>% datasummary_skim(output = "markdown")
+un_dta %>% datasummary_skim(output = "data.frame")
 ```
 
 ------------------------------------------------------------------------
@@ -317,7 +323,7 @@ parameters(fit_s)
 
 ------------------------------------------------------------------------
 
-### Educated guess: effect of the omitted variable (1/3)
+### Educated guess: effect of the OV (1/3)
 
 ::: columns
 ::: {.column width="50%"}
@@ -343,7 +349,7 @@ screen_many_regs(fit_s)
 
 ------------------------------------------------------------------------
 
-### Educated guess: effect of the omitted variable (2/3) {.smaller}
+### Educated guess: effect of the OV (2/3) {.smaller}
 
 ::: incremental
 -   $\textit{OVB} = \pi_1 \times \gamma$
@@ -354,17 +360,16 @@ screen_many_regs(fit_s)
 
 ------------------------------------------------------------------------
 
-### Educated guess: effect of the omitted variable (3/3) {.smaller}
+### Educated guess: effect of the OV (3/3) {.smaller}
 
 ::: incremental
--   What would be the **Effect of GDP on fertility** (coef. $\gamma$) if we had a long regression?
+-   What would be the **Effect of GDP on fertility** ($\gamma$) if we had a long regression?
 
     -   Decreasing effect or $\gamma < 0$ ;
 
--   What would be the **effect of life expectancy on the GDP**?
+-   What would be the **effect of life expectancy on the GDP** ($\pi_1$) in auxiliary regression?
 
-    -   Countries with higher GDP have longer life expectancy.
-    -   Although, the causal direction is not clear here, $\pi_1 > 0$
+    -   Countries with higher GDP have longer life expectancy: $\pi_1 > 0$ ;
 
 -   Therefore: $\textit{OVB} < 0$
 
@@ -383,7 +388,7 @@ Process:
 
 ------------------------------------------------------------------------
 
-### Step 1. Estimate long and auxiliary regressions
+### Step 1. Estimate long and auxiliary regressions {.smaller}
 
 ```{r}
 #| code-fold: true
@@ -415,9 +420,7 @@ or OVB:
 pi_1 * gam
 ```
 
-## Interpreting the results with OVB
-
--   OVB affects not only the variable of interest, but also all other variables in the regression.
+## Interpreting the results with OVB {.smaller}
 
 ```{r}
 screen_many_regs(fit_s, fit_l)

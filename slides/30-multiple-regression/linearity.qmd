@@ -25,6 +25,7 @@ bibliography: ../../references.bib
 library(tidyverse)       # for data wrangling
 library(alr4)            # for the data sets #
 library(GGally)
+library(ggpmisc)
 library(parameters)
 library(performance)
 library(see)
@@ -129,6 +130,31 @@ screen_many_regs <-
     -   **residuals** versus **predicted/fitted** values;
 :::
 
+## Linearity: resolutions
+
+1.  (non) linear transformation to the dependent and/or independent variables;
+
+    -   **it does change the way how we must interpret coefficients**;
+
+2.  find a different independent variable;
+
+3.  propose a different functional form;
+
+## Common linear transformations
+
+|    Model    | Dep. Var. | Indep. Var. |      Interpretation of $\beta_1$      |                         Interpretation                          |
+|:-----------:|:-----------:|:-----------:|:------------:|:------------------:|
+| Level-level |    $y$    |     $x$     |     $\Delta y = \beta_1 \Delta x$     |    1 unit change in $x$ causes $\beta_1$ units change in $y$    |
+|  Level-log  |    $y$    |  $log(x)$   | $\Delta y = (\beta_1/100)\% \Delta x$ |   1 % change in $x$ causes $\beta_1/100$ units change in $y$    |
+|  Log-level  | $log(y)$  |     $x$     | $\% \Delta y = (100\beta_1) \Delta x$ |    1 unit change in $x$ causes $100 \beta_1$ % change in $y$    |
+|   Log-log   | $log(y)$  |  $log(x)$   |  $\% \Delta y = \beta_1 \% \Delta x$  | 1 % change in $x$ causes $\beta_1$ % change in $y$ (elasticity) |
+
+-   Power transformation or Box-Cox transformations;
+-   Variables normalization to the standard normal distribution;
+-   Tailor expansion (Cobb-Douglas, Trans-log)
+
+# Examples
+
 ## Example 1: Anscombe quartet
 
 ### Descriptive statistics
@@ -152,9 +178,10 @@ anscombe %>%
 
 ------------------------------------------------------------------------
 
-### Simple regressions of y on x
+### Simple regressions of y on x {.smaller}
 
 ```{r echo=FALSE}
+#| code-fold: true
 norm_anscombe <-
   anscombe %>% rownames_to_column() %>%
   pivot_longer(c(contains("x"), contains("y")), names_to = "Variables") %>%
@@ -178,8 +205,7 @@ norm_anscombe %>%
                             select(`Data set`, everything())
                     })) %>%
     pull(fits) %>%
-    bind_rows()  %>%
-    knitr::kable("pipe", digits = 2)
+    bind_rows() 
 ```
 
 ------------------------------------------------------------------------
@@ -187,6 +213,7 @@ norm_anscombe %>%
 ### Scatter plots
 
 ```{r}
+#| code-fold: true
 fig_norm_anscombe <-
   norm_anscombe %>%
   mutate(data_sample = str_c("Data set ", data_sample))
@@ -206,4 +233,340 @@ fig_norm_anscombe %>%
     ) +
   geom_abline(slope = 0.5, intercept = 3, colour = "red") +
   theme_bw() + facet_wrap(. ~ data_sample) 
+
 ```
+
+------------------------------------------------------------------------
+
+### Residuals vs fitted
+
+```{r echo=FALSE}
+library(patchwork)
+# Creating a data for two models only
+anscombe_data <-
+  anscombe %>% select(contains("1"), contains("2"))
+# Fitting two models
+mod_1_fit <- lm(y1 ~ x1, anscombe_data)
+mod_2_fit <- lm(y2 ~ x2, anscombe_data)
+# Calculating residuals and fitted values
+anscombe_data$residuals_1 <- residuals(mod_1_fit)
+anscombe_data$residuals_2 <- residuals(mod_2_fit)
+anscombe_data$fitted_1 <- fitted(mod_1_fit)
+anscombe_data$fitted_2 <- fitted(mod_2_fit)
+# Displaying edited data:
+# anscombe_data %>% knitr::kable("pipe", digits = 2)
+
+asnc_plot_dta <- 
+  anscombe_data %>% 
+  mutate(id = row_number()) %>% 
+  pivot_longer(c(contains("1"), contains("2"))) %>% 
+  mutate(model = str_c("Data set ", str_extract(name, "\\d")),
+         stats = str_extract(name, "\\D{1,}\\B") %>% 
+           str_replace("_", "")) %>% 
+  select(-name) %>% 
+  pivot_wider(names_from = stats)
+
+ansc_scat <- 
+  asnc_plot_dta %>% 
+  ggplot(aes(x, y, group = model)) + 
+  geom_point() + 
+  labs(title = "Scatter plot y ~ x") +
+  facet_grid(rows = vars(model), switch = "y") + 
+  theme_bw()
+
+
+ansc_obs_pred <-
+  asnc_plot_dta %>% 
+  ggplot(aes(fitted, y, group = model)) + 
+  geom_point() + 
+  geom_smooth(se = F, formula = y ~ x, method = "lm") + 
+  labs(
+    title = "Observed vs predicted",
+    y = "Observed values of y",
+    x = "Fitted values of: \nfitted(lm(y~x, anscombe_data))") +
+  facet_grid(rows = vars(model), switch = "y") + 
+  theme_bw()
+
+
+ansc_resid_predict <-
+  asnc_plot_dta %>% 
+  ggplot(aes(fitted, residuals, group = model)) + 
+  geom_point() + 
+  geom_smooth(data = asnc_plot_dta %>% filter(str_detect(model, "1")), 
+              formula = y ~ x + x^2 + x^3, 
+              se = F,  method = "lm", span = 1) + 
+  geom_smooth(
+      data = asnc_plot_dta %>% filter(!str_detect(model, "1")),
+      se = F,  method = "loess", colour = "red") + 
+  labs(
+    title = "Residuals vs predicted",
+    y = "Residuals: residuals(lm(y~x, anscombe_data))",
+    x = "Predicted values of: \nfitted(lm(y~x, anscombe_data))") +
+  facet_grid(rows = vars(model), switch = "y") + 
+  theme_bw()
+
+```
+
+```{r}
+#| echo: false
+ansc_obs_pred + ansc_resid_predict
+```
+
+## Example 2: Wage and Education
+
+```{r}
+#| echo: false
+make_two_plot <- function(dta, x_lab = "XLAB", y_lab = "YLAB") {
+    sp <-
+        dta %>%
+        ggplot() +
+        aes(x , y) +
+        geom_point() +
+        theme_bw() +
+        xlab(x_lab) +
+        ylab(y_lab) +
+        stat_poly_line(se = FALSE)  +
+        stat_poly_eq(
+            aes(label = after_stat(eq.label)),
+            label.x = "right",
+            label.y = "top",
+            size = 4
+        ) +
+        labs(title = "Scatter plot")
+    
+    
+    lmfit <- lm(y  ~ x , dta)
+    sm <-
+        stats::lowess(fitted(lmfit), resid(lmfit)) %>%
+        as_tibble()
+    
+    
+    dp <-
+        tibble(Residuals = resid(lmfit),
+               `Fitted values` = fitted(lmfit)) %>%
+        ggplot() +
+        aes(`Fitted values`, Residuals) +
+        geom_point() +
+        geom_path(data = sm,
+                  aes(x, y),
+                  colour = "blue",
+                  size = 1.25) +
+        labs(title = "Residuals vs fitted plot") +
+        theme_bw()
+    
+    list(sp, dp)
+}
+```
+
+::: columns
+::: {.column width="50%"}
+```{r echo = FALSE, fig.asp=1, fig.width=4}
+plt1 <- 
+    wooldridge::wage1 %>% 
+    as_tibble() %>% 
+    select(y = wage , x = educ) %>% 
+    make_two_plot("years of education", "average hourly earnings")
+
+plt1[[1]]
+```
+:::
+
+::: {.column width="50%"}
+```{r echo = FALSE, fig.asp=1, fig.width=4}
+plt1[[2]]
+```
+:::
+:::
+
+## Example 3: Sales and CEO salary
+
+::: columns
+::: {.column width="50%"}
+```{r echo = FALSE, fig.asp=1, fig.width=4}
+plt2 <- 
+    wooldridge::ceosal1 %>% 
+    as_tibble()  %>% 
+    select(y = salary  , x = sales   ) %>% 
+    make_two_plot("1990 firm sales, millions $", "CEOs' 1990 salary, thousands $")
+
+plt2[[1]]
+```
+:::
+
+::: {.column width="50%"}
+```{r echo = FALSE, fig.asp=1, fig.width=4}
+plt2[[2]]
+```
+:::
+:::
+
+## Example 4: Acceptable linearity
+
+::: columns
+::: {.column width="50%"}
+```{r echo = FALSE, fig.asp=1, fig.width=4}
+library(AER)
+data(CASchools)
+plt3 <- 
+    CASchools %>% 
+    as_tibble() %>% 
+    mutate(x = students/teachers,
+           y = (math + read) / 2) %>% 
+    make_two_plot("Students to teachers ratio", 
+                  "Average math and reading test score in school")
+plt3[[1]]
+```
+:::
+
+::: {.column width="50%"}
+```{r echo = FALSE, fig.asp=1, fig.width=4}
+plt3[[2]]
+```
+:::
+:::
+
+## Example 5: Fuel taxes influence on fuel consumption? {.smaller}
+
+-   As a federal policy maker, we would like to understand how fuel taxes were affecting the gasoline consumption across the states.
+
+-   We use data on fuel consumption in 2001 across all states in the USA (each observation represents a state). Data from [@weisberg2013applied].
+
+-   Variables present in the data are:
+
+    -   $\text{Tax}$ : Gasoline state tax rate, cents per gallon;
+    -   $\text{Dlic}$ : The number of licensed drivers per 1000 population over the age of 16;;
+    -   $\text{Income}$ : in 1000 USD Per capita personal income (year 2000);
+    -   $\text{Miles}$ : Miles of Federal-aid highway miles in the state;
+    -   $\text{Fuel}$ : Gasoline consumption per capita (gal.);
+
+------------------------------------------------------------------------
+
+### Empirical model and ex-ante expectations
+
+-   Regression equation:
+
+    -   $\text{Fuel} = \hat\beta_0 + \hat\beta_1 \cdot \text{Tax} + \hat\beta_2 \cdot \text{Dlic} + \hat\beta_3 \cdot \text{Income} + \hat\beta_4 \cdot \text{Miles} + \hat{u}$
+
+-   What could be expected values of the coefficients?
+
+------------------------------------------------------------------------
+
+### Data
+
+```{r}
+#| code-fold: true
+fule_cons <- 
+  as_tibble(alr4::fuel2001) %>% 
+  mutate(
+    Dlic = Drivers / (Pop/ 1000),
+    Fuel = FuelC / Pop * 1000,
+    Income = Income / 1000,
+    Miles = Miles
+    ) %>% 
+  select(Tax, Dlic, Income, Miles, Fuel)
+glimpse(fule_cons)
+```
+
+------------------------------------------------------------------------
+
+#### Descriptive statistics
+
+```{r}
+#| code-fold: true
+datasummary_skim(fule_cons, output = "data.frame") 
+```
+
+------------------------------------------------------------------------
+
+#### Data visualization
+
+```{r}
+#| code-fold: true
+#| fig-asp: 0.5
+library(GGally)
+ggpairs(fule_cons) 
+```
+
+------------------------------------------------------------------------
+
+### Regression {.smaller}
+
+```{r}
+#| code-fold: false
+fit_fl <- lm(Fuel ~  Tax + Dlic + Income + Miles, fule_cons)
+parameters(fit_fl)
+performance(fit_fl)
+```
+
+------------------------------------------------------------------------
+
+### Testing linearity (1/3) {.smaller}
+
+```{r}
+#| code-fold: TRUE
+#| fig-asp: 0.5
+plot(fit_fl, which = 1)
+```
+
+#### Testing linearity (2/3) {.smaller}
+
+```{r}
+#| code-fold: TRUE
+#| fig-asp: 0.5
+check_model(fit_fl, check = "linearity", panel = FALSE)
+```
+
+#### Testing linearity (3/3) {.smaller}
+
+```{r}
+library(car)
+residualPlots(fit_fl)
+```
+
+------------------------------------------------------------------------
+
+### Re-fitting regressions
+
+```{r}
+fit_fl2 <- lm(Fuel ~  Tax + Dlic + Income + log(Miles), fule_cons)
+parameters(fit_fl2)
+performance(fit_fl2)
+```
+
+------------------------------------------------------------------------
+
+#### Checking linearity (1/2)
+
+```{r}
+check_model(fit_fl2, check = "linearity", panel = FALSE)
+```
+
+------------------------------------------------------------------------
+
+#### Checking linearity (2/2)
+
+```{r}
+residualPlots(fit_fl2)
+```
+
+------------------------------------------------------------------------
+
+### Interpreting the results
+
+```{r}
+screen_many_regs(fit_fl, fit_fl2)
+```
+
+## Application Exercise
+
+-   `ae04-02-MLR-linearity.Rmd`
+
+## Takeaways
+
+-   Linearity assumption
+
+-   Diagnostics of the linearity
+
+-   Linear transformations
+
+## References

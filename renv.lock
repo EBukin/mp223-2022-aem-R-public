@@ -9,12 +9,35 @@
     ]
   },
   "Packages": {
+    "AER": {
+      "Package": "AER",
+      "Version": "1.2-9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "dccc3a89c739957286953821f9bcd971",
+      "Requirements": [
+        "Formula",
+        "car",
+        "lmtest",
+        "sandwich",
+        "survival",
+        "zoo"
+      ]
+    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dcd1743af4336156873e3ce3c950b8b9",
+      "Requirements": []
+    },
+    "Formula": {
+      "Package": "Formula",
+      "Version": "1.2-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "cc8c8c4d61346cde1ca60030ff9c241f",
       "Requirements": []
     },
     "GGally": {
@@ -726,6 +749,52 @@
         "withr"
       ]
     },
+    "ggpmisc": {
+      "Package": "ggpmisc",
+      "Version": "0.4.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "99bf6efed91e193ad2b3fd39aa21918d",
+      "Requirements": [
+        "MASS",
+        "dplyr",
+        "generics",
+        "ggplot2",
+        "ggpp",
+        "lmodel2",
+        "lubridate",
+        "plyr",
+        "polynom",
+        "quantreg",
+        "rlang",
+        "scales",
+        "splus2R",
+        "tibble"
+      ]
+    },
+    "ggpp": {
+      "Package": "ggpp",
+      "Version": "0.4.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "fe52575fbf5e49330ec34dcd150d18ee",
+      "Requirements": [
+        "MASS",
+        "dplyr",
+        "ggplot2",
+        "glue",
+        "gridExtra",
+        "lubridate",
+        "magrittr",
+        "polynom",
+        "rlang",
+        "scales",
+        "stringr",
+        "tibble",
+        "xts",
+        "zoo"
+      ]
+    },
     "glue": {
       "Package": "glue",
       "Version": "1.6.2",
@@ -778,6 +847,16 @@
         "rlang",
         "tibble",
         "vctrs"
+      ]
+    },
+    "gridExtra": {
+      "Package": "gridExtra",
+      "Version": "2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7d7f283939f563670a697165b2cf5560",
+      "Requirements": [
+        "gtable"
       ]
     },
     "gtable": {
@@ -1024,6 +1103,24 @@
         "minqa",
         "nlme",
         "nloptr"
+      ]
+    },
+    "lmodel2": {
+      "Package": "lmodel2",
+      "Version": "1.7-3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d6402cf7948749ef56bc8d9c8099bfbe",
+      "Requirements": []
+    },
+    "lmtest": {
+      "Package": "lmtest",
+      "Version": "0.9-40",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c6fafa6cccb1e1dfe7f7d122efd6e6a7",
+      "Requirements": [
+        "zoo"
       ]
     },
     "lubridate": {
@@ -1319,6 +1416,14 @@
       "Hash": "cb167f328b3ada4ec5cf67a7df4c900a",
       "Requirements": []
     },
+    "polynom": {
+      "Package": "polynom",
+      "Version": "1.4-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ceb5c2a59ba33d42d051285a3e8a5118",
+      "Requirements": []
+    },
     "praise": {
       "Package": "praise",
       "Version": "1.0.0",
@@ -1594,6 +1699,16 @@
         "wk"
       ]
     },
+    "sandwich": {
+      "Package": "sandwich",
+      "Version": "3.0-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "b79279ca91d53a98de8144852b67a1d0",
+      "Requirements": [
+        "zoo"
+      ]
+    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.1",
@@ -1708,6 +1823,14 @@
       "Requirements": [
         "lattice"
       ]
+    },
+    "splus2R": {
+      "Package": "splus2R",
+      "Version": "1.3-3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "55cafdb25f64a02bcbbe0467e5611a76",
+      "Requirements": []
     },
     "stringi": {
       "Package": "stringi",
@@ -2091,6 +2214,16 @@
       "Hash": "40682ed6a969ea5abfd351eb67833adc",
       "Requirements": []
     },
+    "xts": {
+      "Package": "xts",
+      "Version": "0.12.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ca2fd4ad8ef78cca3aa2b30f992798a8",
+      "Requirements": [
+        "zoo"
+      ]
+    },
     "yaml": {
       "Package": "yaml",
       "Version": "2.3.5",
@@ -2098,6 +2231,16 @@
       "Repository": "CRAN",
       "Hash": "458bb38374d73bf83b1bb85e353da200",
       "Requirements": []
+    },
+    "zoo": {
+      "Package": "zoo",
+      "Version": "1.8-10",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "277b8b4c5b7b47e664aebfe024a2092e",
+      "Requirements": [
+        "lattice"
+      ]
     }
   }
 }
