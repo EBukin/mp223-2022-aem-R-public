@@ -2,6 +2,7 @@
 title: "Week 3"
 subtitle: "Data wrangling: Data import and manipulations"
 editor: visual
+bibliography: ../references.bib
 ---
 
 # W04 Regression Analysis
@@ -11,9 +12,9 @@ editor: visual
 ::: callout-tip
 ## `SELF STUDY`
 
--   **SLIDES:** 🖥W04-00 Simple regression
--   **Application Exercise:** 📋`ae04-01-simple-regression-from-slides.R`
--   
+-   **SLIDES:** 🖥[W04-00 Simple regression](C:/Users/EB2/GDriveJLU/mp223-2022-aem-R-public/slides/10-simple-regression/10-simple-regression.html)
+-   **Application Exercise:** 📋`ae04-00-simple-regression-from-slides-HW.R`
+    -   Perform all the R analysis from slides in an R script.
 :::
 
 -   **Recommended.** Practice:
@@ -26,144 +27,56 @@ editor: visual
 ::: callout-tip
 ## In class
 
--   **SLIDES:** 🖥W04-01 Multiple Regression + Linearity assumption
--   **Application Exercise:** 📋`ae04-02-MLR-hedonic-prices.Rmd`
+-   **SLIDES:** 🖥[W04-01 Multiple Regression](/slides/30-multiple-regression/multiple-regression.html)
+-   **Application Exercise:** 📋[ae04-01-MLR.Rmd](/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html)
+:::
+
+-   **Recommended.** Practice:
+    -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Lab. [Multiple Regression](https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html)
+-   **Recommended**. Read:
+    -   ![](http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png){width="23" height="35"} Chapter 2. Regression in [@Angrist2014]
+-   **Optional.** Read:
+    -   📖 Introduction to Modern Statistics. [Ch. 8 Linear regression with multiple predictors](https://openintro-ims.netlify.app/model-mlr.html#model-mlr)
+
+## W04-02 Linearity
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W04-02 Linearity](/slides/30-multiple-regression/linearity.html)
+-   **Application Exercise:** 📋[ae04-02-MLR-linearity.Rmd](/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html)
+:::
+
+## W04-03 Hedonic prices model
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W04-03 Hedonic Prices Model](/slides/30-multiple-regression/hedonic-regression.html)
 :::
 
 ::: callout-important
 ## `SELF STUDY`
 
--   **Application Exercise:** 📋`ae04-03-housing-prices.Rmd`
+-   **Application Exercise:** 📋[ae04-03-hedonic-land-prices-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html)
+:::
+
+## W04-02 Omitted variable bias
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W04-02 Omitted variable bias](/slides/30-multiple-regression/ovb.html)
+:::
+
+::: callout-important
+## `SELF STUDY`
+
+-   **Application Exercise:** 📋[ae04-04-ability-premium-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-04-ability-premium-HW.html)
+-   **Application Exercise:** 📋[ae04-05-slides-ovb-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-05-slides-ovb-HW.html)
 :::
 
 -   **Recommended.** Watch:
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Data types [video](https://www.youtube.com/watch?v=WsxLbtWbEfc&ab_channel=Mine%C3%87etinkaya-Rundel) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
--   **Recommended**. Read:
-    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Ch. 11 Data import](https://r4ds.had.co.nz/data-import.html#data-import)
--   **Optional**. Read:
-    -   **CHEATSHEET:** [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
-    -   [tidyverse/readxl](https://readxl.tidyverse.org/) + [tidyverse/readr](https://readr.tidyverse.org/reference/readr_example.html) + [janitor](https://sfirke.github.io/janitor/)
--   **Optional.** Watch:
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"}[Importing and recoding data](https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Data classes [video](https://youtu.be/dozvSVQcqqg) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"}Importing data [video](https://youtu.be/tIMaRYiuEFA) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1)
-    -   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/)
 
-## W03-02 Exploring numerical data
-
-::: callout-tip
-## `SELF STUDY`
-
--   **SLIDES:** 🖥[W03-02 Exploring numerical data](/slides/20-data-description/exploring-numeric-data.html)
--   **Application Exercise:** 📋 [`AE03-02 Exploring data on plstic waste`](/ae/ae03-data-wrangling/ae03-02-plastic-waste.html) + Solution to the ae03-02: [`ae03-02-plastic-waste-solutions.rmd`](/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html)
-:::
-
--   **Recommended.** [Practice]{.underline}**:**
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3)
-    -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Interactive. [Visualizing numerical data](https://openintro.shinyapps.io/ims-02-explore-02/) (takes time to load)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Data Visualization Basics](https://rstudio.cloud/learn/primers/1.1)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Histograms](https://rstudio.cloud/learn/primers/3.3)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Boxplots and Counts](https://rstudio.cloud/learn/primers/3.4)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Scatterplots](https://rstudio.cloud/learn/primers/3.5)
--   **Optional.** Read:
-    -   ![](https://openintro-ims.netlify.app/images/IMS1_front_cover.png){width="25" height="31"} [IMS: Chapter 5 Exploring numerical data](https://openintro-ims.netlify.app/explore-numerical.html)
--   **Optional**. Watch + Practice:
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Data and visualisation [video](https://youtu.be/FddF4b_GuTI) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising data with ggplot2 [video](https://youtu.be/s2NF2J36ljE) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising numerical data [video](https://youtu.be/waBabVTI8ec) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1)
-
-## 🖥 W03-03 Correlation
-
-::: callout-tip
-## In class
-
--   **SLIDES:** 🖥[W03-04 correlation correlation](slides/20-data-description/correlation.html)
-:::
-
-::: callout-important
-## `SELF STUDY`
-
--   **Application Exercise:** 📋[`ae03-03-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-03-correlation.html)
-:::
-
--   **Recommended.** [Practice]{.underline}**:**
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Exploratory data analysis](https://rstudio.cloud/learn/primers/3.1)
--   **Recommended**. Read:
-    -   [Interpretation of the strength of correlation](https://easystats.github.io/effectsize/articles/interpret.html)
--   **Optional**. Read:
-    -   [easystats/correlation](https://easystats.github.io/correlation/)
-    -   [Correlation types](https://easystats.github.io/correlation/articles/types.html)
-
-## 📋 W03AE - application exercise:
-
-Download project from 📋 [`ae03-data-wrangling.zip`]() or the same on Ilias: 📋 [`ae03-data-wrangling.zip` on Ilias]().
-
-::: callout-tip
-## In class
-
--   Application Exercise: 📋[`ae03-01-import-clean-sum-plot.Rmd`](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html)
-:::
-
-::: callout-important
-## `SELF STUDY`
-
--   **Application Exercise:** 📋 [`ae03-02-correlation.Rmd`](/ae/ae03-data-wrangling/ae03-02-correlation.html)
--   **Application Exercise:** 📋 [`ae03-02-plastic-waste.rmd`](/ae/ae03-data-wrangling/ae03-02-plastic-waste.html)
-:::
-
-## 🖥 **`SELF STUDY`** Exploring categorical data
-
--   **Recommended.** Practice:
-    -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Interactive. [Visualizing categorical data](https://openintro.shinyapps.io/ims-02-explore-01/) (takes time to load)
--   **Recommended**. Watch + Practice:
-    -   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising categorical data [video](https://youtu.be/21h3rEO8k2E) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1)
--   **Optional.** Read:
-    -   ![](https://openintro-ims.netlify.app/images/IMS1_front_cover.png){width="25" height="31"} [IMS: Chapter 4 Exploring categorical data](https://openintro-ims.netlify.app/explore-categorical.html#explore-categorical)
-
-## 🖥 **`SELF STUDY`** Wrangle with `dplyr`
-
-We use `dplyr` every day in any exercise. Thus, there is no point to dedicate specific time to it. Use this list of materials to guide your learning process. Most of the core functions of `dplyr` are covered in data other parts of the course.
-
-Materials listed here may repeat the ones listed before.
-
--   **Recommended.** Read**:**
-
-    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Chapter 5 Data transformation](https://r4ds.had.co.nz/transform.html#transform)
-    -   **CHEATSHEET:** [Data transformation with dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
-    -   [tidyverse/dplyr](https://dplyr.tidyverse.org/)
-
--   **Recommended.** [Practice]{.underline}**:**
-
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Working with Tibbles](https://rstudio.cloud/learn/primers/2.1)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Isolating Data with dplyr](https://rstudio.cloud/learn/primers/2.2)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Derive Information with dplyr](https://rstudio.cloud/learn/primers/2.3)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Filter observations](https://learnr-examples.shinyapps.io/ex-data-filter/)
-    -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Interactive. [Summarizing data](https://openintro.shinyapps.io/ims-02-explore-03/) (takes time to load)
-    -   Interactive tutorial based on R4DS Ch. 5.6 [Summarizing data](https://learnr-examples.shinyapps.io/ex-data-summarise/)
-
-## 🖥 **`SELF STUDY`** Data visualization with `ggplot2`
-
-There are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the `ggplot2` package is scheduled for self learning.
-
--   **Recommended.** Read:
-    -   ![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="25" height="38"} [R4DS Chapter 3 Data visualisation](https://r4ds.had.co.nz/data-visualisation.html#data-visualisation)
-    -   CHEATSHEET: [Data visualization with ggplot2 cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
--   **Recommended.** [Practice]{.underline}**:**
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Data Visualization Basics](https://rstudio.cloud/learn/primers/1.1)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Exploratory data analysis](https://rstudio.cloud/learn/primers/3.1)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Bar Charts](https://rstudio.cloud/learn/primers/3.2)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Histograms](https://rstudio.cloud/learn/primers/3.3)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Boxplots and Counts](https://rstudio.cloud/learn/primers/3.4)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Scatterplots](https://rstudio.cloud/learn/primers/3.5)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Overplotting](https://rstudio.cloud/learn/primers/3.7)
-    -   ![](/slides/50-data-wrangling/img/RStudiocloud.svg){width="77" height="16"} Primers: [Customize plots](https://rstudio.cloud/learn/primers/3.8)
--   **Optional.** Practice:
-    -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Interactive. [Visualizing categorical data](https://openintro.shinyapps.io/ims-02-explore-01/) (takes time to load)
-    -   ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Interactive. [Visualizing numerical data](https://openintro.shinyapps.io/ims-02-explore-02/) (takes time to load)
--   **Optional**. Watch + Practice:
-    -   ![](https://www.rstudio.com/assets/img/logo.svg){width="50" height="16"} webinar: [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Data and visualisation [video](https://youtu.be/FddF4b_GuTI) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising data with ggplot2 [video](https://youtu.be/s2NF2J36ljE) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising numerical data [video](https://youtu.be/waBabVTI8ec) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1)
-    -   ![](https://datasciencebox.org/dsbox.png){width="25"} Visualising categorical data [video](https://youtu.be/21h3rEO8k2E) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1)
+    -   ![](http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png){width="23" height="35"} ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Regression Part I: Call in the CIA](https://youtu.be/OwNxEaOF8yY)
+    -   ![](http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png){width="23" height="35"} ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Regression Part II: Theory](https://youtu.be/KKJ-2_UUhnc)

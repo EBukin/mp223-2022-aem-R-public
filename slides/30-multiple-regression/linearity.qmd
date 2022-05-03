@@ -1,0 +1,209 @@
+---
+title: "Linearity"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    slide-number: true
+    smaller: false
+    scrollable: true
+    
+execute:
+  freeze: auto
+bibliography: ../../references.bib
+---
+
+# R setup {.smaller}
+
+```{r}
+#| echo: true
+
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 12,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+
+
+my_gof <- function(fit_obj, digits = 4) {
+  sum_fit <- summary(fit_obj)
+  
+  stars <- 
+    pf(sum_fit$fstatistic[1],
+       sum_fit$fstatistic[2], 
+       sum_fit$fstatistic[3],
+       lower.tail=FALSE) %>% 
+    symnum(corr = FALSE, na = FALSE, 
+           cutpoints = c(0,  .001,.01,.05,  1),
+           symbols   =  c("***","**","*"," ")) %>% 
+    as.character()
+  
+  list(
+    # `R^2` = sum_fit$r.squared %>% round(digits),
+    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+    # `Num. obs.` = sum_fit$residuals %>% length(),
+    `Num. df` = sum_fit$df[[2]],
+    `F statistic` = 
+      str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+  )
+}
+
+screen_many_regs <-
+  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+    
+    if (class(fit_obj_list) == "lm") 
+      fit_obj_list <- list(fit_obj_list)
+    
+    if (length(rlang::dots_list(...)) > 0)  
+      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+    
+    # browser()
+    fit_obj_list %>%
+      screenreg(
+        custom.note =
+          map2_chr(., seq_along(.), ~ {
+            str_c("Model ", .y, " ", as.character(.x$call)[[2]])
+          }) %>%
+          c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+          str_c(collapse = "\n") ,
+        digits = digits,
+        single.row = single.row,
+        custom.gof.rows =
+          map(., ~my_gof(.x, digits)) %>%
+          transpose() %>%
+          map(unlist),
+        reorder.gof = c(3, 4, 5, 1, 2)
+      )
+  }
+
+
+```
+
+# Linearity
+
+## Linearity: meaning
+
+::: incremental
+-   the expected value of dependent variable is a straight-line function of the independent variable
+
+-   If linearity is violated:
+
+    -   **bias of your estimates**
+    -   inappropriate representation of the dependent variable
+:::
+
+## Linearity: detection
+
+::: incremental
+-   How to detect a non-linearity?
+
+    -   no accepted statistical tests
+    -   visual inspection
+
+-   Typical plots:
+
+    -   Scatter plots of dependent and independent variables;
+    -   **observed** versus **predicted/fitted** values;\
+    -   **residuals** versus **predicted/fitted** values;
+:::
+
+## Example 1: Anscombe quartet
+
+### Descriptive statistics
+
+-   Four data sets each of 11 observations and two variables (x and y).
+
+-   Descriptive statistics:
+
+```{r}
+#| code-fold: true
+anscombe %>%
+  mutate(id = row_number()) %>%
+  pivot_longer(c(contains("x"), contains("y")), names_to = "Variables") %>%
+  mutate(`Data set` = str_extract(Variables, "\\d"),
+         Variables = str_remove(Variables, "\\d")) %>%
+  pivot_wider(names_from = Variables, values_from = value) %>%
+  group_by(`Data set`) %>%
+  summarise(across(c(x, y), ~ mean(.), .names = "mean_{.col}"),
+            across(c(x, y), ~ sd(.), .names = "sd_{.col}"))
+```
+
+------------------------------------------------------------------------
+
+### Simple regressions of y on x
+
+```{r echo=FALSE}
+norm_anscombe <-
+  anscombe %>% rownames_to_column() %>%
+  pivot_longer(c(contains("x"), contains("y")), names_to = "Variables") %>%
+  mutate(data_sample = str_extract(Variables, "\\d")) %>%
+  mutate(var = str_extract(Variables, "\\D")) %>%
+  select(-Variables) %>%
+  pivot_wider(names_from = var, values_from = value) %>%
+  arrange(data_sample, rowname) 
+
+norm_anscombe %>%
+    group_by(data_sample) %>%
+    nest %>%
+    
+    mutate(fits =
+               map2(data, data_sample,
+                    ~ {
+                        new_varname <- str_c("Data set ", .y)
+                        lm(y ~ x, .x) %>%
+                            broom::tidy() %>%
+                            mutate(`Data set` = new_varname) %>%
+                            select(`Data set`, everything())
+                    })) %>%
+    pull(fits) %>%
+    bind_rows()  %>%
+    knitr::kable("pipe", digits = 2)
+```
+
+------------------------------------------------------------------------
+
+### Scatter plots
+
+```{r}
+fig_norm_anscombe <-
+  norm_anscombe %>%
+  mutate(data_sample = str_c("Data set ", data_sample))
+
+fig_norm_anscombe %>%
+  ggplot() + 
+  aes(x, y, group = data_sample) + 
+  geom_point() +
+  geom_smooth(
+    data = filter(fig_norm_anscombe, data_sample == "Model 2"),
+    method = "lm",
+    formula = y ~ x + I(x ^ 2)
+  ) +
+  geom_smooth(
+    data = filter(fig_norm_anscombe, 
+                  data_sample == "Model 3", y < 11)
+    ) +
+  geom_abline(slope = 0.5, intercept = 3, colour = "red") +
+  theme_bw() + facet_wrap(. ~ data_sample) 
+```
