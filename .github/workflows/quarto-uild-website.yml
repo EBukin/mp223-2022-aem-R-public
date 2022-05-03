@@ -26,6 +26,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev
+          sudo apt-get install -y libudunits2-dev
           sudo apt-get install libmagick++-dev
       - name: Put pandoc in PATH
         run: |
