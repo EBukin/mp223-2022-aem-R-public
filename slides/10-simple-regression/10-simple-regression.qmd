@@ -126,9 +126,7 @@ dta %>%
 ::: columns
 ::: {.column width="30%"}
 ::: .smaller
-$Y \\ = 
-\color{green}{f(X)} \\ +  \text{Error term} \\ 
-= \color{green}{E[Y|X]} + \epsilon$
+$Y \\ = \color{green}{f(X)} \\ + \text{Error term} \\ = \color{green}{E[Y|X]} + \epsilon$
 :::
 :::
 
@@ -178,8 +176,7 @@ $$\Large{\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X}$$
 
 ::: columns
 ::: {.column width="30%"}
-$Y \\ = \color{green}{f(X)} 
-\\ + \color{blue}{\text{Error term}} \\ = \color{green}{E[Y|X]} + \color{blue}{\epsilon}$
+$Y \\ = \color{green}{f(X)} \\ + \color{blue}{\text{Error term}} \\ = \color{green}{E[Y|X]} + \color{blue}{\epsilon}$
 :::
 
 ::: {.column width="70%"}
@@ -269,7 +266,7 @@ $$
 
 # Interpretation
 
-## Regression coefficeints
+## Regression coefficients
 
 ```{r}
 fit <- lm(daughter_height ~ mother_height, data = dta)
@@ -393,7 +390,7 @@ check_model(fit, check = "linearity", panel = FALSE)
 
 # Homework
 
-Create an R Script out of the R code in the presentation. 
+Create an R Script out of the R code in the presentation.
 
 # References
 
