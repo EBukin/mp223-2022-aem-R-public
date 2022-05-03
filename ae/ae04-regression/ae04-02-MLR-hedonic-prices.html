@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.345">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-05-03">
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - AE04-02 Multiple Linear Regression: Hedonic Prices</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">AE04-02 Multiple Linear Regression: Hedonic Prices</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../">
+      <img src="../../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals:</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a>
+  <ul class="collapse">
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary Statistics</a>
+  <ul class="collapse">
+  <li><a href="#do-yourself-at-home" id="toc-do-yourself-at-home" class="nav-link" data-scroll-target="#do-yourself-at-home">Do yourself at home!</a></li>
+  </ul></li>
+  <li><a href="#visual-inspection" id="toc-visual-inspection" class="nav-link" data-scroll-target="#visual-inspection">Visual inspection</a></li>
+  <li><a href="#regression-1" id="toc-regression-1" class="nav-link" data-scroll-target="#regression-1">Regression 1</a>
+  <ul class="collapse">
+  <li><a href="#linearity-visual-inspection" id="toc-linearity-visual-inspection" class="nav-link" data-scroll-target="#linearity-visual-inspection">Linearity: visual inspection</a></li>
+  <li><a href="#linearity-statistical-test" id="toc-linearity-statistical-test" class="nav-link" data-scroll-target="#linearity-statistical-test">Linearity: statistical test</a></li>
+  </ul></li>
+  <li><a href="#regression-2" id="toc-regression-2" class="nav-link" data-scroll-target="#regression-2">Regression 2</a>
+  <ul class="collapse">
+  <li><a href="#regressions-comparison" id="toc-regressions-comparison" class="nav-link" data-scroll-target="#regressions-comparison">Regressions comparison</a></li>
+  <li><a href="#linearity-assumption" id="toc-linearity-assumption" class="nav-link" data-scroll-target="#linearity-assumption">Linearity assumption</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae04-regression/ae04-02-MLR-hedonic-prices.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">AE04-02 Multiple Linear Regression: Hedonic Prices</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 3, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># for data wrangling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+✔ tibble  3.1.6     ✔ dplyr   1.0.8
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)            <span class="co"># for the data sets #</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: car</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: effects</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>lattice theme set by effectsTheme()
+See ?effectsTheme for details.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'parameters':
+  method                         from      
+  format.parameters_distribution datawizard</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'modelsummary'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:parameters':
+
+    supported_models</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Version:  1.38.6
+Date:     2022-04-06
+Author:   Philip Leifeld (University of Essex)
+
+Consider submitting praise using the praise or praise_interactive functions.
+Please cite the JSS article in your publications -- see citation("texreg").</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'texreg'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:tidyr':
+
+    extract</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>my_gof <span class="ot">&lt;-</span> <span class="cf">function</span>(fit_obj, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  sum_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_obj)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  stars <span class="ot">&lt;-</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pf</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">2</span>], </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">3</span>],</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">symnum</span>(<span class="at">corr =</span> <span class="cn">FALSE</span>, <span class="at">na =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">cutpoints =</span> <span class="fu">c</span>(<span class="dv">0</span>,  .<span class="dv">001</span>,.<span class="dv">01</span>,.<span class="dv">05</span>,  <span class="dv">1</span>),</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">symbols   =</span>  <span class="fu">c</span>(<span class="st">"***"</span>,<span class="st">"**"</span>,<span class="st">"*"</span>,<span class="st">" "</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.character</span>()</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `R^2` = sum_fit$r.squared %&gt;% round(digits),</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `Adj. R^2` = sum_fit$adj.r.squared %&gt;% round(digits),</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># `Num. obs.` = sum_fit$residuals %&gt;% length(),</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Num. df</span><span class="st">`</span> <span class="ot">=</span> sum_fit<span class="sc">$</span>df[[<span class="dv">2</span>]],</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">F statistic</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_c</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits), <span class="st">" "</span>, stars)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Function for screening many regressors</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>screen_many_regs <span class="ot">&lt;-</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(fit_obj_list, ..., <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">single.row =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">class</span>(fit_obj_list) <span class="sc">==</span> <span class="st">"lm"</span>) </span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>      fit_obj_list <span class="ot">&lt;-</span> <span class="fu">list</span>(fit_obj_list)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...)) <span class="sc">&gt;</span> <span class="dv">0</span>)  </span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>      fit_obj_list <span class="ot">&lt;-</span> fit_obj_list <span class="sc">%&gt;%</span> <span class="fu">append</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...))</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># browser()</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    fit_obj_list <span class="sc">%&gt;%</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">screenreg</span>(</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.note =</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map2_chr</span>(., <span class="fu">seq_along</span>(.), <span class="sc">~</span> {</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_c</span>(<span class="st">"Model "</span>, .y, <span class="st">" "</span>, <span class="fu">as.character</span>(.x<span class="sc">$</span>call)[[<span class="dv">2</span>]])</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>          }) <span class="sc">%&gt;%</span></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(<span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>, .) <span class="sc">%&gt;%</span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) ,</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits =</span> digits,</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">single.row =</span> single.row,</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.gof.rows =</span></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map</span>(., <span class="sc">~</span><span class="fu">my_gof</span>(.x, digits)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>          <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>          <span class="fu">map</span>(unlist),</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">reorder.gof =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="goals" class="level1">
+<h1>Goals:</h1>
+<ul>
+<li>Get a brief introduction to the Hedonic Prices model;</li>
+<li>Practice fitting linear regression in R;</li>
+<li>Test linearity assumption: visually and using a statistical tests;</li>
+<li>Practice linear transformation;</li>
+<li>Exerciser coefficients interpretation;</li>
+</ul>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<section id="data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  alr4<span class="sc">::</span>MinnLand <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(year == 2007) %&gt;% </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(acrePrice, acres, region, year, </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>         tillable, crpPct, productivity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Glimpse at the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(dta)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
+<p>This is a simple short-cut ot the summary statistics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Unique (#) </th>
+   <th style="text-align:right;"> Missing (%) </th>
+   <th style="text-align:right;"> Mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> Min </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> Max </th>
+   <th style="text-align:right;">    </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> acrePrice </td>
+   <td style="text-align:right;"> 5696 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2787.3 </td>
+   <td style="text-align:right;"> 1914.0 </td>
+   <td style="text-align:right;"> 108.0 </td>
+   <td style="text-align:right;"> 2442.0 </td>
+   <td style="text-align:right;"> 15000.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.46" y="6.37" width="2.98" height="5.29" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.44" y="3.22" width="2.98" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="7.42" y="3.33" width="2.98" height="8.33" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.41" y="6.30" width="2.98" height="5.37" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="13.39" y="8.02" width="2.98" height="3.64" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="16.38" y="9.82" width="2.98" height="1.84" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.36" y="10.99" width="2.98" height="0.67" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="22.35" y="11.39" width="2.98" height="0.27" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="25.33" y="11.41" width="2.98" height="0.25" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.32" y="11.51" width="2.98" height="0.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.30" y="11.55" width="2.98" height="0.11" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="34.28" y="11.58" width="2.98" height="0.080" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.27" y="11.60" width="2.98" height="0.067" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.25" y="11.61" width="2.98" height="0.054" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="43.24" y="11.63" width="2.98" height="0.037" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> acres </td>
+   <td style="text-align:right;"> 596 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 112.7 </td>
+   <td style="text-align:right;"> 128.5 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 80.0 </td>
+   <td style="text-align:right;"> 6970.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.77" y="3.22" width="3.19" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.96" y="11.59" width="3.19" height="0.075" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.15" y="11.65" width="3.19" height="0.011" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.34" y="11.66" width="3.19" height="0.0023" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="14.53" y="11.66" width="3.19" height="0.00091" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="17.72" y="11.66" width="3.19" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="20.90" y="11.66" width="3.19" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.09" y="11.66" width="3.19" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="27.28" y="11.66" width="3.19" height="0.00046" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.47" y="11.66" width="3.19" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.66" y="11.66" width="3.19" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.85" y="11.66" width="3.19" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.04" y="11.66" width="3.19" height="0.00046" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="43.22" y="11.66" width="3.19" height="0.00046" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> year </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2006.4 </td>
+   <td style="text-align:right;"> 2.5 </td>
+   <td style="text-align:right;"> 2002.0 </td>
+   <td style="text-align:right;"> 2006.0 </td>
+   <td style="text-align:right;"> 2011.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="9.74" width="2.47" height="1.92" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.25" y="4.49" width="2.47" height="7.17" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.72" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.19" y="3.22" width="2.47" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.65" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="14.12" y="3.79" width="2.47" height="7.87" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="16.59" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.06" y="4.25" width="2.47" height="7.42" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.53" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="4.04" width="2.47" height="7.62" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.47" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.94" y="3.42" width="2.47" height="8.24" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.41" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.88" y="6.71" width="2.47" height="4.95" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.35" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="38.81" y="5.48" width="2.47" height="6.18" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.28" y="11.66" width="2.47" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="43.75" y="8.06" width="2.47" height="3.60" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tillable </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 80.7 </td>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 92.0 </td>
+   <td style="text-align:right;"> 100.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="11.58" width="2.22" height="0.078" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.00" y="11.49" width="2.22" height="0.18" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.22" y="11.44" width="2.22" height="0.22" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.44" y="11.37" width="2.22" height="0.29" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.67" y="11.36" width="2.22" height="0.30" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.89" y="11.27" width="2.22" height="0.39" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.11" y="11.28" width="2.22" height="0.39" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="17.33" y="11.20" width="2.22" height="0.46" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.56" y="11.15" width="2.22" height="0.51" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.78" y="11.09" width="2.22" height="0.57" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="11.06" width="2.22" height="0.61" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.22" y="10.95" width="2.22" height="0.71" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.44" y="10.91" width="2.22" height="0.75" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.67" y="10.85" width="2.22" height="0.81" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.89" y="10.70" width="2.22" height="0.96" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="35.11" y="10.50" width="2.22" height="1.16" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.33" y="10.24" width="2.22" height="1.42" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="39.56" y="9.33" width="2.22" height="2.33" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.78" y="6.48" width="2.22" height="5.18" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.00" y="3.22" width="2.22" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> crpPct </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4.2 </td>
+   <td style="text-align:right;"> 17.2 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 100.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="3.22" width="2.22" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.00" y="11.59" width="2.22" height="0.070" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.22" y="11.61" width="2.22" height="0.053" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.44" y="11.62" width="2.22" height="0.041" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.67" y="11.63" width="2.22" height="0.037" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.89" y="11.64" width="2.22" height="0.026" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.11" y="11.64" width="2.22" height="0.021" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="17.33" y="11.64" width="2.22" height="0.024" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.56" y="11.65" width="2.22" height="0.017" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.78" y="11.64" width="2.22" height="0.024" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="11.64" width="2.22" height="0.019" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.22" y="11.63" width="2.22" height="0.027" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.44" y="11.64" width="2.22" height="0.022" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.67" y="11.64" width="2.22" height="0.023" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.89" y="11.64" width="2.22" height="0.025" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="35.11" y="11.64" width="2.22" height="0.023" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.33" y="11.63" width="2.22" height="0.031" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="39.56" y="11.63" width="2.22" height="0.034" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.78" y="11.61" width="2.22" height="0.049" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.00" y="11.55" width="2.22" height="0.11" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> productivity </td>
+   <td style="text-align:right;"> 96 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 66.6 </td>
+   <td style="text-align:right;"> 13.5 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 68.0 </td>
+   <td style="text-align:right;"> 99.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.32" y="11.62" width="2.27" height="0.037" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="3.59" y="11.62" width="2.27" height="0.043" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.86" y="11.62" width="2.27" height="0.043" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.13" y="11.57" width="2.27" height="0.091" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.39" y="11.51" width="2.27" height="0.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.66" y="11.27" width="2.27" height="0.39" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="14.93" y="11.10" width="2.27" height="0.56" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="17.20" y="10.81" width="2.27" height="0.85" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.46" y="10.48" width="2.27" height="1.18" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.73" y="9.57" width="2.27" height="2.10" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="8.69" width="2.27" height="2.97" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.27" y="6.97" width="2.27" height="4.70" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.54" y="4.42" width="2.27" height="7.24" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.80" y="3.22" width="2.27" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.07" y="4.71" width="2.27" height="6.95" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="35.34" y="6.08" width="2.27" height="5.59" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.61" y="7.94" width="2.27" height="3.73" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="39.87" y="9.76" width="2.27" height="1.90" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="42.14" y="10.95" width="2.27" height="0.71" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.41" y="11.45" width="2.27" height="0.21" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<section id="do-yourself-at-home" class="level3">
+<h3 class="anchored" data-anchor-id="do-yourself-at-home">Do yourself at home!</h3>
+<p>In the code chunk below, adopt the R code used to prepare data summary manually. Run it step by step and comment on what it does between each component of the pipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dta %&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   _______(id = _______()) %&gt;% </span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   _______(</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     cols = c(acrePrice, acres, year, tillable, crpPct, productivity),</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     names_to = "var",</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     values_to = "val"</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) %&gt;% </span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   _______(var) %&gt;% </span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   _______(_______(</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     c(val),</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     _______(</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#       mean = ~ mean(.x, na.rm = TRUE),</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#       sd = ~ sd(.x, na.rm = TRUE),</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#       meadian = ~ median(.x, na.rm = TRUE),</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#       n_miss = ~ sum(is.na(.x), na.rm = TRUE),</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#       min = ~ min(.x, na.rm = TRUE),</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#       max = ~ max(.x, na.rm = TRUE)</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   ), </span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   n = n())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="visual-inspection" class="level2">
+<h2 class="anchored" data-anchor-id="visual-inspection">Visual inspection</h2>
+<p>We reply on the visual inspection of data to build some prior expectations. We will use function <code>ggpairs()</code> from <code>GGally</code>. Insert function name where appropriate:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dta %&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(acrePrice, acres, tillable, </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          crpPct, productivity) %&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   ________()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="regression-1" class="level2">
+<h2 class="anchored" data-anchor-id="regression-1">Regression 1</h2>
+<p>Let us fit the basic regression and summarize the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit1 &lt;- lm(</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   acrePrice ~ _____ + _____ + _____ + _____ + ____ + _____,</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = dta</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(fit1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>performance</code> and <code>parameters</code> package to summarize the regression results.</p>
+<ul>
+<li>Provide object with the fitted regression;</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(_____)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># performance(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="linearity-visual-inspection" class="level3">
+<h3 class="anchored" data-anchor-id="linearity-visual-inspection">Linearity: visual inspection</h3>
+<p>We can use built-in function for plotting residuals vs fitted.</p>
+<ul>
+<li>Provide object with the fitted regression;</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(_____, which = 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also rely on the <code>performance</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check_model(_____, check = "linearity", panel = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What do you conclude about the linearity assumption based on these results?</p>
+</section>
+<section id="linearity-statistical-test" class="level3">
+<h3 class="anchored" data-anchor-id="linearity-statistical-test">Linearity: statistical test</h3>
+<p>What does the <code>residualPlots()</code> test and plots show us?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residualPlots(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What we conclude based on this linearity test?</p>
+</section>
+</section>
+<section id="regression-2" class="level2">
+<h2 class="anchored" data-anchor-id="regression-2">Regression 2</h2>
+<p>Let us transform the dependent variable with a logarithm!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit2 &lt;- lm(</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   log(acrePrice) ~ _______________,</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = _____</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(_____________)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="regressions-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="regressions-comparison">Regressions comparison</h3>
+<p>Let us compare regression 1 and 2 using function <code>screen_many_regs</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># screen_many_regs(_______, fit2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="linearity-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="linearity-assumption">Linearity assumption</h3>
+<p>Is the linearity assumption fulfilled now?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residualPlots(___________)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="solutions" class="level1">
+<h1>Solutions</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  alr4<span class="sc">::</span>MinnLand <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(year == 2007) %&gt;% </span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(acrePrice, acres, region, year, </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>         tillable, crpPct, productivity)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 18,700
+Columns: 7
+$ acrePrice    &lt;dbl&gt; 766, 733, 850, 975, 886, 992, 623, 1382, 855, 364, 807, 4…
+$ acres        &lt;int&gt; 82, 30, 150, 160, 90, 120, 170, 100, 120, 160, 158, 83, 1…
+$ region       &lt;fct&gt; Northwest, Northwest, Northwest, Northwest, Northwest, No…
+$ year         &lt;dbl&gt; 2002, 2003, 2002, 2003, 2002, 2003, 2003, 2003, 2003, 200…
+$ tillable     &lt;dbl&gt; 94, 63, 47, 86, NA, 83, 42, 35, 46, 10, 29, 36, 14, 71, 9…
+$ crpPct       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ productivity &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics:</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(acrePrice, acres, year, tillable, crpPct, productivity),</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"var"</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"val"</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(val),</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="sc">~</span> <span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">meadian =</span> <span class="sc">~</span> <span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_miss =</span> <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">min =</span> <span class="sc">~</span> <span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">max =</span> <span class="sc">~</span> <span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  var          val_mean  val_sd val_meadian val_n_miss val_min val_max     n
+  &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1 acrePrice     2787.   1914.          2442          0     108   15000 18700
+2 acres          113.    128.            80          0       1    6970 18700
+3 crpPct           4.16   17.2            0          0       0     100 18700
+4 productivity    66.6    13.5           68       9717       1      99 18700
+5 tillable        80.7    22.8           92       1212       0     100 18700
+6 year          2006.      2.51        2006          0    2002    2011 18700</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics lazy</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in datasummary_skim_numeric(data, output = output, fmt = fmt, histogram
+= histogram, : The histogram argument is only supported for (a) output types
+"default", "html", or "kableExtra"; (b) writing to file paths with extensions
+".html", ".jpg", or ".png"; and (c) Rmarkdown or knitr documents compiled to PDF
+or HTML. Use `histogram=FALSE` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Unique (#)</th>
+<th style="text-align: right;">Missing (%)</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">acrePrice</td>
+<td style="text-align: right;">5696</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2787.3</td>
+<td style="text-align: right;">1914.0</td>
+<td style="text-align: right;">108.0</td>
+<td style="text-align: right;">2442.0</td>
+<td style="text-align: right;">15000.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acres</td>
+<td style="text-align: right;">596</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">112.7</td>
+<td style="text-align: right;">128.5</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">80.0</td>
+<td style="text-align: right;">6970.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2006.4</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: right;">2002.0</td>
+<td style="text-align: right;">2006.0</td>
+<td style="text-align: right;">2011.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tillable</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">80.7</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">92.0</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">crpPct</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">17.2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">productivity</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">66.6</td>
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">68.0</td>
+<td style="text-align: right;">99.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visual data inspection</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(acrePrice, acres, tillable, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>         crpPct, productivity) <span class="sc">%&gt;%</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 1212 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 9717 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 1212 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 9717 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1212 rows containing missing values (geom_point).
+Removed 1212 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1212 rows containing non-finite values (stat_density).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 1212 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 9913 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1212 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggally_statistic(data = data, mapping = mapping, na.rm = na.rm, :
+Removed 9717 rows containing missing values</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9717 rows containing missing values (geom_point).
+Removed 9717 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9913 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9717 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9717 rows containing non-finite values (stat_density).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  acrePrice <span class="sc">~</span> crpPct <span class="sc">+</span> acres <span class="sc">+</span> region <span class="sc">+</span> </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">+</span> tillable <span class="sc">+</span> productivity, </span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = acrePrice ~ crpPct + acres + region + year + tillable + 
+    productivity, data = dta)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3663.2  -572.0  -132.8   356.3 11029.3 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         -6.476e+05  9.554e+03 -67.781   &lt;2e-16 ***
+crpPct              -8.288e+00  8.693e-01  -9.534   &lt;2e-16 ***
+acres               -1.166e+00  1.337e-01  -8.720   &lt;2e-16 ***
+regionWest Central   9.474e+02  4.703e+01  20.145   &lt;2e-16 ***
+regionCentral        1.798e+03  5.234e+01  34.357   &lt;2e-16 ***
+regionSouth West     1.257e+03  4.727e+01  26.595   &lt;2e-16 ***
+regionSouth Central  1.669e+03  5.070e+01  32.923   &lt;2e-16 ***
+regionSouth East     1.939e+03  5.875e+01  33.002   &lt;2e-16 ***
+year                 3.230e+02  4.764e+00  67.792   &lt;2e-16 ***
+tillable            -2.502e+00  7.881e-01  -3.175   0.0015 ** 
+productivity         2.445e+01  1.078e+00  22.686   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1079 on 8776 degrees of freedom
+  (9913 observations deleted due to missingness)
+Multiple R-squared:  0.5179,    Adjusted R-squared:  0.5174 
+F-statistic: 942.8 on 10 and 8776 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linearity</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit1, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linearity 2</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Test stat Pr(&gt;|Test stat|)    
+crpPct          3.8991        9.727e-05 ***
+acres           7.0230        2.334e-12 ***
+region                                     
+year            2.0206          0.04335 *  
+tillable        4.9822        6.407e-07 ***
+productivity   11.1526        &lt; 2.2e-16 ***
+Tukey test     11.0991        &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression 2</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(acrePrice) <span class="sc">~</span>  crpPct <span class="sc">+</span> acres <span class="sc">+</span> region <span class="sc">+</span> </span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">+</span> tillable <span class="sc">+</span> productivity,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(acrePrice) ~ crpPct + acres + region + year + 
+    tillable + productivity, data = dta)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.67550 -0.16876 -0.00636  0.15205  1.90913 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         -2.260e+02  2.830e+00 -79.831  &lt; 2e-16 ***
+crpPct              -3.855e-03  2.575e-04 -14.969  &lt; 2e-16 ***
+acres               -3.289e-04  3.960e-05  -8.304  &lt; 2e-16 ***
+regionWest Central   6.097e-01  1.393e-02  43.762  &lt; 2e-16 ***
+regionCentral        8.912e-01  1.551e-02  57.476  &lt; 2e-16 ***
+regionSouth West     7.029e-01  1.400e-02  50.189  &lt; 2e-16 ***
+regionSouth Central  8.319e-01  1.502e-02  55.386  &lt; 2e-16 ***
+regionSouth East     9.116e-01  1.741e-02  52.373  &lt; 2e-16 ***
+year                 1.159e-01  1.411e-03  82.080  &lt; 2e-16 ***
+tillable             1.346e-03  2.335e-04   5.763 8.53e-09 ***
+productivity         9.277e-03  3.192e-04  29.060  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.3197 on 8776 degrees of freedom
+  (9913 observations deleted due to missingness)
+Multiple R-squared:  0.6629,    Adjusted R-squared:  0.6625 
+F-statistic:  1726 on 10 and 8776 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparing regressions</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">screen_many_regs</span>(fit1, fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=========================================================================
+                     Model 1                       Model 2               
+-------------------------------------------------------------------------
+(Intercept)          -647558.9077 (9553.7117) ***  -225.9569 (2.8305) ***
+crpPct                    -8.2879    (0.8693) ***    -0.0039 (0.0003) ***
+acres                     -1.1657    (0.1337) ***    -0.0003 (0.0000) ***
+regionWest Central       947.3789   (47.0272) ***     0.6097 (0.0139) ***
+regionCentral           1798.2119   (52.3396) ***     0.8912 (0.0155) ***
+regionSouth West        1257.1676   (47.2705) ***     0.7029 (0.0140) ***
+regionSouth Central     1669.1223   (50.6976) ***     0.8319 (0.0150) ***
+regionSouth East        1938.8725   (58.7507) ***     0.9116 (0.0174) ***
+year                     322.9656    (4.7641) ***     0.1159 (0.0014) ***
+tillable                  -2.5024    (0.7881) **      0.0013 (0.0002) ***
+productivity              24.4465    (1.0776) ***     0.0093 (0.0003) ***
+-------------------------------------------------------------------------
+R^2                        0.5179                     0.6629             
+Adj. R^2                   0.5174                     0.6625             
+Num. obs.               8787                       8787                  
+Num. df                 8776                       8776                  
+F statistic              942.7841 ***              1725.9608 ***         
+=========================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05
+Model 1 acrePrice ~ crpPct + acres + region + year + tillable + productivity
+Model 2 log(acrePrice) ~ crpPct + acres + region + year + tillable + productivity</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparing regressions</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-hedonic-prices_files/figure-html/unnamed-chunk-15-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Test stat Pr(&gt;|Test stat|)    
+crpPct          2.9704         0.002983 ** 
+acres           7.7681        8.865e-15 ***
+region                                     
+year           -9.4012        &lt; 2.2e-16 ***
+tillable        7.3151        2.799e-13 ***
+productivity    8.8189        &lt; 2.2e-16 ***
+Tukey test     -8.5399        &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

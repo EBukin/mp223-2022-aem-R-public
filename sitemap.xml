@@ -2,62 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/00-introduction/00-introduction.html</loc>
-    <lastmod>2022-05-03T00:30:59.519Z</lastmod>
+    <lastmod>2022-05-03T00:34:03.444Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/20-data-description/exploring-numeric-data.html</loc>
-    <lastmod>2022-05-03T00:31:31.595Z</lastmod>
+    <lastmod>2022-05-03T00:34:43.422Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/20-data-description/correlation.html</loc>
-    <lastmod>2022-05-03T00:31:37.143Z</lastmod>
+    <lastmod>2022-05-03T00:34:50.570Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/hedonic-regression.html</loc>
+    <lastmod>2022-05-03T00:35:38.192Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/multiple-regression.html</loc>
+    <lastmod>2022-05-03T00:35:43.129Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/10-simple-regression/10-simple-regression.html</loc>
-    <lastmod>2022-05-03T00:31:58.459Z</lastmod>
+    <lastmod>2022-05-03T00:36:07.370Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/workflow-tidy-data-wrangling.html</loc>
-    <lastmod>2022-05-03T00:32:02.211Z</lastmod>
+    <lastmod>2022-05-03T00:36:11.866Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/dplyr.html</loc>
-    <lastmod>2022-05-03T00:32:06.163Z</lastmod>
+    <lastmod>2022-05-03T00:36:16.670Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/import-data.html</loc>
-    <lastmod>2022-05-03T00:32:09.199Z</lastmod>
+    <lastmod>2022-05-03T00:36:20.498Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week04-checklist.html</loc>
+    <lastmod>2022-05-03T00:36:21.858Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week01-checklist.html</loc>
-    <lastmod>2022-05-03T00:32:10.239Z</lastmod>
+    <lastmod>2022-05-03T00:36:23.058Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week03-checklist.html</loc>
-    <lastmod>2022-05-03T00:32:12.351Z</lastmod>
+    <lastmod>2022-05-03T00:36:23.566Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/articles/external-materials.html</loc>
-    <lastmod>2022-05-03T00:32:12.647Z</lastmod>
+    <lastmod>2022-05-03T00:36:23.930Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-regression/ae04-02-MLR-hedonic-prices.html</loc>
+    <lastmod>2022-05-03T00:36:48.880Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-03-correlation.html</loc>
-    <lastmod>2022-05-03T00:32:16.819Z</lastmod>
+    <lastmod>2022-05-03T00:36:53.876Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html</loc>
-    <lastmod>2022-05-03T00:32:23.015Z</lastmod>
+    <lastmod>2022-05-03T00:37:01.652Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html</loc>
-    <lastmod>2022-05-03T00:32:28.595Z</lastmod>
+    <lastmod>2022-05-03T00:37:08.444Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-02-plastic-waste.html</loc>
-    <lastmod>2022-05-03T00:32:31.935Z</lastmod>
+    <lastmod>2022-05-03T00:37:12.445Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/index.html</loc>
-    <lastmod>2022-05-03T00:32:33.003Z</lastmod>
+    <lastmod>2022-05-03T00:37:13.665Z</lastmod>
   </url>
 </urlset>

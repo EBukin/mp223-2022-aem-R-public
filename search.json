@@ -637,6 +637,104 @@
     "text": "First Difference and correlation (2/2)\nFirst Difference removed linear trends from the data.\n\nThere might be some different chains of reaction here. For example:\n\nOil price may affect Urea prices as it is an important production factor\nOil price may affect maize price as it is a baleful competitor\nMaize price affect wheat as they are the substitute."
   },
   {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#hedonic-model-overview",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#hedonic-model-overview",
+    "title": "Hedonic model",
+    "section": "Hedonic Model overview",
+    "text": "Hedonic Model overview\nHedonic prices is an econometric approach of quantifying monetary values of various differentiated characteristics that a subject of economic exchange.\n\nFor example, agricultural land.\n\nIt has such characteristics as: location, slope, environmental limitation, farmers’ accessibility, climate, rainfall, soil salinity, nutrient content, irrigation availability and other.\nSome could be affected by landowner, some cannot, but all of it contribute to the final value of land."
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#hedonic-theory-12",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#hedonic-theory-12",
+    "title": "Hedonic model",
+    "section": "Hedonic Theory (1/2)",
+    "text": "Hedonic Theory (1/2)\nAccording to (Palmquist 1989), hedonic model of agricultural land price is based on the equilibrium between Offer and Bid functions. Author uses partial equilibrium approach to prove this.\n\n\\[\\phi(\\hat{z}, \\tilde{z}, \\pi^{S^{'}}, r, \\beta) = R = \\pi^{S^{'}} + C(\\hat{z}, \\tilde{z}, r, \\beta)\\]\n\n\n\\(R(\\cdot)\\) - realized land price (rental of sales);\n\\(\\hat{z}\\) - land characteristics exogenous to land owner;\n\\(\\tilde{z}\\) - land characteristics in control of land owner;\n\\(r\\) - inputs prices;\n\\(\\beta\\) - technologies and opportunities such as credit availability;"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#hedonic-theory-22",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#hedonic-theory-22",
+    "title": "Hedonic model",
+    "section": "Hedonic Theory (2/2)",
+    "text": "Hedonic Theory (2/2)\nEssentially, causal function of the land rental price could be written as:\n\\[R = R(\\hat{z}, \\tilde{z}, \\pi^{S^{'}}, r, \\beta)\\]\n\n\n\n\n\n\n\nImportant\n\n\nThis is a causal relationship because (Palmquist 1989) provides solid theoretical justification for it."
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#what-are-those-differentiated-land-characteristics",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#what-are-those-differentiated-land-characteristics",
+    "title": "Hedonic model",
+    "section": "What are those differentiated land characteristics?",
+    "text": "What are those differentiated land characteristics?\nAffected by land owner:\n\na.\nb.\nc.\n\nNot affected by land owner:\n\na.\nb.\nc."
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#loading-data",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#loading-data",
+    "title": "Hedonic model",
+    "section": "Loading data",
+    "text": "Loading data\n\n\nCode\ndta <- \n  alr4::MinnLand %>% \n  as_tibble()  %>%\n  # filter(year == 2007) %>% \n  select(acrePrice, acres, region, year, \n         tillable, crpPct, productivity)\nglimpse(dta)\n\n\nRows: 18,700\nColumns: 7\n$ acrePrice    <dbl> 766, 733, 850, 975, 886, 992, 623, 1382, 855, 364, 807, 4…\n$ acres        <int> 82, 30, 150, 160, 90, 120, 170, 100, 120, 160, 158, 83, 1…\n$ region       <fct> Northwest, Northwest, Northwest, Northwest, Northwest, No…\n$ year         <dbl> 2002, 2003, 2002, 2003, 2002, 2003, 2003, 2003, 2003, 200…\n$ tillable     <dbl> 94, 63, 47, 86, NA, 83, 42, 35, 46, 10, 29, 36, 14, 71, 9…\n$ crpPct       <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ productivity <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#summary-statistics-12",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#summary-statistics-12",
+    "title": "Hedonic model",
+    "section": "Summary statistics (1/2)",
+    "text": "Summary statistics (1/2)\n\n\nCode\ndta %>%\n  mutate(id = row_number()) %>% \n  pivot_longer(\n    cols = c(acrePrice, acres, year, tillable, crpPct, productivity),\n    names_to = \"var\",\n    values_to = \"val\"\n  ) %>% \n  group_by(var) %>% \n  summarise(across(\n    c(val),\n    list(\n      mean = ~ mean(.x, na.rm = TRUE),\n      sd = ~ sd(.x, na.rm = TRUE),\n      meadian = ~ median(.x, na.rm = TRUE),\n      n_miss = ~ sum(is.na(.x), na.rm = TRUE),\n      min = ~ min(.x, na.rm = TRUE),\n      max = ~ max(.x, na.rm = TRUE)\n    )\n  ), \n  n = n())\n\n\n# A tibble: 6 × 8\n  var          val_mean  val_sd val_meadian val_n_miss val_min val_max     n\n  <chr>           <dbl>   <dbl>       <dbl>      <int>   <dbl>   <dbl> <int>\n1 acrePrice     2787.   1914.          2442          0     108   15000 18700\n2 acres          113.    128.            80          0       1    6970 18700\n3 crpPct           4.16   17.2            0          0       0     100 18700\n4 productivity    66.6    13.5           68       9717       1      99 18700\n5 tillable        80.7    22.8           92       1212       0     100 18700\n6 year          2006.      2.51        2006          0    2002    2011 18700"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#summary-statistics-22",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#summary-statistics-22",
+    "title": "Hedonic model",
+    "section": "Summary statistics (2/2)",
+    "text": "Summary statistics (2/2)\n\n\nCode\ndta %>% datasummary_skim(output = \"markdown\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUnique (#)\nMissing (%)\nMean\nSD\nMin\nMedian\nMax\n\n\n\n\nacrePrice\n5696\n0\n2787.3\n1914.0\n108.0\n2442.0\n15000.0\n\n\nacres\n596\n0\n112.7\n128.5\n1.0\n80.0\n6970.0\n\n\nyear\n10\n0\n2006.4\n2.5\n2002.0\n2006.0\n2011.0\n\n\ntillable\n102\n6\n80.7\n22.8\n0.0\n92.0\n100.0\n\n\ncrpPct\n101\n0\n4.2\n17.2\n0.0\n0.0\n100.0\n\n\nproductivity\n96\n52\n66.6\n13.5\n1.0\n68.0\n99.0"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#visual-inspection-scatter-plots",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#visual-inspection-scatter-plots",
+    "title": "Hedonic model",
+    "section": "Visual inspection: scatter plots",
+    "text": "Visual inspection: scatter plots\n\n\nCode\ndta %>%\n  select(acrePrice, acres, tillable, \n         crpPct, productivity) %>%\n  ggpairs() +\n  theme_bw()"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#regression.-summary",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#regression.-summary",
+    "title": "Hedonic model",
+    "section": "Regression. Summary",
+    "text": "Regression. Summary\n\n\nCode\nfit1 <- lm(\n  acrePrice ~ crpPct + acres + region + \n    year + tillable + productivity, \n  data = dta\n)\nsummary(fit1)\n\n\n\nCall:\nlm(formula = acrePrice ~ crpPct + acres + region + year + tillable + \n    productivity, data = dta)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-3663.2  -572.0  -132.8   356.3 11029.3 \n\nCoefficients:\n                      Estimate Std. Error t value Pr(>|t|)    \n(Intercept)         -6.476e+05  9.554e+03 -67.781   <2e-16 ***\ncrpPct              -8.288e+00  8.693e-01  -9.534   <2e-16 ***\nacres               -1.166e+00  1.337e-01  -8.720   <2e-16 ***\nregionWest Central   9.474e+02  4.703e+01  20.145   <2e-16 ***\nregionCentral        1.798e+03  5.234e+01  34.357   <2e-16 ***\nregionSouth West     1.257e+03  4.727e+01  26.595   <2e-16 ***\nregionSouth Central  1.669e+03  5.070e+01  32.923   <2e-16 ***\nregionSouth East     1.939e+03  5.875e+01  33.002   <2e-16 ***\nyear                 3.230e+02  4.764e+00  67.792   <2e-16 ***\ntillable            -2.502e+00  7.881e-01  -3.175   0.0015 ** \nproductivity         2.445e+01  1.078e+00  22.686   <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1079 on 8776 degrees of freedom\n  (9913 observations deleted due to missingness)\nMultiple R-squared:  0.5179,    Adjusted R-squared:  0.5174 \nF-statistic: 942.8 on 10 and 8776 DF,  p-value: < 2.2e-16"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#regression.-interpretation-of-the-coefficients",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#regression.-interpretation-of-the-coefficients",
+    "title": "Hedonic model",
+    "section": "Regression. Interpretation of the coefficients",
+    "text": "Regression. Interpretation of the coefficients\n\nparameters(fit1)\n\nParameter              | Coefficient |      SE |                   95% CI | t(8776) |      p\n--------------------------------------------------------------------------------------------\n(Intercept)            |   -6.48e+05 | 9553.71 | [ -6.66e+05,  -6.29e+05] |  -67.78 | < .001\ncrpPct                 |       -8.29 |    0.87 | [     -9.99,      -6.58] |   -9.53 | < .001\nacres                  |       -1.17 |    0.13 | [     -1.43,      -0.90] |   -8.72 | < .001\nregion [West Central]  |      947.38 |   47.03 | [    855.19,    1039.56] |   20.15 | < .001\nregion [Central]       |     1798.21 |   52.34 | [   1695.61,    1900.81] |   34.36 | < .001\nregion [South West]    |     1257.17 |   47.27 | [   1164.51,    1349.83] |   26.60 | < .001\nregion [South Central] |     1669.12 |   50.70 | [   1569.74,    1768.50] |   32.92 | < .001\nregion [South East]    |     1938.87 |   58.75 | [   1823.71,    2054.04] |   33.00 | < .001\nyear                   |      322.97 |    4.76 | [    313.63,     332.30] |   67.79 | < .001\ntillable               |       -2.50 |    0.79 | [     -4.05,      -0.96] |   -3.18 | 0.002 \nproductivity           |       24.45 |    1.08 | [     22.33,      26.56] |   22.69 | < .001"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#checking-linearity-12",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#checking-linearity-12",
+    "title": "Hedonic model",
+    "section": "Checking Linearity 1/2",
+    "text": "Checking Linearity 1/2\n\ncheck_model(fit1, check = \"linearity\", panel = FALSE)\n\n$NCV"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#checking-linearity-22",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#checking-linearity-22",
+    "title": "Hedonic model",
+    "section": "Checking Linearity 2/2",
+    "text": "Checking Linearity 2/2\n\nresidualPlots(fit1, plot = FALSE)\n\n             Test stat Pr(>|Test stat|)    \ncrpPct          3.8991        9.727e-05 ***\nacres           7.0230        2.334e-12 ***\nregion                                     \nyear            2.0206          0.04335 *  \ntillable        4.9822        6.407e-07 ***\nproductivity   11.1526        < 2.2e-16 ***\nTukey test     11.0991        < 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#takeaway",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#takeaway",
+    "title": "Hedonic model",
+    "section": "Takeaway",
+    "text": "Takeaway\n\nSimple linear regression\nOLS\nSlope and Intercept (interpretation)\nFitted values\nResiduals\nResiduals vs Fitted\n\n\n\nfitting regression: fit()\nregression summary: summary(), tidy(), glance(), parameters(), performance() , check_model() , fitted() , residuals() , resid()\npackages: broom, parameters and performance"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/hedonic-regression.html#references-1",
+    "href": "slides/30-multiple-regression/hedonic-regression.html#references-1",
+    "title": "Hedonic model",
+    "section": "References",
+    "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nPalmquist, Raymond B. 1989. “Land as a Differentiated Factor of Production: A Hedonic Model and Its Implications for Welfare Measurement.” Land Economics 65 (1): 23. https://doi.org/10.2307/3146260.\n\n\nTaff, Steven J, and Sanford Weisberg. 2007. “Compensated Short-Term Conservation Restrictions May Reduce Sale Prices.” Appraisal Journal 75 (1)."
+  },
+  {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#pearson-lee-data",
     "href": "slides/10-simple-regression/10-simple-regression.html#pearson-lee-data",
     "title": "Simple regression",
@@ -648,28 +746,28 @@
     "href": "slides/10-simple-regression/10-simple-regression.html#data-loading-and-preparation",
     "title": "Simple regression",
     "section": "Data loading and preparation",
-    "text": "Data loading and preparation\n\n\nLoading data\nConverting data frame into a tibble() object\nRenaming variables\nGlimpse of data\n\n\n\n\n# Note, we use `sample_n(400)` to randomly select only 400 observations\ndta <- \n  alr4::Heights %>% \n  as_tibble() %>% \n  rename(mother_height = mheight,\n         daughter_height = dheight) %>% \n  sample_n(400)\nglimpse(dta)\n\nRows: 400\nColumns: 2\n$ mother_height   <dbl> 58.8, 65.4, 65.5, 63.2, 60.1, 61.2, 60.8, 63.7, 63.8, …\n$ daughter_height <dbl> 62.7, 66.2, 62.8, 62.2, 65.1, 64.8, 63.4, 64.3, 62.5, …"
+    "text": "Data loading and preparation\n\n\nLoading data\nConverting data frame into a tibble() object\nRenaming variables\nGlimpse of data\n\n\n\n\n\nCode\n# Note, we use `sample_n(400)` to randomly select only 400 observations\ndta <- \n  alr4::Heights %>% \n  as_tibble() %>% \n  rename(mother_height = mheight,\n         daughter_height = dheight) %>% \n  sample_n(400)\nglimpse(dta)\n\n\nRows: 400\nColumns: 2\n$ mother_height   <dbl> 58.8, 65.4, 65.5, 63.2, 60.1, 61.2, 60.8, 63.7, 63.8, …\n$ daughter_height <dbl> 62.7, 66.2, 62.8, 62.2, 65.1, 64.8, 63.4, 64.3, 62.5, …"
   },
   {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#exploring-data-scatter-plot",
     "href": "slides/10-simple-regression/10-simple-regression.html#exploring-data-scatter-plot",
     "title": "Simple regression",
     "section": "Exploring data (Scatter plot)",
-    "text": "Exploring data (Scatter plot)\n\nPlotImprove the code yourself\n\n\n\n\nCode\nplt <- \n  dta %>% \n  ggplot() + \n  aes(x = mother_height, y = daughter_height) + \n  geom_point(alpha = 0.5)\nplt\n\n\n\n\n\n\n\n\n\n\n\n\nWhat alpha = 0.5 stands for?\nAdd labels.\nchange color of points (add color = \"red\" after alpha separating arguments with comma)\n\n\n\nCode\ndta %>% \n  ggplot() + \n  aes(x = mother_height, y = daughter_height) + \n  geom_point(alpha = 0.5) + \n  labs(x = \"___________\", \n       y = \"___________\")"
+    "text": "Exploring data (Scatter plot)\n\nPlotImprove the code yourself\n\n\n\n\nCode\nplt <- \n  dta %>% \n  ggplot() + \n  aes(x = mother_height, y = daughter_height) + \n  geom_point(alpha = 0.5) + \n  theme_minimal()\nplt\n\n\n\n\n\n\n\n\n\n\n\n\nWhat alpha = 0.5 stands for?\nAdd labels.\nchange color of points (add color = \"red\" after alpha separating arguments with comma)\n\n\n\nCode\ndta %>% \n  ggplot() + \n  aes(x = mother_height, y = daughter_height) + \n  geom_point(alpha = 0.5) + \n  labs(x = \"___________\", \n       y = \"___________\")"
   },
   {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#simple-regression-line",
     "href": "slides/10-simple-regression/10-simple-regression.html#simple-regression-line",
     "title": "Simple regression",
     "section": "Simple regression line",
-    "text": "Simple regression line\n\n\n\n$Y = + \\ = + $\n\n\n\n\nCode\nfit <- lm(daughter_height ~ mother_height, data = dta)\nplt <- \n  plt + \n  labs(x = \"Mothers' height\", \n       y = \"Daughter height\") + \n  geom_smooth(method = \"lm\", color = \"green\", se = FALSE)\nplt"
+    "text": "Simple regression line\n\n\n\n\\(Y \\\\ = \\color{green}{f(X)} \\\\ + \\text{Error term} \\\\ = \\color{green}{E[Y|X]} + \\epsilon\\)\n\n\n\n\nCode\nfit <- \n  lm(daughter_height ~ mother_height, data = dta)\nplt <- \n  plt + \n  labs(x = \"Mothers' height\", \n       y = \"Daughter height\") + \n  geom_smooth(method = \"lm\", \n              color = \"green\", \n              se = FALSE) + \n  theme_minimal()\nplt"
   },
   {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#simple-regression",
     "href": "slides/10-simple-regression/10-simple-regression.html#simple-regression",
     "title": "Simple regression",
     "section": "Simple regression",
-    "text": "Simple regression\n\\[\\Large{Y = \\beta_0 + \\beta_1 X}\\]\n\n\n\\(Y\\): dependent variable, observed values\n\\(Y\\): independent variable\n\\(\\beta_1\\): True slope\n\\(\\beta_0\\): True intercept\nNote, in the population regression function, there is no error terms!"
+    "text": "Simple regression\n\\[\\Large{Y = \\beta_0 + \\beta_1 X}\\]\n\n\n\\(Y\\): dependent variable, observed values\n\\(X\\): independent variable\n\\(\\beta_1\\): True slope\n\\(\\beta_0\\): True intercept\nNote, in the population regression function, there is no error terms!"
   },
   {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#estimated-simple-regression",
@@ -683,7 +781,7 @@
     "href": "slides/10-simple-regression/10-simple-regression.html#residuals",
     "title": "Simple regression",
     "section": "Residuals",
-    "text": "Residuals\n\n\n\\(Y = \\color{green}{f(X)} + \\color{blue}{\\text{Error term}} \\\\ = \\color{green}{E[Y|X]} + \\color{blue}{\\epsilon}\\)\n\n\n\nCode\nplt + \n  geom_segment(\n    aes(x = mother_height, xend = mother_height,\n        y = daughter_height, yend = predict(fit)), \n    color = \"blue\",\n    alpha = 0.4\n  )"
+    "text": "Residuals\n\n\n\\(Y \\\\ = \\color{green}{f(X)} \\\\ + \\color{blue}{\\text{Error term}} \\\\ = \\color{green}{E[Y|X]} + \\color{blue}{\\epsilon}\\)\n\n\n\nCode\nplt + \n  geom_segment(\n    aes(x = mother_height, xend = mother_height,\n        y = daughter_height, yend = predict(fit)), \n    color = \"blue\",\n    alpha = 0.4\n  )"
   },
   {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#residuals-1",
@@ -704,7 +802,7 @@
     "href": "slides/10-simple-regression/10-simple-regression.html#ordinary-least-square-ols-2",
     "title": "Simple regression",
     "section": "Ordinary Least Square (OLS)",
-    "text": "Ordinary Least Square (OLS)\nthe OLS finds such values of \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) that minimizes the sum of squared residuals:\n\\[\n\\Large{\nSSR =\n\\sum_{i}^{n}{e_i^2} \\\\ = \\sum_{i}^{n}{(y_i - \\hat{y_i})^2} \\\\ = {[e_1^2 + e_2^2 + ... + e_n^2]}\n}\n\\]"
+    "text": "Ordinary Least Square (OLS)\nthe OLS finds such values of \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) that minimizes the sum of squared residuals:\n\\[\n\\Large{\nSSR =\n\\sum_{i}^{n}{e_i^2} = \\sum_{i}^{n}{(y_i - \\hat{y_i})^2} \\\\ = {[e_1^2 + e_2^2 + ... + e_n^2]}\n}\n\\]"
   },
   {
     "objectID": "slides/10-simple-regression/10-simple-regression.html#properties-of-ols",
@@ -1064,6 +1162,13 @@
     "text": "janitor package (2/2) key functions\n\njanitor::clean_names() - Cleans names of an object (usually a data.frame).\njanitor::row_to_names(row_number = 1) - Elevate a row to be the column names of a data.frame.\njanitor::convert_to_date() + excel_numeric_to_date() - Convert many date and datetime formats as may be received from Microsoft Excel\njanitor::remove_empty() - Remove empty rows and/or columns from a data.frame or matrix."
   },
   {
+    "objectID": "weeks/week04-checklist.html",
+    "href": "weeks/week04-checklist.html",
+    "title": "Week 3",
+    "section": "",
+    "text": "SELF STUDY\n\n\n\n\nSLIDES: 🖥W04-00 Simple regression\nApplication Exercise: 📋ae04-01-simple-regression-from-slides.R\n\n\n\n\n\nRecommended. Practice:\n\n Open Intro. Lab. Simple Regression\n\nRecommended. Read:\n\n📖 Introduction to Modern Statistics. Ch. 7 Linear Regression with a single predictor\n\n\n\n\n\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W04-01 Multiple Regression + Linearity assumption\nApplication Exercise: 📋ae04-02-MLR-hedonic-prices.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nApplication Exercise: 📋ae04-03-housing-prices.Rmd\n\n\n\n\nRecommended. Watch:\n\nData types video + slides\n\nRecommended. Read:\n\n R4DS Ch. 11 Data import\n\nOptional. Read:\n\nCHEATSHEET: Data import with the tidyverse\ntidyverse/readxl + tidyverse/readr + janitor\n\nOptional. Watch:\n\nImporting and recoding data\nData classes video + slides\nImporting data video + slides\n webinar: What’s new with readxl?\n\n\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nSLIDES: 🖥W03-02 Exploring numerical data\nApplication Exercise: 📋 AE03-02 Exploring data on plstic waste + Solution to the ae03-02: ae03-02-plastic-waste-solutions.rmd\n\n\n\n\nRecommended. Practice:\n\n Primers: Derive Information with dplyr\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n Primers: Data Visualization Basics\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n\nOptional. Read:\n\n IMS: Chapter 5 Exploring numerical data\n\nOptional. Watch + Practice:\n\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides\n\n\n\n\n\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W03-04 correlation correlation\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nApplication Exercise: 📋ae03-03-correlation.Rmd\n\n\n\n\nRecommended. Practice:\n\n Primers: Exploratory data analysis\n\nRecommended. Read:\n\nInterpretation of the strength of correlation\n\nOptional. Read:\n\neasystats/correlation\nCorrelation types\n\n\n\n\n\nDownload project from 📋 ae03-data-wrangling.zip or the same on Ilias: 📋 ae03-data-wrangling.zip on Ilias.\n\n\n\n\n\n\nIn class\n\n\n\n\nApplication Exercise: 📋ae03-01-import-clean-sum-plot.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nApplication Exercise: 📋 ae03-02-correlation.Rmd\nApplication Exercise: 📋 ae03-02-plastic-waste.rmd\n\n\n\n\n\n\n\nRecommended. Practice:\n\n Open Intro. Interactive. Visualizing categorical data (takes time to load)\n\nRecommended. Watch + Practice:\n\n webinar: Tidyverse visualization manipulation basics\n Visualising categorical data video + slides\n\nOptional. Read:\n\n IMS: Chapter 4 Exploring categorical data\n\n\n\n\n\nWe use dplyr every day in any exercise. Thus, there is no point to dedicate specific time to it. Use this list of materials to guide your learning process. Most of the core functions of dplyr are covered in data other parts of the course.\nMaterials listed here may repeat the ones listed before.\n\nRecommended. Read:\n\n R4DS Chapter 5 Data transformation\nCHEATSHEET: Data transformation with dplyr\ntidyverse/dplyr\n\nRecommended. Practice:\n\n Primers: Working with Tibbles\n Primers: Isolating Data with dplyr\n Primers: Derive Information with dplyr\n Primers: Filter observations\n Open Intro. Interactive. Summarizing data (takes time to load)\nInteractive tutorial based on R4DS Ch. 5.6 Summarizing data\n\n\n\n\n\nThere are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the ggplot2 package is scheduled for self learning.\n\nRecommended. Read:\n\n R4DS Chapter 3 Data visualisation\nCHEATSHEET: Data visualization with ggplot2 cheatsheet\n\nRecommended. Practice:\n\n Primers: Data Visualization Basics\n Primers: Exploratory data analysis\n Primers: Bar Charts\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n Primers: Overplotting\n Primers: Customize plots\n\nOptional. Practice:\n\n Open Intro. Interactive. Visualizing categorical data (takes time to load)\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n\nOptional. Watch + Practice:\n\n webinar: Tidyverse visualization manipulation basics\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides\n Visualising categorical data video + slides"
+  },
+  {
     "objectID": "weeks/week01-checklist.html",
     "href": "weeks/week01-checklist.html",
     "title": "Week 1",
@@ -1153,6 +1258,48 @@
     "title": "Materials and external sources for learning R",
     "section": "",
     "text": "R4DS: R for data science by Hadley Wickham and Garrett Grolemund (source code)\n\n\n\nRStudio cheat sheets (here) on:\n\nData import with readr, readxl, and googlesheets4 cheatsheet\nData transformation with dplyr cheatsheet\nData tidying with tidyr cheatsheet\n\nRStudio Webinars + sourcode:\n\nData wrangling with R and RStudio by Garrett Grolemund\nTidyverse visualization manipulation basics by Garrett Grolemund\nWhat’s new with readxl? with Jenny Bryan\n\nTutorials from INBO Tutorials:\n\nR for beginners from Research Institute for Nature and Forest (INBO) in Belgium"
+  },
+  {
+    "objectID": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html",
+    "href": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html",
+    "title": "AE04-02 Multiple Linear Regression: Hedonic Prices",
+    "section": "",
+    "text": "library(tidyverse)       # for data wrangling\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──\n\n\n✔ ggplot2 3.3.5     ✔ purrr   0.3.4\n✔ tibble  3.1.6     ✔ dplyr   1.0.8\n✔ tidyr   1.2.0     ✔ stringr 1.4.0\n✔ readr   2.1.2     ✔ forcats 0.5.1\n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\nlibrary(alr4)            # for the data sets #\n\nLoading required package: car\n\n\nLoading required package: carData\n\n\n\nAttaching package: 'car'\n\n\nThe following object is masked from 'package:dplyr':\n\n    recode\n\n\nThe following object is masked from 'package:purrr':\n\n    some\n\n\nLoading required package: effects\n\n\nlattice theme set by effectsTheme()\nSee ?effectsTheme for details.\n\nlibrary(GGally)\n\nRegistered S3 method overwritten by 'GGally':\n  method from   \n  +.gg   ggplot2\n\nlibrary(parameters)\n\nRegistered S3 method overwritten by 'parameters':\n  method                         from      \n  format.parameters_distribution datawizard\n\nlibrary(performance)\nlibrary(see)\nlibrary(car)\nlibrary(broom)\nlibrary(modelsummary)\n\n\nAttaching package: 'modelsummary'\n\n\nThe following object is masked from 'package:parameters':\n\n    supported_models\n\nlibrary(texreg)\n\nVersion:  1.38.6\nDate:     2022-04-06\nAuthor:   Philip Leifeld (University of Essex)\n\nConsider submitting praise using the praise or praise_interactive functions.\nPlease cite the JSS article in your publications -- see citation(\"texreg\").\n\n\n\nAttaching package: 'texreg'\n\n\nThe following object is masked from 'package:tidyr':\n\n    extract\n\nmy_gof <- function(fit_obj, digits = 4) {\n  sum_fit <- summary(fit_obj)\n  \n  stars <- \n    pf(sum_fit$fstatistic[1],\n       sum_fit$fstatistic[2], \n       sum_fit$fstatistic[3],\n       lower.tail=FALSE) %>% \n    symnum(corr = FALSE, na = FALSE, \n           cutpoints = c(0,  .001,.01,.05,  1),\n           symbols   =  c(\"***\",\"**\",\"*\",\" \")) %>% \n    as.character()\n  \n  list(\n    # `R^2` = sum_fit$r.squared %>% round(digits),\n    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),\n    # `Num. obs.` = sum_fit$residuals %>% length(),\n    `Num. df` = sum_fit$df[[2]],\n    `F statistic` = \n      str_c(sum_fit$fstatistic[1] %>% round(digits), \" \", stars)\n  )\n}\n\n# Function for screening many regressors\nscreen_many_regs <-\n  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {\n    \n    if (class(fit_obj_list) == \"lm\") \n      fit_obj_list <- list(fit_obj_list)\n    \n    if (length(rlang::dots_list(...)) > 0)  \n      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))\n    \n    # browser()\n    fit_obj_list %>%\n      screenreg(\n        custom.note =\n          map2_chr(., seq_along(.), ~ {\n            str_c(\"Model \", .y, \" \", as.character(.x$call)[[2]])\n          }) %>%\n          c(\"*** p < 0.001; ** p < 0.01; * p < 0.05\", .) %>%\n          str_c(collapse = \"\\n\") ,\n        digits = digits,\n        single.row = single.row,\n        custom.gof.rows =\n          map(., ~my_gof(.x, digits)) %>%\n          transpose() %>%\n          map(unlist),\n        reorder.gof = c(3, 4, 5, 1, 2)\n      )\n  }"
+  },
+  {
+    "objectID": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#data-loading",
+    "href": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#data-loading",
+    "title": "AE04-02 Multiple Linear Regression: Hedonic Prices",
+    "section": "Data loading",
+    "text": "Data loading\n\ndta <- \n  alr4::MinnLand %>% \n  as_tibble()  %>%\n  # filter(year == 2007) %>% \n  select(acrePrice, acres, region, year, \n         tillable, crpPct, productivity)\n\nGlimpse at the data:\n\n# _______(dta)"
+  },
+  {
+    "objectID": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#summary-statistics",
+    "href": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#summary-statistics",
+    "title": "AE04-02 Multiple Linear Regression: Hedonic Prices",
+    "section": "Summary Statistics",
+    "text": "Summary Statistics\nThis is a simple short-cut ot the summary statistics.\n\ndta %>% datasummary_skim()\n\n\n \n  \n      \n    Unique (#) \n    Missing (%) \n    Mean \n    SD \n    Min \n    Median \n    Max \n       \n  \n \n\n  \n    acrePrice \n    5696 \n    0 \n    2787.3 \n    1914.0 \n    108.0 \n    2442.0 \n    15000.0 \n     \n\n\n  \n  \n    acres \n    596 \n    0 \n    112.7 \n    128.5 \n    1.0 \n    80.0 \n    6970.0 \n     \n\n\n  \n  \n    year \n    10 \n    0 \n    2006.4 \n    2.5 \n    2002.0 \n    2006.0 \n    2011.0 \n     \n\n\n  \n  \n    tillable \n    102 \n    6 \n    80.7 \n    22.8 \n    0.0 \n    92.0 \n    100.0 \n     \n\n\n  \n  \n    crpPct \n    101 \n    0 \n    4.2 \n    17.2 \n    0.0 \n    0.0 \n    100.0 \n     \n\n\n  \n  \n    productivity \n    96 \n    52 \n    66.6 \n    13.5 \n    1.0 \n    68.0 \n    99.0 \n     \n\n\n  \n\n\n\n\n\n\nDo yourself at home!\nIn the code chunk below, adopt the R code used to prepare data summary manually. Run it step by step and comment on what it does between each component of the pipe.\n\n# dta %>%\n#   _______(id = _______()) %>% \n#   _______(\n#     cols = c(acrePrice, acres, year, tillable, crpPct, productivity),\n#     names_to = \"var\",\n#     values_to = \"val\"\n#   ) %>% \n#   _______(var) %>% \n#   _______(_______(\n#     c(val),\n#     _______(\n#       mean = ~ mean(.x, na.rm = TRUE),\n#       sd = ~ sd(.x, na.rm = TRUE),\n#       meadian = ~ median(.x, na.rm = TRUE),\n#       n_miss = ~ sum(is.na(.x), na.rm = TRUE),\n#       min = ~ min(.x, na.rm = TRUE),\n#       max = ~ max(.x, na.rm = TRUE)\n#     )\n#   ), \n#   n = n())"
+  },
+  {
+    "objectID": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#visual-inspection",
+    "href": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#visual-inspection",
+    "title": "AE04-02 Multiple Linear Regression: Hedonic Prices",
+    "section": "Visual inspection",
+    "text": "Visual inspection\nWe reply on the visual inspection of data to build some prior expectations. We will use function ggpairs() from GGally. Insert function name where appropriate:\n\nlibrary(GGally)\n# dta %>%\n#   select(acrePrice, acres, tillable, \n#          crpPct, productivity) %>%\n#   ________()"
+  },
+  {
+    "objectID": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#regression-1",
+    "href": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#regression-1",
+    "title": "AE04-02 Multiple Linear Regression: Hedonic Prices",
+    "section": "Regression 1",
+    "text": "Regression 1\nLet us fit the basic regression and summarize the results.\n\n# fit1 <- lm(\n#   acrePrice ~ _____ + _____ + _____ + _____ + ____ + _____,\n#   data = dta\n# )\n# summary(fit1)\n\nUse performance and parameters package to summarize the regression results.\n\nProvide object with the fitted regression;\n\n\n# parameters(_____)\n# performance(_____)\n\n\nLinearity: visual inspection\nWe can use built-in function for plotting residuals vs fitted.\n\nProvide object with the fitted regression;\n\n\n# plot(_____, which = 1)\n\nWe can also rely on the performance package:\n\n# check_model(_____, check = \"linearity\", panel = FALSE)\n\nWhat do you conclude about the linearity assumption based on these results?\n\n\nLinearity: statistical test\nWhat does the residualPlots() test and plots show us?\n\n# residualPlots(_____)\n\nWhat we conclude based on this linearity test?"
+  },
+  {
+    "objectID": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#regression-2",
+    "href": "ae/ae04-regression/ae04-02-MLR-hedonic-prices.html#regression-2",
+    "title": "AE04-02 Multiple Linear Regression: Hedonic Prices",
+    "section": "Regression 2",
+    "text": "Regression 2\nLet us transform the dependent variable with a logarithm!\n\n# fit2 <- lm(\n#   log(acrePrice) ~ _______________,\n#   data = _____\n# )\n# summary(_____________)\n\n\nRegressions comparison\nLet us compare regression 1 and 2 using function screen_many_regs.\n\n# screen_many_regs(_______, fit2)\n\n\n\nLinearity assumption\nIs the linearity assumption fulfilled now?\n\n# residualPlots(___________)"
   },
   {
     "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html",

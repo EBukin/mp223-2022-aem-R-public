@@ -4,7 +4,7 @@
   <meta name="generator" content="quarto-0.9.345">
 
   <meta name="author" content="Eduard Bukin">
-  <title>mp223 Applied Econometric Methods for the Socials Sciences - Simple regression</title>
+  <title>mp223 Applied Econometric Methods for the Socials Sciences - Hedonic model</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -403,503 +403,455 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Simple regression</h1>
+  <h1 class="title">Hedonic model</h1>
   <p class="subtitle">MP223 - Applied Econometrics Methods for the Social Sciences</p>
   <p class="author">Eduard Bukin</p>
 </section>
 
-<section class="slide level2">
-
-<div class="cell">
-
-</div>
-</section>
-<section id="r-setup" class="title-slide slide level1 center">
+<section id="r-setup" class="title-slide slide level1 smaller center">
 <h1>R setup</h1>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-2_2f52b36480549b6b1097a64ef577800c">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load packages</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)       <span class="co"># for data wrangling</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(alr4)            <span class="co"># for the data sets #</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># set default theme and larger font size for ggplot2</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># set default figure parameters for knitr</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">fig.width =</span> <span class="dv">8</span>,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>  <span class="at">out.width =</span> <span class="st">"80%"</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># for data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(alr4)            <span class="co"># for the data sets #</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">8</span>,</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="at">cache =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a></span>
+<span id="cb1-26"><a href="#cb1-26"></a>my_gof <span class="ot">&lt;-</span> <span class="cf">function</span>(fit_obj, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
+<span id="cb1-27"><a href="#cb1-27"></a>  sum_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_obj)</span>
+<span id="cb1-28"><a href="#cb1-28"></a>  </span>
+<span id="cb1-29"><a href="#cb1-29"></a>  stars <span class="ot">&lt;-</span> </span>
+<span id="cb1-30"><a href="#cb1-30"></a>    <span class="fu">pf</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb1-31"><a href="#cb1-31"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">2</span>], </span>
+<span id="cb1-32"><a href="#cb1-32"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">3</span>],</span>
+<span id="cb1-33"><a href="#cb1-33"></a>       <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-34"><a href="#cb1-34"></a>    <span class="fu">symnum</span>(<span class="at">corr =</span> <span class="cn">FALSE</span>, <span class="at">na =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb1-35"><a href="#cb1-35"></a>           <span class="at">cutpoints =</span> <span class="fu">c</span>(<span class="dv">0</span>,  .<span class="dv">001</span>,.<span class="dv">01</span>,.<span class="dv">05</span>,  <span class="dv">1</span>),</span>
+<span id="cb1-36"><a href="#cb1-36"></a>           <span class="at">symbols   =</span>  <span class="fu">c</span>(<span class="st">"***"</span>,<span class="st">"**"</span>,<span class="st">"*"</span>,<span class="st">" "</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-37"><a href="#cb1-37"></a>    <span class="fu">as.character</span>()</span>
+<span id="cb1-38"><a href="#cb1-38"></a>  </span>
+<span id="cb1-39"><a href="#cb1-39"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    <span class="co"># `R^2` = sum_fit$r.squared %&gt;% round(digits),</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="co"># `Adj. R^2` = sum_fit$adj.r.squared %&gt;% round(digits),</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    <span class="co"># `Num. obs.` = sum_fit$residuals %&gt;% length(),</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>    <span class="st">`</span><span class="at">Num. df</span><span class="st">`</span> <span class="ot">=</span> sum_fit<span class="sc">$</span>df[[<span class="dv">2</span>]],</span>
+<span id="cb1-44"><a href="#cb1-44"></a>    <span class="st">`</span><span class="at">F statistic</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb1-45"><a href="#cb1-45"></a>      <span class="fu">str_c</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits), <span class="st">" "</span>, stars)</span>
+<span id="cb1-46"><a href="#cb1-46"></a>  )</span>
+<span id="cb1-47"><a href="#cb1-47"></a>}</span>
+<span id="cb1-48"><a href="#cb1-48"></a></span>
+<span id="cb1-49"><a href="#cb1-49"></a>screen_many_regs <span class="ot">&lt;-</span></span>
+<span id="cb1-50"><a href="#cb1-50"></a>  <span class="cf">function</span>(fit_obj_list, ..., <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">single.row =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb1-51"><a href="#cb1-51"></a>    </span>
+<span id="cb1-52"><a href="#cb1-52"></a>    <span class="cf">if</span> (<span class="fu">class</span>(fit_obj_list) <span class="sc">==</span> <span class="st">"lm"</span>) </span>
+<span id="cb1-53"><a href="#cb1-53"></a>      fit_obj_list <span class="ot">&lt;-</span> <span class="fu">list</span>(fit_obj_list)</span>
+<span id="cb1-54"><a href="#cb1-54"></a>    </span>
+<span id="cb1-55"><a href="#cb1-55"></a>    <span class="cf">if</span> (<span class="fu">length</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...)) <span class="sc">&gt;</span> <span class="dv">0</span>)  </span>
+<span id="cb1-56"><a href="#cb1-56"></a>      fit_obj_list <span class="ot">&lt;-</span> fit_obj_list <span class="sc">%&gt;%</span> <span class="fu">append</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...))</span>
+<span id="cb1-57"><a href="#cb1-57"></a>    </span>
+<span id="cb1-58"><a href="#cb1-58"></a>    <span class="co"># browser()</span></span>
+<span id="cb1-59"><a href="#cb1-59"></a>    fit_obj_list <span class="sc">%&gt;%</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>      <span class="fu">screenreg</span>(</span>
+<span id="cb1-61"><a href="#cb1-61"></a>        <span class="at">custom.note =</span></span>
+<span id="cb1-62"><a href="#cb1-62"></a>          <span class="fu">map2_chr</span>(., <span class="fu">seq_along</span>(.), <span class="sc">~</span> {</span>
+<span id="cb1-63"><a href="#cb1-63"></a>            <span class="fu">str_c</span>(<span class="st">"Model "</span>, .y, <span class="st">" "</span>, <span class="fu">as.character</span>(.x<span class="sc">$</span>call)[[<span class="dv">2</span>]])</span>
+<span id="cb1-64"><a href="#cb1-64"></a>          }) <span class="sc">%&gt;%</span></span>
+<span id="cb1-65"><a href="#cb1-65"></a>          <span class="fu">c</span>(<span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>, .) <span class="sc">%&gt;%</span></span>
+<span id="cb1-66"><a href="#cb1-66"></a>          <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) ,</span>
+<span id="cb1-67"><a href="#cb1-67"></a>        <span class="at">digits =</span> digits,</span>
+<span id="cb1-68"><a href="#cb1-68"></a>        <span class="at">single.row =</span> single.row,</span>
+<span id="cb1-69"><a href="#cb1-69"></a>        <span class="at">custom.gof.rows =</span></span>
+<span id="cb1-70"><a href="#cb1-70"></a>          <span class="fu">map</span>(., <span class="sc">~</span><span class="fu">my_gof</span>(.x, digits)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a>          <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-72"><a href="#cb1-72"></a>          <span class="fu">map</span>(unlist),</span>
+<span id="cb1-73"><a href="#cb1-73"></a>        <span class="at">reorder.gof =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1-74"><a href="#cb1-74"></a>      )</span>
+<span id="cb1-75"><a href="#cb1-75"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 
 <section>
-<section id="data" class="title-slide slide level1 center">
-<h1>Data</h1>
-
-</section>
-<section id="pearson-lee-data" class="slide level2">
-<h2>Pearson-Lee data</h2>
-<ul>
-<li><p>Data used is published in <span class="citation" data-cites="pearson1903">(<a href="#/ref-pearson1903" role="doc-biblioref" onclick="return false;">Pearson and Lee 1903</a>)</span>.</p></li>
-<li><p>Karl Pearson collected data on over 1100 families in England in the period 1893 to 1898;</p></li>
-<li><p>Heights of mothers <code>mheight</code> and daughters <code>dheight</code> was recorded for 1375 observations.</p></li>
-<li><p>We rely on the examples of SLR in <span class="citation" data-cites="weisberg2005a">(<a href="#/ref-weisberg2005a" role="doc-biblioref" onclick="return false;">Weisberg 2005</a>)</span></p></li>
-</ul>
-</section>
-<section id="data-loading-and-preparation" class="slide level2">
-<h2>Data loading and preparation</h2>
-<div class="smaller">
-<ul>
-<li>Loading data</li>
-<li>Converting data frame into a <code>tibble()</code> object</li>
-<li>Renaming variables</li>
-<li>Glimpse of data</li>
-</ul>
+<section id="problem-setting" class="title-slide slide level1 smaller center">
+<h1>Problem Setting</h1>
+<p>We would like to assess the effect of the “Conservation Reserve Program” (CPR) on the agricultural land prices in Minnesota in 2002-2011.</p>
+<div class="fragment">
+<p>Conservation Reserve Program is a subsidy that obligates a farm NOT TO GROW ANY CROPS on the enrolled land in exchange for a fixed monetary compensation;</p>
 </div>
 <div class="fragment">
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-3_08ba995f1b4db2b4a4edc39b7249daf5">
+<p>As this is a risk less income, it may increase the land price.</p>
+</div>
+<div class="fragment">
+<p>However, if the land is productive, such set-aside measure may reduce farmland price.</p>
+</div>
+</section>
+<section id="hedonic-model-overview" class="slide level2">
+<h2>Hedonic Model overview</h2>
+<p>Hedonic prices is an econometric approach of quantifying monetary values of various differentiated characteristics that a subject of economic exchange.</p>
+<div class="fragment">
+<p>For example, agricultural land.</p>
+<ul>
+<li><p>It has such characteristics as: location, slope, environmental limitation, farmers’ accessibility, climate, rainfall, soil salinity, nutrient content, irrigation availability and other.</p></li>
+<li><p>Some could be affected by landowner, some cannot, but all of it contribute to the final value of land.</p></li>
+</ul>
+</div>
+</section>
+<section id="hedonic-theory-12" class="slide level2 smaller">
+<h2>Hedonic Theory (1/2)</h2>
+<p>According to <span class="citation" data-cites="palmquist1989">(<a href="#/ref-palmquist1989" role="doc-biblioref" onclick="return false;">Palmquist 1989</a>)</span>, hedonic model of agricultural land price is based on the equilibrium between <strong>Offer</strong> and <strong>Bid</strong> functions. Author uses partial equilibrium approach to prove this.</p>
+<div class="fragment">
+<p><span class="math display">\[\phi(\hat{z}, \tilde{z}, \pi^{S^{'}}, r, \beta) = R = \pi^{S^{'}} + C(\hat{z}, \tilde{z}, r, \beta)\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(R(\cdot)\)</span> - realized land price (rental of sales);</p>
+<p><span class="math inline">\(\hat{z}\)</span> - land characteristics exogenous to land owner;</p>
+<p><span class="math inline">\(\tilde{z}\)</span> - land characteristics in control of land owner;</p>
+<p><span class="math inline">\(r\)</span> - inputs prices;</p>
+<p><span class="math inline">\(\beta\)</span> - technologies and opportunities such as credit availability;</p>
+</div>
+</section>
+<section id="hedonic-theory-22" class="slide level2">
+<h2>Hedonic Theory (2/2)</h2>
+<p>Essentially, <strong>causal function</strong> of the land rental price could be written as:</p>
+<p><span class="math display">\[R = R(\hat{z}, \tilde{z}, \pi^{S^{'}}, r, \beta)\]</span></p>
+<div class="fragment">
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>This is a causal relationship because <span class="citation" data-cites="palmquist1989">(<a href="#/ref-palmquist1989" role="doc-biblioref" onclick="return false;">Palmquist 1989</a>)</span> provides solid theoretical justification for it.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-are-those-differentiated-land-characteristics" class="slide level2 smaller">
+<h2>What are those differentiated land characteristics?</h2>
+<h3 id="affected-by-land-owner">Affected by land owner:</h3>
+<ul>
+<li>a.</li>
+<li>b.</li>
+<li>c.</li>
+</ul>
+<h3 id="not-affected-by-land-owner">Not affected by land owner:</h3>
+<ul>
+<li>a.</li>
+<li>b.</li>
+<li>c.</li>
+</ul>
+</section></section>
+<section>
+<section id="data" class="title-slide slide level1 smaller center">
+<h1>Data</h1>
+<p>Data comes from <span class="citation" data-cites="taff2007compensated">(<a href="#/ref-taff2007compensated" role="doc-biblioref" onclick="return false;">Taff and Weisberg 2007</a>)</span>.</p>
+<ul>
+<li>acrePrice - sale price in dollars per acre;</li>
+<li>acres - size of the farm in acres;</li>
+<li>region - region in the state Minnesota;</li>
+<li>year - year of the land sales translation;</li>
+<li>crpPct - the percentage of all farm acres enrolled in CRP;</li>
+<li>tillable - percentage of farm acreaage that is rated arable by the assessor;</li>
+<li>productivity - average agronomic productivity scaled 1 to 100, with larger numbers for more productive land;</li>
+</ul>
+</section>
+<section id="loading-data" class="slide level2">
+<h2>Loading data</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-2_6cbcfcd2fe9a7c5c82a1911e9c2bf973">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Note, we use `sample_n(400)` to randomly select only 400 observations</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>dta <span class="ot">&lt;-</span> </span>
-<span id="cb2-3"><a href="#cb2-3"></a>  alr4<span class="sc">::</span>Heights <span class="sc">%&gt;%</span> </span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">rename</span>(<span class="at">mother_height =</span> mheight,</span>
-<span id="cb2-6"><a href="#cb2-6"></a>         <span class="at">daughter_height =</span> dheight) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">sample_n</span>(<span class="dv">400</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">glimpse</span>(dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="#cb2-2"></a>  alr4<span class="sc">::</span>MinnLand <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="co"># filter(year == 2007) %&gt;% </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">select</span>(acrePrice, acres, region, year, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>         tillable, crpPct, productivity)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="fu">glimpse</span>(dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 400
-Columns: 2
-$ mother_height   &lt;dbl&gt; 58.8, 65.4, 65.5, 63.2, 60.1, 61.2, 60.8, 63.7, 63.8, …
-$ daughter_height &lt;dbl&gt; 62.7, 66.2, 62.8, 62.2, 65.1, 64.8, 63.4, 64.3, 62.5, …</code></pre>
-</div>
+<pre><code>Rows: 18,700
+Columns: 7
+$ acrePrice    &lt;dbl&gt; 766, 733, 850, 975, 886, 992, 623, 1382, 855, 364, 807, 4…
+$ acres        &lt;int&gt; 82, 30, 150, 160, 90, 120, 170, 100, 120, 160, 158, 83, 1…
+$ region       &lt;fct&gt; Northwest, Northwest, Northwest, Northwest, Northwest, No…
+$ year         &lt;dbl&gt; 2002, 2003, 2002, 2003, 2002, 2003, 2003, 2003, 2003, 200…
+$ tillable     &lt;dbl&gt; 94, 63, 47, 86, NA, 83, 42, 35, 46, 10, 29, 36, 14, 71, 9…
+$ crpPct       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ productivity &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
 </div>
 </div>
 </section>
-<section id="exploring-data-scatter-plot" class="slide level2 smaller">
-<h2>Exploring data (Scatter plot)</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Plot</a></li><li><a href="#tabset-1-2">Improve the code yourself</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-4_27442e8e630a5f06fb256c60901e5da6">
+<section id="summary-statistics-12" class="slide level2">
+<h2>Summary statistics (1/2)</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-3_3dfc01af84426f7f1b92e6dfe45a9906">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>plt <span class="ot">&lt;-</span> </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  dta <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">aes</span>(<span class="at">x =</span> mother_height, <span class="at">y =</span> daughter_height) <span class="sc">+</span> </span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb4-7"><a href="#cb4-7"></a>plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dta <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="at">cols =</span> <span class="fu">c</span>(acrePrice, acres, year, tillable, crpPct, productivity),</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="at">names_to =</span> <span class="st">"var"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="at">values_to =</span> <span class="st">"val"</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="fu">c</span>(val),</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="fu">list</span>(</span>
+<span id="cb4-12"><a href="#cb4-12"></a>      <span class="at">mean =</span> <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-13"><a href="#cb4-13"></a>      <span class="at">sd =</span> <span class="sc">~</span> <span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-14"><a href="#cb4-14"></a>      <span class="at">meadian =</span> <span class="sc">~</span> <span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-15"><a href="#cb4-15"></a>      <span class="at">n_miss =</span> <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-16"><a href="#cb4-16"></a>      <span class="at">min =</span> <span class="sc">~</span> <span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-17"><a href="#cb4-17"></a>      <span class="at">max =</span> <span class="sc">~</span> <span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-18"><a href="#cb4-18"></a>    )</span>
+<span id="cb4-19"><a href="#cb4-19"></a>  ), </span>
+<span id="cb4-20"><a href="#cb4-20"></a>  <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  var          val_mean  val_sd val_meadian val_n_miss val_min val_max     n
+  &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1 acrePrice     2787.   1914.          2442          0     108   15000 18700
+2 acres          113.    128.            80          0       1    6970 18700
+3 crpPct           4.16   17.2            0          0       0     100 18700
+4 productivity    66.6    13.5           68       9717       1      99 18700
+5 tillable        80.7    22.8           92       1212       0     100 18700
+6 year          2006.      2.51        2006          0    2002    2011 18700</code></pre>
+</div>
+</div>
+</section>
+<section id="summary-statistics-22" class="slide level2 smaller">
+<h2>Summary statistics (2/2)</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-4_71dbc58f4d973316917ad8a306a45376">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="10-simple-regression_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:80.0%"></p>
-</figure>
+<table>
+<colgroup>
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Unique (#)</th>
+<th style="text-align: right;">Missing (%)</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">acrePrice</td>
+<td style="text-align: right;">5696</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2787.3</td>
+<td style="text-align: right;">1914.0</td>
+<td style="text-align: right;">108.0</td>
+<td style="text-align: right;">2442.0</td>
+<td style="text-align: right;">15000.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">acres</td>
+<td style="text-align: right;">596</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">112.7</td>
+<td style="text-align: right;">128.5</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">80.0</td>
+<td style="text-align: right;">6970.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2006.4</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: right;">2002.0</td>
+<td style="text-align: right;">2006.0</td>
+<td style="text-align: right;">2011.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tillable</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">80.7</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">92.0</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">crpPct</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">17.2</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">productivity</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">66.6</td>
+<td style="text-align: right;">13.5</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">68.0</td>
+<td style="text-align: right;">99.0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-</div>
-</div>
-<div id="tabset-1-2">
-<ul>
-<li>What <code>alpha = 0.5</code> stands for?</li>
-<li>Add labels.</li>
-<li>change color of points (add <code>color = "red"</code> after <code>alpha</code> separating arguments with comma)</li>
-</ul>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-5_437f111440f14f4f9a9659dcc8e9a908">
+</section>
+<section id="visual-inspection-scatter-plots" class="slide level2 smaller">
+<h2>Visual inspection: scatter plots</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-5_e8586a26ca7de64c2ef613646fba314a">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dta <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> mother_height, <span class="at">y =</span> daughter_height) <span class="sc">+</span> </span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"___________"</span>, </span>
-<span id="cb5-6"><a href="#cb5-6"></a>       <span class="at">y =</span> <span class="st">"___________"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dta <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(acrePrice, acres, tillable, </span>
+<span id="cb7-3"><a href="#cb7-3"></a>         crpPct, productivity) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">ggpairs</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+
 </div>
-</div>
-</div>
-</div>
-</section></section>
+<img data-src="hedonic-regression_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%" class="r-stretch"></section></section>
 <section>
-<section id="simple-linear-regression" class="title-slide slide level1 center">
-<h1>Simple Linear Regression</h1>
+<section id="hedonic-regression" class="title-slide slide level1 center">
+<h1>Hedonic Regression</h1>
 
 </section>
-<section id="simple-regression-line" class="slide level2">
-<h2>Simple regression line</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<div class=".smaller">
-<p><span class="math inline">\(Y \\ = \color{green}{f(X)} \\ + \text{Error term} \\ = \color{green}{E[Y|X]} + \epsilon\)</span></p>
-</div>
-</div><div class="column" style="width:70%;">
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-6_923f9d4e0bdbcb234ac59b6efef396cf">
+<section id="regression.-summary" class="slide level2 smaller">
+<h2>Regression. Summary</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-6_635e57bcad4885648108bf85e78401dd">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fit <span class="ot">&lt;-</span> </span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">lm</span>(daughter_height <span class="sc">~</span> mother_height, <span class="at">data =</span> dta)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>plt <span class="ot">&lt;-</span> </span>
-<span id="cb6-4"><a href="#cb6-4"></a>  plt <span class="sc">+</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Mothers' height"</span>, </span>
-<span id="cb6-6"><a href="#cb6-6"></a>       <span class="at">y =</span> <span class="st">"Daughter height"</span>) <span class="sc">+</span> </span>
-<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
-<span id="cb6-8"><a href="#cb6-8"></a>              <span class="at">color =</span> <span class="st">"green"</span>, </span>
-<span id="cb6-9"><a href="#cb6-9"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb6-10"><a href="#cb6-10"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb6-11"><a href="#cb6-11"></a>plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  acrePrice <span class="sc">~</span> crpPct <span class="sc">+</span> acres <span class="sc">+</span> region <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>    year <span class="sc">+</span> tillable <span class="sc">+</span> productivity, </span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">data =</span> dta</span>
+<span id="cb8-5"><a href="#cb8-5"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="10-simple-regression_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="simple-regression" class="slide level2">
-<h2>Simple regression</h2>
-<p><span class="math display">\[\Large{Y = \beta_0 + \beta_1 X}\]</span></p>
-<div>
-<ul>
-<li class="fragment"><span class="math inline">\(Y\)</span>: dependent variable, observed values</li>
-<li class="fragment"><span class="math inline">\(X\)</span>: independent variable</li>
-<li class="fragment"><span class="math inline">\(\beta_1\)</span>: True slope</li>
-<li class="fragment"><span class="math inline">\(\beta_0\)</span>: True intercept</li>
-<li class="fragment">Note, in the population regression function, there is no error terms!</li>
-</ul>
-</div>
-</section>
-<section id="estimated-simple-regression" class="slide level2">
-<h2>Estimated simple regression</h2>
-<p><span class="math display">\[\Large{\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X}\]</span></p>
-<div>
-<ul>
-<li class="fragment"><span class="math inline">\(\hat{Y}\)</span>: fitted values, predicted values</li>
-<li class="fragment"><span class="math inline">\(\hat{\beta}_1\)</span>: Estimated slope</li>
-<li class="fragment"><span class="math inline">\(\hat{\beta}_0\)</span>: Estimated intercept</li>
-<li class="fragment">No error term!</li>
-</ul>
-</div>
-</section>
-<section id="residuals" class="slide level2">
-<h2>Residuals</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><span class="math inline">\(Y \\ = \color{green}{f(X)} \\ + \color{blue}{\text{Error term}} \\ = \color{green}{E[Y|X]} + \color{blue}{\epsilon}\)</span></p>
-</div><div class="column" style="width:70%;">
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-7_82e38800b7f79568ac579115904606a5">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>plt <span class="sc">+</span> </span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_segment</span>(</span>
-<span id="cb7-3"><a href="#cb7-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mother_height, <span class="at">xend =</span> mother_height,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>        <span class="at">y =</span> daughter_height, <span class="at">yend =</span> <span class="fu">predict</span>(fit)), </span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="at">color =</span> <span class="st">"blue"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="10-simple-regression_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="residuals-1" class="slide level2">
-<h2>Residuals</h2>
-<div>
-<ul>
-<li class="fragment"><p><span class="math inline">\(\text{residuals} \\ = \text{observed} - \text{predicted} \\ = \epsilon = Y - \hat{Y}\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\({Y = \hat{\beta}_0 + \hat{\beta}_1 X + \epsilon}\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\(\epsilon\)</span> is the error term or residual</p></li>
-<li class="fragment"><p>For each specific observation <span class="math inline">\(i\)</span></p></li>
-<li class="fragment"><p>residual <span class="math inline">\(e_i = y_i - \hat{y_i}\)</span></p></li>
-<li class="fragment"><p>squared residual <span class="math inline">\(e_i^2 = (y_i - \hat{y_i})^2\)</span></p></li>
-</ul>
-</div>
-</section></section>
-<section>
-<section id="ordinary-least-square-ols" class="title-slide slide level1 center">
-<h1>Ordinary Least Square (OLS)</h1>
-
-</section>
-<section id="ordinary-least-square-ols-1" class="slide level2">
-<h2>Ordinary Least Square (OLS)</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<div>
-<ul>
-<li class="fragment"><p>“finds” values for <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span></p></li>
-<li class="fragment"><p>each new value of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> generates new regression line;</p></li>
-</ul>
-</div>
-</div><div class="column" style="width:70%;">
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-8_0f75cce011ea34215fdfc83fc7115c9d">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>plt <span class="sc">+</span> </span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_segment</span>(</span>
-<span id="cb8-3"><a href="#cb8-3"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mother_height, <span class="at">xend =</span> mother_height,</span>
-<span id="cb8-4"><a href="#cb8-4"></a>        <span class="at">y =</span> daughter_height, <span class="at">yend =</span> <span class="fu">predict</span>(fit)), </span>
-<span id="cb8-5"><a href="#cb8-5"></a>    <span class="at">color =</span> <span class="st">"blue"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  ) <span class="sc">+</span> </span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">33</span>, <span class="at">slope =</span> <span class="fl">0.49</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb8-9"><a href="#cb8-9"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">5</span>, <span class="at">slope =</span> <span class="fl">0.95</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb8-10"><a href="#cb8-10"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">25</span>, <span class="at">slope =</span> <span class="fl">0.62</span>, <span class="at">color =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="10-simple-regression_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="ordinary-least-square-ols-2" class="slide level2">
-<h2>Ordinary Least Square (OLS)</h2>
-<p>the OLS finds such values of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> that minimizes the sum of squared residuals:</p>
-<p><span class="math display">\[
-\Large{
-SSR =
-\sum_{i}^{n}{e_i^2} = \sum_{i}^{n}{(y_i - \hat{y_i})^2} \\ = {[e_1^2 + e_2^2 + ... + e_n^2]}
-}
-\]</span></p>
-</section>
-<section id="properties-of-ols" class="slide level2 smaller">
-<h2>Properties of OLS</h2>
-<div>
-<ul>
-<li class="fragment"><p>The regression line goes through the center of all point.</p></li>
-<li class="fragment"><p>The sum of the residuals (not squared) is zero: <span class="math inline">\(\sum_{i}^n e_i = 0\)</span></p></li>
-<li class="fragment"><p>Zero correlation between residuals and regressors <span class="math inline">\(Cov(X,\epsilon) = 0\)</span></p></li>
-<li class="fragment"><p>Predicted value of <span class="math inline">\(Y\)</span>, when all regressors are at means <span class="math inline">\(\bar{X}\)</span> is the mean of <span class="math inline">\(\bar{Y}\)</span>: <span class="math inline">\(E[Y|\bar{X}] = \bar{Y}\)</span></p></li>
-</ul>
-</div>
-</section></section>
-<section>
-<section id="interpretation" class="title-slide slide level1 center">
-<h1>Interpretation</h1>
-
-</section>
-<section id="regression-coefficeints" class="slide level2">
-<h2>Regression coefficeints</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-9_7a2713a05315ce2eddcd6d67de564da5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(daughter_height <span class="sc">~</span> mother_height, <span class="at">data =</span> dta)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = daughter_height ~ mother_height, data = dta)
-
-Coefficients:
-  (Intercept)  mother_height  
-      29.4551         0.5498  </code></pre>
-</div>
-</div>
-</section>
-<section id="regression-summary-13" class="slide level2 smaller">
-<h2>Regression summary (1/3)</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-10_a6f0e9b5d6342589dcad206016983987">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = daughter_height ~ mother_height, data = dta)
+lm(formula = acrePrice ~ crpPct + acres + region + year + tillable + 
+    productivity, data = dta)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--6.6255 -1.5767 -0.0878  1.3916  9.0083 
+-3663.2  -572.0  -132.8   356.3 11029.3 
 
 Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   29.45511    2.91727   10.10   &lt;2e-16 ***
-mother_height  0.54979    0.04662   11.79   &lt;2e-16 ***
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         -6.476e+05  9.554e+03 -67.781   &lt;2e-16 ***
+crpPct              -8.288e+00  8.693e-01  -9.534   &lt;2e-16 ***
+acres               -1.166e+00  1.337e-01  -8.720   &lt;2e-16 ***
+regionWest Central   9.474e+02  4.703e+01  20.145   &lt;2e-16 ***
+regionCentral        1.798e+03  5.234e+01  34.357   &lt;2e-16 ***
+regionSouth West     1.257e+03  4.727e+01  26.595   &lt;2e-16 ***
+regionSouth Central  1.669e+03  5.070e+01  32.923   &lt;2e-16 ***
+regionSouth East     1.939e+03  5.875e+01  33.002   &lt;2e-16 ***
+year                 3.230e+02  4.764e+00  67.792   &lt;2e-16 ***
+tillable            -2.502e+00  7.881e-01  -3.175   0.0015 ** 
+productivity         2.445e+01  1.078e+00  22.686   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.337 on 398 degrees of freedom
-Multiple R-squared:  0.2589,    Adjusted R-squared:  0.2571 
-F-statistic: 139.1 on 1 and 398 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1079 on 8776 degrees of freedom
+  (9913 observations deleted due to missingness)
+Multiple R-squared:  0.5179,    Adjusted R-squared:  0.5174 
+F-statistic: 942.8 on 10 and 8776 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>
-<section id="regression-summary-23" class="slide level2">
-<h2>Regression summary (2/3)</h2>
-<ul>
-<li>using <code>broom</code> package <a href="https://broom.tidymodels.org/">overview</a> and <a href="https://github.com/tidymodels/broom">source code</a></li>
-</ul>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-11_26726a8dbbfd922bdbce60aaa9b8ffb3">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">tidy</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="regression.-interpretation-of-the-coefficients" class="slide level2 smaller">
+<h2>Regression. Interpretation of the coefficients</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-7_3c20080a7d99a7f25c80d89869323d95">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">parameters</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-  term          estimate std.error statistic  p.value
-  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)     29.5      2.92        10.1 1.71e-21
-2 mother_height    0.550    0.0466      11.8 9.88e-28</code></pre>
-</div>
-</div>
-<div class="fragment">
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-12_78b3864da768d394b5eab7f6a3394f2b">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">glance</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.259         0.257  2.34      139. 9.88e-28     1  -906. 1818. 1830.
-# … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
-</div>
+<pre><code>Parameter              | Coefficient |      SE |                   95% CI | t(8776) |      p
+--------------------------------------------------------------------------------------------
+(Intercept)            |   -6.48e+05 | 9553.71 | [ -6.66e+05,  -6.29e+05] |  -67.78 | &lt; .001
+crpPct                 |       -8.29 |    0.87 | [     -9.99,      -6.58] |   -9.53 | &lt; .001
+acres                  |       -1.17 |    0.13 | [     -1.43,      -0.90] |   -8.72 | &lt; .001
+region [West Central]  |      947.38 |   47.03 | [    855.19,    1039.56] |   20.15 | &lt; .001
+region [Central]       |     1798.21 |   52.34 | [   1695.61,    1900.81] |   34.36 | &lt; .001
+region [South West]    |     1257.17 |   47.27 | [   1164.51,    1349.83] |   26.60 | &lt; .001
+region [South Central] |     1669.12 |   50.70 | [   1569.74,    1768.50] |   32.92 | &lt; .001
+region [South East]    |     1938.87 |   58.75 | [   1823.71,    2054.04] |   33.00 | &lt; .001
+year                   |      322.97 |    4.76 | [    313.63,     332.30] |   67.79 | &lt; .001
+tillable               |       -2.50 |    0.79 | [     -4.05,      -0.96] |   -3.18 | 0.002 
+productivity           |       24.45 |    1.08 | [     22.33,      26.56] |   22.69 | &lt; .001</code></pre>
 </div>
 </div>
 </section>
-<section id="regression-summary-33" class="slide level2">
-<h2>Regression summary (3/3)</h2>
-<ul>
-<li>using <code>parameters</code> package <a href="https://easystats.github.io/parameters/">overview</a> and <a href="https://github.com/easystats/parameters/">source code</a></li>
-</ul>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-13_f75ebd826844ec7c3636b25ff1f7bcc9">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">library</span>(parameters)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">parameters</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Parameter     | Coefficient |   SE |         95% CI | t(398) |      p
----------------------------------------------------------------------
-(Intercept)   |       29.46 | 2.92 | [23.72, 35.19] |  10.10 | &lt; .001
-mother height |        0.55 | 0.05 | [ 0.46,  0.64] |  11.79 | &lt; .001</code></pre>
-</div>
-</div>
-<div class="fragment">
-<ul>
-<li>using <code>performance</code> package <a href="https://easystats.github.io/performance/">overview</a> and <a href="https://github.com/easystats/performance/">source code</a></li>
-</ul>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-14_46b11c0a5c7286d4d35c0bc61e5e0b36">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">performance</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Indices of model performance
-
-AIC      |      BIC |    R2 | R2 (adj.) |  RMSE | Sigma
--------------------------------------------------------
-1818.301 | 1830.276 | 0.259 |     0.257 | 2.331 | 2.337</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="intercept" class="slide level2">
-<h2>Intercept</h2>
-<ul>
-<li><p>Important in the context of the data.</p></li>
-<li><p>Value of <span class="math inline">\(Y\)</span> when all <span class="math inline">\(X\)</span> are zero.</p></li>
-</ul>
-</section>
-<section id="slope" class="slide level2">
-<h2>Slope</h2>
-<p>Marginal effect or unit change in <span class="math inline">\(Y\)</span> on average, when <span class="math inline">\(X\)</span> is being change by on unit, keeping all other regressors fixed.</p>
-<ul>
-<li>When mother’s height increases by 1 inch, the height of a daughter increases by <span class="math inline">\(\hat{\beta_1}\)</span> inches, keeping other variables constant.</li>
-</ul>
-</section></section>
-<section>
-<section id="residuals-and-fitted-values" class="title-slide slide level1 center">
-<h1>Residuals and Fitted values</h1>
-
-</section>
-<section id="residuals-2" class="slide level2">
-<h2>Residuals</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-15_71ced36560f46cfd86ad1b4474f34e15">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># With `[1:20]` we foce R only to print first 20 values</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">residuals</span>(fit)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         1          2          3          4          5          6          7 
- 0.9173961  0.7887997 -2.6661790 -2.0016682  2.6026726  1.6979065  0.5178215 
-         8          9         10         11         12         13         14 
--0.1765618 -2.0315406 -1.5917107 -5.4523061 -5.1774125  0.8022473 -1.4757112 
-        15         16         17         18         19         20 
--3.4674550  4.0178215 -0.6813279 -3.6462641  1.8927151 -4.2860940 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">resid</span>(fit)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         1          2          3          4          5          6          7 
- 0.9173961  0.7887997 -2.6661790 -2.0016682  2.6026726  1.6979065  0.5178215 
-         8          9         10         11         12         13         14 
--0.1765618 -2.0315406 -1.5917107 -5.4523061 -5.1774125  0.8022473 -1.4757112 
-        15         16         17         18         19         20 
--3.4674550  4.0178215 -0.6813279 -3.6462641  1.8927151 -4.2860940 </code></pre>
-</div>
-</div>
-</section>
-<section id="fitted" class="slide level2">
-<h2>Fitted</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-16_f8cad65e6d6340b1f9dc1f6006a16f3c">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># With `[1:20]` we foce R only to print first 20 values</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">fitted</span>(fit)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       1        2        3        4        5        6        7        8 
-61.78260 65.41120 65.46618 64.20167 62.49733 63.10209 62.88218 64.47656 
-       9       10       11       12       13       14       15       16 
-64.53154 64.09171 62.55231 62.27741 61.39775 66.67571 62.16746 62.88218 
-      17       18       19       20 
-65.08133 65.24626 62.60728 65.68609 </code></pre>
-</div>
-</div>
-</section>
-<section id="residuals-vs-fitted-13" class="slide level2">
-<h2>Residuals vs fitted (1/3)</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-17_5da5fbe535b8ccc8f412054223797f68">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>dta_1 <span class="ot">&lt;-</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>  dta <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">mutate</span>(<span class="at">fitted =</span> <span class="fu">fitted</span>(fit)) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">mutate</span>(<span class="at">residuals =</span> <span class="fu">resid</span>(fit))</span>
-<span id="cb27-5"><a href="#cb27-5"></a></span>
-<span id="cb27-6"><a href="#cb27-6"></a><span class="fu">glimpse</span>(dta_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 400
-Columns: 4
-$ mother_height   &lt;dbl&gt; 58.8, 65.4, 65.5, 63.2, 60.1, 61.2, 60.8, 63.7, 63.8, …
-$ daughter_height &lt;dbl&gt; 62.7, 66.2, 62.8, 62.2, 65.1, 64.8, 63.4, 64.3, 62.5, …
-$ fitted          &lt;dbl&gt; 61.78260, 65.41120, 65.46618, 64.20167, 62.49733, 63.1…
-$ residuals       &lt;dbl&gt; 0.9173961, 0.7887997, -2.6661790, -2.0016682, 2.602672…</code></pre>
-</div>
-</div>
-</section>
-<section id="residuals-vs-fitted-23" class="slide level2">
-<h2>Residuals vs fitted (2/3)</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-18_dbc5b3620c5456461328a868112cbce6">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>dta_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> fitted, <span class="at">y =</span> residuals) <span class="sc">+</span> </span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="10-simple-regression_files/figure-revealjs/unnamed-chunk-18-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
-<section id="residuals-vs-fitted-33" class="slide level2">
-<h2>Residuals vs fitted (3/3)</h2>
-<div class="cell" data-layout-align="center" data-hash="10-simple-regression_cache/revealjs/unnamed-chunk-19_6bbcf24f837a413326ddc6e0f9426973">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">library</span>(see)</span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="fu">check_model</span>(fit, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="checking-linearity-12" class="slide level2">
+<h2>Checking Linearity 1/2</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-8_7a54de30f0a79593625b53837d8faea5">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">check_model</span>(fit1, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$NCV</code></pre>
 </div>
 
 </div>
-<img data-src="10-simple-regression_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="hedonic-regression_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="checking-linearity-22" class="slide level2">
+<h2>Checking Linearity 2/2</h2>
+<div class="cell" data-hash="hedonic-regression_cache/revealjs/unnamed-chunk-9_d79bec5e1f81b740d3a3ea8869848cf3">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">residualPlots</span>(fit1, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Test stat Pr(&gt;|Test stat|)    
+crpPct          3.8991        9.727e-05 ***
+acres           7.0230        2.334e-12 ***
+region                                     
+year            2.0206          0.04335 *  
+tillable        4.9822        6.407e-07 ***
+productivity   11.1526        &lt; 2.2e-16 ***
+Tukey test     11.0991        &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section></section>
 <section>
 <section id="takeaways" class="title-slide slide level1 center">
 <h1>Takeaways</h1>
@@ -941,11 +893,11 @@ $ residuals       &lt;dbl&gt; 0.9173961, 0.7887997, -2.6661790, -2.0016682, 2.60
 <p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-pearson1903" class="csl-entry" role="doc-biblioentry">
-Pearson, Karl, and Alice Lee. 1903. <span>“On the Laws of Inheritance in Man: I. Inheritance of Physical Characters.”</span> <em>Biometrika</em> 2 (4): 357. <a href="https://doi.org/10.2307/2331507">https://doi.org/10.2307/2331507</a>.
+<div id="ref-palmquist1989" class="csl-entry" role="doc-biblioentry">
+Palmquist, Raymond B. 1989. <span>“Land as a Differentiated Factor of Production: A Hedonic Model and Its Implications for Welfare Measurement.”</span> <em>Land Economics</em> 65 (1): 23. <a href="https://doi.org/10.2307/3146260">https://doi.org/10.2307/3146260</a>.
 </div>
-<div id="ref-weisberg2005a" class="csl-entry" role="doc-biblioentry">
-Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. John Wiley &amp; Sons, Inc. <a href="https://doi.org/10.1002/0471704091">https://doi.org/10.1002/0471704091</a>.
+<div id="ref-taff2007compensated" class="csl-entry" role="doc-biblioentry">
+Taff, Steven J, and Sanford Weisberg. 2007. <span>“Compensated Short-Term Conservation Restrictions May Reduce Sale Prices.”</span> <em>Appraisal Journal</em> 75 (1).
 </div>
 </div>
 </section></section>
