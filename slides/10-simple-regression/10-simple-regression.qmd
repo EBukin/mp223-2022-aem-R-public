@@ -28,7 +28,6 @@ knitr::opts_chunk$set(
   echo = TRUE, 
   cache = TRUE
 )
-ggplot2::theme_set(ggplot2::theme_bw())
 set.seed(1123581321)
 ```
 
@@ -39,7 +38,7 @@ set.seed(1123581321)
 library(tidyverse)       # for data wrangling
 library(alr4)            # for the data sets #
 # set default theme and larger font size for ggplot2
-ggplot2::theme_set(ggplot2::theme_minimal(base_size = 16))
+ggplot2::theme_set(ggplot2::theme_bw())
 # set default figure parameters for knitr
 knitr::opts_chunk$set(
   fig.width = 8,
@@ -74,6 +73,7 @@ knitr::opts_chunk$set(
 . . .
 
 ```{r}
+#| code-fold: true
 # Note, we use `sample_n(400)` to randomly select only 400 observations
 dta <- 
   alr4::Heights %>% 
@@ -96,7 +96,8 @@ plt <-
   dta %>% 
   ggplot() + 
   aes(x = mother_height, y = daughter_height) + 
-  geom_point(alpha = 0.5)
+  geom_point(alpha = 0.5) + 
+  theme_minimal()
 plt
 ```
 
@@ -124,8 +125,10 @@ dta %>%
 
 ::: columns
 ::: {.column width="30%"}
-::: smaller
-\$Y = \color{green}{f(X)} + \text{Error term} \\ = \color{green}{E[Y|X]} + \epsilon \$
+::: .smaller
+$Y \\ = 
+\color{green}{f(X)} \\ +  \text{Error term} \\ 
+= \color{green}{E[Y|X]} + \epsilon$
 :::
 :::
 
@@ -133,12 +136,16 @@ dta %>%
 ```{r}
 #| out.width: "100%"
 #| code-fold: true
-fit <- lm(daughter_height ~ mother_height, data = dta)
+fit <- 
+  lm(daughter_height ~ mother_height, data = dta)
 plt <- 
   plt + 
   labs(x = "Mothers' height", 
        y = "Daughter height") + 
-  geom_smooth(method = "lm", color = "green", se = FALSE)
+  geom_smooth(method = "lm", 
+              color = "green", 
+              se = FALSE) + 
+  theme_minimal()
 plt
 ```
 :::
@@ -150,7 +157,7 @@ $$\Large{Y = \beta_0 + \beta_1 X}$$
 
 ::: incremental
 -   $Y$: dependent variable, observed values
--   $Y$: independent variable
+-   $X$: independent variable
 -   $\beta_1$: True slope
 -   $\beta_0$: True intercept
 -   Note, in the population regression function, there is no error terms!
@@ -171,7 +178,8 @@ $$\Large{\hat{Y} = \hat{\beta}_0 + \hat{\beta}_1 X}$$
 
 ::: columns
 ::: {.column width="30%"}
-$Y = \color{green}{f(X)} + \color{blue}{\text{Error term}} \\ = \color{green}{E[Y|X]} + \color{blue}{\epsilon}$
+$Y \\ = \color{green}{f(X)} 
+\\ + \color{blue}{\text{Error term}} \\ = \color{green}{E[Y|X]} + \color{blue}{\epsilon}$
 :::
 
 ::: {.column width="70%"}
@@ -243,7 +251,7 @@ the OLS finds such values of $\hat{\beta}_0$ and $\hat{\beta}_1$ that minimizes 
 $$
 \Large{
 SSR = 
-\sum_{i}^{n}{e_i^2} \\ = \sum_{i}^{n}{(y_i - \hat{y_i})^2} \\ = {[e_1^2 + e_2^2 + ... + e_n^2]}
+\sum_{i}^{n}{e_i^2} = \sum_{i}^{n}{(y_i - \hat{y_i})^2} \\ = {[e_1^2 + e_2^2 + ... + e_n^2]}
 }
 $$
 
@@ -382,6 +390,10 @@ check_model(fit, check = "linearity", panel = FALSE)
 -   fitting regression: `fit()`
 -   regression summary: `summary()`, `tidy()`, `glance()`, `parameters()`, `performance()` , `check_model()` , `fitted()` , `residuals()` , `resid()`
 -   packages: `broom`, `parameters` and `performance`
+
+# Homework
+
+Create an R Script out of the R code in the presentation. 
 
 # References
 
