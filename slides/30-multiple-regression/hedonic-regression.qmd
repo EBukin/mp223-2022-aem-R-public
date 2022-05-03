@@ -36,7 +36,7 @@ library(texreg)
 ggplot2::theme_set(ggplot2::theme_bw())
 
 knitr::opts_chunk$set(
-  fig.width = 8,
+  fig.width = 10,
   fig.asp = 0.5,
   fig.retina = 3,
   dpi = 300,
@@ -107,7 +107,13 @@ We would like to assess the effect of the "Conservation Reserve Program" (CPR) o
 
 . . .
 
-Conservation Reserve Program is a subsidy that obligates a farm NOT TO GROW ANY CROPS on the enrolled land in exchange for a fixed monetary compensation;
+Conservation Reserve Program
+
+-   is a subsidy
+
+-   obligates farms NOT TO GROW ANY CROPS on the enrolled land
+
+-   pays monetary compensation in exchange;
 
 . . .
 
@@ -115,20 +121,17 @@ As this is a risk less income, it may increase the land price.
 
 . . .
 
-However, if the land is productive, such set-aside measure may reduce farmland price. 
-
+However, if the land is productive, such set-aside measure may reduce farmland price.
 
 ## Hedonic Model overview
 
-Hedonic prices is an econometric approach of quantifying monetary values of various differentiated characteristics that a subject of economic exchange.
+Hedonic prices is an econometric approach of quantifying monetary values of differentiated characteristics of goods and services, which are subjects of economic exchange.
 
 . . .
 
 For example, agricultural land.
 
--   It has such characteristics as: location, slope, environmental limitation, farmers' accessibility, climate, rainfall, soil salinity, nutrient content, irrigation availability and other.
-
--   Some could be affected by landowner, some cannot, but all of it contribute to the final value of land.
+-   It has such characteristics as: location, slope, environmental limitation, farmers' accessibility, climate, expected rainfall, soil salinity, nutrient content, irrigation availability and other.
 
 ## Hedonic Theory (1/2) {.smaller}
 
@@ -150,6 +153,8 @@ $r$ - inputs prices;
 
 $\beta$ - technologies and opportunities such as credit availability;
 
+$\pi^{S^{'}}$ - expected profit of agricultural producers from land;
+
 ## Hedonic Theory (2/2)
 
 Essentially, **causal function** of the land rental price could be written as:
@@ -162,7 +167,7 @@ $$R = R(\hat{z}, \tilde{z}, \pi^{S^{'}}, r, \beta)$$
 This is a causal relationship because [@palmquist1989] provides solid theoretical justification for it.
 :::
 
-## What are those differentiated land characteristics? {.smaller}
+## What are the differentiated land characteristics? {.smaller}
 
 ### Affected by land owner:
 
@@ -178,15 +183,19 @@ This is a causal relationship because [@palmquist1989] provides solid theoretica
 
 # Data {.smaller}
 
-Data comes from [@taff2007compensated].
+Data set `MinnLand` from [@taff2007compensated].
 
--   acrePrice - sale price in dollars per acre;
--   acres - size of the farm in acres;
--   region - region in the state Minnesota;
--   year - year of the land sales translation;
--   crpPct - the percentage of all farm acres enrolled in CRP;
--   tillable - percentage of farm acreaage that is rated arable by the assessor;
--   productivity - average agronomic productivity scaled 1 to 100, with larger numbers for more productive land;
+::: {.incremental}
+
+-   `acrePrice` - sale price in dollars per acre;
+-   `acres` - size of the farm in acres;
+-   `region` - region in the state Minnesota;
+-   `year` - year of the land sales translation;
+-   `crpPct` - the percentage of all farm acres enrolled in CRP;
+-   `tillable` - percentage of farm acreage that is rated arable by the assessor;
+-   `productivity` - average agronomic productivity scaled 1 to 100, with larger numbers for more productive land;
+
+:::
 
 ## Loading data
 
@@ -227,7 +236,7 @@ dta %>%
   n = n())
 ```
 
-## Summary statistics (2/2)  {.smaller}
+## Summary statistics (2/2) {.smaller}
 
 ```{r}
 #| code-fold: true
@@ -242,13 +251,14 @@ dta %>% datasummary_skim(output = "markdown")
 dta %>%
   select(acrePrice, acres, tillable, 
          crpPct, productivity) %>%
-  ggpairs() +
+  ggpairs(aes(alpha = 0.5)) +
   theme_bw()
 ```
 
 # Hedonic Regression
 
 ## Regression. Summary {.smaller}
+
 ```{r}
 #| code-fold: true
 fit1 <- lm(
@@ -259,41 +269,40 @@ fit1 <- lm(
 summary(fit1)
 ```
 
-## Regression. Interpretation of the coefficients  {.smaller}
+## Regression. Interpretation of the coefficients {.smaller}
 
 ```{r}
 parameters(fit1)
 ```
 
-## Checking Linearity 1/2
+## Checking Linearity 1/3
 
 ```{r}
 check_model(fit1, check = "linearity", panel = FALSE)
 ```
 
-## Checking Linearity 2/2
+## Checking Linearity 2/3
 
 ```{r}
 residualPlots(fit1, plot = FALSE)
 ```
 
 
+## Checking Linearity 3/3
+
+```{r}
+#| code-fold: true
+residualPlots(fit1, test = FALSE, layout = c(2, 2), ask = FALSE)
+```
+
 # Takeaways
 
 ## Takeaway {.smaller}
 
--   Simple linear regression
--   OLS
+-   Multiple linear regression
+-   Hedonic model
 -   Slope and Intercept (interpretation)
--   Fitted values
--   Residuals
 -   Residuals vs Fitted
-
-. . .
-
--   fitting regression: `fit()`
--   regression summary: `summary()`, `tidy()`, `glance()`, `parameters()`, `performance()` , `check_model()` , `fitted()` , `residuals()` , `resid()`
--   packages: `broom`, `parameters` and `performance`
 
 # Homework
 

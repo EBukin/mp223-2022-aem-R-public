@@ -20,6 +20,16 @@ library(broom)
 library(modelsummary)
 library(texreg)
 
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 12,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
 
 my_gof <- function(fit_obj, digits = 4) {
   sum_fit <- summary(fit_obj)
@@ -74,7 +84,6 @@ screen_many_regs <-
   }
 ```
 
-
 # Goals:
 
 -   Get a brief introduction to the Hedonic Prices model;
@@ -86,7 +95,6 @@ screen_many_regs <-
 # Exercise
 
 ## Data loading
-
 
 ```{r}
 dta <- 
@@ -103,16 +111,16 @@ Glimpse at the data:
 # _______(dta)
 ```
 
-
 ## Summary Statistics
 
-This is a simple short-cut ot the summary statistics.
+This is a simple short-cut to the summary statistics.
 
 ```{r}
+#library(modelsummary)
 dta %>% datasummary_skim()
 ```
 
-### Do yourself at home! 
+### Do yourself at home!
 
 In the code chunk below, adopt the R code used to prepare data summary manually. Run it step by step and comment on what it does between each component of the pipe.
 
@@ -165,18 +173,20 @@ Let us fit the basic regression and summarize the results.
 
 Use `performance` and `parameters` package to summarize the regression results.
 
--  Provide object with the fitted regression;
+-   Provide object with the fitted regression;
 
 ```{r}
+library(parameters)
+library(performance)
 # parameters(_____)
 # performance(_____)
 ```
 
 ### Linearity: visual inspection
 
-We can use built-in function for plotting residuals vs fitted. 
+We can use built-in function for plotting residuals vs fitted.
 
--  Provide object with the fitted regression;
+-   Provide object with the fitted regression;
 
 ```{r}
 # plot(_____, which = 1)
@@ -185,6 +195,7 @@ We can use built-in function for plotting residuals vs fitted.
 We can also rely on the `performance` package:
 
 ```{r}
+library(see)
 # check_model(_____, check = "linearity", panel = FALSE)
 ```
 
@@ -195,6 +206,7 @@ What do you conclude about the linearity assumption based on these results?
 What does the `residualPlots()` test and plots show us?
 
 ```{r}
+library(car)
 # residualPlots(_____)
 ```
 
@@ -220,14 +232,13 @@ Let us compare regression 1 and 2 using function `screen_many_regs`.
 # screen_many_regs(_______, fit2)
 ```
 
-### Linearity assumption 
+### Linearity assumption
 
 Is the linearity assumption fulfilled now?
 
 ```{r}
 # residualPlots(___________)
 ```
-
 
 # Solutions
 
@@ -300,4 +311,3 @@ screen_many_regs(fit1, fit2)
 # Comparing regressions
 residualPlots(fit2)
 ```
-
