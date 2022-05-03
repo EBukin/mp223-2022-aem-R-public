@@ -1,0 +1,122 @@
+---
+title: "Multiple Lnear Regression"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    slide-number: true
+    smaller: false
+    scrollable: true
+    
+execute:
+  freeze: auto
+bibliography: ../../references.bib
+---
+
+# R setup {.smaller}
+
+```{r}
+#| echo: true
+
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.5,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+
+
+my_gof <- function(fit_obj, digits = 4) {
+  sum_fit <- summary(fit_obj)
+  
+  stars <- 
+    pf(sum_fit$fstatistic[1],
+       sum_fit$fstatistic[2], 
+       sum_fit$fstatistic[3],
+       lower.tail=FALSE) %>% 
+    symnum(corr = FALSE, na = FALSE, 
+           cutpoints = c(0,  .001,.01,.05,  1),
+           symbols   =  c("***","**","*"," ")) %>% 
+    as.character()
+  
+  list(
+    # `R^2` = sum_fit$r.squared %>% round(digits),
+    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+    # `Num. obs.` = sum_fit$residuals %>% length(),
+    `Num. df` = sum_fit$df[[2]],
+    `F statistic` = 
+      str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+  )
+}
+
+screen_many_regs <-
+  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+    
+    if (class(fit_obj_list) == "lm") 
+      fit_obj_list <- list(fit_obj_list)
+    
+    if (length(rlang::dots_list(...)) > 0)  
+      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+    
+    # browser()
+    fit_obj_list %>%
+      screenreg(
+        custom.note =
+          map2_chr(., seq_along(.), ~ {
+            str_c("Model ", .y, " ", as.character(.x$call)[[2]])
+          }) %>%
+          c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+          str_c(collapse = "\n") ,
+        digits = digits,
+        single.row = single.row,
+        custom.gof.rows =
+          map(., ~my_gof(.x, digits)) %>%
+          transpose() %>%
+          map(unlist),
+        reorder.gof = c(3, 4, 5, 1, 2)
+      )
+  }
+
+
+```
+
+# Plan
+
+Regression example interpretation
+
++ Practical
+
+Bias and Efficiency
+
+- Linearity 
+
+- Linear transformation
+
+- Practical on hedonic prices.
+
+HW practical on housing prices.
+
+
+
+

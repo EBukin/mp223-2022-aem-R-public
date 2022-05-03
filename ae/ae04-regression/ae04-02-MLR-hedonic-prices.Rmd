@@ -1,0 +1,303 @@
+---
+title: "AE04-02 Multiple Linear Regression: Hedonic Prices"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+---
+
+# Setup
+
+```{r}
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+
+my_gof <- function(fit_obj, digits = 4) {
+  sum_fit <- summary(fit_obj)
+  
+  stars <- 
+    pf(sum_fit$fstatistic[1],
+       sum_fit$fstatistic[2], 
+       sum_fit$fstatistic[3],
+       lower.tail=FALSE) %>% 
+    symnum(corr = FALSE, na = FALSE, 
+           cutpoints = c(0,  .001,.01,.05,  1),
+           symbols   =  c("***","**","*"," ")) %>% 
+    as.character()
+  
+  list(
+    # `R^2` = sum_fit$r.squared %>% round(digits),
+    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+    # `Num. obs.` = sum_fit$residuals %>% length(),
+    `Num. df` = sum_fit$df[[2]],
+    `F statistic` = 
+      str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+  )
+}
+
+# Function for screening many regressors
+screen_many_regs <-
+  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+    
+    if (class(fit_obj_list) == "lm") 
+      fit_obj_list <- list(fit_obj_list)
+    
+    if (length(rlang::dots_list(...)) > 0)  
+      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+    
+    # browser()
+    fit_obj_list %>%
+      screenreg(
+        custom.note =
+          map2_chr(., seq_along(.), ~ {
+            str_c("Model ", .y, " ", as.character(.x$call)[[2]])
+          }) %>%
+          c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+          str_c(collapse = "\n") ,
+        digits = digits,
+        single.row = single.row,
+        custom.gof.rows =
+          map(., ~my_gof(.x, digits)) %>%
+          transpose() %>%
+          map(unlist),
+        reorder.gof = c(3, 4, 5, 1, 2)
+      )
+  }
+```
+
+
+# Goals:
+
+-   Get a brief introduction to the Hedonic Prices model;
+-   Practice fitting linear regression in R;
+-   Test linearity assumption: visually and using a statistical tests;
+-   Practice linear transformation;
+-   Exerciser coefficients interpretation;
+
+# Exercise
+
+## Data loading
+
+
+```{r}
+dta <- 
+  alr4::MinnLand %>% 
+  as_tibble()  %>%
+  # filter(year == 2007) %>% 
+  select(acrePrice, acres, region, year, 
+         tillable, crpPct, productivity)
+```
+
+Glimpse at the data:
+
+```{r}
+# _______(dta)
+```
+
+
+## Summary Statistics
+
+This is a simple short-cut ot the summary statistics.
+
+```{r}
+dta %>% datasummary_skim()
+```
+
+### Do yourself at home! 
+
+In the code chunk below, adopt the R code used to prepare data summary manually. Run it step by step and comment on what it does between each component of the pipe.
+
+```{r}
+# dta %>%
+#   _______(id = _______()) %>% 
+#   _______(
+#     cols = c(acrePrice, acres, year, tillable, crpPct, productivity),
+#     names_to = "var",
+#     values_to = "val"
+#   ) %>% 
+#   _______(var) %>% 
+#   _______(_______(
+#     c(val),
+#     _______(
+#       mean = ~ mean(.x, na.rm = TRUE),
+#       sd = ~ sd(.x, na.rm = TRUE),
+#       meadian = ~ median(.x, na.rm = TRUE),
+#       n_miss = ~ sum(is.na(.x), na.rm = TRUE),
+#       min = ~ min(.x, na.rm = TRUE),
+#       max = ~ max(.x, na.rm = TRUE)
+#     )
+#   ), 
+#   n = n())
+```
+
+## Visual inspection
+
+We reply on the visual inspection of data to build some prior expectations. We will use function `ggpairs()` from `GGally`. Insert function name where appropriate:
+
+```{r}
+library(GGally)
+# dta %>%
+#   select(acrePrice, acres, tillable, 
+#          crpPct, productivity) %>%
+#   ________()
+```
+
+## Regression 1
+
+Let us fit the basic regression and summarize the results.
+
+```{r}
+# fit1 <- lm(
+#   acrePrice ~ _____ + _____ + _____ + _____ + ____ + _____,
+#   data = dta
+# )
+# summary(fit1)
+```
+
+Use `performance` and `parameters` package to summarize the regression results.
+
+-  Provide object with the fitted regression;
+
+```{r}
+# parameters(_____)
+# performance(_____)
+```
+
+### Linearity: visual inspection
+
+We can use built-in function for plotting residuals vs fitted. 
+
+-  Provide object with the fitted regression;
+
+```{r}
+# plot(_____, which = 1)
+```
+
+We can also rely on the `performance` package:
+
+```{r}
+# check_model(_____, check = "linearity", panel = FALSE)
+```
+
+What do you conclude about the linearity assumption based on these results?
+
+### Linearity: statistical test
+
+What does the `residualPlots()` test and plots show us?
+
+```{r}
+# residualPlots(_____)
+```
+
+What we conclude based on this linearity test?
+
+## Regression 2
+
+Let us transform the dependent variable with a logarithm!
+
+```{r}
+# fit2 <- lm(
+#   log(acrePrice) ~ _______________,
+#   data = _____
+# )
+# summary(_____________)
+```
+
+### Regressions comparison
+
+Let us compare regression 1 and 2 using function `screen_many_regs`.
+
+```{r}
+# screen_many_regs(_______, fit2)
+```
+
+### Linearity assumption 
+
+Is the linearity assumption fulfilled now?
+
+```{r}
+# residualPlots(___________)
+```
+
+
+# Solutions
+
+```{r}
+#| code-fold: true
+dta <- 
+  alr4::MinnLand %>% 
+  as_tibble()  %>%
+  # filter(year == 2007) %>% 
+  select(acrePrice, acres, region, year, 
+         tillable, crpPct, productivity)
+glimpse(dta)
+
+# Summary statistics:
+dta %>%
+  mutate(id = row_number()) %>% 
+  pivot_longer(
+    cols = c(acrePrice, acres, year, tillable, crpPct, productivity),
+    names_to = "var",
+    values_to = "val"
+  ) %>% 
+  group_by(var) %>% 
+  summarise(across(
+    c(val),
+    list(
+      mean = ~ mean(.x, na.rm = TRUE),
+      sd = ~ sd(.x, na.rm = TRUE),
+      meadian = ~ median(.x, na.rm = TRUE),
+      n_miss = ~ sum(is.na(.x), na.rm = TRUE),
+      min = ~ min(.x, na.rm = TRUE),
+      max = ~ max(.x, na.rm = TRUE)
+    )
+  ), 
+  n = n())
+
+# Summary statistics lazy
+dta %>% datasummary_skim(output = "markdown")
+
+# Visual data inspection
+dta %>%
+  select(acrePrice, acres, tillable, 
+         crpPct, productivity) %>%
+  ggpairs()
+
+# Regression
+fit1 <- lm(
+  acrePrice ~ crpPct + acres + region + 
+    year + tillable + productivity, 
+  data = dta
+)
+summary(fit1)
+
+# Linearity
+plot(fit1, which = 1)
+
+# Linearity 2
+residualPlots(fit1)
+
+# Regression 2
+fit2 <- lm(
+  log(acrePrice) ~  crpPct + acres + region + 
+    year + tillable + productivity,
+  data = dta
+)
+summary(fit2)
+
+# Comparing regressions
+screen_many_regs(fit1, fit2)
+
+# Comparing regressions
+residualPlots(fit2)
+```
+

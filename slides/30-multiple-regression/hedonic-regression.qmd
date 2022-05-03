@@ -1,0 +1,304 @@
+---
+title: "Hedonic model"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    slide-number: true
+    smaller: false
+    scrollable: true
+    
+execute:
+  freeze: auto
+bibliography: ../../references.bib
+---
+
+# R setup {.smaller}
+
+```{r}
+#| echo: true
+
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.asp = 0.5,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+
+
+my_gof <- function(fit_obj, digits = 4) {
+  sum_fit <- summary(fit_obj)
+  
+  stars <- 
+    pf(sum_fit$fstatistic[1],
+       sum_fit$fstatistic[2], 
+       sum_fit$fstatistic[3],
+       lower.tail=FALSE) %>% 
+    symnum(corr = FALSE, na = FALSE, 
+           cutpoints = c(0,  .001,.01,.05,  1),
+           symbols   =  c("***","**","*"," ")) %>% 
+    as.character()
+  
+  list(
+    # `R^2` = sum_fit$r.squared %>% round(digits),
+    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+    # `Num. obs.` = sum_fit$residuals %>% length(),
+    `Num. df` = sum_fit$df[[2]],
+    `F statistic` = 
+      str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+  )
+}
+
+screen_many_regs <-
+  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+    
+    if (class(fit_obj_list) == "lm") 
+      fit_obj_list <- list(fit_obj_list)
+    
+    if (length(rlang::dots_list(...)) > 0)  
+      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+    
+    # browser()
+    fit_obj_list %>%
+      screenreg(
+        custom.note =
+          map2_chr(., seq_along(.), ~ {
+            str_c("Model ", .y, " ", as.character(.x$call)[[2]])
+          }) %>%
+          c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+          str_c(collapse = "\n") ,
+        digits = digits,
+        single.row = single.row,
+        custom.gof.rows =
+          map(., ~my_gof(.x, digits)) %>%
+          transpose() %>%
+          map(unlist),
+        reorder.gof = c(3, 4, 5, 1, 2)
+      )
+  }
+
+
+```
+
+# Problem Setting {.smaller}
+
+We would like to assess the effect of the "Conservation Reserve Program" (CPR) on the agricultural land prices in Minnesota in 2002-2011.
+
+. . .
+
+Conservation Reserve Program is a subsidy that obligates a farm NOT TO GROW ANY CROPS on the enrolled land in exchange for a fixed monetary compensation;
+
+. . .
+
+As this is a risk less income, it may increase the land price.
+
+. . .
+
+However, if the land is productive, such set-aside measure may reduce farmland price. 
+
+
+## Hedonic Model overview
+
+Hedonic prices is an econometric approach of quantifying monetary values of various differentiated characteristics that a subject of economic exchange.
+
+. . .
+
+For example, agricultural land.
+
+-   It has such characteristics as: location, slope, environmental limitation, farmers' accessibility, climate, rainfall, soil salinity, nutrient content, irrigation availability and other.
+
+-   Some could be affected by landowner, some cannot, but all of it contribute to the final value of land.
+
+## Hedonic Theory (1/2) {.smaller}
+
+According to [@palmquist1989], hedonic model of agricultural land price is based on the equilibrium between **Offer** and **Bid** functions. Author uses partial equilibrium approach to prove this.
+
+. . .
+
+$$\phi(\hat{z}, \tilde{z}, \pi^{S^{'}}, r, \beta) = R = \pi^{S^{'}} + C(\hat{z}, \tilde{z}, r, \beta)$$
+
+. . .
+
+$R(\cdot)$ - realized land price (rental of sales);
+
+$\hat{z}$ - land characteristics exogenous to land owner;
+
+$\tilde{z}$ - land characteristics in control of land owner;
+
+$r$ - inputs prices;
+
+$\beta$ - technologies and opportunities such as credit availability;
+
+## Hedonic Theory (2/2)
+
+Essentially, **causal function** of the land rental price could be written as:
+
+$$R = R(\hat{z}, \tilde{z}, \pi^{S^{'}}, r, \beta)$$
+
+. . .
+
+::: callout-important
+This is a causal relationship because [@palmquist1989] provides solid theoretical justification for it.
+:::
+
+## What are those differentiated land characteristics? {.smaller}
+
+### Affected by land owner:
+
+-   a\.
+-   b\.
+-   c\.
+
+### Not affected by land owner:
+
+-   a\.
+-   b\.
+-   c\.
+
+# Data {.smaller}
+
+Data comes from [@taff2007compensated].
+
+-   acrePrice - sale price in dollars per acre;
+-   acres - size of the farm in acres;
+-   region - region in the state Minnesota;
+-   year - year of the land sales translation;
+-   crpPct - the percentage of all farm acres enrolled in CRP;
+-   tillable - percentage of farm acreaage that is rated arable by the assessor;
+-   productivity - average agronomic productivity scaled 1 to 100, with larger numbers for more productive land;
+
+## Loading data
+
+```{r}
+#| code-fold: true
+dta <- 
+  alr4::MinnLand %>% 
+  as_tibble()  %>%
+  # filter(year == 2007) %>% 
+  select(acrePrice, acres, region, year, 
+         tillable, crpPct, productivity)
+glimpse(dta)
+```
+
+## Summary statistics (1/2)
+
+```{r}
+#| code-fold: true
+dta %>%
+  mutate(id = row_number()) %>% 
+  pivot_longer(
+    cols = c(acrePrice, acres, year, tillable, crpPct, productivity),
+    names_to = "var",
+    values_to = "val"
+  ) %>% 
+  group_by(var) %>% 
+  summarise(across(
+    c(val),
+    list(
+      mean = ~ mean(.x, na.rm = TRUE),
+      sd = ~ sd(.x, na.rm = TRUE),
+      meadian = ~ median(.x, na.rm = TRUE),
+      n_miss = ~ sum(is.na(.x), na.rm = TRUE),
+      min = ~ min(.x, na.rm = TRUE),
+      max = ~ max(.x, na.rm = TRUE)
+    )
+  ), 
+  n = n())
+```
+
+## Summary statistics (2/2)  {.smaller}
+
+```{r}
+#| code-fold: true
+dta %>% datasummary_skim(output = "markdown")
+```
+
+## Visual inspection: scatter plots {.smaller}
+
+```{r}
+#| code-fold: true
+#| out-width: 100%
+dta %>%
+  select(acrePrice, acres, tillable, 
+         crpPct, productivity) %>%
+  ggpairs() +
+  theme_bw()
+```
+
+# Hedonic Regression
+
+## Regression. Summary {.smaller}
+```{r}
+#| code-fold: true
+fit1 <- lm(
+  acrePrice ~ crpPct + acres + region + 
+    year + tillable + productivity, 
+  data = dta
+)
+summary(fit1)
+```
+
+## Regression. Interpretation of the coefficients  {.smaller}
+
+```{r}
+parameters(fit1)
+```
+
+## Checking Linearity 1/2
+
+```{r}
+check_model(fit1, check = "linearity", panel = FALSE)
+```
+
+## Checking Linearity 2/2
+
+```{r}
+residualPlots(fit1, plot = FALSE)
+```
+
+
+# Takeaways
+
+## Takeaway {.smaller}
+
+-   Simple linear regression
+-   OLS
+-   Slope and Intercept (interpretation)
+-   Fitted values
+-   Residuals
+-   Residuals vs Fitted
+
+. . .
+
+-   fitting regression: `fit()`
+-   regression summary: `summary()`, `tidy()`, `glance()`, `parameters()`, `performance()` , `check_model()` , `fitted()` , `residuals()` , `resid()`
+-   packages: `broom`, `parameters` and `performance`
+
+# Homework
+
+Create an R Script out of the R code in the presentation.
+
+# References
+
+## References
