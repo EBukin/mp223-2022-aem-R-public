@@ -36,8 +36,8 @@ library(texreg)
 ggplot2::theme_set(ggplot2::theme_bw())
 
 knitr::opts_chunk$set(
-  fig.width = 8,
-  fig.asp = 0.5,
+  fig.width = 12,
+  fig.asp = 0.618,
   fig.retina = 3,
   dpi = 300,
   out.width = "100%", 
@@ -101,22 +101,359 @@ screen_many_regs <-
 
 ```
 
-# Plan
+# Multiple Linear Regression
 
-Regression example interpretation
+## Overview
 
-+ Practical
+::: {.incremental}
 
-Bias and Efficiency
+$$y = \hat {\beta}_{0} + \hat {\beta}_{1}x_1 + \hat {\beta}_{2}x_2 + \hat {\beta}_{3}x_3 + \cdots + \hat {\beta}_{k}x_k + \hat u$$
 
-- Linearity 
+-   $\hat u$ - Error term, or disturbance containing factors other than $x_1, x_2, \cdots, x_k$ that affect $y$
 
-- Linear transformation
+-   $\hat {\beta}_{0}$ - intercept (constant term);
 
-- Practical on hedonic prices.
+-   $\hat {\beta}_{1}$, $\hat {\beta}_{2}$, $\hat {\beta}_{k}$ - coefficients / parameters associated with $x_1$, $x_2$, ... $x_k$;
 
-HW practical on housing prices.
+-   $k$ - entire set of independent variables;
+
+:::
+
+## Motivation
+
+::: {.incremental}
+
+-   To incorporate more explanatory factors into a model;
+
+-   Explicitly hold fixed (some) other factors;
+
+-   Allow for more flexible functional forms;
+
+:::
+
+## Interpretation {.smaller}
+
+-   The multiple linear regression shows the effect of each variable, holding other explanatory variables fixed;
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-asp: 0.15
+library(magick)
+"./img/ex2-interpretation.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+  # knitr::include_graphics()
+```
+
+. . .
+
+::: callout-important
+We must assumed that all unobserved factors do not change if the explanatory variables are changed.
+:::
+
+## Examples of the multiple regression
+
+### 1. Wage equation
+
+```{r}
+#| echo: false
+#| fig-asp: 0.25
+"./img/ex2-exmple-00.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
 
 
+---
+
+### 2. Average test scores and per student spending
+
+```{r}
+#| echo: false
+#| fig-asp: 0.2
+"./img/ex2-exmple-01.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
 
 
+---
+
+### 3. Family income and family consumption {.smaller}
+
+```{r}
+#| echo: false
+#| fig-asp: 0.2
+"./img/ex2-exmple-02.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+::: {.incremental}
+
+-   two explanatory variables;
+-   consumption is explained as a quadratic function of income;
+-   great care when when interpreting the coefficients;
+
+:::
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-asp: 0.1
+"./img/ex2-exmple-02-1.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+---
+
+### 4. CEO salary, sales and CEO tenure
+
+```{r}
+#| echo: false
+#| fig-asp: 0.15
+"./img/ex2-exmple-03.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+::: {.incremental}
+
+-   Model assumes a constant elasticity relationship between CEO salary and the sales of his or her firm.
+
+-   Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.
+
+:::
+
+# Application Exercise
+
+## Multiple regression with a dummy variable
+
+
+# Bias and Efficiency
+
+## Sampling from the population
+
+```{r}
+#| echo: false
+library(ggforce)
+library(tidyverse)
+
+cir_coord <- function(radius, n, x0 = 0, y0 = 0) {
+  r <- radius*runif(n)
+  degs <- 360*runif(n)
+  theta <- 2*pi*degs/360
+  list(
+    radius = radius,
+    n = n,
+    x = r*sin(theta) + x0,
+    y = r*cos(theta) + y0,
+    x0 = x0,
+    y0 = y0
+  )
+}
+
+
+n <- 7
+set.seed(123)
+list(
+  c("Population", str_c("Sample ", 1:n)),
+  c(500, round(runif(n, 50, 100))),
+  c(10, rep(2, n)),
+  c(0, rep_len(c(24, 18),length.out = n)),
+  c(0, seq(6, -6, length.out = n)),
+  c("", as.character(1:n))
+) %>%
+  pmap_dfr(~{
+    circle_coords <- cir_coord(..3, ..2, ..4, ..5)
+    tibble(
+      Type = ..1,
+      x = circle_coords$x,
+      y = circle_coords$y,
+      x0 = circle_coords$x0,
+      y0 = circle_coords$y0,
+      descr = glue::glue("with mean {if (..1 == 'Population') 'Mu' else str_c('\\'mu_hat_', ..6, '\\'')} and variance {if (..1 == 'Population') 'sigma' else str_c('\\'s_hat_', ..6, '\\'')}", )
+    )
+  })  %>%
+  ggplot() +
+  aes(x, y, group = Type, colour = Type, fill = Type) +
+  geom_point() +
+  geom_mark_hull(aes(fill = Type, label = Type, description = descr)) +
+  xlim(-10, 35) +
+  # ylim(-15, 15) +
+  theme_void() +
+  theme(legend.position="bottom") +
+  labs(title = "Repeated sampling from the same population",
+       subtitle = "Each sample estimate a different mean and variance. Populational meand and variance are unknown.")
+
+```
+
+```{r echo=FALSE, fig.width=13}
+pop_val <- 3
+bias_val <- 2
+bias_plots_dta <- 
+  list(
+  c("Unbiased", "Biased", "Unbiased", "Biased"),
+  c("Efficient", "Efficient", "Inefficient", "Inefficient"),
+  rep(pop_val, 4),
+  c(0, bias_val, 0, bias_val),
+  c(0.2, 0.2, 0.8, 0.8),
+  rep(500, 4),
+  c(1:4)
+) %>%
+  pmap_dfr(~{
+    tibble(
+      Type1 = ..1,
+      Type2 = ..2,
+      # Type = str_c("Population ", ..7, " leads to ",..1, " & ", ..2, " sample estimates"),
+      Type = str_c(..1, " & ", ..2),
+      `Populaiton value` = ..3,
+      `Repeated sample number` = seq(1, ..6),
+      `Sample estimate` = rnorm(..6, ..3 + ..4, ..5)
+      )
+  }) %>% 
+  mutate(Type = as.factor(str_c("Sample-based Estimates: ", Type)))
+
+make_plt <- 
+  function(x) {
+    
+  x %>%
+  ggplot() +
+  aes(x = `Sample estimate`,
+      y = `Repeated sample number`,
+      # fill = Type,
+      colour = Type,
+      group = Type) +
+  geom_point() +
+  geom_vline(aes(
+      xintercept = pop_val,
+      colour  = "Population Regression Coefficients"))  +
+  facet_wrap(.~Type, scales = "free") +
+  # facet_wrap(Type1~Type2, scales = "free") +
+  xlim(1, 7) +
+  # scale_y_continuous(trans = "reverse") +
+  theme_minimal() + 
+  theme(legend.position="bottom", legend.title = element_blank()) +
+  guides(fill = guide_none()) +
+  scale_colour_brewer(palette = "Set1")  +
+  labs(title = "Bias or inefficiency occurs due to violation of one or several assumptions")
+  }
+```
+
+## Unbiased and efficient
+
+::: panel-tabset
+## One sample
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
+  slice(1) %>% 
+  make_plt + 
+  expand_limits(y = c(1:500)) +
+  scale_color_manual(values = c("red", "blue"))
+```
+
+## Two samples
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
+  slice(1:2) %>%
+  make_plt + 
+  expand_limits(y = c(1:500))  +
+  scale_color_manual(values = c("red", "blue"))
+```
+
+## Ten samples
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
+  slice(1:10) %>%
+  make_plt + 
+  expand_limits(y = c(1:500)) +
+  scale_color_manual(values = c("red", "blue"))
+```
+
+## 500 samples
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 == "Unbiased", Type2 == "Efficient") %>% 
+  # slice(1) %>% 
+  make_plt + 
+  expand_limits(y = c(1:500)) +
+  scale_color_manual(values = c("red", "blue"))
+```
+:::
+
+## Unbiased but **inefficient**
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 == "Unbiased", Type2 != "Efficient") %>% 
+  make_plt  +
+  scale_color_manual(values = c("red", "darkgreen"))
+```
+
+## **Biased** but efficient
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 != "Unbiased", Type2 == "Efficient") %>% 
+  make_plt  +
+  scale_color_manual(values = c("red", "red"))
+```
+
+## **Biased** and **inefficient**
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  filter(Type1 != "Unbiased", Type2 != "Efficient") %>% 
+  make_plt  +
+  scale_color_manual(values = c("red", "darkorange"))
+```
+
+## All four cases
+
+```{r echo=FALSE, fig.width=13}
+bias_plots_dta %>% 
+  make_plt 
+```
+
+## Assumptions... What? Why? BLUE? {.smaller}
+
+::: columns
+::: {.incremental .column width="50%"}
+1.  Linearity
+2.  Error Terms with Mean Zero and Random Sampling
+3.  No Perfect Collinearity
+4.  Zero Conditional Mean (No Endogeneity)
+5.  Error Terms Homoscedasticity (No Autocorrelation)
+6.  Error Terms Normality
+:::
+
+::: {.column .incremental width="50%"}
+1.  OLS is **unbiased** (Gauss-Markov Theorem)
+
+    -   When assumptions 1 to 4 are satisfied
+
+2.  OLS is BLUE (Gauss-Markov Theorem). AKA (**Best** Linear **Unbiased** Estimator or **unbiased and efficient**)
+
+    -   When assumptions 1to 4 + 5 are satisfied
+
+3.  OLS is a Classical linear model (CLM)
+
+    -   When assumptions 1 to 5 + 6 are satisfied
+
+    -   the OLS has a stronger efficiency property
+
+    -   the OLS estimators are the minimum-variance unbiased estimators.
+:::
+:::
+ 

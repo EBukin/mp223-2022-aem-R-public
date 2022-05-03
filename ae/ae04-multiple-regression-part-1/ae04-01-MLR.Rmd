@@ -1,0 +1,217 @@
+---
+title: "AE04-01 Multiple Linear Regression"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+---
+
+# Setup
+
+```{r}
+library(tidyverse)
+library(wooldridge)
+library(modelsummary)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 12,
+  fig.asp = 0.618,
+  out.width = "100%"
+)
+```
+
+## Goals
+
+-   Fit multiple linear regression;
+-   Display and interpret regression summary;
+-   Compute fitted values and residuals;
+
+## Data
+
+We use data from (Blackburn and Neumark, 1992) on wage determinants. Variables present are: 
+
+-  $wage$ - monthly earnings in USD;
+-  $educ$ - years of education;
+-  $exper$ - years of experiences;
+-  $black$ - dummy variable representing individuals which are not Caucasian;
+
+See:  Blackburn, M. and Neumark, D. (1992) Unobserved Ability, Efficiency Wages, and Interindustry Wage Differentials. The Quarterly Journal of Economics , Vol. 107, No. 4. Oxford University Press (OUP). p. 1421-1436
+
+```{r}
+wage_dta <- 
+    wooldridge::wage2 %>% 
+    as_tibble() %>% 
+    select(wage, educ, exper, black)
+```
+
+## Ex. 1. Glimpse at the data
+
+```{r}
+# __________(_____)
+```
+
+Compute a new variables `caucasian` that takes values "yes" and "no" for each person depending on the values of the variable `black`.
+
+```{r}
+# wage_dta <-
+#   _____ %>%
+#   mutate(_____ = ifelse(black, "no", "yes"),
+#          caucasian = as.factor(caucasian))
+# glimpse(_____)
+```
+
+
+## Ex. 2. Descriptive statistics
+
+Use function `datasummary_skim()` from the package `modelsummary`.
+
+```{r}
+# library(_________)
+# _________(wage_dta)
+```
+
+## Ex. 3. Visual data inspection
+
+We inspect data visually by building a grid of scatter plots using `GGally::ggpairs()`
+
+```{r}
+# library(_________)
+# _________(wage_dta)
+```
+
+Add parameter `aes(colour = caucasian)` to `ggpairs()`.
+
+What is the difference compare to the previous plot?
+
+```{r}
+# ggpairs(_________, _________)
+```
+
+## Ex. 4. Fit regressions 
+
+Dependent variable is `wage`, independent are: `educ`, `exper` and `black`
+
+```{r}
+# fit1 <- lm(____ ~ ____ + ____ + ____, data = ____)
+# fit1
+```
+
+## Ex. 5. Print regression results
+
+```{r}
+# fit1
+```
+
+ 
+## Ex. 6. Make a summary of regression results
+
+```{r}
+# summary(______)
+```
+
+Interpret the coefficients:
+
+## Ex. 7. Regression summary using `parameters::parameters()`
+
+Check help on `?parameters::parameters`
+
+```{r}
+# library(________)
+# ________(________)
+```
+
+## Ex. 8. Regression Goodness of fit using `performance::performance()`
+
+Check help on `?performance::performance`
+
+```{r}
+# library(________)
+# performance(________)
+```
+
+## Ex. 9. Extract fitted values to an object
+
+```{r}
+# fitted_vector <- fitted(________)
+# fitted_vector[1:20]
+```
+
+## Ex. 10. Extract residuals to an object
+
+```{r}
+# resid_vector <- resid(________)
+# resid_vector[1:20]
+```
+
+## Ex. 11. Make a plot of residuals vs fitted
+
+Use function `plot()`. Put fitted as an `x` argument and residuals as `y`.
+
+```{r}
+# plot(x = _____, ___ = ________)
+```
+
+
+## Ex. 12. Make a plot of residuals vs fitted using  `check_model` from `performance` package
+
+See: `?performance`
+
+```{r}
+# check_model(fit1, check = "linearity")
+```
+
+
+## Solutions
+```{r}
+#| code-fold: true
+library(tidyverse)
+library(wooldridge)
+
+wage_dta <- 
+    wooldridge::wage2 %>% 
+    as_tibble() %>% 
+    select(wage, educ, exper, black)
+glimpse(wage_dta)
+
+wage_dta <-
+  wage_dta %>%
+  mutate(caucasian = ifelse(black, "no", "yes"),
+         caucasian = as.factor(caucasian))
+glimpse(wage_dta)
+
+library(modelsummary)
+datasummary_skim(wage_dta)
+
+library(GGally)
+ggpairs(wage_dta)
+
+ggpairs(wage_dta, aes(colour = caucasian))
+
+fit1 <- lm(wage ~ educ + exper + black, data = wage_dta)
+fit1
+
+summary(fit1)
+
+library(parameters)
+parameters(fit1)
+
+library(performance)
+performance(fit1)
+
+fitted_vector <- fitted(fit1)
+fitted_vector[1:20]
+
+resid_vector <- resid(fit1)
+resid_vector[1:20]
+
+plot(x = fitted_vector, y = resid_vector)
+
+check_model(fit1, check = "linearity")
+```
+
