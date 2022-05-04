@@ -143,7 +143,7 @@ screen_many_regs <-
 ## Common linear transformations
 
 |    Model    | Dep. Var. | Indep. Var. |      Interpretation of $\beta_1$      |                         Interpretation                          |
-|:------------:|:------------:|:------------:|:------------:|:--------------:|
+|:----------:|:----------:|:----------:|:-----------:|:-----------------------:|
 | Level-level |    $y$    |     $x$     |     $\Delta y = \beta_1 \Delta x$     |    1 unit change in $x$ causes $\beta_1$ units change in $y$    |
 |  Level-log  |    $y$    |  $log(x)$   | $\Delta y = (\beta_1/100)\% \Delta x$ |   1 % change in $x$ causes $\beta_1/100$ units change in $y$    |
 |  Log-level  | $log(y)$  |     $x$     | $\% \Delta y = (100\beta_1) \Delta x$ |    1 unit change in $x$ causes $100 \beta_1$ % change in $y$    |
@@ -503,7 +503,7 @@ performance(fit_fl)
 ### Testing linearity (1/3) {.smaller}
 
 ```{r}
-#| code-fold: TRUE
+#| code-fold: true
 #| fig-asp: 0.5
 plot(fit_fl, which = 1)
 ```
