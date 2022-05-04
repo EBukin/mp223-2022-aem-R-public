@@ -65,8 +65,7 @@ bibliography: ../references.bib
 ::: callout-important
 ## `SELF STUDY`
 
--   **Application Exercise:** 📋[ae04-04-ability-premium-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-04-ability-premium-HW.html)
--   **Application Exercise:** 📋[ae04-05-slides-ovb-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-05-slides-ovb-HW.html)
+-   **Application Exercise:** 📋[ae04-04-slides-ovb-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html)
 :::
 
 -   **Watch**: ![](http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png){width="23" height="35"} ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Regression Part I: Call in the CIA](https://youtu.be/OwNxEaOF8yY?t=2)

@@ -1,12 +1,12 @@
 ---
-title: "AE04-04 Wage, Education and Ability"
+title: "AE04-05 OVB examples from the slides"
 date: "`r Sys.Date()`"
 output: 
   html_document:
     code_folding: show
 ---
 
-# Setup
+## Setup
 
 ```{r}
 library(tidyverse)
@@ -25,3 +25,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
+## Goals
+
+-   Reproduce analysis from the slides on the OVB in a form of an RMarkdown document;
