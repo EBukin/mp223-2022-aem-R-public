@@ -26,7 +26,7 @@ library(texreg)
 ggplot2::theme_set(ggplot2::theme_bw())
 
 knitr::opts_chunk$set(
-  fig.width = 12,
+  fig.width = 10,
   fig.asp = 0.618,
   out.width = "100%"
 )
@@ -37,14 +37,255 @@ knitr::opts_chunk$set(
 -   Perform a linear regression analysis;
 -   Learn how to test linearity assumption;
 -   Practice linear transformation;
--   Exerciser coefficients interpretation with linear transformation;
+-   Practice coefficients interactions;
+-   Exerciser coefficients interpretation with linear transformation and or interactions;
 
 ## Data
 
-Load data below.
+We explore `UN11` data from with 199 observations.
 
-Data is in the file `data/homeprices.csv`
+Variables are:
+
+-   `fertility` - number of children per woman;
+-   `lifeExpF` - Female life expectancy, years;
+-   `ppgdp` - Per capita gross domestic product in US dollars;
+-   `pctUrban` - Percent of Urban population;
+-   `group` - variable with 3 values "oecd", "africa" and "others";
+
+### Data loading
 
 ```{r}
-
+#| code-fold: true
+library(alr4)
+library(tidyverse)
+un_dta <- 
+  alr4::UN11 %>%
+  as_tibble()
+glimpse(un_dta)
 ```
+
+
+## Model
+
+Let us build a simple econometric model: 
+
+$$\textit{fertility} = f(\textit{ppgdp}, \textit{pctUrban})$$
+
+## Ex. 1. Regression
+
+Check help: `?lm`
+
+```{r}
+# ft1 <- lm(_____ ~ ______, data = _____)
+```
+
+
+## Ex. 1.1 Reg. Summary with `parameters` and `performance`
+
+```{r}
+# library(______)
+# library(______)
+# parameters(______)
+# performance(______)
+```
+
+## Ex. 2. Linearity
+
+### Ex. 2.1 Checking linearity with `base::plot`
+
+Important to specify argument `which = 1` that makes R print only the first plot!
+
+```{r}
+# plot(______, which = 1)
+```
+
+
+### Ex. 2.2 Checking linearity with `performance::check_model`
+
+See help: `?check_model`. First argument is the model, second argument `check = "linearity"` make sure that the function checks linearity only. 
+
+```{r}
+# _____(_____, check = "linearity")
+```
+
+### Ex. 2.3 Checking linearity with `car::residualPlots`
+
+```{r}
+# library(car)
+# residualPlots(_____, plot = FALSE)
+```
+
+```{r}
+# _____(_____, test = FALSE)
+```
+
+## Ex. 3. Linear transformation
+
+What variable should we first try to transform with log?
+
+
+### Ex. 3.1 Linear transformation of ______________
+
+```{r}
+# ft2 <- lm(_______ ~ log(______) + _______, ________)
+```
+
+
+### Ex. 3.2 Checking linearity with `car::residualPlots`
+
+```{r}
+# _______(_______)
+```
+
+Has anything changed? Do we have an improvement in the linearity assumption?
+
+
+
+### Ex. 3.3 Interpretation logged variable
+
+```{r}
+# parameters(_______)
+# _______(ft2)
+```
+
+### Ex. 3.4 Predicted values when regressor is transformed
+
+`?ggeffects::ggpredict`
+
+Firs argument of a function is the model, second argument is the term that we want to predict. 
+
+if we pass result of `ggpredict` to plot, we will get a plot of predicted values constructed for us. 
+
+```{r}
+library(ggeffects)
+# ggpredict(_______, terms = "_______")
+# _______(ft2, _______) %>% plot()
+```
+
+## Ex. 4 Introducing an interaction term
+
+### Ex. 4.1 Regression with an interaction term
+
+```{r}
+# ft3a <- lm(_____ ~ log(_____) * _____, data = un_dta)
+```
+
+We can also calculate log of the variable before regression, in the data and then use a newly calculated variable:
+
+```{r}
+# ft3 <- lm(_____ ~ log_ppgdp * _____ ,
+#           data = 
+#             un_dta %>%
+#             mutate(log_ppgdp = log(ppgdp))
+#           )
+```
+
+### Ex. 4.2 Checking linearity with `car::residualPlots`
+
+Are there any improvement in fulfillment of the linearity assumption?
+
+```{r}
+# _______(_______)
+```
+
+### Ex. 4.3 Interpretation logged variable + interaction term
+
+```{r}
+# parameters(_______)
+# _______(ft3)
+```
+
+### Ex. 4.4 Maginal effects
+
+```{r}
+# library(modelbased)
+# library(emmeans)
+# estimate_slopes(_______, trend = "log_ppgdp")
+# estimate_slopes(_______, trend = "_______", at = "pctUrban") %>% plot()
+```
+
+```{r}
+# estimate_slopes(ft3, trend = "pctUrban")
+# estimate_slopes(ft3, trend = "_______", at = "_______") %>% plot()
+```
+
+
+### Ex. 4.5 Predicted values
+
+Let us use regression `fit3a`
+
+```{r}
+# library(ggeffects)
+# ggpredict(______, terms = "ppgdp")
+# ggpredict(______, terms = c("______", "pctUrban [10, 50, 90]")) %>% plot()
+```
+
+
+## Solutions
+
+```{r}
+## Regression
+ft1 <- lm(fertility ~ ppgdp + pctUrban, data = un_dta)
+
+## Reg. Summary
+library(parameters)
+library(performance)
+parameters(ft1)
+performance(ft1)
+
+## Linearity
+
+### Checking linearity with `base::plot`
+plot(ft1, which = 1)
+
+### Checking linearity with `performance::check_model`
+check_model(ft1, check = "linearity")
+
+### Checking linearity with `car::residualPlots`
+library(car)
+residualPlots(ft1)
+
+## Linear transformation of ______________
+ft2 <- lm(fertility ~ log(ppgdp) + pctUrban, data = un_dta)
+
+## Checking linearity with `car::residualPlots`
+residualPlots(ft2)
+
+## Interpretation logged variable
+parameters(ft2)
+performance(ft2)
+
+## Predicted values
+library(ggeffects)
+ggpredict(ft2, terms = "ppgdp")
+ggpredict(ft2, terms = "pctUrban ")
+ggpredict(ft2, terms = "ppgdp") %>% plot()
+
+## Introducing interaction term
+ft3 <- lm(fertility ~ log_ppgdp + pctUrban + log_ppgdp:pctUrban ,
+          data = un_dta %>% mutate(log_ppgdp = log(ppgdp)))
+
+ft3a <- lm(fertility ~ log(ppgdp) * pctUrban, data = un_dta)
+
+## Checking linearity with `car::residualPlots`
+residualPlots(ft3)
+
+## Interpretation logged variable + interaction term
+parameters(ft3)
+performance(ft3)
+
+## Maginal effects
+library(modelbased)
+library(emmeans)
+estimate_slopes(ft3, trend = "log_ppgdp")
+estimate_slopes(ft3, trend = "pctUrban")
+
+estimate_slopes(ft3, trend = "log_ppgdp", at = "pctUrban") %>% plot()
+estimate_slopes(ft3, trend = "pctUrban", at = "log_ppgdp") %>% plot()
+
+## Predicted values
+library(ggeffects)
+ggpredict(ft3a, terms = "ppgdp")
+ggpredict(ft3a, terms = c("ppgdp", "pctUrban [10, 50, 90]")) %>%  plot()
+```
+
