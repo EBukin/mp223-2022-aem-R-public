@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.349">
+<meta name="generator" content="quarto-0.9.351">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -233,14 +233,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#ex.-3.1-linear-transformation-of-______________" id="toc-ex.-3.1-linear-transformation-of-______________" class="nav-link" data-scroll-target="#ex.-3.1-linear-transformation-of-______________">Ex. 3.1 Linear transformation of ______________</a></li>
   <li><a href="#ex.-3.2-checking-linearity-with-carresidualplots" id="toc-ex.-3.2-checking-linearity-with-carresidualplots" class="nav-link" data-scroll-target="#ex.-3.2-checking-linearity-with-carresidualplots">Ex. 3.2 Checking linearity with <code>car::residualPlots</code></a></li>
   <li><a href="#ex.-3.3-interpretation-logged-variable" id="toc-ex.-3.3-interpretation-logged-variable" class="nav-link" data-scroll-target="#ex.-3.3-interpretation-logged-variable">Ex. 3.3 Interpretation logged variable</a></li>
-  <li><a href="#ex.-3.4-predicted-values-when-regressor-is-transformed" id="toc-ex.-3.4-predicted-values-when-regressor-is-transformed" class="nav-link" data-scroll-target="#ex.-3.4-predicted-values-when-regressor-is-transformed">Ex. 3.4 Predicted values when regressor is transformed</a></li>
+  <li><a href="#ex.-3.4-predicted-values-when-a-regressor-is-transformed" id="toc-ex.-3.4-predicted-values-when-a-regressor-is-transformed" class="nav-link" data-scroll-target="#ex.-3.4-predicted-values-when-a-regressor-is-transformed">Ex. 3.4 Predicted values when a regressor is transformed</a></li>
   </ul></li>
   <li><a href="#ex.-4-introducing-an-interaction-term" id="toc-ex.-4-introducing-an-interaction-term" class="nav-link" data-scroll-target="#ex.-4-introducing-an-interaction-term">Ex. 4 Introducing an interaction term</a>
   <ul class="collapse">
   <li><a href="#ex.-4.1-regression-with-an-interaction-term" id="toc-ex.-4.1-regression-with-an-interaction-term" class="nav-link" data-scroll-target="#ex.-4.1-regression-with-an-interaction-term">Ex. 4.1 Regression with an interaction term</a></li>
   <li><a href="#ex.-4.2-checking-linearity-with-carresidualplots" id="toc-ex.-4.2-checking-linearity-with-carresidualplots" class="nav-link" data-scroll-target="#ex.-4.2-checking-linearity-with-carresidualplots">Ex. 4.2 Checking linearity with <code>car::residualPlots</code></a></li>
   <li><a href="#ex.-4.3-interpretation-logged-variable-interaction-term" id="toc-ex.-4.3-interpretation-logged-variable-interaction-term" class="nav-link" data-scroll-target="#ex.-4.3-interpretation-logged-variable-interaction-term">Ex. 4.3 Interpretation logged variable + interaction term</a></li>
-  <li><a href="#ex.-4.4-maginal-effects" id="toc-ex.-4.4-maginal-effects" class="nav-link" data-scroll-target="#ex.-4.4-maginal-effects">Ex. 4.4 Maginal effects</a></li>
+  <li><a href="#ex.-4.4-marginal-effects" id="toc-ex.-4.4-marginal-effects" class="nav-link" data-scroll-target="#ex.-4.4-marginal-effects">Ex. 4.4 Marginal effects</a></li>
   <li><a href="#ex.-4.5-predicted-values" id="toc-ex.-4.5-predicted-values" class="nav-link" data-scroll-target="#ex.-4.5-predicted-values">Ex. 4.5 Predicted values</a></li>
   </ul></li>
   <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
@@ -288,14 +288,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">10</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelbased)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">10</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
@@ -414,8 +417,8 @@ $ pctUrban  &lt;dbl&gt; 23, 53, 67, 59, 100, 93, 64, 47, 89, 68, 52, 84, 89, 29,
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(ft2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ex.-3.4-predicted-values-when-regressor-is-transformed" class="level3">
-<h3 class="anchored" data-anchor-id="ex.-3.4-predicted-values-when-regressor-is-transformed">Ex. 3.4 Predicted values when regressor is transformed</h3>
+<section id="ex.-3.4-predicted-values-when-a-regressor-is-transformed" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3.4-predicted-values-when-a-regressor-is-transformed">Ex. 3.4 Predicted values when a regressor is transformed</h3>
 <p><code>?ggeffects::ggpredict</code></p>
 <p>Firs argument of a function is the model, second argument is the term that we want to predict.</p>
 <p>if we pass result of <code>ggpredict</code> to plot, we will get a plot of predicted values constructed for us.</p>
@@ -456,8 +459,8 @@ $ pctUrban  &lt;dbl&gt; 23, 53, 67, 59, 100, 93, 64, 47, 89, 68, 52, 84, 89, 29,
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(ft3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ex.-4.4-maginal-effects" class="level3">
-<h3 class="anchored" data-anchor-id="ex.-4.4-maginal-effects">Ex. 4.4 Maginal effects</h3>
+<section id="ex.-4.4-marginal-effects" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4.4-marginal-effects">Ex. 4.4 Marginal effects</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(modelbased)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(emmeans)</span></span>
@@ -657,19 +660,10 @@ AIC     |     BIC |    R2 | R2 (adj.) |  RMSE | Sigma
 -----------------------------------------------------
 522.948 | 539.415 | 0.568 |     0.562 | 0.878 | 0.887</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Maginal effects</span></span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Marginal effects</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelbased)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'emmeans'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:GGally':
-
-    pigs</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Effects
 
@@ -678,7 +672,7 @@ Coefficient |   SE |         95% CI | t(195) |      p
 -0.60       | 0.06 | [-0.72, -0.48] |  -9.76 | &lt; .001
 Marginal effects estimated for log_ppgdp</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Effects
 
@@ -687,17 +681,16 @@ Coefficient |       SE |        95% CI | t(195) |     p
 -1.49e-03   | 4.06e-03 | [-0.01, 0.01] |  -0.37 | 0.715
 Marginal effects estimated for pctUrban</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>, <span class="at">at =</span> <span class="st">"pctUrban"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>, <span class="at">at =</span> <span class="st">"pctUrban"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-7.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>, <span class="at">at =</span> <span class="st">"log_ppgdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>, <span class="at">at =</span> <span class="st">"log_ppgdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-8.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted values</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted values</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Predicted values of fertility
 
@@ -715,7 +708,7 @@ Marginal effects estimated for pctUrban</code></pre>
 Adjusted for:
 * pctUrban = 57.93</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"ppgdp"</span>, <span class="st">"pctUrban [10, 50, 90]"</span>)) <span class="sc">%&gt;%</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"ppgdp"</span>, <span class="st">"pctUrban [10, 50, 90]"</span>)) <span class="sc">%&gt;%</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
 </div>

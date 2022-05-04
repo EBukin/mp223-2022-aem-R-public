@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.349">
+  <meta name="generator" content="quarto-0.9.351">
 
   <meta name="author" content="Eduard Bukin">
   <title>mp223 Applied Econometric Methods for the Socials Sciences - Linearity</title>
@@ -483,7 +483,7 @@
 <li class="fragment"><p>the expected value of dependent variable is a straight-line function of the independent variable</p></li>
 <li class="fragment"><p>If linearity is violated:</p>
 <ul>
-<li class="fragment"><strong>bias of your estimates</strong></li>
+<li class="fragment"><strong>bias of our estimates</strong></li>
 <li class="fragment">inappropriate representation of the dependent variable</li>
 </ul></li>
 </ul>
@@ -495,7 +495,8 @@
 <ul>
 <li class="fragment"><p>How to detect a non-linearity?</p>
 <ul>
-<li class="fragment">no accepted statistical tests</li>
+<li class="fragment">no accepted statistical tests, but</li>
+<li class="fragment">less known Tukey test</li>
 <li class="fragment">visual inspection</li>
 </ul></li>
 <li class="fragment"><p>Typical plots:</p>
@@ -521,58 +522,11 @@
 </section>
 <section id="common-linear-transformations" class="slide level2">
 <h2>Common linear transformations</h2>
-<table>
-<colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 17%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Model</th>
-<th style="text-align: center;">Dep. Var.</th>
-<th style="text-align: center;">Indep. Var.</th>
-<th style="text-align: center;">Interpretation of <span class="math inline">\(\beta_1\)</span></th>
-<th style="text-align: center;">Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Level-level</td>
-<td style="text-align: center;"><span class="math inline">\(y\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(x\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\Delta y = \beta_1 \Delta x\)</span></td>
-<td style="text-align: center;">1 unit change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(\beta_1\)</span> units change in <span class="math inline">\(y\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Level-log</td>
-<td style="text-align: center;"><span class="math inline">\(y\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(log(x)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\Delta y = (\beta_1/100)\% \Delta x\)</span></td>
-<td style="text-align: center;">1 % change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(\beta_1/100\)</span> units change in <span class="math inline">\(y\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Log-level</td>
-<td style="text-align: center;"><span class="math inline">\(log(y)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(x\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\% \Delta y = (100\beta_1) \Delta x\)</span></td>
-<td style="text-align: center;">1 unit change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(100 \beta_1\)</span> % change in <span class="math inline">\(y\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Log-log</td>
-<td style="text-align: center;"><span class="math inline">\(log(y)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(log(x)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\% \Delta y = \beta_1 \% \Delta x\)</span></td>
-<td style="text-align: center;">1 % change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(\beta_1\)</span> % change in <span class="math inline">\(y\)</span> (elasticity)</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Power transformation or Box-Cox transformations;</li>
-<li>Variables normalization to the standard normal distribution;</li>
-<li>Tailor expansion (Cobb-Douglas, Trans-log)</li>
+
+<img data-src="img/ex1-transformations.png" style="width:100.0%" class="r-stretch"><ul>
+<li><p>Power transformation or Box-Cox transformations;</p></li>
+<li><p>Variables normalization to the standard normal distribution;</p></li>
+<li><p>Tailor expansion (Cobb-Douglas, Trans-log)</p></li>
 </ul>
 </section></section>
 <section>
@@ -587,7 +541,7 @@
 <li><p>Four data sets each of 11 observations and two variables (x and y).</p></li>
 <li><p>Descriptive statistics:</p></li>
 </ul>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-2_657e75ac2d69238a9254d7066b0d007f">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-3_ade1aa6de46ecc82b01b22da130afdb4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>anscombe <span class="sc">%&gt;%</span></span>
@@ -614,7 +568,7 @@
 <section class="slide level2">
 
 <h3 class="smaller" id="simple-regressions-of-y-on-x">Simple regressions of y on x</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-3_448c0c51fd493caa422fff835606b5bb">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-4_fbb61c8cb3354a505ac6a903fe348020">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 6
   `Data set` term        estimate std.error statistic p.value
@@ -633,7 +587,7 @@
 <section class="slide level2">
 
 <h3 id="scatter-plots">Scatter plots</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-4_6eea693948386eb075842a85fc7cc50f">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-5_2bef18dfeeee2f1ff433d7f04c2b23da">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fig_norm_anscombe <span class="ot">&lt;-</span></span>
@@ -658,31 +612,31 @@
 </details>
 
 </div>
-<img data-src="linearity_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 id="residuals-vs-fitted">Residuals vs fitted</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-5_23137c6a51ffa0ca2588a49f2cf3c5ff">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-6_05f8ee86dbf891ea166ab190e512c568">
 
 </div>
 
-<img data-src="linearity_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%" class="r-stretch"></section>
 <section id="example-2-wage-and-education" class="slide level2">
 <h2>Example 2: Wage and Education</h2>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-7_8891550604ede0f1bdadcabc93583a14">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-8_0a018a2d30a199b292bc47e0ab851cf0">
 
 </div>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-8_b8fc30fe6675c700a8e4bdaa68263a8b">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-9_fc5f99b5fa95d6308e9b6dbfd917c1d3">
 <div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-9_ea597c306261fac9d6f8967523d9fa83">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-10_26e73541973708400b8040c49e4c3ac4">
 <div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div>
@@ -692,15 +646,15 @@
 <h2>Example 3: Sales and CEO salary</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-10_0100f70d0936383d53edbfe049740572">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-11_d8866465cc19ae788f911fbbaba97d5d">
 <div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-11_d4a87902fb9fc6b906b7f8d8a4dc9a83">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-12_ac627fad0b7afcdaf8307e0cc957a646">
 <div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div>
@@ -710,15 +664,15 @@
 <h2>Example 4: Acceptable linearity</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-12_58b26e86a76617c039abc2801a2eaba4">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-13_1387153e5e4968ba77ddc931be4cc725">
 <div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-13_2336aa36ee3874098437cb0c9da33e66">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-14_7be334611783dcb35dba6e14c128cc96">
 <div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%"></p>
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-14-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div>
@@ -728,7 +682,7 @@
 <h2>Example 5: Fuel taxes influence on fuel consumption?</h2>
 <ul>
 <li><p>As a federal policy maker, we would like to understand how fuel taxes were affecting the gasoline consumption across the states.</p></li>
-<li><p>We use data on fuel consumption in 2001 across all states in the USA (each observation represents a state). Data from <span class="citation" data-cites="weisberg2013applied">(<a href="#/ref-weisberg2013applied" role="doc-biblioref" onclick="return false;"><strong>weisberg2013applied?</strong></a>)</span>.</p></li>
+<li><p>We use data on fuel consumption in 2001 across all states in the USA (each observation represents a state). Data from <span class="citation" data-cites="weisberg2013a">(<a href="#/ref-weisberg2013a" role="doc-biblioref" onclick="return false;"><strong>weisberg2013a?</strong></a>)</span>.</p></li>
 <li><p>Variables present in the data are:</p>
 <ul>
 <li><span class="math inline">\(\text{Tax}\)</span> : Gasoline state tax rate, cents per gallon;</li>
@@ -745,7 +699,7 @@
 <ul>
 <li><p>Regression equation:</p>
 <ul>
-<li><span class="math inline">\(\text{Fuel} = \hat\beta_0 + \hat\beta_1 \cdot \text{Tax} + \hat\beta_2 \cdot \text{Dlic} + \hat\beta_3 \cdot \text{Income} + \hat\beta_4 \cdot \text{Miles} + \hat{u}\)</span></li>
+<li><span class="math inline">\(\text{Fuel} = \hat\beta_0 + \hat\beta_1 \cdot \text{Tax} + \hat\beta_2 \cdot \text{Dlic} \\ + \hat\beta_3 \cdot \text{Income} + \hat\beta_4 \cdot \text{Miles} + \hat{u}\)</span></li>
 </ul></li>
 <li><p>What could be expected values of the coefficients?</p></li>
 </ul>
@@ -753,7 +707,7 @@
 <section class="slide level2">
 
 <h3 id="data">Data</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-14_bba9734d059843ff76c8c466b4b8825e">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-15_aef8a6de32a8fe39e57b916dade67d35">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fule_cons <span class="ot">&lt;-</span> </span>
@@ -781,7 +735,7 @@ $ Fuel   &lt;dbl&gt; 690.2644, 514.2792, 621.4751, 655.2927, 573.9129, 616.6115,
 <section class="slide level2">
 
 <h4 id="descriptive-statistics-1">Descriptive statistics</h4>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-15_d1e3f38a431bc1b0cae8959336c02ed6">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-16_a754334e57ab5ad8c3a8526a0300a249">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">datasummary_skim</span>(fule_cons, <span class="at">output =</span> <span class="st">"data.frame"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -799,7 +753,7 @@ $ Fuel   &lt;dbl&gt; 690.2644, 514.2792, 621.4751, 655.2927, 573.9129, 616.6115,
 <section class="slide level2">
 
 <h4 id="data-visualization">Data visualization</h4>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-16_447942f6802ccb2e0e64c71343614d23">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-17_660687ac63e9b1574a18ab58bc323555">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(GGally)</span>
@@ -807,11 +761,11 @@ $ Fuel   &lt;dbl&gt; 690.2644, 514.2792, 621.4751, 655.2927, 573.9129, 616.6115,
 </details>
 
 </div>
-<img data-src="linearity_files/figure-revealjs/unnamed-chunk-16-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 class="smaller" id="regression">Regression</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-17_b890f96dd4ba42995165aba5fafcf34a">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-18_aa14caba1dad36aed7eddb10de7156a4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit_fl <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fuel <span class="sc">~</span>  Tax <span class="sc">+</span> Dlic <span class="sc">+</span> Income <span class="sc">+</span> Miles, fule_cons)</span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="fu">parameters</span>(fit_fl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -836,17 +790,18 @@ AIC     |     BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
 <section class="slide level2">
 
 <h3 class="smaller" id="testing-linearity-13">Testing linearity (1/3)</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-18_d0f758a0da691473c17352edd6c5b4ff">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-19_430197dfbfae0dd70af5cd6b265e62e4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">plot</span>(fit_fl, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-18-1.png" style="width:100.0%"></p>
+
 </div>
-</div>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
 <h4 class="smaller" id="testing-linearity-23">Testing linearity (2/3)</h4>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-19_92acaf69ad2bcd6c5ee59ac36ef70cc0">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-20_d80329e565fbbdb3017886bb6d85109b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">check_model</span>(fit_fl, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -854,17 +809,16 @@ AIC     |     BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
 <div class="cell-output cell-output-stdout">
 <pre><code>$NCV</code></pre>
 </div>
-<div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%"></p>
+
 </div>
-</div>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-20-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
 <h4 class="smaller" id="testing-linearity-33">Testing linearity (3/3)</h4>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-20_b458d4b0c92d94281619588a35e07598">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-21_42403dc62efb4562dfbd43b85f9e1ecb">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="fu">residualPlots</span>(fit_fl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-20-1.png" style="width:100.0%"></p>
-</div>
+
 <div class="cell-output cell-output-stdout">
 <pre><code>           Test stat Pr(&gt;|Test stat|)  
 Tax          -1.1363          0.26183  
@@ -876,11 +830,11 @@ Tukey test   -2.3136          0.02069 *
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-</section>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-21-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 id="re-fitting-regressions">Re-fitting regressions</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-21_364882402deed344daadcead7faf9fb1">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-22_315c79c96a3012d83f89f79c619bc4b8">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>fit_fl2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fuel <span class="sc">~</span>  Tax <span class="sc">+</span> Dlic <span class="sc">+</span> Income <span class="sc">+</span> <span class="fu">log</span>(Miles), fule_cons)</span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="fu">parameters</span>(fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -905,18 +859,18 @@ AIC     |     BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
 <section class="slide level2">
 
 <h4 id="checking-linearity-12">Checking linearity (1/2)</h4>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-22_5e66d71129ecfdfb9968e697ad049718">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-23_da12eaf6e74c96645f97c3ddff5ff992">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">check_model</span>(fit_fl2, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$NCV</code></pre>
 </div>
 
 </div>
-<img data-src="linearity_files/figure-revealjs/unnamed-chunk-22-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
 <h4 id="checking-linearity-22">Checking linearity (2/2)</h4>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-23_70ca82cdb2002e181b67a1d84fbbe1ab">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-24_6eafec79d3e074d65d90827200ecd1a9">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">residualPlots</span>(fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <div class="cell-output cell-output-stdout">
@@ -930,11 +884,11 @@ Tukey test   -1.4460          0.14818
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<img data-src="linearity_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-24-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
-<h3 id="interpreting-the-results">Interpreting the results</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-24_643568058a46adcf92f5867b206255b7">
+<h3 class="smaller" id="interpreting-the-results">Interpreting the results</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-25_fab2de161e49d32348858502736a5af6">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">screen_many_regs</span>(fit_fl, fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
