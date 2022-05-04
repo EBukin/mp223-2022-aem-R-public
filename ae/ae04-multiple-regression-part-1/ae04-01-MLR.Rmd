@@ -201,14 +201,14 @@ The same when the person is black.
 Use mutate to mutate new variable in a data frame:
 
 ```{r}
-pred3 <-
-  tibble(educ = c(0, 0, 10),
-         exper = c(0, 0, 25),
-         black = c(0, 1, 1)
-  )
-
-pred3 %>% 
-  mutate(predicted = predict(fit1, pred3))
+# pred3 <-
+#   tibble(educ = c(0, 0, 10),
+#          exper = c(0, 0, 25),
+#          black = c(0, 1, 1)
+#   )
+# 
+# pred3 %>% 
+#   mutate(predicted = predict(fit1, pred3))
 ```
 
 ### Ex 7.2 Visual inspection of predicted values
