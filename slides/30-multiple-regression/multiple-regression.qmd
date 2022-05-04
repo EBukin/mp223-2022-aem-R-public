@@ -254,6 +254,8 @@ ggpredict(fit2, terms = c("ppgdp", "group")) %>% plot()
 
 # Bias and Efficiency
 
+### ... of estimates
+
 ## Sampling from the population
 
 ```{r}

@@ -111,7 +111,7 @@ screen_many_regs <-
 
 -   If linearity is violated:
 
-    -   **bias of your estimates**
+    -   **bias of our estimates**
     -   inappropriate representation of the dependent variable
 :::
 
@@ -120,7 +120,8 @@ screen_many_regs <-
 ::: incremental
 -   How to detect a non-linearity?
 
-    -   no accepted statistical tests
+    -   no accepted statistical tests, but
+    -   less known Tukey test
     -   visual inspection
 
 -   Typical plots:
@@ -142,15 +143,17 @@ screen_many_regs <-
 
 ## Common linear transformations
 
-|    Model    | Dep. Var. | Indep. Var. |      Interpretation of $\beta_1$      |                         Interpretation                          |
-|:----------:|:----------:|:----------:|:-----------:|:-----------------------:|
-| Level-level |    $y$    |     $x$     |     $\Delta y = \beta_1 \Delta x$     |    1 unit change in $x$ causes $\beta_1$ units change in $y$    |
-|  Level-log  |    $y$    |  $log(x)$   | $\Delta y = (\beta_1/100)\% \Delta x$ |   1 % change in $x$ causes $\beta_1/100$ units change in $y$    |
-|  Log-level  | $log(y)$  |     $x$     | $\% \Delta y = (100\beta_1) \Delta x$ |    1 unit change in $x$ causes $100 \beta_1$ % change in $y$    |
-|   Log-log   | $log(y)$  |  $log(x)$   |  $\% \Delta y = \beta_1 \% \Delta x$  | 1 % change in $x$ causes $\beta_1$ % change in $y$ (elasticity) |
+
+```{r}
+#| echo: false
+knitr::include_graphics("img/ex1-transformations.png")
+```
+
 
 -   Power transformation or Box-Cox transformations;
+
 -   Variables normalization to the standard normal distribution;
+
 -   Tailor expansion (Cobb-Douglas, Trans-log)
 
 # Examples
@@ -429,7 +432,7 @@ plt3[[2]]
 
 -   As a federal policy maker, we would like to understand how fuel taxes were affecting the gasoline consumption across the states.
 
--   We use data on fuel consumption in 2001 across all states in the USA (each observation represents a state). Data from [@weisberg2013applied].
+-   We use data on fuel consumption in 2001 across all states in the USA (each observation represents a state). Data from [@weisberg2013a].
 
 -   Variables present in the data are:
 
@@ -445,7 +448,7 @@ plt3[[2]]
 
 -   Regression equation:
 
-    -   $\text{Fuel} = \hat\beta_0 + \hat\beta_1 \cdot \text{Tax} + \hat\beta_2 \cdot \text{Dlic} + \hat\beta_3 \cdot \text{Income} + \hat\beta_4 \cdot \text{Miles} + \hat{u}$
+    -   $\text{Fuel} = \hat\beta_0 + \hat\beta_1 \cdot \text{Tax} + \hat\beta_2 \cdot \text{Dlic} \\ + \hat\beta_3 \cdot \text{Income} + \hat\beta_4 \cdot \text{Miles} + \hat{u}$
 
 -   What could be expected values of the coefficients?
 
@@ -508,6 +511,8 @@ performance(fit_fl)
 plot(fit_fl, which = 1)
 ```
 
+------------------------------------------------------------------------
+
 #### Testing linearity (2/3) {.smaller}
 
 ```{r}
@@ -515,6 +520,8 @@ plot(fit_fl, which = 1)
 #| fig-asp: 0.5
 check_model(fit_fl, check = "linearity", panel = FALSE)
 ```
+
+------------------------------------------------------------------------
 
 #### Testing linearity (3/3) {.smaller}
 
@@ -551,7 +558,7 @@ residualPlots(fit_fl2)
 
 ------------------------------------------------------------------------
 
-### Interpreting the results
+### Interpreting the results {.smaller}
 
 ```{r}
 screen_many_regs(fit_fl, fit_fl2)

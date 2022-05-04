@@ -25,6 +25,7 @@ bibliography: ../references.bib
 
 -   **SLIDES:** 🖥[W04-01 Multiple Regression](/slides/30-multiple-regression/multiple-regression.html)
 -   **Application Exercise:** 📋[ae04-01-MLR.Rmd](/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html)
+-   Download here [`ae04-multiple-regression-part-1.zip`](https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae04-multiple-regression-part-1.zip) or on Ilias.
 :::
 
 -   **Practice**: ![](https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png){width="25"} Open Intro. Lab. [Multiple Regression](https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html)
