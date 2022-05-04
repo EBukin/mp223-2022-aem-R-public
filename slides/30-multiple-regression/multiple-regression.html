@@ -80,6 +80,25 @@
     code span.va { color: #19177c; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <script src="../../site_libs/clipboard/clipboard.min.js"></script>
@@ -406,7 +425,7 @@
 <span id="cb1-12"><a href="#cb1-12"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
 <span id="cb1-13"><a href="#cb1-13"></a></span>
 <span id="cb1-14"><a href="#cb1-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">10</span>,</span>
 <span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
 <span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
 <span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
@@ -471,8 +490,466 @@
 </section>
 
 <section>
-<section id="multiple-linear-regression" class="title-slide slide level1 center">
-<h1>Multiple Linear Regression</h1>
+<section id="example-1-un11-data" class="title-slide slide level1 center">
+<h1>Example 1: UN11 data</h1>
+
+</section>
+<section id="research-question" class="slide level2 smaller">
+<h2>Research question</h2>
+<p>How GDP per capita <span class="math inline">\(ppgdp\)</span> and degree of Urbanization <span class="math inline">\(pctUrban\)</span> affects <span class="math inline">\(fertility\)</span>?</p>
+<div class="fragment">
+<p>We explore <code>UN11</code> data from <span class="citation" data-cites="weisberg2005a">(<a href="#/ref-weisberg2005a" role="doc-biblioref" onclick="return false;">Weisberg 2005</a>)</span>. 199 observations. - Variables are:</p>
+<pre><code>-   `fertility` - number of children per woman;
+-   `lifeExpF` - Female life expectancy, years;
+-   `ppgdp` - Per capita gross domestic product in US dollars;
+-   `pctUrban` - Percent of Urban population;
+-   `group` - variable with 3 values "oecd", "africa" and "others";</code></pre>
+</div>
+</section>
+<section id="data-loading" class="slide level2">
+<h2>Data loading</h2>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-2_03d4caf02ba62a5de094bc4d5fcb1695">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(alr4)           <span class="co">#install.packages("alr4")</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(tidyverse)      <span class="co">#install.packages("tidyverse")</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>un_dta <span class="ot">&lt;-</span> </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  alr4<span class="sc">::</span>UN11 <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">select</span>(<span class="sc">-</span>region)</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="fu">glimpse</span>(un_dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 199
+Columns: 5
+$ group     &lt;fct&gt; other, other, africa, africa, other, other, other, other, oe…
+$ fertility &lt;dbl&gt; 5.968, 1.525, 2.142, 5.135, 2.000, 2.172, 1.735, 1.671, 1.94…
+$ ppgdp     &lt;dbl&gt; 499.0, 3677.2, 4473.0, 4321.9, 13750.1, 9162.1, 3030.7, 2285…
+$ lifeExpF  &lt;dbl&gt; 49.49, 80.40, 75.00, 53.17, 81.10, 79.89, 77.33, 77.75, 84.2…
+$ pctUrban  &lt;dbl&gt; 23, 53, 67, 59, 100, 93, 64, 47, 89, 68, 52, 84, 89, 29, 45,…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 class="smaller" id="descriptive-statistics">Descriptive statistics</h3>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-3_fe2908cbe99f5696651ca29776ab5957">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"data.frame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Unique (#) Missing (%)    Mean      SD   Min Median      Max
+1 fertility        193           0     2.8     1.3   1.1    2.3      6.9
+2     ppgdp        199           0 13012.0 18412.4 114.8 4684.5 105095.4
+3  lifeExpF        192           0    72.3    10.1  48.1   75.9     87.1
+4  pctUrban         80           0    57.9    23.4  11.0   59.0    100.0</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="data-visualization">Data visualization</h3>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-4_14f4108421ad3140494eeabb1dcae4b5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(fertility, lifeExpF, pctUrban, ppgdp, group) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="regression" class="slide level2">
+<h2>Regression</h2>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-5_2e54d01d7f5129ad47b87b444b502f06">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> ppgdp <span class="sc">+</span> pctUrban , un_dta)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>fit1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = fertility ~ ppgdp + pctUrban, data = un_dta)
+
+Coefficients:
+(Intercept)        ppgdp     pctUrban  
+  4.374e+00   -1.305e-05   -2.491e-02  </code></pre>
+</div>
+</div>
+</section>
+<section id="reg.-summary-base-r" class="slide level2">
+<h2>Reg. summary <code>base</code> R</h2>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-6_88867fe20bbd3c0881c8034477eb5981">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = fertility ~ ppgdp + pctUrban, data = un_dta)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.19513 -0.81326 -0.09851  0.61527  2.97892 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  4.374e+00  2.244e-01  19.489  &lt; 2e-16 ***
+ppgdp       -1.304e-05  5.366e-06  -2.431    0.016 *  
+pctUrban    -2.491e-02  4.217e-03  -5.907 1.51e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.114 on 196 degrees of freedom
+Multiple R-squared:  0.3155,    Adjusted R-squared:  0.3085 
+F-statistic: 45.16 on 2 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="reg.-summary-coef.-parametersparameters" class="slide level2">
+<h2>Reg. summary; Coef. <code>parameters::parameters()</code></h2>
+<p>See: <a href="https://easystats.github.io/parameters/">easystats/parameters</a></p>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-7_dc8f763f8854e5dc3b965737bef3f864">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">parameters</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |       SE |         95% CI | t(196) |      p
+-----------------------------------------------------------------------
+(Intercept) |        4.37 |     0.22 | [ 3.93,  4.82] |  19.49 | &lt; .001
+ppgdp       |   -1.30e-05 | 5.37e-06 | [ 0.00,  0.00] |  -2.43 | 0.016 
+pctUrban    |       -0.02 | 4.22e-03 | [-0.03, -0.02] |  -5.91 | &lt; .001</code></pre>
+</div>
+</div>
+</section>
+<section id="reg.-summary-gof-performanceperformance" class="slide level2">
+<h2>Reg. summary: GOF <code>performance::performance()</code></h2>
+<p>See: <a href="https://easystats.github.io/performance/">easystats/performance</a></p>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-8_a7bbd1d9336a78422a7fad7f68631d89">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">performance</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC     |     BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-----------------------------------------------------
+612.669 | 625.842 | 0.315 |     0.308 | 1.106 | 1.114</code></pre>
+</div>
+</div>
+</section>
+<section id="reg.-summary-broom" class="slide level2">
+<h2>Reg. summary: <code>broom</code></h2>
+<p>See: <a href="https://broom.tidymodels.org/">tidymodels/broom</a></p>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-9_efe1dfdbf85b0d61994e5e38b2b8bc5e">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">tidy</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term          estimate  std.error statistic  p.value
+  &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)  4.37      0.224          19.5  9.49e-48
+2 ppgdp       -0.0000130 0.00000537     -2.43 1.60e- 2
+3 pctUrban    -0.0249    0.00422        -5.91 1.51e- 8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">glance</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 12
+  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.315         0.308  1.11      45.2 7.38e-17     2  -302.  613.  626.
+# … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="fitted-values" class="slide level2">
+<h2>Fitted values</h2>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-10_6153d6df12aaaf06104f5768a239db93">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">fitted</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6         7         8 
+3.7947689 3.0059609 2.6468172 2.8480812 1.7037141 1.9379459 2.7403669 2.9053011 
+        9        10        11        12        13        14        15        16 
+1.4119940 2.0911577 3.0052991 1.9886579 1.9199000 3.6430633 3.0641052 2.4314920 
+       17        18        19        20        21        22        23        24 
+1.3862537 2.9952823 3.3182902 0.6747918 3.4756333 2.6793659 3.0951648 2.7331546 
+       25        26        27        28        29        30        31        32 
+2.0671501 2.0550740 2.4975767 3.6948524 4.0979139 3.8656137 2.8887204 1.7516254 
+       33        34        35        36        37        38        39        40 
+2.7874076 1.1388925 3.3968120 3.6672314 2.0020368 3.1216901 2.4246981 3.6671114 
+       41        42        43        44        45        46        47        48 
+2.7700478 2.3216559 2.6544945 3.0886981 2.7490962 2.4314607 2.2355078 2.2850335 
+       49        50        51        52        53        54        55        56 
+3.4748106 1.4786284 2.4642316 2.6135811 2.5626587 3.6425976 2.6271288 3.2435170 
+       57        58        59        60        61        62        63        64 
+2.7103038 3.1579408 3.8205923 2.4460360 3.9465136 3.0325880 1.6762323 1.7159693 
+       65        66        67        68        69        70        71        72 
+2.7819453 2.0691912 2.8969061 3.0189655 2.0108490 3.0614501 2.4839826 1.8212757 
+       73        74        75        76        77        78        79        80 
+3.2808694 3.0910653 3.4718507 3.6198606 3.6127258 3.0210259 3.0524099 1.4679432 
+       81        82        83        84        85        86        87        88 
+2.5121838 1.5201712 3.6085506 3.2147493 2.5373335 2.7184888 2.2267800 1.7000065 
+       89        90        91        92        93        94        95        96 
+2.2134163 3.0149341 2.1423929 2.3482393 2.7848806 3.7908188 3.2589819 1.3402665 
+       97        98        99       100       101       102       103       104 
+3.4910499 3.5135847 2.5411568 2.0858293 3.6639271 3.1756366 2.2834597 2.5619918 
+      105       106       107       108       109       110       111       112 
+0.8857851 1.2309605 3.5964818 3.8713509 2.4464745 3.2917600 3.4447045 1.7519703 
+      113       114       115       116       117       118       119       120 
+2.5405692 3.3132026 3.2302727 2.3124210 3.7663411 3.1572796 2.7755058 2.7697167 
+      121       122       123       124       125       126       127       128 
+2.8670865 3.3973768 3.5158206 3.3358407 1.8023346 3.8939496 1.7923763 1.6946431 
+      129       130       131       132       133       134       135       136 
+2.4935395 1.8095518 2.9146065 3.9460818 3.0875801 2.8729742 1.2778538 2.2844786 
+      137       138       139       140       141       142       143       144 
+3.4643407 2.1404996 2.5070510 2.4065499 4.0317609 2.7935766 2.3854688 3.1256589 
+      145       146       147       148       149       150       151       152 
+2.6946634 2.5749830 1.5628115 1.0382976 2.0319552 2.8312421 2.4206636 3.8939809 
+      153       154       155       156       157       158       159       160 
+3.5896173 3.8323997 2.7880734 2.1249136 3.2895746 2.9123630 2.8298218 3.3981047 
+      161       162       163       164       165       166       167       168 
+1.3119324 2.7956994 2.8521083 3.8853555 3.4261067 2.7350866 2.0327080 3.9944969 
+      169       170       171       172       173       174       175       176 
+3.0481549 3.3290636 2.5388828 3.8079068 1.6187754 1.6322415 2.9409538 3.7158988 
+      177       178       179       180       181       182       183       184 
+3.6949007 2.8466123 3.4670765 3.2712912 3.7301469 3.8271317 2.6251786 2.4987419 
+      185       186       187       188       189       190       191       192 
+3.0688209 3.0621762 4.0437545 2.6157528 1.7647646 1.9074322 1.6993888 1.9015464 
+      193       194       195       196       197       198       199 
+3.4588083 3.6878846 1.8564110 3.5865571 3.5583256 3.4612803 3.3952165 </code></pre>
+</div>
+</div>
+</section>
+<section id="residuals" class="slide level2">
+<h2>Residuals</h2>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-11_d369e9cd9f3093ad00babc3a33f9a455">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">resid</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          1           2           3           4           5           6 
+ 2.17323111 -1.48096095 -0.50481721  2.28691883  0.29628594  0.23405405 
+          7           8           9          10          11          12 
+-1.00536689 -1.23430108  0.53700600 -0.74515772 -0.85729906 -0.11165790 
+         13          14          15          16          17          18 
+ 0.51009998 -1.48606333 -1.48910516 -0.95249201  0.44874633 -0.31628228 
+         19          20          21          22          23          24 
+ 1.75970984  1.08520825 -1.21763328  0.54963411 -1.96116482 -0.11615458 
+         25          26          27          28          29          30 
+-0.26715012 -0.07107397 -0.95157666  2.05514757 -0.04691388 -1.44361367 
+         31          32          33          34          35          36 
+ 1.39827962 -0.06062539 -0.50840760  0.46110747  1.02618805  2.06976863 
+         37          38          39          40          41          42 
+-0.17003681 -1.56269009 -0.13169815  1.07488865  1.67195223  0.20915040 
+         43          44          45          46          47          48 
+-0.84249451  1.13530190 -1.24809620 -0.98046070 -0.77750782 -0.78403353 
+         49          50          51          52          53          54 
+ 2.01018936  0.40637164  1.12476835  0.38641894 -0.07265866  2.27540238 
+         55          56          57          58          59          60 
+-0.23412884 -0.60751700 -0.53930380  1.82205918  0.42240766 -0.74403600 
+         61          62          63          64          65          66 
+-0.09851358 -0.43058797  0.19876769  0.27103069 -0.74894529  1.12580884 
+         67          68          69          70          71          72 
+ 1.79209386 -1.49096555 -0.55384897  0.92654987 -0.94398258  0.39572432 
+         73          74          75          76          77          78 
+-1.10986945  0.74893473  1.56014928  1.25713938 -1.42272578  0.13797414 
+         79          80          81          82          83          84 
+-0.05640991 -0.33094322 -1.08218377  0.57782878 -1.07055057 -1.15974928 
+         85          86          87          88          89          90 
+-0.95033352  1.81651124 -0.12978005  1.20899348 -0.73741634 -0.75293412 
+         91          92          93          94          95          96 
+-0.72439291  0.54076072 -0.30388056  0.83218115  0.24101810  0.91073351 
+         97          98          99         100         101         102 
+-0.87004991 -0.97058471 -1.03515681 -0.32182931 -0.61292706  1.86236345 
+        103         104         105         106         107         108 
+ 0.12654028 -1.06699184  0.79721493 -0.06796051  0.89651819  2.09664912 
+        109         110         111         112         113         114 
+ 0.12552547 -1.62375995  2.67229550 -0.46797035  1.84389706  1.04779741 
+        115         116         117         118         119         120 
+-1.64027267 -0.08542101 -0.45934113 -1.70727957 -0.32950581 -1.13971671 
+        121         122         123         124         125         126 
+-0.68408649  1.31562320 -1.57682063 -0.28084074  1.49766544 -1.30694960 
+        127         128         129         130         131         132 
+ 0.10762365  0.09935694 -0.40253945  0.32544818 -0.41460645  2.97891821 
+        133         134         135         136         137         138 
+ 2.34341986 -0.88497422  0.67014618 -0.13847861 -0.26334069 -0.14049955 
+        139         140         141         142         143         144 
+ 1.76294902  0.00245011 -0.23276089  0.06442340  0.02453119 -0.07565890 
+        145         146         147         148         149         150 
+-1.27966338 -1.26298297  0.19418853  1.16570241 -0.64295518 -1.40324213 
+        151         152         153         154         155         156 
+-0.89166361  1.38801909 -1.68261729 -0.06939970  0.69992660  0.51408637 
+        157         158         159         160         161         162 
+ 1.31542538 -1.35036300 -0.48982181  1.32989528  0.05506763 -1.42369940 
+        163         164         165         166         167         168 
+-1.37510833  0.15564447  2.85689331 -0.35208655 -0.52870796 -1.75949694 
+        169         170         171         172         173         174 
+-1.05315491  0.89593645 -0.27288277 -0.63390684  0.30622457 -0.09624147 
+        175         176         177         178         179         180 
+-0.16895381 -0.55389879  1.80409931 -1.44961230 -1.93907653  0.59270880 
+        181         182         183         184         185         186 
+ 0.05285313 -2.19513168 -0.71617861 -0.47674187 -0.75282087  0.63782377 
+        187         188         189         190         191         192 
+ 1.85724550 -1.13275277 -0.05776457 -0.04043224  0.37761115  0.14145363 
+        193         194         195         196         197         198 
+-1.19480829  0.06211543  0.53458896 -1.83655714  1.37967443  2.83871967 
+        199 
+-0.28621654 </code></pre>
+</div>
+</div>
+</section>
+<section id="residuals-vs-fitted" class="slide level2">
+<h2>Residuals vs Fitted</h2>
+<p>See: <a href="https://easystats.github.io/performance/">easystats/performance</a> + <a href="https://easystats.github.io/performance/reference/check_model.html"><code>check_model</code> help</a></p>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-12_5af38dd274fe43c83d11de867252fad0">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">check_model</span>(fit1, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$NCV</code></pre>
+</div>
+
+</div>
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="predicted-values" class="slide level2 smaller">
+<h2>Predicted values</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>See: <a href="https://strengejacke.github.io/ggeffects/index.html">strengejacke.github.io/ggeffects</a></p>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-13_66970fe0622a48cd483ef9a3f4e32453">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">ggpredict</span>(fit1, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of fertility
+
+ ppgdp | Predicted |       95% CI
+---------------------------------
+     0 |      2.93 | [2.72, 3.14]
+ 15000 |      2.74 | [2.58, 2.89]
+ 25000 |      2.60 | [2.41, 2.80]
+ 40000 |      2.41 | [2.09, 2.73]
+ 55000 |      2.21 | [1.75, 2.68]
+ 70000 |      2.02 | [1.40, 2.64]
+ 85000 |      1.82 | [1.05, 2.60]
+110000 |      1.50 | [0.46, 2.53]
+
+Adjusted for:
+* pctUrban = 57.93</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-14_5bfe1686a72124b9128e424a53e533e2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> ppgdp <span class="sc">+</span> pctUrban <span class="sc">+</span> group, un_dta)</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">ggpredict</span>(fit2, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"ppgdp"</span>, <span class="st">"group"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-14-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section id="application-exercise-1-multiple-regression-with-a-dummy-variable" class="title-slide slide level1 center">
+<h1>Application Exercise 1: Multiple regression with a dummy variable</h1>
+<p><code>AE04-01 Multiple Linear Regression</code></p>
+</section>
+
+<section>
+<section id="bias-and-efficiency" class="title-slide slide level1 center">
+<h1>Bias and Efficiency</h1>
+
+</section>
+<section id="sampling-from-the-population" class="slide level2">
+<h2>Sampling from the population</h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:100.0%" class="r-stretch"><div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-16_9d8f283b520ee667cc9857d4a93a7baf">
+
+</div>
+</section>
+<section id="unbiased-and-efficient" class="slide level2 smaller">
+<h2>Unbiased and efficient</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1 sample</a></li><li><a href="#tabset-1-2">2 samples</a></li><li><a href="#tabset-1-3">10 samples</a></li><li><a href="#tabset-1-4">500 samples</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-17_e2cd341c1bac07e20703dcd0f53566b0">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-18_3fdcba64b09eec1750b2eb233f97a0a8">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-18-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-19_d0e37d7842926c1f5a18d687d2b5b174">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-4">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-20_483825db96449fe4268a28d6034fd4a1">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-20-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="unbiased-but-inefficient" class="slide level2">
+<h2>Unbiased but <strong>inefficient</strong></h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-21-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="biased-but-efficient" class="slide level2">
+<h2><strong>Biased</strong> but efficient</h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-22-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="biased-and-inefficient" class="slide level2">
+<h2><strong>Biased</strong> and <strong>inefficient</strong></h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="all-four-cases" class="slide level2">
+<h2>All four cases</h2>
+
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-24-1.png" style="width:100.0%" class="r-stretch"></section></section>
+<section>
+<section id="assumptions-of-the-mlr" class="title-slide slide level1 smaller center">
+<h1>Assumptions of the MLR</h1>
+
+</section>
+<section id="assumptions-what-why-blue" class="slide level2 smaller">
+<h2>Assumptions? What? Why? BLUE?</h2>
+<div>
+<ol type="1">
+<li class="fragment"><p>OLS is <strong>unbiased</strong> (Gauss-Markov Theorem), when assumptions 1 to 4 are satisfied:</p>
+<ol type="1">
+<li class="fragment">Linearity</li>
+<li class="fragment">Random Sampling</li>
+<li class="fragment">No Collinearity</li>
+<li class="fragment">No Endogeneity</li>
+</ol></li>
+<li class="fragment"><p>OLS is BLUE (Gauss-Markov Theorem). AKA (<strong>Best</strong> Linear <strong>Unbiased</strong> Estimator or <strong>unbiased and efficient</strong>), when assumptions 1 to 4 + 5 are satisfied</p>
+<ol start="5" type="1">
+<li class="fragment">Homoscedasticity (No Autocorrelation)</li>
+</ol></li>
+<li class="fragment"><p>OLS is a Classical linear model (CLM), when assumptions 1 to 5 + 6 are satisfied</p>
+<ol start="6" type="1">
+<li class="fragment">Error Terms Normality</li>
+</ol></li>
+</ol>
+</div>
+</section></section>
+<section>
+<section id="multiple-linear-regression-recap" class="title-slide slide level1 center">
+<h1>Multiple linear regression: recap</h1>
 
 </section>
 <section id="overview" class="slide level2">
@@ -503,9 +980,9 @@
 <li>The multiple linear regression shows the effect of each variable, holding other explanatory variables fixed;</li>
 </ul>
 <div class="fragment">
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-2_d2cf98baba61507cb89c885f94d91309">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-25_408da29516981d41eb52856c05110740">
 <div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-2-1.png" style="width:100.0%"></p>
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-25-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div>
@@ -532,18 +1009,18 @@
 
 <h3 id="wage-equation">1. Wage equation</h3>
 
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-3-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-26-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 id="average-test-scores-and-per-student-spending">2. Average test scores and per student spending</h3>
 
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%" class="r-stretch"></section>
+<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-27-1.png" style="width:100.0%" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 class="smaller" id="family-income-and-family-consumption">3. Family income and family consumption</h3>
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-5_c17ec32c721b5ad6a88caf7bdee979a5">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-28_e1741f11da1740ec10cbfac3e7c0fed6">
 <div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%"></p>
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-28-1.png" style="width:100.0%"></p>
 </div>
 </div>
 <div>
@@ -554,123 +1031,36 @@
 </ul>
 </div>
 <div class="fragment">
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-6_355adcb99fee65f90218915d947e5641">
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-29_aa58ae291b7854a81db72ac14ed35994">
 <div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%"></p>
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-29-1.png" style="width:100.0%"></p>
 </div>
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 smaller scrollable">
 
 <h3 id="ceo-salary-sales-and-ceo-tenure">4. CEO salary, sales and CEO tenure</h3>
-
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%" class="r-stretch"><div>
+<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-30_9a4012c9cf19ae6846671e6cfa44877c">
+<div class="cell-output-display">
+<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-30-1.png" style="width:100.0%"></p>
+</div>
+</div>
+<div>
 <ul>
 <li class="fragment"><p>Model assumes a constant elasticity relationship between CEO salary and the sales of his or her firm.</p></li>
 <li class="fragment"><p>Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.</p></li>
 </ul>
 </div>
-</section></section>
-<section id="application-exercise-1-multiple-regression-with-a-dummy-variable" class="title-slide slide level1 center">
-<h1>Application Exercise 1: Multiple regression with a dummy variable</h1>
-<p><code>AE04-01 Multiple Linear Regression</code></p>
-</section>
 
-<section>
-<section id="bias-and-efficiency" class="title-slide slide level1 center">
-<h1>Bias and Efficiency</h1>
-
-</section>
-<section id="sampling-from-the-population" class="slide level2">
-<h2>Sampling from the population</h2>
-
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%" class="r-stretch"><div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-9_ea7bbbbcf84a9e7749cb37ad9affbae7">
-
-</div>
-</section>
-<section id="unbiased-and-efficient" class="slide level2 smaller">
-<h2>Unbiased and efficient</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1 sample</a></li><li><a href="#tabset-1-2">2 samples</a></li><li><a href="#tabset-1-3">10 samples</a></li><li><a href="#tabset-1-4">500 samples</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-10_61cbc1377b5333117f5ada913cc41f59">
-<div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
-</div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-11_ee452516b90e643caeb43bbd3414e42a">
-<div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
-</div>
-</div>
-</div>
-<div id="tabset-1-3">
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-12_61b54855b5818fdc8b76bcf77091e2d3">
-<div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
-</div>
-</div>
-</div>
-<div id="tabset-1-4">
-<div class="cell" data-hash="multiple-regression_cache/revealjs/unnamed-chunk-13_d3c8af4eb8ed3134ff8fb9f1e49e945d">
-<div class="cell-output-display">
-<p><img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%"></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="unbiased-but-inefficient" class="slide level2">
-<h2>Unbiased but <strong>inefficient</strong></h2>
-
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-14-1.png" style="width:100.0%" class="r-stretch"></section>
-<section id="biased-but-efficient" class="slide level2">
-<h2><strong>Biased</strong> but efficient</h2>
-
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:100.0%" class="r-stretch"></section>
-<section id="biased-and-inefficient" class="slide level2">
-<h2><strong>Biased</strong> and <strong>inefficient</strong></h2>
-
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-16-1.png" style="width:100.0%" class="r-stretch"></section>
-<section id="all-four-cases" class="slide level2">
-<h2>All four cases</h2>
-
-<img data-src="multiple-regression_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:100.0%" class="r-stretch"></section></section>
-<section>
-<section id="assumptions-of-the-mlr" class="title-slide slide level1 smaller center">
-<h1>Assumptions of the MLR</h1>
-
-</section>
-<section id="assumptions-what-why-blue" class="slide level2 smaller">
-<h2>Assumptions? What? Why? BLUE?</h2>
-<div>
-<ol type="1">
-<li class="fragment"><p>OLS is <strong>unbiased</strong> (Gauss-Markov Theorem), when assumptions 1 to 4 are satisfied:</p>
-<ol type="1">
-<li class="fragment">Linearity</li>
-<li class="fragment">Random Sampling</li>
-<li class="fragment">No Collinearity</li>
-<li class="fragment">No Endogeneity</li>
-</ol></li>
-<li class="fragment"><p>OLS is BLUE (Gauss-Markov Theorem). AKA (<strong>Best</strong> Linear <strong>Unbiased</strong> Estimator or <strong>unbiased and efficient</strong>), when assumptions 1 to 4 + 5 are satisfied</p>
-<ol start="5" type="1">
-<li class="fragment">Homoscedasticity (No Autocorrelation)</li>
-</ol></li>
-<li class="fragment"><p>OLS is a Classical linear model (CLM), when assumptions 1 to 5 + 6 are satisfied</p>
-<ol start="6" type="1">
-<li class="fragment">Error Terms Normality</li>
-</ol></li>
-</ol>
-</div>
-
-
-<img src="../../img/jlu-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p><img src="../../img/jlu-logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
 <p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-weisberg2005a" class="csl-entry" role="doc-biblioentry">
+Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. John Wiley &amp; Sons, Inc. <a href="https://doi.org/10.1002/0471704091">https://doi.org/10.1002/0471704091</a>.
+</div>
 </div>
 </section></section>
     </div>
