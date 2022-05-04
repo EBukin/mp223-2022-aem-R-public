@@ -128,7 +128,7 @@ Check help on `?parameters::parameters`
 # ________(________)
 ```
 
-### Ex. 2.2. Goodness of fit
+### Ex. 2.2. Goodness of fit using `performance::performance()`
 
 Check help on `?performance::performance`
 

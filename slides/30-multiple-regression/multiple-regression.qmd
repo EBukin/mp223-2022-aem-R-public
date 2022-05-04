@@ -36,7 +36,7 @@ library(texreg)
 ggplot2::theme_set(ggplot2::theme_bw())
 
 knitr::opts_chunk$set(
-  fig.width = 12,
+  fig.width = 10,
   fig.asp = 0.618,
   fig.retina = 3,
   dpi = 300,
@@ -101,129 +101,156 @@ screen_many_regs <-
 
 ```
 
-# Multiple Linear Regression
+# Example 1: UN11 data
 
-## Overview
+## Research question {.smaller}
 
-::: incremental
-$$y = \hat {\beta}_{0} + \hat {\beta}_{1}x_1 + \hat {\beta}_{2}x_2 + \hat {\beta}_{3}x_3 + \cdots + \hat {\beta}_{k}x_k + \hat u$$
-
--   $\hat u$ - Error term, or disturbance containing factors other than $x_1, x_2, \cdots, x_k$ that affect $y$
-
--   $\hat {\beta}_{0}$ - intercept (constant term);
-
--   $\hat {\beta}_{1}$, $\hat {\beta}_{2}$, $\hat {\beta}_{k}$ - coefficients / parameters associated with $x_1$, $x_2$, ... $x_k$;
-
--   $k$ - entire set of independent variables;
-:::
-
-## Motivation
-
-::: incremental
--   To incorporate more explanatory factors into a model;
-
--   Explicitly hold fixed (some) other factors;
-
--   Allow for more flexible functional forms;
-:::
-
-## Interpretation {.smaller}
-
--   The multiple linear regression shows the effect of each variable, holding other explanatory variables fixed;
+How GDP per capita $ppgdp$ and degree of Urbanization $pctUrban$ affects $fertility$?
 
 . . .
 
+We explore `UN11` data from [@weisberg2005a]. 199 observations.
+-   Variables are:
+
+    -   `fertility` - number of children per woman;
+    -   `lifeExpF` - Female life expectancy, years;
+    -   `ppgdp` - Per capita gross domestic product in US dollars;
+    -   `pctUrban` - Percent of Urban population;
+    -   `group` - variable with 3 values "oecd", "africa" and "others";
+
+## Data loading
+
 ```{r}
-#| echo: false
-#| fig-asp: 0.15
-library(magick)
-"./img/ex2-interpretation.png" %>%
-  image_read() %>%
-  image_ggplot(interpolate = TRUE)
-  # knitr::include_graphics()
+#| code-fold: true
+library(alr4)           #install.packages("alr4")
+library(tidyverse)      #install.packages("tidyverse")
+un_dta <- 
+  alr4::UN11 %>%
+  as_tibble() %>%
+  select(-region)
+glimpse(un_dta)
 ```
 
-. . .
+------------------------------------------------------------------------
 
-::: callout-important
-We assume that all unobserved factors do not change if the explanatory variables are changed.
+### Descriptive statistics {.smaller}
+
+```{r}
+#| code-fold: true
+un_dta %>% datasummary_skim(output = "data.frame")
+```
+
+------------------------------------------------------------------------
+
+### Data visualization
+
+```{r}
+#| code-fold: true
+#| fig-height: 5
+#| fig-asp: .5
+un_dta %>% 
+  select(fertility, lifeExpF, pctUrban, ppgdp, group) %>%
+  ggpairs(aes(alpha = 0.6))
+```
+
+## Regression
+
+```{r}
+#| code-fold: true
+fit1 <- lm(fertility ~ ppgdp + pctUrban , un_dta)
+fit1
+```
+
+## Reg. summary `base` R
+
+```{r}
+summary(fit1)
+```
+
+## Reg. summary; Coef. `parameters::parameters()`
+
+See: [easystats/parameters](https://easystats.github.io/parameters/)
+
+```{r}
+library(parameters)
+parameters(fit1)
+```
+
+## Reg. summary: GOF `performance::performance()`
+
+See: [easystats/performance](https://easystats.github.io/performance/)
+
+```{r}
+library(performance)
+performance(fit1)
+```
+
+## Reg. summary: `broom`
+
+See: [tidymodels/broom](https://broom.tidymodels.org/)
+
+```{r}
+library(broom)
+tidy(fit1)
+glance(fit1)
+```
+
+## Fitted values
+
+```{r}
+fitted(fit1)
+```
+
+## Residuals
+
+```{r}
+resid(fit1)
+```
+
+## Residuals vs Fitted
+
+See: [easystats/performance](https://easystats.github.io/performance/) + [`check_model` help](https://easystats.github.io/performance/reference/check_model.html)
+
+```{r}
+#| code-fold: true
+#| fig-asp: 0.45
+#| fig-width: 8
+check_model(fit1, check = "linearity", panel = FALSE)
+```
+
+## Predicted values {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+See: [strengejacke.github.io/ggeffects](https://strengejacke.github.io/ggeffects/index.html)
+
+```{r}
+#| code-fold: true
+library(ggeffects)
+ggpredict(fit1, terms = "ppgdp")
+```
+
 :::
 
-## Examples of the multiple regression
-
-------------------------------------------------------------------------
-
-### 1. Wage equation
+::: {.column width="50%"}
 
 ```{r}
-#| echo: false
-#| fig-asp: 0.25
-"./img/ex2-exmple-00.png" %>%
-  image_read() %>%
-  image_ggplot(interpolate = TRUE)
+#| code-fold: true
+#| fig-asp: 1
+#| fig-width: 6
+fit2 <- lm(fertility ~ ppgdp + pctUrban + group, un_dta)
+ggpredict(fit2, terms = c("ppgdp", "group")) %>% plot()
 ```
-
-------------------------------------------------------------------------
-
-### 2. Average test scores and per student spending
-
-```{r}
-#| echo: false
-#| fig-asp: 0.2
-"./img/ex2-exmple-01.png" %>%
-  image_read() %>%
-  image_ggplot(interpolate = TRUE)
-```
-
-------------------------------------------------------------------------
-
-### 3. Family income and family consumption {.smaller}
-
-```{r}
-#| echo: false
-#| fig-asp: 0.15
-"./img/ex2-exmple-02.png" %>%
-  image_read() %>%
-  image_ggplot(interpolate = TRUE)
-```
-
-::: incremental
--   two explanatory variables;
--   consumption is explained as a quadratic function of income;
--   great care when when interpreting the coefficients;
+:::
 :::
 
-. . .
-
-```{r}
-#| echo: false
-#| fig-asp: 0.1
-"./img/ex2-exmple-02-1.png" %>%
-  image_read() %>%
-  image_ggplot(interpolate = TRUE)
-```
-
-------------------------------------------------------------------------
-
-### 4. CEO salary, sales and CEO tenure
-
-```{r}
-#| echo: false
-#| fig-asp: 0.15
-"./img/ex2-exmple-03.png" %>%
-  image_read() %>%
-  image_ggplot(interpolate = TRUE)
-```
-
-::: incremental
--   Model assumes a constant elasticity relationship between CEO salary and the sales of his or her firm.
-
--   Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.
-:::
 
 # Application Exercise 1: Multiple regression with a dummy variable
 
 `AE04-01 Multiple Linear Regression`
+
+
 
 # Bias and Efficiency
 
@@ -459,4 +486,125 @@ bias_plots_dta %>%
 3.  OLS is a Classical linear model (CLM), when assumptions 1 to 5 + 6 are satisfied
 
     6.  Error Terms Normality
+:::
+
+
+# Multiple linear regression: recap
+
+## Overview
+
+::: incremental
+$$y = \hat {\beta}_{0} + \hat {\beta}_{1}x_1 + \hat {\beta}_{2}x_2 + \hat {\beta}_{3}x_3 + \cdots + \hat {\beta}_{k}x_k + \hat u$$
+
+-   $\hat u$ - Error term, or disturbance containing factors other than $x_1, x_2, \cdots, x_k$ that affect $y$
+
+-   $\hat {\beta}_{0}$ - intercept (constant term);
+
+-   $\hat {\beta}_{1}$, $\hat {\beta}_{2}$, $\hat {\beta}_{k}$ - coefficients / parameters associated with $x_1$, $x_2$, ... $x_k$;
+
+-   $k$ - entire set of independent variables;
+:::
+
+## Motivation
+
+::: incremental
+-   To incorporate more explanatory factors into a model;
+
+-   Explicitly hold fixed (some) other factors;
+
+-   Allow for more flexible functional forms;
+:::
+
+## Interpretation {.smaller}
+
+-   The multiple linear regression shows the effect of each variable, holding other explanatory variables fixed;
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-asp: 0.15
+library(magick)
+"./img/ex2-interpretation.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+  # knitr::include_graphics()
+```
+
+. . .
+
+::: callout-important
+We assume that all unobserved factors do not change if the explanatory variables are changed.
+:::
+
+## Examples of the multiple regression
+
+------------------------------------------------------------------------
+
+### 1. Wage equation
+
+```{r}
+#| echo: false
+#| fig-asp: 0.25
+"./img/ex2-exmple-00.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+------------------------------------------------------------------------
+
+### 2. Average test scores and per student spending
+
+```{r}
+#| echo: false
+#| fig-asp: 0.2
+"./img/ex2-exmple-01.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+------------------------------------------------------------------------
+
+### 3. Family income and family consumption {.smaller}
+
+```{r}
+#| echo: false
+#| fig-asp: 0.15
+"./img/ex2-exmple-02.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+::: incremental
+-   two explanatory variables;
+-   consumption is explained as a quadratic function of income;
+-   great care when when interpreting the coefficients;
+:::
+
+. . .
+
+```{r}
+#| echo: false
+#| fig-asp: 0.1
+"./img/ex2-exmple-02-1.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+------------------------------------------------------------------------
+
+### 4. CEO salary, sales and CEO tenure
+
+```{r}
+#| echo: false
+#| fig-asp: 0.15
+"./img/ex2-exmple-03.png" %>%
+  image_read() %>%
+  image_ggplot(interpolate = TRUE)
+```
+
+::: incremental
+-   Model assumes a constant elasticity relationship between CEO salary and the sales of his or her firm.
+
+-   Model assumes a quadratic relationship between CEO salary and his or her tenure with the firm.
 :::
