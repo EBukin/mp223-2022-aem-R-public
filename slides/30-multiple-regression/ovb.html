@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.348">
+  <meta name="generator" content="quarto-0.9.349">
 
   <meta name="author" content="Eduard Bukin">
   <title>mp223 Applied Econometric Methods for the Socials Sciences - Omitted Variable Bias</title>
@@ -588,13 +588,15 @@
 <section class="slide level2">
 
 <h3 id="omitted-variable-bias-33">Omitted Variable Bias (3/3)</h3>
-<p><span class="math inline">\(\textit{OVB} = \\ \beta^s - \beta^l = \pi_1 \times \gamma = \\ \textit{Regression of omitted on included } \times \\ \textit{Effect of Omitted Variable in long}\)</span></p>
+<div>
 <ul>
-<li><span class="math inline">\(\beta^s\)</span> is the biased effect of treatment in short;</li>
-<li><span class="math inline">\(\beta^l\)</span> is the true effect of treatment in long;</li>
-<li><span class="math inline">\(\pi_1^l\)</span> is the coef. of treatment in the auxiliary of omitted on included (indep. in short);</li>
-<li><span class="math inline">\(\gamma\)</span> is the coef. of Omitted variable in long regression;</li>
+<li class="fragment"><span class="math inline">\(\textit{OVB} = \\ \beta^s - \beta^l = \pi_1 \times \gamma = \\ \textit{Regression of omitted on included } \times \\ \textit{Effect of Omitted Variable in long}\)</span></li>
+<li class="fragment"><span class="math inline">\(\beta^s\)</span> is the biased effect of treatment in short;</li>
+<li class="fragment"><span class="math inline">\(\beta^l\)</span> is the true effect of treatment in long;</li>
+<li class="fragment"><span class="math inline">\(\pi_1^l\)</span> is the coef. of treatment in the auxiliary of omitted on included (indep. in short);</li>
+<li class="fragment"><span class="math inline">\(\gamma\)</span> is the coef. of Omitted variable in long regression;</li>
 </ul>
+</div>
 </section>
 <section id="why-ovb-formula-is-important" class="slide level2 smaller">
 <h2>Why OVB formula is important?</h2>
@@ -618,24 +620,26 @@
 </section>
 <section id="how-to-resolve-the-ovb" class="slide level2">
 <h2>How to resolve the OVB?</h2>
+<div>
 <ul>
-<li>No solution!
+<li class="fragment"><p>No solution!</p>
 <ul>
-<li>Find proxies</li>
-<li>Develop an elaborate research design</li>
+<li class="fragment">Find proxies</li>
+<li class="fragment">Develop an elaborate research design</li>
 </ul></li>
-<li>Acknowledge presence of the OVB</li>
-<li>Discuss the extent of bias</li>
+<li class="fragment"><p>Acknowledge presence of the OVB</p></li>
+<li class="fragment"><p>Discuss the extent of bias</p></li>
 </ul>
+</div>
 </section></section>
 <section>
 <section id="example-1-empirical-proof-of-the-ovb" class="title-slide slide level1 center">
 <h1>Example 1: Empirical proof of the OVB</h1>
 
 </section>
-<section id="mlr-fertility-rates-and-development" class="slide level2">
+<section id="mlr-fertility-rates-and-development" class="slide level2 smaller">
 <h2>MLR: fertility rates and development</h2>
-<p>We explore <code>UN11</code> data from <span class="citation" data-cites="weisberg2005applied">(<a href="#/ref-weisberg2005applied" role="doc-biblioref" onclick="return false;"><strong>weisberg2005applied?</strong></a>)</span></p>
+<p>We explore <code>UN11</code> data from <span class="citation" data-cites="weisberg2005a">(<a href="#/ref-weisberg2005a" role="doc-biblioref" onclick="return false;">Weisberg 2005</a>)</span></p>
 <ul>
 <li><p>It has 199 observations and 6 variables</p></li>
 <li><p>Variables are:</p>
@@ -644,7 +648,7 @@
 <li><code>lifeExpF</code> - Female life expectancy, years;</li>
 <li><code>ppgdp</code> - Per capita gross domestic product in US dollars;</li>
 <li><code>pctUrban</code> - Percent of Urban population;</li>
-<li><code>group</code> - variable with 3 values “oecd”, “africa” and “others” to indicate if the country belonged respectively to the Organization for Economic Co-operation and Development, African continent, and other countries.</li>
+<li><code>group</code> - variable with 3 values “oecd”, “africa” and “others”;</li>
 <li><code>africa</code>, <code>other</code> and <code>oecd</code> - dummy variables taking values of 1 if a country is in respectively Africa, other countries or OECD.</li>
 </ul></li>
 </ul>
@@ -657,7 +661,7 @@
 
 <h3 id="empirical-model">Empirical model</h3>
 <div class="fragment">
-<p><span class="math inline">\(\hat{fertility} = f(\textit{lifeExpF}, \textit{pctUrban}, \textit{group})\)</span></p>
+<p>Short model: <span class="math inline">\(\hat{fertility} = f(\textit{lifeExpF}, \textit{pctUrban}, \textit{group})\)</span></p>
 </div>
 <div class="fragment">
 <p>This is, however, incomplete model, as we intentionally omitted variable <span class="math inline">\(\textit{ppgdp}\)</span>, which might be very important.</p>
@@ -701,108 +705,20 @@ $ OECD      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 <section class="slide level2">
 
 <h3 class="smaller" id="descriptive-statistics">Descriptive statistics</h3>
-<div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-3_1f25211ce29da2e4640486e5cf54d88c">
+<div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-3_d8f6c7c0197c97b8a7856a1a580d5cd4">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>un_dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"data.frame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<table>
-<colgroup>
-<col style="width: 14%">
-<col style="width: 15%">
-<col style="width: 16%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">Unique (#)</th>
-<th style="text-align: right;">Missing (%)</th>
-<th style="text-align: right;">Mean</th>
-<th style="text-align: right;">SD</th>
-<th style="text-align: right;">Min</th>
-<th style="text-align: right;">Median</th>
-<th style="text-align: right;">Max</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">fertility</td>
-<td style="text-align: right;">193</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">1.3</td>
-<td style="text-align: right;">1.1</td>
-<td style="text-align: right;">2.3</td>
-<td style="text-align: right;">6.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ppgdp</td>
-<td style="text-align: right;">199</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">13012.0</td>
-<td style="text-align: right;">18412.4</td>
-<td style="text-align: right;">114.8</td>
-<td style="text-align: right;">4684.5</td>
-<td style="text-align: right;">105095.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">lifeExpF</td>
-<td style="text-align: right;">192</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">72.3</td>
-<td style="text-align: right;">10.1</td>
-<td style="text-align: right;">48.1</td>
-<td style="text-align: right;">75.9</td>
-<td style="text-align: right;">87.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pctUrban</td>
-<td style="text-align: right;">80</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">57.9</td>
-<td style="text-align: right;">23.4</td>
-<td style="text-align: right;">11.0</td>
-<td style="text-align: right;">59.0</td>
-<td style="text-align: right;">100.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Africa</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3</td>
-<td style="text-align: right;">0.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">1.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Other</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.6</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">1.0</td>
-<td style="text-align: right;">1.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OECD</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">0.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">1.0</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Unique (#) Missing (%)    Mean      SD   Min Median      Max
+1 fertility        193           0     2.8     1.3   1.1    2.3      6.9
+2     ppgdp        199           0 13012.0 18412.4 114.8 4684.5 105095.4
+3  lifeExpF        192           0    72.3    10.1  48.1   75.9     87.1
+4  pctUrban         80           0    57.9    23.4  11.0   59.0    100.0
+5    Africa          2           0     0.3     0.4   0.0    0.0      1.0
+6     Other          2           0     0.6     0.5   0.0    1.0      1.0
+7      OECD          2           0     0.2     0.4   0.0    0.0      1.0</code></pre>
 </div>
 </div>
 </section>
@@ -812,9 +728,9 @@ $ OECD      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-4_53d2299028b8e62de030a28fa7051d35">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">select</span>(fertility, lifeExpF, pctUrban, ppgdp, group) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">select</span>(fertility, lifeExpF, pctUrban, ppgdp, group) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -825,9 +741,9 @@ $ OECD      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-5_4046a44cc450b65b3e967f311f248a7a">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">select</span>(fertility, lifeExpF, pctUrban, ppgdp, group) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group, <span class="at">alpha =</span> <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>un_dta <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(fertility, lifeExpF, pctUrban, ppgdp, group) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">ggpairs</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group, <span class="at">alpha =</span> <span class="fl">0.6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -838,8 +754,8 @@ $ OECD      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-6_c7a5981596bed2db762e52acaa29e6ad">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>fit_s <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> lifeExpF <span class="sc">+</span> pctUrban <span class="sc">+</span> group , un_dta)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">parameters</span>(fit_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>fit_s <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> lifeExpF <span class="sc">+</span> pctUrban <span class="sc">+</span> group , un_dta)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">parameters</span>(fit_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter      | Coefficient |       SE |         95% CI | t(194) |      p
@@ -854,13 +770,13 @@ group [africa] |        0.20 |     0.26 | [-0.31,  0.71] |   0.78 | 0.438 </code
 </section>
 <section class="slide level2">
 
-<h3 id="educated-guess-effect-of-the-omitted-variable-13">Educated guess: effect of the omitted variable (1/3)</h3>
+<h3 id="educated-guess-effect-of-the-ov-13">Educated guess: effect of the OV (1/3)</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-7_c735bf10ccf821d3d77ceed46e89339f">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">screen_many_regs</span>(fit_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">screen_many_regs</span>(fit_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -900,7 +816,7 @@ Model 1: fertility ~ lifeExpF + pctUrban + group</code></pre>
 </section>
 <section class="slide level2">
 
-<h3 class="smaller" id="educated-guess-effect-of-the-omitted-variable-23">Educated guess: effect of the omitted variable (2/3)</h3>
+<h3 class="smaller" id="educated-guess-effect-of-the-ov-23">Educated guess: effect of the OV (2/3)</h3>
 <div>
 <ul>
 <li class="fragment"><p><span class="math inline">\(\textit{OVB} = \pi_1 \times \gamma\)</span></p>
@@ -913,17 +829,16 @@ Model 1: fertility ~ lifeExpF + pctUrban + group</code></pre>
 </section>
 <section class="slide level2">
 
-<h3 class="smaller" id="educated-guess-effect-of-the-omitted-variable-33">Educated guess: effect of the omitted variable (3/3)</h3>
+<h3 class="smaller" id="educated-guess-effect-of-the-ov-33">Educated guess: effect of the OV (3/3)</h3>
 <div>
 <ul>
-<li class="fragment"><p>What would be the <strong>Effect of GDP on fertility</strong> (coef. <span class="math inline">\(\gamma\)</span>) if we had a long regression?</p>
+<li class="fragment"><p>What would be the <strong>Effect of GDP on fertility</strong> (<span class="math inline">\(\gamma\)</span>) if we had a long regression?</p>
 <ul>
 <li class="fragment">Decreasing effect or <span class="math inline">\(\gamma &lt; 0\)</span> ;</li>
 </ul></li>
-<li class="fragment"><p>What would be the <strong>effect of life expectancy on the GDP</strong>?</p>
+<li class="fragment"><p>What would be the <strong>effect of life expectancy on the GDP</strong> (<span class="math inline">\(\pi_1\)</span>) in auxiliary regression?</p>
 <ul>
-<li class="fragment">Countries with higher GDP have longer life expectancy.</li>
-<li class="fragment">Although, the causal direction is not clear here, <span class="math inline">\(\pi_1 &gt; 0\)</span></li>
+<li class="fragment">Countries with higher GDP have longer life expectancy: <span class="math inline">\(\pi_1 &gt; 0\)</span> ;</li>
 </ul></li>
 <li class="fragment"><p>Therefore: <span class="math inline">\(\textit{OVB} &lt; 0\)</span></p>
 <ul>
@@ -948,13 +863,13 @@ Model 1: fertility ~ lifeExpF + pctUrban + group</code></pre>
 </section>
 <section class="slide level2">
 
-<h3 id="step-1.-estimate-long-and-auxiliary-regressions">Step 1. Estimate long and auxiliary regressions</h3>
+<h3 class="smaller" id="step-1.-estimate-long-and-auxiliary-regressions">Step 1. Estimate long and auxiliary regressions</h3>
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-8_cb76c1a02cd9b30047bd3c86345db7e5">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit_l <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> lifeExpF <span class="sc">+</span> pctUrban <span class="sc">+</span> group <span class="sc">+</span> <span class="fu">log</span>(ppgdp), un_dta)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>fit_ax <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(ppgdp) <span class="sc">~</span> lifeExpF <span class="sc">+</span> pctUrban <span class="sc">+</span> group , un_dta)</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">screen_many_regs</span>(fit_ax, fit_l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>fit_l <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> lifeExpF <span class="sc">+</span> pctUrban <span class="sc">+</span> group <span class="sc">+</span> <span class="fu">log</span>(ppgdp), un_dta)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>fit_ax <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(ppgdp) <span class="sc">~</span> lifeExpF <span class="sc">+</span> pctUrban <span class="sc">+</span> group , un_dta)</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">screen_many_regs</span>(fit_ax, fit_l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -984,33 +899,30 @@ Model 2: fertility ~ lifeExpF + pctUrban + group + log(ppgdp)</code></pre>
 
 <h3 class="smaller" id="step-2.-extract-relevant-coefficients-and-calculating-the-bias">Step 2. Extract relevant coefficients and calculating the bias</h3>
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-9_25af26cc41eceae78bf536cacf6918c0">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>beta_s <span class="ot">&lt;-</span> fit_s <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"lifeExpF"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>beta_l <span class="ot">&lt;-</span> fit_l <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"lifeExpF"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span>
-<span id="cb13-3"><a href="#cb13-3"></a>pi_1 <span class="ot">&lt;-</span> fit_ax <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"lifeExpF"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span>
-<span id="cb13-4"><a href="#cb13-4"></a>gam <span class="ot">&lt;-</span> fit_l <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"log(ppgdp)"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>beta_s <span class="ot">&lt;-</span> fit_s <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"lifeExpF"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>beta_l <span class="ot">&lt;-</span> fit_l <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"lifeExpF"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>pi_1 <span class="ot">&lt;-</span> fit_ax <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"lifeExpF"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span>
+<span id="cb14-4"><a href="#cb14-4"></a>gam <span class="ot">&lt;-</span> fit_l <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"log(ppgdp)"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>OVB:</p>
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-10_f75e80eda100d4abb6f5305b788b4c8a">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>beta_s <span class="sc">-</span> beta_l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>beta_s <span class="sc">-</span> beta_l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.01618852</code></pre>
 </div>
 </div>
 <p>or OVB:</p>
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-11_0a25f861ff9543f3a850d33dda82a766">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>pi_1 <span class="sc">*</span> gam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>pi_1 <span class="sc">*</span> gam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.01618852</code></pre>
 </div>
 </div>
 </section>
-<section id="interpreting-the-results-with-ovb" class="slide level2">
+<section id="interpreting-the-results-with-ovb" class="slide level2 smaller">
 <h2>Interpreting the results with OVB</h2>
-<ul>
-<li>OVB affects not only the variable of interest, but also all other variables in the regression.</li>
-</ul>
 <div class="cell" data-hash="ovb_cache/revealjs/unnamed-chunk-12_f2286501cd1ed3b02e989c35ed57df5f">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">screen_many_regs</span>(fit_s, fit_l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">screen_many_regs</span>(fit_s, fit_l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =========================================================
@@ -1050,6 +962,9 @@ Model 2: fertility ~ lifeExpF + pctUrban + group + log(ppgdp)</code></pre>
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-Angrist2014" class="csl-entry" role="doc-biblioentry">
 Angrist, Joshua D., and Jörn-Steffen Pischke. 2014. <em>Mastering’metrics: The Path from Cause to Effect</em>. Princeton University Press.
+</div>
+<div id="ref-weisberg2005a" class="csl-entry" role="doc-biblioentry">
+Weisberg, Sanford. 2005. <em>Applied Linear Regression</em>. John Wiley &amp; Sons, Inc. <a href="https://doi.org/10.1002/0471704091">https://doi.org/10.1002/0471704091</a>.
 </div>
 </div>
 </section>

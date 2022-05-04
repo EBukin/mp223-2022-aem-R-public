@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.348">
+  <meta name="generator" content="quarto-0.9.349">
 
   <meta name="author" content="Eduard Bukin">
   <title>mp223 Applied Econometric Methods for the Socials Sciences - Linearity</title>
@@ -395,78 +395,79 @@
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># for data wrangling</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(alr4)            <span class="co"># for the data sets #</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(parameters)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(performance)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(see)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(car)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(modelsummary)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(texreg)</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
-<span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
-<span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
-<span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
-<span id="cb1-20"><a href="#cb1-20"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-21"><a href="#cb1-21"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb1-22"><a href="#cb1-22"></a>  <span class="at">cache =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>)</span>
-<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggpmisc)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="at">cache =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>)</span>
 <span id="cb1-25"><a href="#cb1-25"></a></span>
-<span id="cb1-26"><a href="#cb1-26"></a>my_gof <span class="ot">&lt;-</span> <span class="cf">function</span>(fit_obj, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
-<span id="cb1-27"><a href="#cb1-27"></a>  sum_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_obj)</span>
-<span id="cb1-28"><a href="#cb1-28"></a>  </span>
-<span id="cb1-29"><a href="#cb1-29"></a>  stars <span class="ot">&lt;-</span> </span>
-<span id="cb1-30"><a href="#cb1-30"></a>    <span class="fu">pf</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
-<span id="cb1-31"><a href="#cb1-31"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">2</span>], </span>
-<span id="cb1-32"><a href="#cb1-32"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">3</span>],</span>
-<span id="cb1-33"><a href="#cb1-33"></a>       <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-34"><a href="#cb1-34"></a>    <span class="fu">symnum</span>(<span class="at">corr =</span> <span class="cn">FALSE</span>, <span class="at">na =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb1-35"><a href="#cb1-35"></a>           <span class="at">cutpoints =</span> <span class="fu">c</span>(<span class="dv">0</span>,  .<span class="dv">001</span>,.<span class="dv">01</span>,.<span class="dv">05</span>,  <span class="dv">1</span>),</span>
-<span id="cb1-36"><a href="#cb1-36"></a>           <span class="at">symbols   =</span>  <span class="fu">c</span>(<span class="st">"***"</span>,<span class="st">"**"</span>,<span class="st">"*"</span>,<span class="st">" "</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-37"><a href="#cb1-37"></a>    <span class="fu">as.character</span>()</span>
-<span id="cb1-38"><a href="#cb1-38"></a>  </span>
-<span id="cb1-39"><a href="#cb1-39"></a>  <span class="fu">list</span>(</span>
-<span id="cb1-40"><a href="#cb1-40"></a>    <span class="co"># `R^2` = sum_fit$r.squared %&gt;% round(digits),</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a>    <span class="co"># `Adj. R^2` = sum_fit$adj.r.squared %&gt;% round(digits),</span></span>
-<span id="cb1-42"><a href="#cb1-42"></a>    <span class="co"># `Num. obs.` = sum_fit$residuals %&gt;% length(),</span></span>
-<span id="cb1-43"><a href="#cb1-43"></a>    <span class="st">`</span><span class="at">Num. df</span><span class="st">`</span> <span class="ot">=</span> sum_fit<span class="sc">$</span>df[[<span class="dv">2</span>]],</span>
-<span id="cb1-44"><a href="#cb1-44"></a>    <span class="st">`</span><span class="at">F statistic</span><span class="st">`</span> <span class="ot">=</span> </span>
-<span id="cb1-45"><a href="#cb1-45"></a>      <span class="fu">str_c</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits), <span class="st">" "</span>, stars)</span>
-<span id="cb1-46"><a href="#cb1-46"></a>  )</span>
-<span id="cb1-47"><a href="#cb1-47"></a>}</span>
-<span id="cb1-48"><a href="#cb1-48"></a></span>
-<span id="cb1-49"><a href="#cb1-49"></a>screen_many_regs <span class="ot">&lt;-</span></span>
-<span id="cb1-50"><a href="#cb1-50"></a>  <span class="cf">function</span>(fit_obj_list, ..., <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">single.row =</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb1-51"><a href="#cb1-51"></a>    </span>
-<span id="cb1-52"><a href="#cb1-52"></a>    <span class="cf">if</span> (<span class="fu">class</span>(fit_obj_list) <span class="sc">==</span> <span class="st">"lm"</span>) </span>
-<span id="cb1-53"><a href="#cb1-53"></a>      fit_obj_list <span class="ot">&lt;-</span> <span class="fu">list</span>(fit_obj_list)</span>
-<span id="cb1-54"><a href="#cb1-54"></a>    </span>
-<span id="cb1-55"><a href="#cb1-55"></a>    <span class="cf">if</span> (<span class="fu">length</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...)) <span class="sc">&gt;</span> <span class="dv">0</span>)  </span>
-<span id="cb1-56"><a href="#cb1-56"></a>      fit_obj_list <span class="ot">&lt;-</span> fit_obj_list <span class="sc">%&gt;%</span> <span class="fu">append</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...))</span>
-<span id="cb1-57"><a href="#cb1-57"></a>    </span>
-<span id="cb1-58"><a href="#cb1-58"></a>    <span class="co"># browser()</span></span>
-<span id="cb1-59"><a href="#cb1-59"></a>    fit_obj_list <span class="sc">%&gt;%</span></span>
-<span id="cb1-60"><a href="#cb1-60"></a>      <span class="fu">screenreg</span>(</span>
-<span id="cb1-61"><a href="#cb1-61"></a>        <span class="at">custom.note =</span></span>
-<span id="cb1-62"><a href="#cb1-62"></a>          <span class="fu">map2_chr</span>(., <span class="fu">seq_along</span>(.), <span class="sc">~</span> {</span>
-<span id="cb1-63"><a href="#cb1-63"></a>            <span class="fu">str_c</span>(<span class="st">"Model "</span>, .y, <span class="st">" "</span>, <span class="fu">as.character</span>(.x<span class="sc">$</span>call)[[<span class="dv">2</span>]])</span>
-<span id="cb1-64"><a href="#cb1-64"></a>          }) <span class="sc">%&gt;%</span></span>
-<span id="cb1-65"><a href="#cb1-65"></a>          <span class="fu">c</span>(<span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>, .) <span class="sc">%&gt;%</span></span>
-<span id="cb1-66"><a href="#cb1-66"></a>          <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) ,</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        <span class="at">digits =</span> digits,</span>
-<span id="cb1-68"><a href="#cb1-68"></a>        <span class="at">single.row =</span> single.row,</span>
-<span id="cb1-69"><a href="#cb1-69"></a>        <span class="at">custom.gof.rows =</span></span>
-<span id="cb1-70"><a href="#cb1-70"></a>          <span class="fu">map</span>(., <span class="sc">~</span><span class="fu">my_gof</span>(.x, digits)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-71"><a href="#cb1-71"></a>          <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-72"><a href="#cb1-72"></a>          <span class="fu">map</span>(unlist),</span>
-<span id="cb1-73"><a href="#cb1-73"></a>        <span class="at">reorder.gof =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb1-74"><a href="#cb1-74"></a>      )</span>
-<span id="cb1-75"><a href="#cb1-75"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a>my_gof <span class="ot">&lt;-</span> <span class="cf">function</span>(fit_obj, <span class="at">digits =</span> <span class="dv">4</span>) {</span>
+<span id="cb1-28"><a href="#cb1-28"></a>  sum_fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit_obj)</span>
+<span id="cb1-29"><a href="#cb1-29"></a>  </span>
+<span id="cb1-30"><a href="#cb1-30"></a>  stars <span class="ot">&lt;-</span> </span>
+<span id="cb1-31"><a href="#cb1-31"></a>    <span class="fu">pf</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb1-32"><a href="#cb1-32"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">2</span>], </span>
+<span id="cb1-33"><a href="#cb1-33"></a>       sum_fit<span class="sc">$</span>fstatistic[<span class="dv">3</span>],</span>
+<span id="cb1-34"><a href="#cb1-34"></a>       <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-35"><a href="#cb1-35"></a>    <span class="fu">symnum</span>(<span class="at">corr =</span> <span class="cn">FALSE</span>, <span class="at">na =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb1-36"><a href="#cb1-36"></a>           <span class="at">cutpoints =</span> <span class="fu">c</span>(<span class="dv">0</span>,  .<span class="dv">001</span>,.<span class="dv">01</span>,.<span class="dv">05</span>,  <span class="dv">1</span>),</span>
+<span id="cb1-37"><a href="#cb1-37"></a>           <span class="at">symbols   =</span>  <span class="fu">c</span>(<span class="st">"***"</span>,<span class="st">"**"</span>,<span class="st">"*"</span>,<span class="st">" "</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-38"><a href="#cb1-38"></a>    <span class="fu">as.character</span>()</span>
+<span id="cb1-39"><a href="#cb1-39"></a>  </span>
+<span id="cb1-40"><a href="#cb1-40"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="co"># `R^2` = sum_fit$r.squared %&gt;% round(digits),</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    <span class="co"># `Adj. R^2` = sum_fit$adj.r.squared %&gt;% round(digits),</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>    <span class="co"># `Num. obs.` = sum_fit$residuals %&gt;% length(),</span></span>
+<span id="cb1-44"><a href="#cb1-44"></a>    <span class="st">`</span><span class="at">Num. df</span><span class="st">`</span> <span class="ot">=</span> sum_fit<span class="sc">$</span>df[[<span class="dv">2</span>]],</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    <span class="st">`</span><span class="at">F statistic</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb1-46"><a href="#cb1-46"></a>      <span class="fu">str_c</span>(sum_fit<span class="sc">$</span>fstatistic[<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits), <span class="st">" "</span>, stars)</span>
+<span id="cb1-47"><a href="#cb1-47"></a>  )</span>
+<span id="cb1-48"><a href="#cb1-48"></a>}</span>
+<span id="cb1-49"><a href="#cb1-49"></a></span>
+<span id="cb1-50"><a href="#cb1-50"></a>screen_many_regs <span class="ot">&lt;-</span></span>
+<span id="cb1-51"><a href="#cb1-51"></a>  <span class="cf">function</span>(fit_obj_list, ..., <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">single.row =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb1-52"><a href="#cb1-52"></a>    </span>
+<span id="cb1-53"><a href="#cb1-53"></a>    <span class="cf">if</span> (<span class="fu">class</span>(fit_obj_list) <span class="sc">==</span> <span class="st">"lm"</span>) </span>
+<span id="cb1-54"><a href="#cb1-54"></a>      fit_obj_list <span class="ot">&lt;-</span> <span class="fu">list</span>(fit_obj_list)</span>
+<span id="cb1-55"><a href="#cb1-55"></a>    </span>
+<span id="cb1-56"><a href="#cb1-56"></a>    <span class="cf">if</span> (<span class="fu">length</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...)) <span class="sc">&gt;</span> <span class="dv">0</span>)  </span>
+<span id="cb1-57"><a href="#cb1-57"></a>      fit_obj_list <span class="ot">&lt;-</span> fit_obj_list <span class="sc">%&gt;%</span> <span class="fu">append</span>(rlang<span class="sc">::</span><span class="fu">dots_list</span>(...))</span>
+<span id="cb1-58"><a href="#cb1-58"></a>    </span>
+<span id="cb1-59"><a href="#cb1-59"></a>    <span class="co"># browser()</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a>    fit_obj_list <span class="sc">%&gt;%</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a>      <span class="fu">screenreg</span>(</span>
+<span id="cb1-62"><a href="#cb1-62"></a>        <span class="at">custom.note =</span></span>
+<span id="cb1-63"><a href="#cb1-63"></a>          <span class="fu">map2_chr</span>(., <span class="fu">seq_along</span>(.), <span class="sc">~</span> {</span>
+<span id="cb1-64"><a href="#cb1-64"></a>            <span class="fu">str_c</span>(<span class="st">"Model "</span>, .y, <span class="st">" "</span>, <span class="fu">as.character</span>(.x<span class="sc">$</span>call)[[<span class="dv">2</span>]])</span>
+<span id="cb1-65"><a href="#cb1-65"></a>          }) <span class="sc">%&gt;%</span></span>
+<span id="cb1-66"><a href="#cb1-66"></a>          <span class="fu">c</span>(<span class="st">"*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05"</span>, .) <span class="sc">%&gt;%</span></span>
+<span id="cb1-67"><a href="#cb1-67"></a>          <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) ,</span>
+<span id="cb1-68"><a href="#cb1-68"></a>        <span class="at">digits =</span> digits,</span>
+<span id="cb1-69"><a href="#cb1-69"></a>        <span class="at">single.row =</span> single.row,</span>
+<span id="cb1-70"><a href="#cb1-70"></a>        <span class="at">custom.gof.rows =</span></span>
+<span id="cb1-71"><a href="#cb1-71"></a>          <span class="fu">map</span>(., <span class="sc">~</span><span class="fu">my_gof</span>(.x, digits)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-72"><a href="#cb1-72"></a>          <span class="fu">transpose</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a>          <span class="fu">map</span>(unlist),</span>
+<span id="cb1-74"><a href="#cb1-74"></a>        <span class="at">reorder.gof =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1-75"><a href="#cb1-75"></a>      )</span>
+<span id="cb1-76"><a href="#cb1-76"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 
@@ -507,6 +508,78 @@
 </ul>
 </div>
 </section>
+<section id="linearity-resolutions" class="slide level2">
+<h2>Linearity: resolutions</h2>
+<ol type="1">
+<li><p>(non) linear transformation to the dependent and/or independent variables;</p>
+<ul>
+<li><strong>it does change the way how we must interpret coefficients</strong>;</li>
+</ul></li>
+<li><p>find a different independent variable;</p></li>
+<li><p>propose a different functional form;</p></li>
+</ol>
+</section>
+<section id="common-linear-transformations" class="slide level2">
+<h2>Common linear transformations</h2>
+<table>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Model</th>
+<th style="text-align: center;">Dep. Var.</th>
+<th style="text-align: center;">Indep. Var.</th>
+<th style="text-align: center;">Interpretation of <span class="math inline">\(\beta_1\)</span></th>
+<th style="text-align: center;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Level-level</td>
+<td style="text-align: center;"><span class="math inline">\(y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\Delta y = \beta_1 \Delta x\)</span></td>
+<td style="text-align: center;">1 unit change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(\beta_1\)</span> units change in <span class="math inline">\(y\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Level-log</td>
+<td style="text-align: center;"><span class="math inline">\(y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(log(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\Delta y = (\beta_1/100)\% \Delta x\)</span></td>
+<td style="text-align: center;">1 % change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(\beta_1/100\)</span> units change in <span class="math inline">\(y\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Log-level</td>
+<td style="text-align: center;"><span class="math inline">\(log(y)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\% \Delta y = (100\beta_1) \Delta x\)</span></td>
+<td style="text-align: center;">1 unit change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(100 \beta_1\)</span> % change in <span class="math inline">\(y\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Log-log</td>
+<td style="text-align: center;"><span class="math inline">\(log(y)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(log(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\% \Delta y = \beta_1 \% \Delta x\)</span></td>
+<td style="text-align: center;">1 % change in <span class="math inline">\(x\)</span> causes <span class="math inline">\(\beta_1\)</span> % change in <span class="math inline">\(y\)</span> (elasticity)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Power transformation or Box-Cox transformations;</li>
+<li>Variables normalization to the standard normal distribution;</li>
+<li>Tailor expansion (Cobb-Douglas, Trans-log)</li>
+</ul>
+</section></section>
+<section>
+<section id="examples" class="title-slide slide level1 center">
+<h1>Examples</h1>
+
+</section>
 <section id="example-1-anscombe-quartet" class="slide level2">
 <h2>Example 1: Anscombe quartet</h2>
 <h3 id="descriptive-statistics">Descriptive statistics</h3>
@@ -540,120 +613,372 @@
 </section>
 <section class="slide level2">
 
-<h3 id="simple-regressions-of-y-on-x">Simple regressions of y on x</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-3_d5239e9a7eca76b7a7923f326db55e29">
-<div class="cell-output-display">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Data set</th>
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Data set 1</td>
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">1.12</td>
-<td style="text-align: right;">2.67</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Data set 1</td>
-<td style="text-align: left;">x</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">0.12</td>
-<td style="text-align: right;">4.24</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Data set 2</td>
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">1.13</td>
-<td style="text-align: right;">2.67</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Data set 2</td>
-<td style="text-align: left;">x</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">0.12</td>
-<td style="text-align: right;">4.24</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Data set 3</td>
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">1.12</td>
-<td style="text-align: right;">2.67</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Data set 3</td>
-<td style="text-align: left;">x</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">0.12</td>
-<td style="text-align: right;">4.24</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Data set 4</td>
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">1.12</td>
-<td style="text-align: right;">2.67</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Data set 4</td>
-<td style="text-align: left;">x</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">0.12</td>
-<td style="text-align: right;">4.24</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-</tbody>
-</table>
+<h3 class="smaller" id="simple-regressions-of-y-on-x">Simple regressions of y on x</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-3_448c0c51fd493caa422fff835606b5bb">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 6
+  `Data set` term        estimate std.error statistic p.value
+  &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 Data set 1 (Intercept)    3.00      1.12       2.67 0.0257 
+2 Data set 1 x              0.500     0.118      4.24 0.00217
+3 Data set 2 (Intercept)    3.00      1.13       2.67 0.0258 
+4 Data set 2 x              0.5       0.118      4.24 0.00218
+5 Data set 3 (Intercept)    3.00      1.12       2.67 0.0256 
+6 Data set 3 x              0.500     0.118      4.24 0.00218
+7 Data set 4 (Intercept)    3.00      1.12       2.67 0.0256 
+8 Data set 4 x              0.500     0.118      4.24 0.00216</code></pre>
 </div>
 </div>
 </section>
 <section class="slide level2">
 
 <h3 id="scatter-plots">Scatter plots</h3>
-<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-4_7b2365e228e8aec3249c75a7822662ad">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>fig_norm_anscombe <span class="ot">&lt;-</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  norm_anscombe <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">mutate</span>(<span class="at">data_sample =</span> <span class="fu">str_c</span>(<span class="st">"Data set "</span>, data_sample))</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>fig_norm_anscombe <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">aes</span>(x, y, <span class="at">group =</span> data_sample) <span class="sc">+</span> </span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">geom_smooth</span>(</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="at">data =</span> <span class="fu">filter</span>(fig_norm_anscombe, data_sample <span class="sc">==</span> <span class="st">"Model 2"</span>),</span>
-<span id="cb4-11"><a href="#cb4-11"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x <span class="sc">^</span> <span class="dv">2</span>)</span>
-<span id="cb4-13"><a href="#cb4-13"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">geom_smooth</span>(</span>
-<span id="cb4-15"><a href="#cb4-15"></a>    <span class="at">data =</span> <span class="fu">filter</span>(fig_norm_anscombe, </span>
-<span id="cb4-16"><a href="#cb4-16"></a>                  data_sample <span class="sc">==</span> <span class="st">"Model 3"</span>, y <span class="sc">&lt;</span> <span class="dv">11</span>)</span>
-<span id="cb4-17"><a href="#cb4-17"></a>    ) <span class="sc">+</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fl">0.5</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(. <span class="sc">~</span> data_sample) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%"></p>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-4_6eea693948386eb075842a85fc7cc50f">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fig_norm_anscombe <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  norm_anscombe <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">mutate</span>(<span class="at">data_sample =</span> <span class="fu">str_c</span>(<span class="st">"Data set "</span>, data_sample))</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>fig_norm_anscombe <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">aes</span>(x, y, <span class="at">group =</span> data_sample) <span class="sc">+</span> </span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="at">data =</span> <span class="fu">filter</span>(fig_norm_anscombe, data_sample <span class="sc">==</span> <span class="st">"Model 2"</span>),</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="at">method =</span> <span class="st">"lm"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x <span class="sc">^</span> <span class="dv">2</span>)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="at">data =</span> <span class="fu">filter</span>(fig_norm_anscombe, </span>
+<span id="cb5-16"><a href="#cb5-16"></a>                  data_sample <span class="sc">==</span> <span class="st">"Model 3"</span>, y <span class="sc">&lt;</span> <span class="dv">11</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="fl">0.5</span>, <span class="at">intercept =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(. <span class="sc">~</span> data_sample) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
 </div>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="residuals-vs-fitted">Residuals vs fitted</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-5_23137c6a51ffa0ca2588a49f2cf3c5ff">
+
 </div>
 
-<p><img src="../../img/jlu-logo.png" class="slide-logo"></p>
-<div class="footer footer-default">
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%" class="r-stretch"></section>
+<section id="example-2-wage-and-education" class="slide level2">
+<h2>Example 2: Wage and Education</h2>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-7_8891550604ede0f1bdadcabc93583a14">
+
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-8_b8fc30fe6675c700a8e4bdaa68263a8b">
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-9_ea597c306261fac9d6f8967523d9fa83">
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-3-sales-and-ceo-salary" class="slide level2">
+<h2>Example 3: Sales and CEO salary</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-10_0100f70d0936383d53edbfe049740572">
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-11_d4a87902fb9fc6b906b7f8d8a4dc9a83">
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-4-acceptable-linearity" class="slide level2">
+<h2>Example 4: Acceptable linearity</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-12_58b26e86a76617c039abc2801a2eaba4">
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-13_2336aa36ee3874098437cb0c9da33e66">
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="example-5-fuel-taxes-influence-on-fuel-consumption" class="slide level2 smaller">
+<h2>Example 5: Fuel taxes influence on fuel consumption?</h2>
+<ul>
+<li><p>As a federal policy maker, we would like to understand how fuel taxes were affecting the gasoline consumption across the states.</p></li>
+<li><p>We use data on fuel consumption in 2001 across all states in the USA (each observation represents a state). Data from <span class="citation" data-cites="weisberg2013applied">(<a href="#/ref-weisberg2013applied" role="doc-biblioref" onclick="return false;"><strong>weisberg2013applied?</strong></a>)</span>.</p></li>
+<li><p>Variables present in the data are:</p>
+<ul>
+<li><span class="math inline">\(\text{Tax}\)</span> : Gasoline state tax rate, cents per gallon;</li>
+<li><span class="math inline">\(\text{Dlic}\)</span> : The number of licensed drivers per 1000 population over the age of 16;;</li>
+<li><span class="math inline">\(\text{Income}\)</span> : in 1000 USD Per capita personal income (year 2000);</li>
+<li><span class="math inline">\(\text{Miles}\)</span> : Miles of Federal-aid highway miles in the state;</li>
+<li><span class="math inline">\(\text{Fuel}\)</span> : Gasoline consumption per capita (gal.);</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="empirical-model-and-ex-ante-expectations">Empirical model and ex-ante expectations</h3>
+<ul>
+<li><p>Regression equation:</p>
+<ul>
+<li><span class="math inline">\(\text{Fuel} = \hat\beta_0 + \hat\beta_1 \cdot \text{Tax} + \hat\beta_2 \cdot \text{Dlic} + \hat\beta_3 \cdot \text{Income} + \hat\beta_4 \cdot \text{Miles} + \hat{u}\)</span></li>
+</ul></li>
+<li><p>What could be expected values of the coefficients?</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="data">Data</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-14_bba9734d059843ff76c8c466b4b8825e">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fule_cons <span class="ot">&lt;-</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">as_tibble</span>(alr4<span class="sc">::</span>fuel2001) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="at">Dlic =</span> Drivers <span class="sc">/</span> (Pop<span class="sc">/</span> <span class="dv">1000</span>),</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="at">Fuel =</span> FuelC <span class="sc">/</span> Pop <span class="sc">*</span> <span class="dv">1000</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="at">Income =</span> Income <span class="sc">/</span> <span class="dv">1000</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="at">Miles =</span> Miles</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">select</span>(Tax, Dlic, Income, Miles, Fuel)</span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="fu">glimpse</span>(fule_cons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 51
+Columns: 5
+$ Tax    &lt;dbl&gt; 18.0, 8.0, 18.0, 21.7, 18.0, 22.0, 25.0, 23.0, 20.0, 13.6, 7.5,…
+$ Dlic   &lt;dbl&gt; 1031.3801, 1031.6411, 908.5972, 946.5706, 844.7033, 989.6062, 9…
+$ Income &lt;dbl&gt; 23.471, 30.064, 25.578, 22.257, 32.275, 32.949, 40.640, 31.255,…
+$ Miles  &lt;int&gt; 94440, 13628, 55245, 98132, 168771, 85854, 20910, 5814, 1534, 1…
+$ Fuel   &lt;dbl&gt; 690.2644, 514.2792, 621.4751, 655.2927, 573.9129, 616.6115, 549…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="descriptive-statistics-1">Descriptive statistics</h4>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-15_d1e3f38a431bc1b0cae8959336c02ed6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">datasummary_skim</span>(fule_cons, <span class="at">output =</span> <span class="st">"data.frame"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Unique (#) Missing (%)    Mean      SD    Min  Median      Max
+1    Tax         31           0    20.2     4.5    7.5    20.0     29.0
+2   Dlic         51           0   903.7    72.9  700.2   909.1   1075.3
+3 Income         51           0    28.4     4.5   21.0    27.9     40.6
+4  Miles         51           0 77418.6 52983.4 1534.0 78914.0 300767.0
+5   Fuel         51           0   613.1    89.0  317.5   626.0    842.8</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="data-visualization">Data visualization</h4>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-16_447942f6802ccb2e0e64c71343614d23">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">ggpairs</span>(fule_cons) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-16-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 class="smaller" id="regression">Regression</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-17_b890f96dd4ba42995165aba5fafcf34a">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit_fl <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fuel <span class="sc">~</span>  Tax <span class="sc">+</span> Dlic <span class="sc">+</span> Income <span class="sc">+</span> Miles, fule_cons)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">parameters</span>(fit_fl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |       SE |           95% CI | t(46) |      p
+------------------------------------------------------------------------
+(Intercept) |      383.96 |   165.75 | [ 50.32, 717.60] |  2.32 | 0.025 
+Tax         |       -4.11 |     2.11 | [ -8.36,   0.13] | -1.95 | 0.057 
+Dlic        |        0.54 |     0.14 | [  0.26,   0.81] |  3.90 | &lt; .001
+Income      |       -7.14 |     2.21 | [-11.58,  -2.70] | -3.24 | 0.002 
+Miles       |    4.02e-04 | 1.87e-04 | [  0.00,   0.00] |  2.14 | 0.037 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">performance</span>(fit_fl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC     |     BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
+-------------------------------------------------------
+580.602 | 592.193 | 0.476 |     0.430 | 63.790 | 67.167</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 class="smaller" id="testing-linearity-13">Testing linearity (1/3)</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-18_d0f758a0da691473c17352edd6c5b4ff">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">plot</span>(fit_fl, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-18-1.png" style="width:100.0%"></p>
+</div>
+</div>
+<h4 class="smaller" id="testing-linearity-23">Testing linearity (2/3)</h4>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-19_92acaf69ad2bcd6c5ee59ac36ef70cc0">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">check_model</span>(fit_fl, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$NCV</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%"></p>
+</div>
+</div>
+<h4 class="smaller" id="testing-linearity-33">Testing linearity (3/3)</h4>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-20_b458d4b0c92d94281619588a35e07598">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">residualPlots</span>(fit_fl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="linearity_files/figure-revealjs/unnamed-chunk-20-1.png" style="width:100.0%"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)  
+Tax          -1.1363          0.26183  
+Dlic         -2.4859          0.01670 *
+Income        0.0500          0.96036  
+Miles        -0.2036          0.83961  
+Tukey test   -2.3136          0.02069 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="re-fitting-regressions">Re-fitting regressions</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-21_364882402deed344daadcead7faf9fb1">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>fit_fl2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fuel <span class="sc">~</span>  Tax <span class="sc">+</span> Dlic <span class="sc">+</span> Income <span class="sc">+</span> <span class="fu">log</span>(Miles), fule_cons)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">parameters</span>(fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |     SE |            95% CI | t(46) |      p
+-----------------------------------------------------------------------
+(Intercept) |      154.19 | 194.91 | [-238.13, 546.52] |  0.79 | 0.433 
+Tax         |       -4.23 |   2.03 | [  -8.31,  -0.14] | -2.08 | 0.043 
+Dlic        |        0.47 |   0.13 | [   0.21,   0.73] |  3.67 | &lt; .001
+Income      |       -6.14 |   2.19 | [ -10.55,  -1.72] | -2.80 | 0.008 
+Miles [log] |       26.76 |   9.34 | [   7.96,  45.55] |  2.87 | 0.006 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">performance</span>(fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC     |     BIC |    R2 | R2 (adj.) |   RMSE |  Sigma
+-------------------------------------------------------
+577.086 | 588.677 | 0.510 |     0.468 | 61.628 | 64.891</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h4 id="checking-linearity-12">Checking linearity (1/2)</h4>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-22_5e66d71129ecfdfb9968e697ad049718">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">check_model</span>(fit_fl2, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">panel =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$NCV</code></pre>
+</div>
+
+</div>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-22-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h4 id="checking-linearity-22">Checking linearity (2/2)</h4>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-23_70ca82cdb2002e181b67a1d84fbbe1ab">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">residualPlots</span>(fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)  
+Tax          -1.0767          0.28737  
+Dlic         -1.9219          0.06096 .
+Income       -0.0840          0.93345  
+log(Miles)   -1.3473          0.18463  
+Tukey test   -1.4460          0.14818  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<img data-src="linearity_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="interpreting-the-results">Interpreting the results</h3>
+<div class="cell" data-hash="linearity_cache/revealjs/unnamed-chunk-24_643568058a46adcf92f5867b206255b7">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">screen_many_regs</span>(fit_fl, fit_fl2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=============================================================
+             Model 1                  Model 2                
+-------------------------------------------------------------
+(Intercept)  383.9594 (165.7522) *    154.1928 (194.9062)    
+Tax           -4.1145   (2.1073)       -4.2280   (2.0301) *  
+Dlic           0.5353   (0.1373) ***    0.4719   (0.1285) ***
+Income        -7.1375   (2.2054) **    -6.1353   (2.1936) ** 
+Miles          0.0004   (0.0002) *                           
+log(Miles)                             26.7552   (9.3374) ** 
+-------------------------------------------------------------
+R^2            0.4755                   0.5105               
+Adj. R^2       0.4299                   0.4679               
+Num. obs.     51                       51                    
+Num. df       46                       46                    
+F statistic   10.4272 ***              11.9924 ***           
+=============================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05
+Model 1 Fuel ~ Tax + Dlic + Income + Miles
+Model 2 Fuel ~ Tax + Dlic + Income + log(Miles)</code></pre>
+</div>
+</div>
+</section>
+<section id="application-exercise" class="slide level2">
+<h2>Application Exercise</h2>
+<ul>
+<li><code>ae04-02-MLR-linearity.Rmd</code></li>
+</ul>
+</section>
+<section id="takeaways" class="slide level2">
+<h2>Takeaways</h2>
+<ul>
+<li><p>Linearity assumption</p></li>
+<li><p>Diagnostics of the linearity</p></li>
+<li><p>Linear transformations</p></li>
+</ul>
+</section>
+<section id="references" class="slide level2">
+<h2>References</h2>
+
+
+<img src="../../img/jlu-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
 </div>
 </section></section>

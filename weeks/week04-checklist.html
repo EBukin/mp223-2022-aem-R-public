@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.348">
+<meta name="generator" content="quarto-0.9.349">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>mp223 Applied Econometric Methods for the Socials Sciences - Week 3</title>
+<title>mp223 Applied Econometric Methods for the Socials Sciences - Week 4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Week 3</h1>
+      <h1 class="quarto-secondary-nav-title">Week 4</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -167,14 +167,11 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#w04-regression-analysis" id="toc-w04-regression-analysis" class="nav-link active" data-scroll-target="#w04-regression-analysis">W04 Regression Analysis</a>
-  <ul class="collapse">
-  <li><a href="#w04-00-simple-regression-analysis" id="toc-w04-00-simple-regression-analysis" class="nav-link" data-scroll-target="#w04-00-simple-regression-analysis">W04-00 Simple regression analysis</a></li>
+  <li><a href="#w04-00-simple-regression-analysis" id="toc-w04-00-simple-regression-analysis" class="nav-link active" data-scroll-target="#w04-00-simple-regression-analysis">W04-00 Simple regression analysis</a></li>
   <li><a href="#w04-01-multiple-regression" id="toc-w04-01-multiple-regression" class="nav-link" data-scroll-target="#w04-01-multiple-regression">W04-01 Multiple Regression</a></li>
   <li><a href="#w04-02-linearity" id="toc-w04-02-linearity" class="nav-link" data-scroll-target="#w04-02-linearity">W04-02 Linearity</a></li>
   <li><a href="#w04-03-hedonic-prices-model" id="toc-w04-03-hedonic-prices-model" class="nav-link" data-scroll-target="#w04-03-hedonic-prices-model">W04-03 Hedonic prices model</a></li>
   <li><a href="#w04-02-omitted-variable-bias" id="toc-w04-02-omitted-variable-bias" class="nav-link" data-scroll-target="#w04-02-omitted-variable-bias">W04-02 Omitted variable bias</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/weeks/week04-checklist.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -183,8 +180,8 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Week 3</h1>
-<p class="subtitle lead">Data wrangling: Data import and manipulations</p>
+<h1 class="title d-none d-lg-block">Week 4</h1>
+<p class="subtitle lead">Multiple Regression Analysis</p>
 </div>
 
 
@@ -200,11 +197,9 @@ div.csl-indent {
 
 </header>
 
-<section id="w04-regression-analysis" class="level1">
-<h1>W04 Regression Analysis</h1>
 <section id="w04-00-simple-regression-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="w04-00-simple-regression-analysis">W04-00 Simple regression analysis</h2>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -224,14 +219,8 @@ div.csl-indent {
 </div>
 </div>
 <ul>
-<li><strong>Recommended.</strong> Practice:
-<ul>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html">Simple Regression</a></li>
-</ul></li>
-<li><strong>Recommended.</strong> Read:
-<ul>
-<li>📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-slr.html#model-slr">Ch. 7 Linear Regression with a single predictor</a></li>
-</ul></li>
+<li><strong>Practice:</strong> <img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html">Simple Regression</a></li>
+<li><strong>Read</strong>: 📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-slr.html#model-slr">Ch. 7 Linear Regression with a single predictor</a></li>
 </ul>
 </section>
 <section id="w04-01-multiple-regression" class="level2">
@@ -253,18 +242,9 @@ In class
 </div>
 </div>
 <ul>
-<li><strong>Recommended.</strong> Practice:
-<ul>
-<li><img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html">Multiple Regression</a></li>
-</ul></li>
-<li><strong>Recommended</strong>. Read:
-<ul>
-<li><img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> Chapter 2. Regression in <span class="citation" data-cites="Angrist2014">(<a href="#ref-Angrist2014" role="doc-biblioref">Angrist and Pischke 2014</a>)</span></li>
-</ul></li>
-<li><strong>Optional.</strong> Read:
-<ul>
-<li>📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-mlr.html#model-mlr">Ch. 8 Linear regression with multiple predictors</a></li>
-</ul></li>
+<li><strong>Practice</strong>: <img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html">Multiple Regression</a></li>
+<li><strong>Read</strong>: <img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> Chapter 2. Regression in <span class="citation" data-cites="Angrist2014">(<a href="#ref-Angrist2014" role="doc-biblioref">Angrist and Pischke 2014</a>)</span>, <a href="https://hds.hebis.de/ubgi/Record/HEB35797798X">JLU: justfind</a>.</li>
+<li><strong>Read</strong>: 📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-mlr.html#model-mlr">Ch. 8 Linear regression with multiple predictors</a></li>
 </ul>
 </section>
 <section id="w04-02-linearity" class="level2">
@@ -353,16 +333,12 @@ In class
 </div>
 </div>
 <ul>
-<li><p><strong>Recommended.</strong> Watch:</p>
-<ul>
-<li><img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> <img src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" class="img-fluid" width="20"> <a href="https://youtu.be/OwNxEaOF8yY">Regression Part I: Call in the CIA</a></li>
-<li><img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> <img src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" class="img-fluid" width="20"> <a href="https://youtu.be/KKJ-2_UUhnc">Regression Part II: Theory</a></li>
-</ul></li>
+<li><strong>Watch</strong>: <img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> <img src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" class="img-fluid" width="20"> <a href="https://youtu.be/OwNxEaOF8yY?t=2">Regression Part I: Call in the CIA</a></li>
+<li><strong>Watch</strong>: <img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> <img src="https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png" class="img-fluid" width="20"> <a href="https://youtu.be/KKJ-2_UUhnc?t=1">Regression Part II: Theory</a></li>
 </ul>
 
 
 
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
