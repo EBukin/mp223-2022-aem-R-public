@@ -70,7 +70,7 @@ Compute a new variables `caucasian` that takes values "yes" and "no" for each pe
 # glimpse(_____)
 ```
 
-## Ex. 2. Descriptive statistics
+### Ex. 1.2. Descriptive statistics
 
 Use function `datasummary_skim()` from the package `modelsummary`.
 
@@ -79,7 +79,7 @@ Use function `datasummary_skim()` from the package `modelsummary`.
 # _________(wage_dta)
 ```
 
-## Ex. 3. Visual data inspection
+### Ex. 2.3. Visual data inspection
 
 We inspect data visually by building a grid of scatter plots using `GGally::ggpairs()`
 
@@ -96,7 +96,7 @@ What is the difference compare to the previous plot?
 # ggpairs(_________, _________)
 ```
 
-## Ex. 4. Fit regressions
+## Ex. 2. Fit regressions
 
 Dependent variable is `wage`, independent are: `educ`, `exper` and `black`
 
@@ -105,13 +105,13 @@ Dependent variable is `wage`, independent are: `educ`, `exper` and `black`
 # fit1
 ```
 
-## Ex. 5. Print regression results
+### Ex. 2.1. Print regression results
 
 ```{r}
 # fit1
 ```
 
-## Ex. 6. Make a summary of regression results
+## Ex. 3 Regression summary
 
 ```{r}
 # summary(______)
@@ -119,7 +119,7 @@ Dependent variable is `wage`, independent are: `educ`, `exper` and `black`
 
 Interpret the coefficients:
 
-## Ex. 7. Regression summary using `parameters::parameters()`
+### Ex. 2.1 Regression summary using `parameters::parameters()`
 
 Check help on `?parameters::parameters`
 
@@ -128,7 +128,7 @@ Check help on `?parameters::parameters`
 # ________(________)
 ```
 
-## Ex. 8. Regression Goodness of fit using `performance::performance()`
+### Ex. 2.2. Goodness of fit
 
 Check help on `?performance::performance`
 
@@ -137,21 +137,21 @@ Check help on `?performance::performance`
 # performance(________)
 ```
 
-## Ex. 9. Extract fitted values to an object
+## Ex. 4. Fitted
 
 ```{r}
 # fitted_vector <- fitted(________)
 # fitted_vector[1:20]
 ```
 
-## Ex. 10. Extract residuals to an object
+## Ex. 5. Residuals
 
 ```{r}
 # resid_vector <- resid(________)
 # resid_vector[1:20]
 ```
 
-## Ex. 11. Make a plot of residuals vs fitted
+## Ex. 6. Residuals vs fitted plot
 
 Use function `plot()`. Put fitted as an `x` argument and residuals as `y`.
 
@@ -159,12 +159,79 @@ Use function `plot()`. Put fitted as an `x` argument and residuals as `y`.
 # plot(x = _____, ___ = ________)
 ```
 
-## Ex. 12. Make a plot of residuals vs fitted using `check_model` from `performance` package
+### Ex. 6.1 Residuals vs fitted using `check_model` from `performance` package
 
-See: `?performance`
+See: `?performance::check_model`
 
 ```{r}
 # check_model(fit1, check = "linearity")
+```
+
+## Ex. 7 Predicting values using regression
+
+We can compute predicted values based on the regression results for arbitrary values of $X$. See: `?predict`
+
+First, we need to make a table the $X$ variables for which we want compute the predicted value.
+
+-   Variables names in table should match the variables in the regression.
+
+Let us predict wage for a person with 0 years of education, 0 experience, when he/she is white.
+
+```{r}
+# pred1 <-
+#   tibble(educ = 0,
+#          exper = 0,
+#          black = 0)
+# predict(fit1, pred1)
+```
+
+The same when the person is black.
+
+```{r}
+# pred2 <-
+#   tibble(educ = c(0, 0),
+#          exper = c(0, 0),
+#          black = c(0, 1)
+#   )
+# predict(fit1, pred2)
+```
+
+### Ex 7.1 Writing predicted values to a data frame
+
+Use mutate to mutate new variable in a data frame:
+
+```{r}
+pred3 <-
+  tibble(educ = c(0, 0, 10),
+         exper = c(0, 0, 25),
+         black = c(0, 1, 1)
+  )
+
+pred3 %>% 
+  mutate(predicted = predict(fit1, pred3))
+```
+
+### Ex 7.2 Visual inspection of predicted values
+
+We can use function `ggeffects::ggpredict()`, check help.
+
+```{r}
+# library(ggeffects)
+# ggpredict(fit1, term = "educ")
+```
+
+We can also plot this effects using `plot` after `ggpredict`
+
+
+```{r}
+# ggpredict(fit1, term = "educ") %>% ________()
+```
+
+Compute predicted values for a different independent variable and a dummy variable
+
+```{r}
+# ggpredict(fit1, term = c("________", "________")) 
+# ________(________, term = c("________", "________")) %>% plot()
 ```
 
 ## Solutions
@@ -214,4 +281,33 @@ resid_vector[1:20]
 plot(x = fitted_vector, y = resid_vector)
 
 check_model(fit1, check = "linearity")
+
+pred1 <-
+ tibble(educ = 0,
+        exper = 0,
+        black = 0)
+predict(fit1, pred1)
+
+pred2 <-
+  tibble(educ = c(0, 0),
+         exper = c(0, 0),
+         black = c(0, 1)
+  )
+predict(fit1, pred2)
+
+pred3 <-
+  tibble(educ = c(0, 0, 10),
+         exper = c(0, 0, 25),
+         black = c(0, 1, 1)
+  )
+pred3 %>% 
+  mutate(predicted = predict(fit1, pred3))
+
+library(ggeffects)
+
+ggpredict(fit1, term = "educ")
+ggpredict(fit1, term = "educ") %>% plot()
+
+ggpredict(fit1, term = c("exper", "black"))
+ggpredict(fit1, term = c("exper", "black")) %>% plot()
 ```

@@ -710,6 +710,18 @@
       "Hash": "177475892cf4a55865868527654a7741",
       "Requirements": []
     },
+    "ggeffects": {
+      "Package": "ggeffects",
+      "Version": "1.1.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e8812da7ef973b9b0a3f547223ea5126",
+      "Requirements": [
+        "MASS",
+        "insight",
+        "sjlabelled"
+      ]
+    },
     "ggforce": {
       "Package": "ggforce",
       "Version": "0.3.3",
@@ -1779,6 +1791,17 @@
         "magrittr",
         "s2",
         "units"
+      ]
+    },
+    "sjlabelled": {
+      "Package": "sjlabelled",
+      "Version": "1.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4bd18166ef8ca74aeec74ad295dfe77f",
+      "Requirements": [
+        "datawizard",
+        "insight"
       ]
     },
     "skimr": {
