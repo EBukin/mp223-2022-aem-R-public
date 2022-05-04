@@ -118,6 +118,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -214,7 +215,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
   <ul class="collapse">
   <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
+  </ul></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a></li>
+  <li><a href="#ex.-1.-regression" id="toc-ex.-1.-regression" class="nav-link" data-scroll-target="#ex.-1.-regression">Ex. 1. Regression</a></li>
+  <li><a href="#ex.-1.1-reg.-summary-with-parameters-and-performance" id="toc-ex.-1.1-reg.-summary-with-parameters-and-performance" class="nav-link" data-scroll-target="#ex.-1.1-reg.-summary-with-parameters-and-performance">Ex. 1.1 Reg. Summary with <code>parameters</code> and <code>performance</code></a></li>
+  <li><a href="#ex.-2.-linearity" id="toc-ex.-2.-linearity" class="nav-link" data-scroll-target="#ex.-2.-linearity">Ex. 2. Linearity</a>
+  <ul class="collapse">
+  <li><a href="#ex.-2.1-checking-linearity-with-baseplot" id="toc-ex.-2.1-checking-linearity-with-baseplot" class="nav-link" data-scroll-target="#ex.-2.1-checking-linearity-with-baseplot">Ex. 2.1 Checking linearity with <code>base::plot</code></a></li>
+  <li><a href="#ex.-2.2-checking-linearity-with-performancecheck_model" id="toc-ex.-2.2-checking-linearity-with-performancecheck_model" class="nav-link" data-scroll-target="#ex.-2.2-checking-linearity-with-performancecheck_model">Ex. 2.2 Checking linearity with <code>performance::check_model</code></a></li>
+  <li><a href="#ex.-2.3-checking-linearity-with-carresidualplots" id="toc-ex.-2.3-checking-linearity-with-carresidualplots" class="nav-link" data-scroll-target="#ex.-2.3-checking-linearity-with-carresidualplots">Ex. 2.3 Checking linearity with <code>car::residualPlots</code></a></li>
+  </ul></li>
+  <li><a href="#ex.-3.-linear-transformation" id="toc-ex.-3.-linear-transformation" class="nav-link" data-scroll-target="#ex.-3.-linear-transformation">Ex. 3. Linear transformation</a>
+  <ul class="collapse">
+  <li><a href="#ex.-3.1-linear-transformation-of-______________" id="toc-ex.-3.1-linear-transformation-of-______________" class="nav-link" data-scroll-target="#ex.-3.1-linear-transformation-of-______________">Ex. 3.1 Linear transformation of ______________</a></li>
+  <li><a href="#ex.-3.2-checking-linearity-with-carresidualplots" id="toc-ex.-3.2-checking-linearity-with-carresidualplots" class="nav-link" data-scroll-target="#ex.-3.2-checking-linearity-with-carresidualplots">Ex. 3.2 Checking linearity with <code>car::residualPlots</code></a></li>
+  <li><a href="#ex.-3.3-interpretation-logged-variable" id="toc-ex.-3.3-interpretation-logged-variable" class="nav-link" data-scroll-target="#ex.-3.3-interpretation-logged-variable">Ex. 3.3 Interpretation logged variable</a></li>
+  <li><a href="#ex.-3.4-predicted-values-when-regressor-is-transformed" id="toc-ex.-3.4-predicted-values-when-regressor-is-transformed" class="nav-link" data-scroll-target="#ex.-3.4-predicted-values-when-regressor-is-transformed">Ex. 3.4 Predicted values when regressor is transformed</a></li>
+  </ul></li>
+  <li><a href="#ex.-4-introducing-an-interaction-term" id="toc-ex.-4-introducing-an-interaction-term" class="nav-link" data-scroll-target="#ex.-4-introducing-an-interaction-term">Ex. 4 Introducing an interaction term</a>
+  <ul class="collapse">
+  <li><a href="#ex.-4.1-regression-with-an-interaction-term" id="toc-ex.-4.1-regression-with-an-interaction-term" class="nav-link" data-scroll-target="#ex.-4.1-regression-with-an-interaction-term">Ex. 4.1 Regression with an interaction term</a></li>
+  <li><a href="#ex.-4.2-checking-linearity-with-carresidualplots" id="toc-ex.-4.2-checking-linearity-with-carresidualplots" class="nav-link" data-scroll-target="#ex.-4.2-checking-linearity-with-carresidualplots">Ex. 4.2 Checking linearity with <code>car::residualPlots</code></a></li>
+  <li><a href="#ex.-4.3-interpretation-logged-variable-interaction-term" id="toc-ex.-4.3-interpretation-logged-variable-interaction-term" class="nav-link" data-scroll-target="#ex.-4.3-interpretation-logged-variable-interaction-term">Ex. 4.3 Interpretation logged variable + interaction term</a></li>
+  <li><a href="#ex.-4.4-maginal-effects" id="toc-ex.-4.4-maginal-effects" class="nav-link" data-scroll-target="#ex.-4.4-maginal-effects">Ex. 4.4 Maginal effects</a></li>
+  <li><a href="#ex.-4.5-predicted-values" id="toc-ex.-4.5-predicted-values" class="nav-link" data-scroll-target="#ex.-4.5-predicted-values">Ex. 4.5 Predicted values</a></li>
+  </ul></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -263,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">12</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">10</span>,</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -274,15 +303,425 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Perform a linear regression analysis;</li>
 <li>Learn how to test linearity assumption;</li>
 <li>Practice linear transformation;</li>
-<li>Exerciser coefficients interpretation with linear transformation;</li>
+<li>Practice coefficients interactions;</li>
+<li>Exerciser coefficients interpretation with linear transformation and or interactions;</li>
 </ul>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>Load data below.</p>
-<p>Data is in the file <code>data/homeprices.csv</code></p>
+<p>We explore <code>UN11</code> data from with 199 observations.</p>
+<p>Variables are:</p>
+<ul>
+<li><code>fertility</code> - number of children per woman;</li>
+<li><code>lifeExpF</code> - Female life expectancy, years;</li>
+<li><code>ppgdp</code> - Per capita gross domestic product in US dollars;</li>
+<li><code>pctUrban</code> - Percent of Urban population;</li>
+<li><code>group</code> - variable with 3 values “oecd”, “africa” and “others”;</li>
+</ul>
+<section id="data-loading" class="level3">
+<h3 class="anchored" data-anchor-id="data-loading">Data loading</h3>
 <div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>un_dta <span class="ot">&lt;-</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  alr4<span class="sc">::</span>UN11 <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(un_dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 199
+Columns: 6
+$ region    &lt;fct&gt; Asia, Europe, Africa, Africa, Caribbean, Latin Amer, Asia, C…
+$ group     &lt;fct&gt; other, other, africa, africa, other, other, other, other, oe…
+$ fertility &lt;dbl&gt; 5.968, 1.525, 2.142, 5.135, 2.000, 2.172, 1.735, 1.671, 1.94…
+$ ppgdp     &lt;dbl&gt; 499.0, 3677.2, 4473.0, 4321.9, 13750.1, 9162.1, 3030.7, 2285…
+$ lifeExpF  &lt;dbl&gt; 49.49, 80.40, 75.00, 53.17, 81.10, 79.89, 77.33, 77.75, 84.2…
+$ pctUrban  &lt;dbl&gt; 23, 53, 67, 59, 100, 93, 64, 47, 89, 68, 52, 84, 89, 29, 45,…</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="model" class="level2">
+<h2 class="anchored" data-anchor-id="model">Model</h2>
+<p>Let us build a simple econometric model:</p>
+<p><span class="math display">\[\textit{fertility} = f(\textit{ppgdp}, \textit{pctUrban})\]</span></p>
+</section>
+<section id="ex.-1.-regression" class="level2">
+<h2 class="anchored" data-anchor-id="ex.-1.-regression">Ex. 1. Regression</h2>
+<p>Check help: <code>?lm</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ft1 &lt;- lm(_____ ~ ______, data = _____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-1.1-reg.-summary-with-parameters-and-performance" class="level2">
+<h2 class="anchored" data-anchor-id="ex.-1.1-reg.-summary-with-parameters-and-performance">Ex. 1.1 Reg. Summary with <code>parameters</code> and <code>performance</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(______)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(______)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(______)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># performance(______)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-2.-linearity" class="level2">
+<h2 class="anchored" data-anchor-id="ex.-2.-linearity">Ex. 2. Linearity</h2>
+<section id="ex.-2.1-checking-linearity-with-baseplot" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-2.1-checking-linearity-with-baseplot">Ex. 2.1 Checking linearity with <code>base::plot</code></h3>
+<p>Important to specify argument <code>which = 1</code> that makes R print only the first plot!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(______, which = 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-2.2-checking-linearity-with-performancecheck_model" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-2.2-checking-linearity-with-performancecheck_model">Ex. 2.2 Checking linearity with <code>performance::check_model</code></h3>
+<p>See help: <code>?check_model</code>. First argument is the model, second argument <code>check = "linearity"</code> make sure that the function checks linearity only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, check = "linearity")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-2.3-checking-linearity-with-carresidualplots" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-2.3-checking-linearity-with-carresidualplots">Ex. 2.3 Checking linearity with <code>car::residualPlots</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(car)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># residualPlots(_____, plot = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, test = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="ex.-3.-linear-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="ex.-3.-linear-transformation">Ex. 3. Linear transformation</h2>
+<p>What variable should we first try to transform with log?</p>
+<section id="ex.-3.1-linear-transformation-of-______________" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3.1-linear-transformation-of-______________">Ex. 3.1 Linear transformation of ______________</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ft2 &lt;- lm(_______ ~ log(______) + _______, ________)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-3.2-checking-linearity-with-carresidualplots" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3.2-checking-linearity-with-carresidualplots">Ex. 3.2 Checking linearity with <code>car::residualPlots</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(_______)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Has anything changed? Do we have an improvement in the linearity assumption?</p>
+</section>
+<section id="ex.-3.3-interpretation-logged-variable" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3.3-interpretation-logged-variable">Ex. 3.3 Interpretation logged variable</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(_______)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(ft2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-3.4-predicted-values-when-regressor-is-transformed" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-3.4-predicted-values-when-regressor-is-transformed">Ex. 3.4 Predicted values when regressor is transformed</h3>
+<p><code>?ggeffects::ggpredict</code></p>
+<p>Firs argument of a function is the model, second argument is the term that we want to predict.</p>
+<p>if we pass result of <code>ggpredict</code> to plot, we will get a plot of predicted values constructed for us.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(_______, terms = "_______")</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(ft2, _______) %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="ex.-4-introducing-an-interaction-term" class="level2">
+<h2 class="anchored" data-anchor-id="ex.-4-introducing-an-interaction-term">Ex. 4 Introducing an interaction term</h2>
+<section id="ex.-4.1-regression-with-an-interaction-term" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4.1-regression-with-an-interaction-term">Ex. 4.1 Regression with an interaction term</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ft3a &lt;- lm(_____ ~ log(_____) * _____, data = un_dta)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also calculate log of the variable before regression, in the data and then use a newly calculated variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ft3 &lt;- lm(_____ ~ log_ppgdp * _____ ,</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#           data = </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#             un_dta %&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#             mutate(log_ppgdp = log(ppgdp))</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#           )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-4.2-checking-linearity-with-carresidualplots" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4.2-checking-linearity-with-carresidualplots">Ex. 4.2 Checking linearity with <code>car::residualPlots</code></h3>
+<p>Are there any improvement in fulfillment of the linearity assumption?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(_______)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-4.3-interpretation-logged-variable-interaction-term" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4.3-interpretation-logged-variable-interaction-term">Ex. 4.3 Interpretation logged variable + interaction term</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(_______)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _______(ft3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-4.4-maginal-effects" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4.4-maginal-effects">Ex. 4.4 Maginal effects</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(modelbased)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(emmeans)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(_______, trend = "log_ppgdp")</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(_______, trend = "_______", at = "pctUrban") %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(ft3, trend = "pctUrban")</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(ft3, trend = "_______", at = "_______") %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ex.-4.5-predicted-values" class="level3">
+<h3 class="anchored" data-anchor-id="ex.-4.5-predicted-values">Ex. 4.5 Predicted values</h3>
+<p>Let us use regression <code>fit3a</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggeffects)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(______, terms = "ppgdp")</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(______, terms = c("______", "pctUrban [10, 50, 90]")) %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="solutions" class="level2">
+<h2 class="anchored" data-anchor-id="solutions">Solutions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Regression</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ft1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> ppgdp <span class="sc">+</span> pctUrban, <span class="at">data =</span> un_dta)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Reg. Summary</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(ft1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |       SE |         95% CI | t(196) |      p
+-----------------------------------------------------------------------
+(Intercept) |        4.37 |     0.22 | [ 3.93,  4.82] |  19.49 | &lt; .001
+ppgdp       |   -1.30e-05 | 5.37e-06 | [ 0.00,  0.00] |  -2.43 | 0.016 
+pctUrban    |       -0.02 | 4.22e-03 | [-0.03, -0.02] |  -5.91 | &lt; .001</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+  Wald t-distribution approximation.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(ft1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
 
+AIC     |     BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-----------------------------------------------------
+612.669 | 625.842 | 0.315 |     0.308 | 1.106 | 1.114</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Linearity</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Checking linearity with `base::plot`</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ft1, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Checking linearity with `performance::check_model`</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(ft1, <span class="at">check =</span> <span class="st">"linearity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Checking linearity with `car::residualPlots`</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(ft1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-3.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)    
+ppgdp         3.7219        0.0002586 ***
+pctUrban      2.9481        0.0035876 ** 
+Tukey test    4.7335        2.207e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Linear transformation of ______________</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ft2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> <span class="fu">log</span>(ppgdp) <span class="sc">+</span> pctUrban, <span class="at">data =</span> un_dta)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Checking linearity with `car::residualPlots`</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(ft2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-4.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)    
+log(ppgdp)    5.4068        1.863e-07 ***
+pctUrban      3.2868         0.001202 ** 
+Tukey test    5.4198        5.966e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Interpretation logged variable</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(ft2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |       SE |         95% CI | t(196) |      p
+-----------------------------------------------------------------------
+(Intercept) |        7.99 |     0.40 | [ 7.21,  8.78] |  20.02 | &lt; .001
+ppgdp [log] |       -0.62 |     0.06 | [-0.74, -0.49] |  -9.59 | &lt; .001
+pctUrban    |   -4.39e-04 | 4.27e-03 | [-0.01,  0.01] |  -0.10 | 0.918 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+  Wald t-distribution approximation.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(ft2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC     |     BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-----------------------------------------------------
+542.043 | 555.216 | 0.520 |     0.515 | 0.926 | 0.933</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted values</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft2, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of fertility
+
+ ppgdp | Predicted |       95% CI
+---------------------------------
+     0 |       Inf |             
+ 15000 |      2.05 | [1.86, 2.25]
+ 25000 |      1.74 | [1.49, 1.98]
+ 40000 |      1.45 | [1.15, 1.75]
+ 55000 |      1.25 | [0.92, 1.59]
+ 70000 |      1.11 | [0.74, 1.47]
+ 85000 |      0.99 | [0.60, 1.37]
+110000 |      0.83 | [0.41, 1.24]
+
+Adjusted for:
+* pctUrban = 57.93</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft2, <span class="at">terms =</span> <span class="st">"pctUrban "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of fertility
+
+pctUrban | Predicted |       95% CI
+-----------------------------------
+      10 |      2.16 | [1.64, 2.68]
+      20 |      2.16 | [1.72, 2.60]
+      30 |      2.15 | [1.79, 2.52]
+      40 |      2.15 | [1.86, 2.44]
+      60 |      2.14 | [1.97, 2.31]
+      70 |      2.13 | [1.98, 2.29]
+      80 |      2.13 | [1.95, 2.31]
+     100 |      2.12 | [1.82, 2.42]
+
+Adjusted for:
+* ppgdp = 13011.95</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft2, <span class="at">terms =</span> <span class="st">"ppgdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-5.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Introducing interaction term</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>ft3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> log_ppgdp <span class="sc">+</span> pctUrban <span class="sc">+</span> log_ppgdp<span class="sc">:</span>pctUrban ,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> un_dta <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">log_ppgdp =</span> <span class="fu">log</span>(ppgdp)))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>ft3a <span class="ot">&lt;-</span> <span class="fu">lm</span>(fertility <span class="sc">~</span> <span class="fu">log</span>(ppgdp) <span class="sc">*</span> pctUrban, <span class="at">data =</span> un_dta)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Checking linearity with `car::residualPlots`</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(ft3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-6.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Test stat Pr(&gt;|Test stat|)   
+log_ppgdp     2.7594         0.006345 **
+pctUrban     -0.1503         0.880705   
+Tukey test    1.6733         0.094275 . 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Interpretation logged variable + interaction term</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(ft3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter            | Coefficient |       SE |         95% CI | t(195) |      p
+--------------------------------------------------------------------------------
+(Intercept)          |       12.00 |     0.94 | [10.15, 13.85] |  12.79 | &lt; .001
+log ppgdp            |       -1.11 |     0.12 | [-1.35, -0.87] |  -9.08 | &lt; .001
+pctUrban             |       -0.08 |     0.02 | [-0.11, -0.04] |  -4.56 | &lt; .001
+log ppgdp * pctUrban |    8.85e-03 | 1.90e-03 | [ 0.01,  0.01] |   4.67 | &lt; .001</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
+  Wald t-distribution approximation.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(ft3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC     |     BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-----------------------------------------------------
+522.948 | 539.415 | 0.568 |     0.562 | 0.878 | 0.887</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Maginal effects</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelbased)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'emmeans'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:GGally':
+
+    pigs</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+Coefficient |   SE |         95% CI | t(195) |      p
+-----------------------------------------------------
+-0.60       | 0.06 | [-0.72, -0.48] |  -9.76 | &lt; .001
+Marginal effects estimated for log_ppgdp</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+Coefficient |       SE |        95% CI | t(195) |     p
+-------------------------------------------------------
+-1.49e-03   | 4.06e-03 | [-0.01, 0.01] |  -0.37 | 0.715
+Marginal effects estimated for pctUrban</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>, <span class="at">at =</span> <span class="st">"pctUrban"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-7.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>, <span class="at">at =</span> <span class="st">"log_ppgdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-8.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted values</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of fertility
+
+ ppgdp | Predicted |       95% CI
+---------------------------------
+     0 |           |             
+ 15000 |      1.83 | [1.63, 2.04]
+ 25000 |      1.53 | [1.28, 1.78]
+ 40000 |      1.25 | [0.95, 1.54]
+ 55000 |      1.06 | [0.73, 1.39]
+ 70000 |      0.91 | [0.56, 1.27]
+ 85000 |      0.80 | [0.42, 1.17]
+110000 |      0.64 | [0.24, 1.05]
+
+Adjusted for:
+* pctUrban = 57.93</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"ppgdp"</span>, <span class="st">"pctUrban [10, 50, 90]"</span>)) <span class="sc">%&gt;%</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-9.png" class="img-fluid" style="width:100.0%"></p>
+</div>
 </div>
 
 
