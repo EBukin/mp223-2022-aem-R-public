@@ -2,102 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/00-introduction/00-introduction.html</loc>
-    <lastmod>2022-05-08T00:57:20.113Z</lastmod>
+    <lastmod>2022-05-10T22:38:34.363Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/20-data-description/exploring-numeric-data.html</loc>
-    <lastmod>2022-05-08T00:57:57.149Z</lastmod>
+    <lastmod>2022-05-10T22:39:10.451Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/20-data-description/correlation.html</loc>
-    <lastmod>2022-05-08T00:58:03.821Z</lastmod>
+    <lastmod>2022-05-10T22:39:16.703Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/hedonic-regression.html</loc>
-    <lastmod>2022-05-08T00:59:28.103Z</lastmod>
+    <lastmod>2022-05-10T22:40:28.779Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/collinearity.html</loc>
+    <lastmod>2022-05-10T22:40:41.323Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/multiple-regression.html</loc>
-    <lastmod>2022-05-08T01:00:32.523Z</lastmod>
+    <lastmod>2022-05-10T22:41:37.431Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/ovb.html</loc>
-    <lastmod>2022-05-08T01:00:55.064Z</lastmod>
+    <lastmod>2022-05-10T22:41:59.247Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/linearity.html</loc>
-    <lastmod>2022-05-08T01:02:07.849Z</lastmod>
+    <lastmod>2022-05-10T22:43:03.511Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/10-simple-regression/10-simple-regression.html</loc>
-    <lastmod>2022-05-08T01:02:33.401Z</lastmod>
+    <lastmod>2022-05-10T22:43:26.299Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/workflow-tidy-data-wrangling.html</loc>
-    <lastmod>2022-05-08T01:02:37.765Z</lastmod>
+    <lastmod>2022-05-10T22:43:30.271Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/dplyr.html</loc>
-    <lastmod>2022-05-08T01:02:42.421Z</lastmod>
+    <lastmod>2022-05-10T22:43:34.763Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/import-data.html</loc>
-    <lastmod>2022-05-08T01:02:45.949Z</lastmod>
+    <lastmod>2022-05-10T22:43:38.511Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week05-checklist.html</loc>
+    <lastmod>2022-05-10T22:43:39.611Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week04-checklist.html</loc>
-    <lastmod>2022-05-08T01:02:47.209Z</lastmod>
+    <lastmod>2022-05-10T22:43:40.863Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week01-checklist.html</loc>
-    <lastmod>2022-05-08T01:02:48.394Z</lastmod>
+    <lastmod>2022-05-10T22:43:41.267Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week03-checklist.html</loc>
-    <lastmod>2022-05-08T01:02:48.934Z</lastmod>
+    <lastmod>2022-05-10T22:43:41.799Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/articles/external-materials.html</loc>
-    <lastmod>2022-05-08T01:02:49.294Z</lastmod>
+    <lastmod>2022-05-10T22:43:42.179Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-03-correlation.html</loc>
-    <lastmod>2022-05-08T01:02:54.082Z</lastmod>
+    <lastmod>2022-05-10T22:43:47.471Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html</loc>
-    <lastmod>2022-05-08T01:03:01.222Z</lastmod>
+    <lastmod>2022-05-10T22:43:54.931Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html</loc>
-    <lastmod>2022-05-08T01:03:07.610Z</lastmod>
+    <lastmod>2022-05-10T22:44:01.623Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-02-plastic-waste.html</loc>
-    <lastmod>2022-05-08T01:03:11.410Z</lastmod>
+    <lastmod>2022-05-10T22:44:05.723Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.html</loc>
-    <lastmod>2022-05-08T01:03:14.314Z</lastmod>
+    <lastmod>2022-05-10T22:44:08.599Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html</loc>
-    <lastmod>2022-05-08T01:03:17.566Z</lastmod>
+    <lastmod>2022-05-10T22:44:11.951Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html</loc>
-    <lastmod>2022-05-08T01:03:33.794Z</lastmod>
+    <lastmod>2022-05-10T22:44:29.907Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html</loc>
-    <lastmod>2022-05-08T01:03:51.490Z</lastmod>
+    <lastmod>2022-05-10T22:44:47.191Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html</loc>
-    <lastmod>2022-05-08T01:04:02.227Z</lastmod>
+    <lastmod>2022-05-10T22:44:57.943Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/index.html</loc>
-    <lastmod>2022-05-08T01:04:03.419Z</lastmod>
+    <lastmod>2022-05-10T22:44:59.119Z</lastmod>
   </url>
 </urlset>
