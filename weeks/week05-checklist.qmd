@@ -1,0 +1,54 @@
+---
+title: "Week 5"
+subtitle: "Multiple Regression Analysis: assumptions"
+bibliography: ../references.bib
+---
+
+## W05-01 Omitted variable bias
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W05-01 Omitted variable bias](/slides/30-multiple-regression/ovb.html)
+-   **Application Exercise:** 📋[ae05-01-OVB.rmd](/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html)
+:::
+
+::: callout-important
+## `SELF STUDY`
+
+-   **Homework section of the application exercise:** 📋[ae05-01-OVB.rmd](/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html)
+-   **Application Exercise:** 📋[ae05-02-HW-slides-ovb.Rmd](/ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html)
+:::
+
+-   **Watch**: ![](http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png){width="23" height="35"} ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Regression Part I: Call in the CIA](https://youtu.be/OwNxEaOF8yY?t=2)
+-   **Watch**: ![](http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png){width="23" height="35"} ![](https://emojipedia-us.s3.amazonaws.com/content/2020/04/05/yt.png){width="20"} [Regression Part II: Theory](https://youtu.be/KKJ-2_UUhnc?t=1)
+
+## W05-02 Collinearity
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W04-02 Collinearity](/slides/30-multiple-regression/collinearity.html)
+:::
+
+## W05-03 Heteroscedasticity
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W04-03 Heteroscedasticity](/slides/30-multiple-regression/heteroscedasticity.html)
+:::
+
+## W05-04 Hedonic model
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W05-04 Hedonic Prices Model](/slides/30-multiple-regression/hedonic-regression.html)
+:::
+
+::: callout-important
+## `SELF STUDY`
+
+-   **Application Exercise:** 📋[ae04-03-hedonic-land-prices-HW.Rmd](/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html)
+:::
