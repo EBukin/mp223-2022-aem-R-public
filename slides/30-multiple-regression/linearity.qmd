@@ -143,12 +143,10 @@ screen_many_regs <-
 
 ## Common linear transformations
 
-
 ```{r}
 #| echo: false
 knitr::include_graphics("img/ex1-transformations.png")
 ```
-
 
 -   Power transformation or Box-Cox transformations;
 

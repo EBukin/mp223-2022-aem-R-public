@@ -159,6 +159,7 @@ Omitted variable $A_i$ causes **bias** if:
 
     -   $E[A_i|P_i] \neq 0$ ; or
     -   in a regression $A_i = \pi_0 + \pi_1 P_i + u$ , $\pi_1 \neq 0$ ;
+    -   $A_i = \pi_0 + \pi_1 P_i + u$ is an auxiliary regression because it helps us understand the true causal relationship.
     :::
 
 2.  ::: {.callout-important appearance="simple"}
@@ -168,13 +169,11 @@ Omitted variable $A_i$ causes **bias** if:
     :::
 :::
 
-$A_i = \pi_0 + \pi_1 P_i + u$ is an auxiliary regression because it helps us understand the true causal relationship.
-
 ------------------------------------------------------------------------
 
 ### Omitted Variable Bias (2/3)
 
-$\textit{Biased effect of treatment in short} = \\ \textit{True effect of treatment in long} + \\ ([\textit{Relationship between OV and treatment}] \times \\ [\textit{Effect of OV in long}])$
+$\textit{Biased effect of treatment in short} = \\ \textit{Effect of treatment in long} + \\ ([\textit{Relationship between OV and treatment}] \times \\ [\textit{Effect of OV in long}])$
 
 ------------------------------------------------------------------------
 

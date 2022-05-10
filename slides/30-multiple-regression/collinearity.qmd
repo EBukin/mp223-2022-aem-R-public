@@ -1,0 +1,526 @@
+---
+title: "Collinearity"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    slide-number: true
+    scrollable: true
+    incremental: true
+execute:
+  freeze: auto
+bibliography: ../../references.bib
+---
+
+# R setup {.smaller}
+
+```{r}
+#| echo: true
+
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(ggpmisc)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 12,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+
+my_gof <- function(fit_obj, digits = 4) {
+  sum_fit <- summary(fit_obj)
+  
+  stars <- 
+    pf(sum_fit$fstatistic[1],
+       sum_fit$fstatistic[2], 
+       sum_fit$fstatistic[3],
+       lower.tail=FALSE) %>% 
+    symnum(corr = FALSE, na = FALSE, 
+           cutpoints = c(0,  .001,.01,.05,  1),
+           symbols   =  c("***","**","*"," ")) %>% 
+    as.character()
+  
+  list(
+    # `R^2` = sum_fit$r.squared %>% round(digits),
+    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+    # `Num. obs.` = sum_fit$residuals %>% length(),
+    `Num. df` = sum_fit$df[[2]],
+    `F statistic` = 
+      str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+  )
+}
+
+# Function for screening many regressors
+screen_many_regs <-
+  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+    
+    if (class(fit_obj_list) == "lm") 
+      fit_obj_list <- list(fit_obj_list)
+    
+    if (length(rlang::dots_list(...)) > 0)  
+      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+    
+    # browser()
+    fit_obj_list %>%
+      screenreg(
+        custom.note =
+          map2_chr(., seq_along(.), ~ {
+            str_c("Model ", .y, " ", as.character(.x$call)[[2]])
+          }) %>%
+          c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+          str_c(collapse = "\n") ,
+        digits = digits,
+        single.row = single.row,
+        custom.gof.rows =
+          map(., ~my_gof(.x, digits)) %>%
+          transpose() %>%
+          map(unlist),
+        reorder.gof = c(3, 4, 5, 1, 2)
+      )
+  }
+```
+
+# Assumption 3. No Perfect Collinearity (Some variation in X Variables)
+
+## Collinearity or Muticollinearity
+
+-   No collinearity means
+
+    -   none of the regressors can be written as an exact linear combinations of some other regressors in the model.
+
+-   For example:
+
+    -   in $Y = \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3$ ,
+    -   where $X_3 = X_2 + X_1$ ,
+    -   all $X$ are collinear.
+
+## Consequence of collinearity:
+
+-   biased estimates of the collinear variables
+
+-   over-significant results;
+
+## Detection of collinearity:
+
+-   Scatter plot; Correlation matrix;
+
+-   Model specification;
+
+-   Step-wise regression approach;
+
+-   Variance Inflation Factor;
+
+## Solution to collinearity:
+
+-   Re specify the model;
+
+-   Choose different regressors;
+
+-   See also:
+
+    -   Overview: "Assumption AMLR.3 No Perfect Collinearity" in [@wooldridge2020introductory] ;
+
+    -   Examples of causes in Chapter 9.5 [@wooldridge2020introductory] ;
+
+    -   Chapter 9.4-9.5 in [@weisberg2005a];
+
+# Collinearity examples
+
+------------------------------------------------------------------------
+
+## Example 0.1 {.smaller}
+
+$$\hat{output} = \hat\beta_1 land + \hat\beta_2 seeds + \hat\beta_3 fertilizers + \hat\beta_4 others + \hat\beta_5 total$$
+
+-   where $total = seeds + fertilizers + others$
+
+-   ::: callout-important
+    Is there a multicollinearity problem here?
+    :::
+
+-   ::: callout-caution
+    YES! Definitely!
+    :::
+
+-   ::: callout-tip
+    Coefficient $\hat\beta_5$ is aliased and wont be estimated
+    :::
+
+------------------------------------------------------------------------
+
+## Example 0.2 {.smaller}
+
+$$\hat{output} = \hat\beta_1 land + \hat\beta_2 seeds + \hat\beta_3 fertilizers + \hat\beta_4 others$$
+
+-   where $seeds$ and $fertilizers$ highly correlate between each other,
+-   VIF of $seeds$ and $fertilizers$ is 12.2
+-   our key variable is $land$.
+-   ::: callout-important
+    Is there a multicollinearity problem here?
+    :::
+-   ::: callout-caution
+    Not really!
+    :::
+
+-   Because $fertilizers$ is a control variable and we may have OVB if we remove it!
+-   If we really want to reduce VIF...:
+
+    -   Dis-aggregate fertilizers into mineral and organic, for example.
+    -   Aggregate fertilizers and seeds
+
+------------------------------------------------------------------------
+
+## Example 0.3 {.smaller}
+
+Same model but in log:
+
+$$log(\hat{output}) = \hat\beta_1 log(land) + \hat\beta_2 log(seeds) + \hat\beta_3 log(fertilizers) + \\ \hat\beta_4 log(others) + \hat\beta_5 log(total) $$
+
+where $total = seeds + fertilizers + others$
+
+-   ::: callout-important
+    Is there a multicollinearity problem here?
+    :::
+
+-   Think!
+
+-   $log(a) + log(b) = log(a * b)$
+
+-   ::: callout-caution
+    Not really
+    :::
+
+------------------------------------------------------------------------
+
+## Example 0.4 {.smaller}
+
+Same model but with a quadratic term:
+
+$$\hat{output} = \hat\beta_1 land + \hat\beta_2 land^2 + \hat\beta_3 seeds + \hat\beta_4 fertilizers + \hat\beta_5 others$$
+
+-   ::: callout-important
+    Is there a multicollinearity problem here?
+    :::
+    
+-   Think!
+
+-   ::: callout-caution
+    Not really
+    :::
+    
+-   $land^2$ is not a linear combination of $land$ ;
+
+-   Linear combination is when $land + land$ not when  $land \times land$ ;
+
+------------------------------------------------------------------------
+
+## Collinearity example 1:
+
+### Collinearity detection by checking the model specification
+
+------------------------------------------------------------------------
+
+### Perfect collinearity with dummy variable (1) {.smaller}
+
+-   We want to build a naive regression, where the wage is a function of sex (female and male):
+
+-   $\text{wage} = \beta_0 + \beta_1 \cdot \text{female} + \beta_2 \cdot \text{male}$
+
+-   The data is fictional:
+
+. . .
+
+```{r}
+#| code-fold: true
+library(tidyverse)
+library(psych)
+n <- 14
+set.seed(122)
+dta <- 
+    tibble(female = as.integer(round(runif(n), 0))) %>% 
+    mutate(male = as.integer(1 - female),
+           wage = 10 - 3 * male + runif(n, -3, 3))
+glimpse(dta)
+```
+
+------------------------------------------------------------------------
+
+### Perfect collinearity with dummy variable (2) {.smaller}
+
+```{r}
+#| echo: false
+#| code-fold: true
+fit1 <- lm(wage ~ male, dta)
+fit2 <- lm(wage ~ female, dta)
+fit3 <- lm(wage ~ female + male, dta)
+# fit4 <- lm(wage ~ male + female, dta)
+fit5 <- lm(wage ~ 0 + female + male, dta)
+fit6 <- lm(wage ~ 0 + male + female, dta)
+screen_many_regs(fit1, fit2, 
+                 single.row = T, 
+                 digits = 2)
+```
+
+------------------------------------------------------------------------
+
+### Perfect collinearity with dummy variable (2) {.smaller}
+
+```{r}
+#| code-fold: true
+#| echo: false
+screen_many_regs(fit1, fit2, fit3, single.row = T, digits = 2)
+```
+
+------------------------------------------------------------------------
+
+### Perfect collinearity with dummy variable (2) {.smaller}
+
+```{r}
+#| code-fold: true
+#| echo: false
+screen_many_regs(fit1, fit2, fit3, fit5,
+                 single.row = T, 
+                 digits = 2)
+```
+
+
+## Near collinearity example 3:
+
+An example of water consumption in a region as a function of population, year and annual precipitation.
+
+-   Near collinearity occurs when variables are highly correlated.
+
+
+------------------------------------------------------------------------
+
+### Problem 
+
+::: {.smaller}
+
+$$\text{log(muniUse)} = \hat \beta_0 + \hat \beta_1 \cdot \text{year} + \hat \beta_2 \cdot \text{muniPrecip} + \\ \hat \beta_3 \cdot \text{log(muniPop)} + \hat u$$
+
+-   `log(muniUse)` - total water consumption in logarithm;
+-   `muniPrecip` - precipitation level in March-September, when there are needs of irrigation;
+-   `log(muniPop)` - total water consumption in logarithm;
+-   `year` - year
+
+-   What could be the ex-ante expectations about the coefficients?
+
+::: 
+
+------------------------------------------------------------------------
+
+### Data preparation and description
+
+```{r}
+#| code-fold: true
+precip_dta <- 
+    alr4::MinnWater %>%
+    as_tibble() %>% 
+    mutate(`log(muniPop)` = log(muniPop),
+           `log(muniUse)` = log(muniUse)) %>% 
+    select(year, muniPrecip, `log(muniPop)`, `log(muniUse)`) 
+glimpse(precip_dta, n = 20)
+report::report_table(precip_dta) %>% as_tibble()
+```
+
+------------------------------------------------------------------------
+
+### Visuall detection: scatter plots and correlation
+
+```{r echo=FALSE}
+GGally::ggpairs(precip_dta) + theme_bw()
+```
+
+------------------------------------------------------------------------
+
+### Detection: Step-wise regression approach (1)
+
+```{r}
+#| code-fold: true
+fit3.1 <- lm(`log(muniUse)` ~ muniPrecip , precip_dta)
+fit3.2 <- lm(`log(muniUse)` ~ muniPrecip + year, precip_dta)
+fit3.3 <- lm(`log(muniUse)` ~ muniPrecip + `log(muniPop)`, precip_dta)
+fit3.4 <- lm(`log(muniUse)` ~ muniPrecip + year  + `log(muniPop)`, precip_dta)
+screen_many_regs(fit3.1, single.row = T, digits = 2)
+```
+
+------------------------------------------------------------------------
+
+### Detection: Step-wise regression approach (2)
+
+```{r}
+#| code-fold: true
+screen_many_regs(fit3.1, fit3.2, single.row = T, digits = 2)
+```
+
+---
+
+### Detection: Step-wise regression approach (2)
+
+```{r}
+#| code-fold: true
+screen_many_regs(fit3.1, fit3.2, fit3.3, single.row = T, digits = 2)
+```
+
+------------------------------------------------------------------------
+
+### Detection: Step-wise regression approach (2)
+
+```{r}
+#| code-fold: true
+screen_many_regs(fit3.1, fit3.2, fit3.3, fit3.4, 
+                 single.row = T, digits = 2)
+```
+
+------------------------------------------------------------------------
+
+### Detection: Step-wise regression approach (2)
+
+-   Both collinear variables **individually** contribute substantially to the R-Squared; but when included jointly, there is no big improvement;
+
+-   Individually, collinear variables are highly significant, but when included jointly, they are weakly- or not-significant.
+
+------------------------------------------------------------------------
+
+### Detection: Variance Inflation Factor (1)
+
+-   Variance Inflation Factor - is a simple measure of the harm produced by collinearity:
+
+-   The square root of the VIF indicates **how much the confidence interval for** $\beta$ is expanded relative to similar uncorrelated data
+
+    -   (assuming that such data might exists, for example, in a designed experiment).
+
+-   If VIF \> 4 OR VIF \> 10, the variable may be collinear with another variable.
+
+------------------------------------------------------------------------
+
+### Detection: Variance Inflation Factor (2)
+
+1.  Compute VIF for regression
+
+2.  See where VIF exceeds 4 (or squared root of VIF exceeds 2).
+
+3.  Explore correlation between regressors, revise the model.
+
+4.  Discuss correlations in the data.
+
+5.  Explain why variables are kept (if the case).
+
+------------------------------------------------------------------------
+
+### Detection: Variance Inflation Factor (3) {.smallere}
+
+```{r echo = TRUE}
+coef(fit3.4)
+library(car) #?vif
+vif(fit3.4)
+```
+
+. . .
+
+-   Collinearity is present.
+
+-   It is between `year` and `log(muniPop)`
+
+-   Given that `log(muniPop)` captures an annual linear trend and other variations in the population growth, we should keep `log(muniPop)` instead of the `year`.
+
+------------------------------------------------------------------------
+
+### Final revised model without collinearity {.incremental}
+
+::: columns
+::: {.column width="50%"}
+```{r}
+screen_many_regs(fit3.3)
+```
+:::
+
+::: {.column width="50%"}
+Interpretation:
+
+-   This is a log-level and log-log model. We must interpret it accordingly.
+
+-   Increase in precipitation **by 1 (one) unit (1 mm of rainfall)** causes $-0.0103 \cdot 100 = -1.03$ **% (percent) decrease** in water consumption holding all other factors fixed (because with the log-level transformation $\%\Delta y = 100 \beta \Delta x$).
+
+-   Increase in population **by 1 (one) % (percent)** causes $1.025$ **% (percent)** increase in water consumption holding all other factors fixed (because with the log-log transformation $\%\Delta y = \beta \%\Delta x$).
+:::
+:::
+
+
+## Collinearity example 2:
+
+### Collinearity detection by checking the model specification
+
+------------------------------------------------------------------------
+
+### Perfect collinearity (1) 
+
+::: {.smaller}
+
+-   Explain the voting outcome in election for party 'A'
+
+    -   (variable `voteA`, which stands for % of votes for party "A" from all votes)
+
+-   as a function of:
+
+    -   \% of expenditure of the party "A" on a voting campaign (variable `shareA`) and
+    -   \% of expenditure of the party "B" (`shareB`).
+
+-   $\hat{voteA} = \hat\beta_0 + \hat\beta_1 shareA + \hat\beta_2 (shareB)$
+
+-   where $shareB = 1 - shareA$
+
+. . .
+
+$$\hat{voteA} = \hat\beta_0 + \hat\beta_1 shareA + \hat\beta_2 (1 - shareA)$$
+
+
+:::
+
+------------------------------------------------------------------------
+
+### Perfect collinearity (2)
+
+```{r}
+#| code-fold: true
+woolvote <- wooldridge::vote1 %>% 
+    as_tibble() %>% 
+    mutate(shareB = 100 - shareA, 
+           democB = 1-democA) %>% 
+    select(voteA, democA, democB,
+           shareA, shareB, expendA, expendB)
+glimpse(woolvote, n = 20)
+report::report_table(woolvote) %>% as_tibble()
+```
+
+------------------------------------------------------------------------
+
+### Perfect collinearity (3)
+
+```{r}
+fit_vote_1 <- lm(voteA ~ shareA + shareB, data = woolvote)
+screen_many_regs(fit_vote_1, single.row = T, digits = 2)
+```
+
+
+# References

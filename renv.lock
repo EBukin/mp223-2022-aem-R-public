@@ -394,6 +394,16 @@
       "Hash": "3f038e5ac7f41d4ac41ce658c85e3042",
       "Requirements": []
     },
+    "clubSandwich": {
+      "Package": "clubSandwich",
+      "Version": "0.5.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4c69e486435282f5b001174871da6497",
+      "Requirements": [
+        "sandwich"
+      ]
+    },
     "colorspace": {
       "Package": "colorspace",
       "Version": "2.0-3",

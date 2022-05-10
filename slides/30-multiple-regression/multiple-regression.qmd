@@ -109,8 +109,7 @@ How GDP per capita $ppgdp$ and degree of Urbanization $pctUrban$ affects $fertil
 
 . . .
 
-We explore `UN11` data from [@weisberg2005a]. 199 observations.
--   Variables are:
+We explore `UN11` data from [@weisberg2005a]. 199 observations. - Variables are:
 
     -   `fertility` - number of children per woman;
     -   `lifeExpF` - Female life expectancy, years;
@@ -222,7 +221,6 @@ check_model(fit1, check = "linearity", panel = FALSE)
 
 ::: columns
 ::: {.column width="50%"}
-
 See: [strengejacke.github.io/ggeffects](https://strengejacke.github.io/ggeffects/index.html)
 
 ```{r}
@@ -230,11 +228,9 @@ See: [strengejacke.github.io/ggeffects](https://strengejacke.github.io/ggeffects
 library(ggeffects)
 ggpredict(fit1, terms = "ppgdp")
 ```
-
 :::
 
 ::: {.column width="50%"}
-
 ```{r}
 #| code-fold: true
 #| fig-asp: 1
@@ -245,12 +241,9 @@ ggpredict(fit2, terms = c("ppgdp", "group")) %>% plot()
 :::
 :::
 
-
 # Application Exercise 1: Multiple regression with a dummy variable
 
 `AE04-01 Multiple Linear Regression`
-
-
 
 # Bias and Efficiency
 
@@ -489,7 +482,6 @@ bias_plots_dta %>%
 
     6.  Error Terms Normality
 :::
-
 
 # Multiple linear regression: recap
 
