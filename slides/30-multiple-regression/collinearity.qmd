@@ -252,7 +252,6 @@ $$\hat{output} = \hat\beta_1 land + \hat\beta_2 land^2 + \hat\beta_3 seeds + \ha
 ```{r}
 #| code-fold: true
 library(tidyverse)
-library(psych)
 n <- 14
 set.seed(122)
 dta <- 
