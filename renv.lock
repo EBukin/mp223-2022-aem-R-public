@@ -1645,6 +1645,21 @@
       "Hash": "c1078316e1d4f70275fc1ea60c0bc431",
       "Requirements": []
     },
+    "report": {
+      "Package": "report",
+      "Version": "0.5.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "04ec9c95246873c704df8290ac115552",
+      "Requirements": [
+        "bayestestR",
+        "datawizard",
+        "effectsize",
+        "insight",
+        "parameters",
+        "performance"
+      ]
+    },
     "repr": {
       "Package": "repr",
       "Version": "1.1.4",
