@@ -11,6 +11,7 @@ bibliography: ../references.bib
 
 -   **SLIDES:** 🖥[W05-01 Omitted variable bias](/slides/30-multiple-regression/ovb.html)
 -   **Application Exercise:** 📋[ae05-01-OVB.rmd](/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html)
+-   Download here [ae/ae05-multiple-regression-part-2.zip](https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae05-multiple-regression-part-2.zip) or on Ilias.
 :::
 
 ::: callout-important
