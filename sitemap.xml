@@ -2,110 +2,126 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/00-introduction/00-introduction.html</loc>
-    <lastmod>2022-05-10T22:38:34.363Z</lastmod>
+    <lastmod>2022-05-11T11:31:17.698Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/20-data-description/exploring-numeric-data.html</loc>
-    <lastmod>2022-05-10T22:39:10.451Z</lastmod>
+    <lastmod>2022-05-11T11:31:50.703Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/20-data-description/correlation.html</loc>
-    <lastmod>2022-05-10T22:39:16.703Z</lastmod>
+    <lastmod>2022-05-11T11:31:56.599Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/hedonic-regression.html</loc>
-    <lastmod>2022-05-10T22:40:28.779Z</lastmod>
+    <lastmod>2022-05-11T11:33:08.399Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/heteroscedasticity.html</loc>
+    <lastmod>2022-05-11T11:34:42.612Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/collinearity.html</loc>
-    <lastmod>2022-05-10T22:40:41.323Z</lastmod>
+    <lastmod>2022-05-11T11:34:54.576Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/multiple-regression.html</loc>
-    <lastmod>2022-05-10T22:41:37.431Z</lastmod>
+    <lastmod>2022-05-11T11:35:50.077Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/ovb.html</loc>
-    <lastmod>2022-05-10T22:41:59.247Z</lastmod>
+    <lastmod>2022-05-11T11:36:09.901Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/30-multiple-regression/linearity.html</loc>
-    <lastmod>2022-05-10T22:43:03.511Z</lastmod>
+    <lastmod>2022-05-11T11:37:12.038Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/10-simple-regression/10-simple-regression.html</loc>
-    <lastmod>2022-05-10T22:43:26.299Z</lastmod>
+    <lastmod>2022-05-11T11:37:33.518Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/workflow-tidy-data-wrangling.html</loc>
-    <lastmod>2022-05-10T22:43:30.271Z</lastmod>
+    <lastmod>2022-05-11T11:37:37.262Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/dplyr.html</loc>
-    <lastmod>2022-05-10T22:43:34.763Z</lastmod>
+    <lastmod>2022-05-11T11:37:41.330Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/slides/50-data-wrangling/import-data.html</loc>
-    <lastmod>2022-05-10T22:43:38.511Z</lastmod>
+    <lastmod>2022-05-11T11:37:44.470Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week05-checklist.html</loc>
-    <lastmod>2022-05-10T22:43:39.611Z</lastmod>
+    <lastmod>2022-05-11T11:37:45.522Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week04-checklist.html</loc>
-    <lastmod>2022-05-10T22:43:40.863Z</lastmod>
+    <lastmod>2022-05-11T11:37:46.514Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week01-checklist.html</loc>
-    <lastmod>2022-05-10T22:43:41.267Z</lastmod>
+    <lastmod>2022-05-11T11:37:46.850Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/weeks/week03-checklist.html</loc>
-    <lastmod>2022-05-10T22:43:41.799Z</lastmod>
+    <lastmod>2022-05-11T11:37:47.306Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/articles/external-materials.html</loc>
-    <lastmod>2022-05-10T22:43:42.179Z</lastmod>
+    <lastmod>2022-05-11T11:37:47.610Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html</loc>
+    <lastmod>2022-05-11T11:38:03.582Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html</loc>
+    <lastmod>2022-05-11T11:38:06.394Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html</loc>
+    <lastmod>2022-05-11T11:38:48.703Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-03-correlation.html</loc>
-    <lastmod>2022-05-10T22:43:47.471Z</lastmod>
+    <lastmod>2022-05-11T11:38:52.899Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html</loc>
-    <lastmod>2022-05-10T22:43:54.931Z</lastmod>
+    <lastmod>2022-05-11T11:38:59.327Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html</loc>
-    <lastmod>2022-05-10T22:44:01.623Z</lastmod>
+    <lastmod>2022-05-11T11:39:05.023Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling/ae03-02-plastic-waste.html</loc>
-    <lastmod>2022-05-10T22:44:05.723Z</lastmod>
+    <lastmod>2022-05-11T11:39:08.299Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.html</loc>
-    <lastmod>2022-05-10T22:44:08.599Z</lastmod>
+    <lastmod>2022-05-11T11:39:10.823Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html</loc>
-    <lastmod>2022-05-10T22:44:11.951Z</lastmod>
+    <lastmod>2022-05-11T11:39:13.675Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html</loc>
-    <lastmod>2022-05-10T22:44:29.907Z</lastmod>
+    <lastmod>2022-05-11T11:39:27.999Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html</loc>
-    <lastmod>2022-05-10T22:44:47.191Z</lastmod>
+    <lastmod>2022-05-11T11:39:43.480Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html</loc>
-    <lastmod>2022-05-10T22:44:57.943Z</lastmod>
+    <lastmod>2022-05-11T11:39:52.920Z</lastmod>
   </url>
   <url>
     <loc>https://ebukin.github.io/mp223-2022-aem-R-public/index.html</loc>
-    <lastmod>2022-05-10T22:44:59.119Z</lastmod>
+    <lastmod>2022-05-11T11:39:53.988Z</lastmod>
   </url>
 </urlset>

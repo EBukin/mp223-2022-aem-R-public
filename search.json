@@ -742,6 +742,76 @@
     "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nPalmquist, Raymond B. 1989. “Land as a Differentiated Factor of Production: A Hedonic Model and Its Implications for Welfare Measurement.” Land Economics 65 (1): 23. https://doi.org/10.2307/3146260.\n\n\nTaff, Steven J, and Sanford Weisberg. 2007. “Compensated Short-Term Conservation Restrictions May Reduce Sale Prices.” Appraisal Journal 75 (1)."
   },
   {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#assumption-5.-error-terms-homoscedasticity",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#assumption-5.-error-terms-homoscedasticity",
+    "title": "Heteroscedasticity",
+    "section": "Assumption 5. Error Terms Homoscedasticity",
+    "text": "Assumption 5. Error Terms Homoscedasticity\n\\[Var(u|x_{i1}, x_{i2}, \\cdots , x_{ik}) = \\sigma^2\\]"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#data",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#data",
+    "title": "Heteroscedasticity",
+    "section": "Data",
+    "text": "Data\n\n\nCode\nwoolwage2 <-\n  wooldridge::wage2 %>%\n  as_tibble %>%\n  select(wage, educ, tenure, abil = KWW)\nglimpse(woolwage2)\n\n\nRows: 935\nColumns: 4\n$ wage   <int> 769, 808, 825, 650, 562, 1400, 600, 1081, 1154, 1000, 930, 921,…\n$ educ   <int> 12, 18, 14, 12, 11, 16, 10, 18, 15, 12, 18, 14, 15, 16, 16, 10,…\n$ tenure <int> 2, 16, 9, 7, 5, 2, 0, 14, 1, 16, 13, 11, 3, 2, 9, 2, 9, 10, 7, …\n$ abil   <int> 35, 41, 46, 32, 27, 43, 24, 50, 37, 44, 44, 45, 40, 24, 47, 37,…\n\n\nCode\nreport(woolwage2) %>% as_tibble()\n\n\n# A tibble: 4 × 11\n  Variable n_Obs   Mean     SD Median    MAD   Min   Max Skewness Kurtosis\n  <chr>    <int>  <dbl>  <dbl>  <int>  <dbl> <int> <int>    <dbl>    <dbl>\n1 wage       935 958.   404.      905 369.     115  3078    1.20     2.72 \n2 educ       935  13.5    2.20     12   1.48     9    18    0.549   -0.735\n3 tenure     935   7.23   5.08      7   5.93     0    22    0.433   -0.799\n4 abil       935  35.7    7.64     37   7.41    12    56   -0.293   -0.317\n# … with 1 more variable: percentage_Missing <dbl>"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#the-model",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#the-model",
+    "title": "Heteroscedasticity",
+    "section": "The model",
+    "text": "The model\n\n\nCode\nfit_1 <- lm(wage ~ educ + abil, data = woolwage2)\nscreen_many_regs(fit_1, single.row = F)\n\n\n\n=========================\n             Model 1     \n-------------------------\n(Intercept)  -71.0911    \n             (81.5735)   \neduc          43.4601 ***\n              (6.0189)   \nabil          12.4130 ***\n              (1.7308)   \n-------------------------\nR^2            0.1537    \nAdj. R^2       0.1519    \nNum. obs.    935         \nNum. df      932         \nF statistic   84.6348 ***\n=========================\n*** p < 0.001; ** p < 0.01; * p < 0.05"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#visual-diagnostics",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#visual-diagnostics",
+    "title": "Heteroscedasticity",
+    "section": "Visual diagnostics:",
+    "text": "Visual diagnostics:\n\nlibrary(performance)\ncheck_model(fit_1, check = \"linearity\") %>% plot()"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#statistical-tests",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#statistical-tests",
+    "title": "Heteroscedasticity",
+    "section": "Statistical tests",
+    "text": "Statistical tests\n\nlibrary(performance)\ncheck_heteroscedasticity(fit_1)\n\nWarning: Heteroscedasticity (non-constant error variance) detected (p < .001).\n\n\n\n\\(H_0\\) error terms are homoscedastic.\n\\(H_1\\) we have heteroscedastic error terms.\nWe reject \\(H_0\\) if p-value < 0.05 (at 5% significance level)."
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#conclusions-on-heteroskedasticity-in-the-wage-equation",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#conclusions-on-heteroskedasticity-in-the-wage-equation",
+    "title": "Heteroscedasticity",
+    "section": "Conclusions on Heteroskedasticity in the wage equation",
+    "text": "Conclusions on Heteroskedasticity in the wage equation\n\nWe have:\n\nHeteroskedasticity;\nInappropriate model specification;\nPossible linearity assumption violation;\n\nSolutions:\n\nModel re-specification;\nCorrecting standard errors;"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#model-adjustment",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#model-adjustment",
+    "title": "Heteroscedasticity",
+    "section": "Model adjustment:",
+    "text": "Model adjustment:\n\n\nCode\nfit_1 <- lm(wage ~ educ + abil, data = woolwage2)\nfit_2 <- lm(log(wage) ~ educ + abil , data = woolwage2)\nfit_3 <- lm(log(wage) ~ educ + abil + tenure , data = woolwage2)\nscreen_many_regs(fit_1, fit_2, fit_3, single.row = T)\n\n\n\n=================================================================================\n             Model 1                 Model 2                Model 3              \n---------------------------------------------------------------------------------\n(Intercept)  -71.0911 (81.5735)        5.7620 (0.0858) ***    5.6751 (0.0859) ***\neduc          43.4601  (6.0189) ***    0.0436 (0.0063) ***    0.0471 (0.0063) ***\nabil          12.4130  (1.7308) ***    0.0120 (0.0018) ***    0.0103 (0.0018) ***\ntenure                                                        0.0140 (0.0025) ***\n---------------------------------------------------------------------------------\nR^2            0.1537                  0.1378                 0.1652             \nAdj. R^2       0.1519                  0.1359                 0.1625             \nNum. obs.    935                     935                    935                  \nNum. df      932                     932                    931                  \nF statistic   84.6348 ***             74.4578 ***            61.4301 ***         \n=================================================================================\n*** p < 0.001; ** p < 0.01; * p < 0.05\nModel 1 wage ~ educ + abil\nModel 2 log(wage) ~ educ + abil\nModel 3 log(wage) ~ educ + abil + tenure"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#conclusions",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#conclusions",
+    "title": "Heteroscedasticity",
+    "section": "Conclusions:",
+    "text": "Conclusions:\n\nparameters(fit_3)\n\nParameter   | Coefficient |       SE |       95% CI | t(931) |      p\n---------------------------------------------------------------------\n(Intercept) |        5.68 |     0.09 | [5.51, 5.84] |  66.09 | < .001\neduc        |        0.05 | 6.26e-03 | [0.03, 0.06] |   7.52 | < .001\nabil        |        0.01 | 1.82e-03 | [0.01, 0.01] |   5.68 | < .001\ntenure      |        0.01 | 2.52e-03 | [0.01, 0.02] |   5.54 | < .001\n\n\nModel fit_3 describes the data in the best way because:\n\nReduces omitted variable bias;\nResolves non-linearity;\nBut it still suffers from the heteroskedasticity!!"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#robust-standard-errors",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#robust-standard-errors",
+    "title": "Heteroscedasticity",
+    "section": "Robust standard errors",
+    "text": "Robust standard errors\nRobust estimators for variance covariance matrix:\n\nsandwich::vcovHC - heteroskedasticity consistent\nsandwich::vcovCL - clustered SE\nclubSandwich::vcovCR - clustered heteroskedasticity consistent SE\nsandwich::vcovHAC - heteroskedasticity and autocorrelation consistent\nEstimation methods:\n\nHC3 - optimal one as per Long & Ervin (2000)\nHC1 - default in Stata"
+  },
+  {
+    "objectID": "slides/30-multiple-regression/heteroscedasticity.html#interpretation",
+    "href": "slides/30-multiple-regression/heteroscedasticity.html#interpretation",
+    "title": "Heteroscedasticity",
+    "section": "Interpretation",
+    "text": "Interpretation\n\nfit_3\n\n\nCall:\nlm(formula = log(wage) ~ educ + abil + tenure, data = woolwage2)\n\nCoefficients:\n(Intercept)         educ         abil       tenure  \n    5.67507      0.04708      0.01032      0.01396  \n\nmodel_parameters(fit_3, vcov = \"HC3\")\n\nParameter   | Coefficient |       SE |       95% CI | t(931) |      p\n---------------------------------------------------------------------\n(Intercept) |        5.68 |     0.08 | [5.51, 5.84] |  66.92 | < .001\neduc        |        0.05 | 6.72e-03 | [0.03, 0.06] |   7.00 | < .001\nabil        |        0.01 | 1.98e-03 | [0.01, 0.01] |   5.22 | < .001\ntenure      |        0.01 | 2.65e-03 | [0.01, 0.02] |   5.28 | < .001\n\nmodel_performance(fit_3)\n\n# Indices of model performance\n\nAIC       |       BIC |    R2 | R2 (adj.) |  RMSE | Sigma\n---------------------------------------------------------\n13553.141 | 26254.081 | 0.165 |     0.163 | 0.385 | 0.385"
+  },
+  {
     "objectID": "slides/30-multiple-regression/collinearity.html#collinearity-or-muticollinearity",
     "href": "slides/30-multiple-regression/collinearity.html#collinearity-or-muticollinearity",
     "title": "Collinearity",
@@ -1568,25 +1638,18 @@
     "text": "In class\n\n\n\n\nSLIDES: 🖥W05-01 Omitted variable bias\nApplication Exercise: 📋ae05-01-OVB.rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nHomework section of the application exercise: 📋ae05-01-OVB.rmd\nApplication Exercise: 📋ae05-02-HW-slides-ovb.Rmd\n\n\n\n\nWatch:   Regression Part I: Call in the CIA\nWatch:   Regression Part II: Theory"
   },
   {
-    "objectID": "weeks/week05-checklist.html#w05-02-collinearity",
-    "href": "weeks/week05-checklist.html#w05-02-collinearity",
+    "objectID": "weeks/week05-checklist.html#w05-02-collinearity-and-heteroscedasticity",
+    "href": "weeks/week05-checklist.html#w05-02-collinearity-and-heteroscedasticity",
     "title": "Week 5",
-    "section": "W05-02 Collinearity",
-    "text": "W05-02 Collinearity\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W04-02 Collinearity"
+    "section": "W05-02 Collinearity and Heteroscedasticity",
+    "text": "W05-02 Collinearity and Heteroscedasticity\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W05-02 Collinearity\nSLIDES: 🖥W05-03 Heteroscedasticity"
   },
   {
-    "objectID": "weeks/week05-checklist.html#w05-03-heteroscedasticity",
-    "href": "weeks/week05-checklist.html#w05-03-heteroscedasticity",
+    "objectID": "weeks/week05-checklist.html#w05-03-hedonic-model",
+    "href": "weeks/week05-checklist.html#w05-03-hedonic-model",
     "title": "Week 5",
-    "section": "W05-03 Heteroscedasticity",
-    "text": "W05-03 Heteroscedasticity\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W04-03 Heteroscedasticity"
-  },
-  {
-    "objectID": "weeks/week05-checklist.html#w05-04-hedonic-model",
-    "href": "weeks/week05-checklist.html#w05-04-hedonic-model",
-    "title": "Week 5",
-    "section": "W05-04 Hedonic model",
-    "text": "W05-04 Hedonic model\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W05-04 Hedonic Prices Model\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nApplication Exercise: 📋ae04-03-hedonic-land-prices-HW.Rmd"
+    "section": "W05-03 Hedonic model",
+    "text": "W05-03 Hedonic model\n\n\n\n\n\n\nIn class\n\n\n\n\nSLIDES: 🖥W05-04 Hedonic Prices Model\nApplication Exercise: 📋ae05-03-hedonic-complete-reg-analysis.Rmd\n\n\n\n\n\n\n\n\n\nSELF STUDY\n\n\n\n\nHomework section of the application exercise: 📋ae05-03-hedonic-complete-reg-analysis.Rmd"
   },
   {
     "objectID": "weeks/week04-checklist.html",
@@ -1706,6 +1769,251 @@
     "title": "Materials and external sources for learning R",
     "section": "",
     "text": "R4DS: R for data science by Hadley Wickham and Garrett Grolemund (source code)\n\n\n\nRStudio cheat sheets (here) on:\n\nData import with readr, readxl, and googlesheets4 cheatsheet\nData transformation with dplyr cheatsheet\nData tidying with tidyr cheatsheet\n\nRStudio Webinars + sourcode:\n\nData wrangling with R and RStudio by Garrett Grolemund\nTidyverse visualization manipulation basics by Garrett Grolemund\nWhat’s new with readxl? with Jenny Bryan\n\nTutorials from INBO Tutorials:\n\nR for beginners from Research Institute for Nature and Forest (INBO) in Belgium"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(alr4)\nlibrary(GGally)\nlibrary(parameters)\nlibrary(performance)\nlibrary(see)\nlibrary(car)\nlibrary(broom)\nlibrary(modelsummary)\nlibrary(texreg)\nlibrary(correlation)\nlibrary(patchwork)\nlibrary(lmtest)\nlibrary(sandwich)\nlibrary(clubSandwich)\n\nknitr::opts_chunk$set(\n  fig.align = \"center\",\n  fig.width = 16,\n  fig.asp = 0.618,\n  fig.retina = 1,\n  out.width = \"100%\", \n  message = FALSE,\n  warning = FALSE,\n  echo = TRUE\n)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#load-data",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#load-data",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.1 Load data",
+    "text": "1.1 Load data\nCheck help fo the data frame ?wooldridge::wage2.\n\ndta <- \n  wooldridge::wage2 %>% \n  as_tibble()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compute",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compute",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.2 Compute",
+    "text": "1.2 Compute\n\ntotal amount of parents education paredu as a sum of years of their education\nwage per hour wagehour as wage divided by average daily hours and 21 working days month. assume that each week has 5 working days.\nselect wage, wagehour, educ, exper, tenure, age, paredu and black, married, urban, and IQ.\n\n\n# dta1 <- \n#   ________ %>% \n#   ________(paredu = ________,\n#            wagehour = ________) %>% \n#   select(________)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#built-pairs-plot-and-descriptive-statistics",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#built-pairs-plot-and-descriptive-statistics",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.3 Built pairs plot and descriptive statistics",
+    "text": "1.3 Built pairs plot and descriptive statistics\n\n# library(GGally)\n# ________(dta1)\n\n\n# library(modelsummary)\n# dta1 %>% ________()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#short-regression-wage-on-all-but-iq",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#short-regression-wage-on-all-but-iq",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.4 Short regression: wage on all but IQ",
+    "text": "1.4 Short regression: wage on all but IQ\nWhy is IQ important?\n\n# fit_s <- lm()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#hypothesis-the-bias",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#hypothesis-the-bias",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.5 Hypothesis the bias",
+    "text": "1.5 Hypothesis the bias"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#auxiliary-regression-iq-on-all-but-wage",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#auxiliary-regression-iq-on-all-but-wage",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.6 Auxiliary regression: IQ on all but wage",
+    "text": "1.6 Auxiliary regression: IQ on all but wage\n\n# fit_aux <- lm()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#long-regression-wage-on-all-including-iq",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#long-regression-wage-on-all-including-iq",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.7 Long regression: wage on all including IQ",
+    "text": "1.7 Long regression: wage on all including IQ\n\n# fit_l <- lm()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compare-all-models-together-with-parameters-and-performance",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compare-all-models-together-with-parameters-and-performance",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.8.1 Compare all models together with parameters and performance",
+    "text": "1.8.1 Compare all models together with parameters and performance\n\nuse function compare_parameters from parameters\nspecify style of standard errors and p-values in style = \"se_p\"\nprovide models names in argument column_names = c(...)\n\n\n# library(_____)\n# _____________________(\n#   _____, _____, _____, \n#   _____, \n#   _____ = c(\"short\", _____, _____)\n#   )\n\nCompare goodness of fit measures using performance::compare_performance\n\n# library(_____)\n# _____(_____, _____, _____)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compare-all-models-together-with-modelsummarymodelsummary",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compare-all-models-together-with-modelsummarymodelsummary",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.8.2 Compare all models together with modelsummary::modelsummary",
+    "text": "1.8.2 Compare all models together with modelsummary::modelsummary\n\nyou need create an object all_mods with all three models in a list using function list(...);\nin the list, provide names for each model. For example:\n\n\nlist(`Model name` = fit_s)\n\nCreate a list below\n\n# all_mods <- list(\n#   `Short (dep: wage)` = fit_s, \n#   `_____` = _____, \n#   _____ = _____\n#   )\n\nDisplay the list structure:\n\n# str(all_mods, max.level = 1)\n\nSummarize models with modelsummary::modelsummary\n\n# library(_____)\n# _____(all_mods)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compute-the-omitted-variables-bias",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#compute-the-omitted-variables-bias",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.9 Compute the omitted variables bias",
+    "text": "1.9 Compute the omitted variables bias\n\n# coef(fit_s)[[\"educ\"]] - coef(fit_l)[[\"educ\"]]\n# coef(fit_aux)[[\"educ\"]] * coef(fit_l)[[\"IQ\"]]"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#interpret-the-effect-of-education",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#interpret-the-effect-of-education",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "1.10 Interpret the effect of education",
+    "text": "1.10 Interpret the effect of education"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-linearity-assumption-in-the-long-model",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-linearity-assumption-in-the-long-model",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.1 Check the linearity assumption in the long model",
+    "text": "2.1 Check the linearity assumption in the long model\n\n2.1.1 Visually\n?check_model\n\n# _____(_____, check = \"linearity\")\n\n\n\n2.1.2 Using Tukey test\n?car::residualPlots\n\n# library(_____)\n# _____(_____)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#improve-long-model",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#improve-long-model",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.2 Improve long model:",
+    "text": "2.2 Improve long model:\n\ncreate object fil_l2;\nuse wagehour as a dependent variable;\nadd age^2 to the model by including I(age^2) to the regression equation\n\n\n# fit_l2 <-  lm(_____)\n\n\n2.2.1 Check the linearity assumption again\n\n# _____(_____, check = \"linearity\")\n# _____(fit_l2)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-multicollinearity-assumption-in-the-long-model",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-multicollinearity-assumption-in-the-long-model",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.2 Check the multicollinearity assumption in the long model",
+    "text": "2.2 Check the multicollinearity assumption in the long model\n?car::vif\n\n# _____(_____)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#conclude-on-the-final-functional-form",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#conclude-on-the-final-functional-form",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.3 Conclude on the final functional form",
+    "text": "2.3 Conclude on the final functional form"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-residual-homogeneity",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-residual-homogeneity",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.4 Check the residual homogeneity",
+    "text": "2.4 Check the residual homogeneity\n\n2.4.1 Visually\n\n# _____(_____, _____ = \"homogeneity\")\n\n\n\n2.4.1 statistical test\nlmtest::bptest\n\n# library(_____)\n# bptest(_____)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-robustness-of-regression-again-sample-selectivity",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#check-the-robustness-of-regression-again-sample-selectivity",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.5 Check the robustness of regression again sample selectivity",
+    "text": "2.5 Check the robustness of regression again sample selectivity\n\nInspect closely the descriptive statistics on the subject of missing observations.\nWhy regression has fewer observations than the data?\nBuilt regression for the complete data set.\nCompare all estimates.\nDiscuss bias caused by OVB if present.\n\n\n# fit_l3 <- lm(_____)\n# _____(fit_l, fit_l2, fit_l3, style = \"se_p\")"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#construct-predicted-values-plot-for-age-variable-in-model-fit_l2",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#construct-predicted-values-plot-for-age-variable-in-model-fit_l2",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.6 Construct predicted values plot for age variable in model fit_l2",
+    "text": "2.6 Construct predicted values plot for age variable in model fit_l2\n?ggeffects::ggpredict\n\n# library(_____)\n# _____(_____, terms = \"age\") %>% plot()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#interpret-the-results",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-01-OVB.html#interpret-the-results",
+    "title": "AE05-01 OVB and wage equation",
+    "section": "2.7 Interpret the results",
+    "text": "2.7 Interpret the results"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html",
+    "title": "AE05-02 OVB examples from the slides",
+    "section": "",
+    "text": "library(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──\n\n\n✔ ggplot2 3.3.6     ✔ purrr   0.3.4\n✔ tibble  3.1.7     ✔ dplyr   1.0.9\n✔ tidyr   1.2.0     ✔ stringr 1.4.0\n✔ readr   2.1.2     ✔ forcats 0.5.1\n\n\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\nlibrary(wooldridge)\nlibrary(modelsummary)\nlibrary(GGally)\n\nRegistered S3 method overwritten by 'GGally':\n  method from   \n  +.gg   ggplot2\n\nlibrary(parameters)\n\nRegistered S3 method overwritten by 'parameters':\n  method                         from      \n  format.parameters_distribution datawizard\n\n\n\nAttaching package: 'parameters'\n\n\nThe following object is masked from 'package:modelsummary':\n\n    supported_models\n\nlibrary(performance)\nlibrary(see)\n\nggplot2::theme_set(ggplot2::theme_bw())\n\nknitr::opts_chunk$set(\n  fig.width = 12,\n  fig.asp = 0.618,\n  out.width = \"100%\"\n)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html#goals",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html#goals",
+    "title": "AE05-02 OVB examples from the slides",
+    "section": "Goals",
+    "text": "Goals\n\nReproduce analysis from the slides on the OVB in a form of an RMarkdown document;"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(alr4)\nlibrary(GGally)\nlibrary(parameters)\nlibrary(performance)\nlibrary(see)\nlibrary(car)\nlibrary(broom)\nlibrary(modelsummary)\nlibrary(texreg)\nlibrary(correlation)\nlibrary(patchwork)\nlibrary(lmtest)\nlibrary(sandwich)\nlibrary(clubSandwich)\n\nknitr::opts_chunk$set(\n  fig.align = \"center\",\n  fig.width = 12,\n  fig.asp = 0.618,\n  fig.retina = 1,\n  out.width = \"100%\", \n  message = FALSE,\n  echo = TRUE\n)\n\nmy_gof <- function(fit_obj, digits = 4) {\n  sum_fit <- summary(fit_obj)\n  \n  stars <- \n    pf(sum_fit$fstatistic[1],\n       sum_fit$fstatistic[2], \n       sum_fit$fstatistic[3],\n       lower.tail=FALSE) %>% \n    symnum(corr = FALSE, na = FALSE, \n           cutpoints = c(0,  .001,.01,.05,  1),\n           symbols   =  c(\"***\",\"**\",\"*\",\" \")) %>% \n    as.character()\n  \n  list(\n    # `R^2` = sum_fit$r.squared %>% round(digits),\n    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),\n    # `Num. obs.` = sum_fit$residuals %>% length(),\n    `Num. df` = sum_fit$df[[2]],\n    `F statistic` = \n      str_c(sum_fit$fstatistic[1] %>% round(digits), \" \", stars)\n  )\n}\n\n# Function for screening many regressors\nscreen_many_regs <-\n  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {\n    \n    if (class(fit_obj_list) == \"lm\") \n      fit_obj_list <- list(fit_obj_list)\n    \n    if (length(rlang::dots_list(...)) > 0)  \n      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))\n    \n    # browser()\n    fit_obj_list %>%\n      screenreg(\n        custom.note =\n          map2_chr(., seq_along(.), ~ {\n            str_c(\"Model \", .y, \" \", as.character(.x$call)[[2]])\n          }) %>%\n          c(\"*** p < 0.001; ** p < 0.01; * p < 0.05\", .) %>%\n          str_c(collapse = \"\\n\") ,\n        digits = digits,\n        single.row = single.row,\n        custom.gof.rows =\n          map(., ~my_gof(.x, digits)) %>%\n          transpose() %>%\n          map(unlist),\n        reorder.gof = c(3, 4, 5, 1, 2)\n      )\n  }"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#load-the-data",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#load-the-data",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "1. Load the data",
+    "text": "1. Load the data\n\ndta <- \n  alr4::MinnLand %>% \n  as_tibble()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#draw-box-plots-of-acreprice-versus-year",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#draw-box-plots-of-acreprice-versus-year",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "2. Draw box-plots of acrePrice versus year",
+    "text": "2. Draw box-plots of acrePrice versus year\nModify variable year creating a factor based on year: use function as.factor();\nPlay with the scale transformation of acrePrice to visualize data more meaningful:\n\ncheck help for ggplot2::scale_*_continuous(trans = \"_______\")\ncheck help for ggplot2::scale_*_log10()\n\n\n# dta %>% \n#   _________(________ = __________(________)) %>% \n#   ggplot() + \n#   aes(___ = ____, ___ = ____) + \n#   geom_________()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#convert-monetary-values-from-current-to-constant-prices",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#convert-monetary-values-from-current-to-constant-prices",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "3. Convert monetary values from current to constant prices",
+    "text": "3. Convert monetary values from current to constant prices\nCreate a table with GDP deflator rates\n\ndefl_dta <-\n  tibble(\n    year = 2002:2011,\n    defl = c(77.47, 78.91, 81.03, 83.56, 86.09, \n             88.4, 90.12, 90.8, 91.86, 93.78)\n  )\nglimpse(defl_dta)\n\nRows: 10\nColumns: 2\n$ year <int> 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011\n$ defl <dbl> 77.47, 78.91, 81.03, 83.56, 86.09, 88.40, 90.12, 90.80, 91.86, 93…\n\n\nJoin defl_dta to the dta data and create new object dta_const:\n\nsee help on joining data here;\nconvert acrePrice to the constant prices.\nremove deflator variable;\nconvert variable year to a factor;\n\n\n# dta_const <- \n#   _________ %>% \n#   left_join(_________, by = \"_________\") %>% \n#   _________(_________ = _________ * (_________),\n#             year = _________(_________)) %>% \n#   _________(- _________)\n# glimpse(dta_const)\n\nHW. Built a box plot out of it with log transformation.\n\n#"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#produce-summary-statistics",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#produce-summary-statistics",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "4. Produce summary statistics",
+    "text": "4. Produce summary statistics\nUse any function of your liking. Maybe data summary skim from modelsummary package.\n\n#"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#produce-a-correlation-matrix",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#produce-a-correlation-matrix",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "5. Produce a correlation matrix",
+    "text": "5. Produce a correlation matrix\nUse: correlation::correlation()\n\n# ___________ %>% \n#   ___________() %>% \n#   summary()"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#fit-regression-and-summarize-the-results",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#fit-regression-and-summarize-the-results",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "6. Fit regression and summarize the results",
+    "text": "6. Fit regression and summarize the results\nuse log(acrePrice) as a dependent variable\n\n# fit1 <- lm(\n#   _____ ~ _____,\n#   data = _____\n# )\n# summary(fit1)\n\nUse performance and parameters package to summarize the regression results.\n\nlibrary(parameters)\nlibrary(performance)\n# parameters(_____)\n# performance(_____)\n\n\nInterpret the regression results\n\n# screen_many_regs(fit1)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-linearity-visually",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-linearity-visually",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "7. Check linearity visually",
+    "text": "7. Check linearity visually\n\n# check_model(______, check = ______)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-the-linearity-using-car-package",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-the-linearity-using-car-package",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "9. Check the linearity using car package",
+    "text": "9. Check the linearity using car package\n\nlibrary(car)\n# residualPlots(______)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-multicollinearity",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-multicollinearity",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "11. Check multicollinearity",
+    "text": "11. Check multicollinearity\nuse vif() from car.\n\n# ______(______)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-homoscedasticity-visually",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-homoscedasticity-visually",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "12. Check homoscedasticity visually",
+    "text": "12. Check homoscedasticity visually\n\n# check_model(______, check = c(\"linearity\", \"homogeneity\"))"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-homoscedasticity-using-statistical-tests",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#check-homoscedasticity-using-statistical-tests",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "13. Check homoscedasticity using statistical tests",
+    "text": "13. Check homoscedasticity using statistical tests\n\nlibrary(lmtest)\n# ______(______)"
+  },
+  {
+    "objectID": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#correct-standard-errors-and-interpret-the-results",
+    "href": "ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html#correct-standard-errors-and-interpret-the-results",
+    "title": "AE05-03 Hedonic Prices and heteroscedasticity",
+    "section": "14. Correct standard errors and interpret the results",
+    "text": "14. Correct standard errors and interpret the results\n\nlibrary(sandwich)\n# parameters(_____, vcov = \"HC3\")"
   },
   {
     "objectID": "ae/ae03-data-wrangling/ae03-03-correlation.html",

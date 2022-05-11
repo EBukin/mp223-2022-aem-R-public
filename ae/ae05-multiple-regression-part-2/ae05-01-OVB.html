@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.385">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-05-11">
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - AE05-01 OVB and wage equation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">AE05-01 OVB and wage equation</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../" class="sidebar-logo-link">
+      <img src="../../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week04-checklist.html" class="sidebar-item-text sidebar-link">Week 4</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week05-checklist.html" class="sidebar-item-text sidebar-link">Week 5</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals:</a></li>
+  <li><a href="#exercise-1.-in-class" id="toc-exercise-1.-in-class" class="nav-link" data-scroll-target="#exercise-1.-in-class">Exercise 1. In class</a>
+  <ul class="collapse">
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">1.1 Load data</a></li>
+  <li><a href="#compute" id="toc-compute" class="nav-link" data-scroll-target="#compute">1.2 Compute</a></li>
+  <li><a href="#built-pairs-plot-and-descriptive-statistics" id="toc-built-pairs-plot-and-descriptive-statistics" class="nav-link" data-scroll-target="#built-pairs-plot-and-descriptive-statistics">1.3 Built pairs plot and descriptive statistics</a></li>
+  <li><a href="#short-regression-wage-on-all-but-iq" id="toc-short-regression-wage-on-all-but-iq" class="nav-link" data-scroll-target="#short-regression-wage-on-all-but-iq">1.4 Short regression: <code>wage</code> on all but <code>IQ</code></a></li>
+  <li><a href="#hypothesis-the-bias" id="toc-hypothesis-the-bias" class="nav-link" data-scroll-target="#hypothesis-the-bias">1.5 Hypothesis the bias</a></li>
+  <li><a href="#auxiliary-regression-iq-on-all-but-wage" id="toc-auxiliary-regression-iq-on-all-but-wage" class="nav-link" data-scroll-target="#auxiliary-regression-iq-on-all-but-wage">1.6 Auxiliary regression: <code>IQ</code> on all but <code>wage</code></a></li>
+  <li><a href="#long-regression-wage-on-all-including-iq" id="toc-long-regression-wage-on-all-including-iq" class="nav-link" data-scroll-target="#long-regression-wage-on-all-including-iq">1.7 Long regression: <code>wage</code> on all including <code>IQ</code></a></li>
+  <li><a href="#compare-all-models-together-with-parameters-and-performance" id="toc-compare-all-models-together-with-parameters-and-performance" class="nav-link" data-scroll-target="#compare-all-models-together-with-parameters-and-performance">1.8.1 Compare all models together with <code>parameters</code> and <code>performance</code></a></li>
+  <li><a href="#compare-all-models-together-with-modelsummarymodelsummary" id="toc-compare-all-models-together-with-modelsummarymodelsummary" class="nav-link" data-scroll-target="#compare-all-models-together-with-modelsummarymodelsummary">1.8.2 Compare all models together with <code>modelsummary::modelsummary</code></a></li>
+  <li><a href="#compute-the-omitted-variables-bias" id="toc-compute-the-omitted-variables-bias" class="nav-link" data-scroll-target="#compute-the-omitted-variables-bias">1.9 Compute the omitted variables bias</a></li>
+  <li><a href="#interpret-the-effect-of-education" id="toc-interpret-the-effect-of-education" class="nav-link" data-scroll-target="#interpret-the-effect-of-education">1.10 Interpret the effect of education</a></li>
+  </ul></li>
+  <li><a href="#exercise-2.-homework" id="toc-exercise-2.-homework" class="nav-link" data-scroll-target="#exercise-2.-homework">Exercise 2. Homework</a>
+  <ul class="collapse">
+  <li><a href="#check-the-linearity-assumption-in-the-long-model" id="toc-check-the-linearity-assumption-in-the-long-model" class="nav-link" data-scroll-target="#check-the-linearity-assumption-in-the-long-model">2.1 Check the linearity assumption in the long model</a>
+  <ul class="collapse">
+  <li><a href="#visually" id="toc-visually" class="nav-link" data-scroll-target="#visually">2.1.1 Visually</a></li>
+  <li><a href="#using-tukey-test" id="toc-using-tukey-test" class="nav-link" data-scroll-target="#using-tukey-test">2.1.2 Using Tukey test</a></li>
+  </ul></li>
+  <li><a href="#improve-long-model" id="toc-improve-long-model" class="nav-link" data-scroll-target="#improve-long-model">2.2 Improve long model:</a>
+  <ul class="collapse">
+  <li><a href="#check-the-linearity-assumption-again" id="toc-check-the-linearity-assumption-again" class="nav-link" data-scroll-target="#check-the-linearity-assumption-again">2.2.1 Check the linearity assumption again</a></li>
+  </ul></li>
+  <li><a href="#check-the-multicollinearity-assumption-in-the-long-model" id="toc-check-the-multicollinearity-assumption-in-the-long-model" class="nav-link" data-scroll-target="#check-the-multicollinearity-assumption-in-the-long-model">2.2 Check the multicollinearity assumption in the long model</a></li>
+  <li><a href="#conclude-on-the-final-functional-form" id="toc-conclude-on-the-final-functional-form" class="nav-link" data-scroll-target="#conclude-on-the-final-functional-form">2.3 Conclude on the final functional form</a></li>
+  <li><a href="#check-the-residual-homogeneity" id="toc-check-the-residual-homogeneity" class="nav-link" data-scroll-target="#check-the-residual-homogeneity">2.4 Check the residual homogeneity</a>
+  <ul class="collapse">
+  <li><a href="#visually-1" id="toc-visually-1" class="nav-link" data-scroll-target="#visually-1">2.4.1 Visually</a></li>
+  <li><a href="#statistical-test" id="toc-statistical-test" class="nav-link" data-scroll-target="#statistical-test">2.4.1 statistical test</a></li>
+  </ul></li>
+  <li><a href="#check-the-robustness-of-regression-again-sample-selectivity" id="toc-check-the-robustness-of-regression-again-sample-selectivity" class="nav-link" data-scroll-target="#check-the-robustness-of-regression-again-sample-selectivity">2.5 Check the robustness of regression again sample selectivity</a></li>
+  <li><a href="#construct-predicted-values-plot-for-age-variable-in-model-fit_l2" id="toc-construct-predicted-values-plot-for-age-variable-in-model-fit_l2" class="nav-link" data-scroll-target="#construct-predicted-values-plot-for-age-variable-in-model-fit_l2">2.6 Construct predicted values plot for age variable in model <code>fit_l2</code></a></li>
+  <li><a href="#interpret-the-results" id="toc-interpret-the-results" class="nav-link" data-scroll-target="#interpret-the-results">2.7 Interpret the results</a></li>
+  </ul></li>
+  <li><a href="#solutions-ex.-1" id="toc-solutions-ex.-1" class="nav-link" data-scroll-target="#solutions-ex.-1">Solutions Ex. 1</a></li>
+  <li><a href="#solutions-ex.-2" id="toc-solutions-ex.-2" class="nav-link" data-scroll-target="#solutions-ex.-2">Solutions Ex. 2</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae05-multiple-regression-part-2/ae05-01-OVB.rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">AE05-01 OVB and wage equation</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 11, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(correlation)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clubSandwich)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.align =</span> <span class="st">"center"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">16</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.retina =</span> <span class="dv">1</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="goals" class="level1">
+<h1>Goals:</h1>
+<ul>
+<li>Demonstrate the effect of the OVB;</li>
+<li>Make an educated guess about the effect of OVB;</li>
+</ul>
+<p>Data used here comes form: M. Blackburn and D. Neumark (1992), “Unobserved Ability, Efficiency Wages, and Interindustry Wage Differentials,” Quarterly Journal of Economics 107, 1421-1436.</p>
+</section>
+<section id="exercise-1.-in-class" class="level1">
+<h1>Exercise 1. In class</h1>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">1.1 Load data</h2>
+<p>Check help fo the data frame <code>?wooldridge::wage2</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  wooldridge<span class="sc">::</span>wage2 <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compute" class="level2">
+<h2 class="anchored" data-anchor-id="compute">1.2 Compute</h2>
+<ul>
+<li>total amount of parents education <code>paredu</code> as a sum of years of their education</li>
+<li>wage per hour <code>wagehour</code> as wage divided by average daily hours and 21 working days month. assume that each week has 5 working days.</li>
+<li>select <code>wage</code>, <code>wagehour</code>, <code>educ</code>, <code>exper</code>, <code>tenure</code>, <code>age</code>, <code>paredu</code> and <code>black</code>, <code>married</code>, <code>urban</code>, and <code>IQ</code>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dta1 &lt;- </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ________ %&gt;% </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ________(paredu = ________,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#            wagehour = ________) %&gt;% </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(________)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="built-pairs-plot-and-descriptive-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="built-pairs-plot-and-descriptive-statistics">1.3 Built pairs plot and descriptive statistics</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(GGally)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ________(dta1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(modelsummary)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># dta1 %&gt;% ________()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="short-regression-wage-on-all-but-iq" class="level2">
+<h2 class="anchored" data-anchor-id="short-regression-wage-on-all-but-iq">1.4 Short regression: <code>wage</code> on all but <code>IQ</code></h2>
+<p>Why is IQ important?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_s &lt;- lm()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hypothesis-the-bias" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-the-bias">1.5 Hypothesis the bias</h2>
+</section>
+<section id="auxiliary-regression-iq-on-all-but-wage" class="level2">
+<h2 class="anchored" data-anchor-id="auxiliary-regression-iq-on-all-but-wage">1.6 Auxiliary regression: <code>IQ</code> on all but <code>wage</code></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_aux &lt;- lm()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="long-regression-wage-on-all-including-iq" class="level2">
+<h2 class="anchored" data-anchor-id="long-regression-wage-on-all-including-iq">1.7 Long regression: <code>wage</code> on all including <code>IQ</code></h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_l &lt;- lm()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compare-all-models-together-with-parameters-and-performance" class="level2">
+<h2 class="anchored" data-anchor-id="compare-all-models-together-with-parameters-and-performance">1.8.1 Compare all models together with <code>parameters</code> and <code>performance</code></h2>
+<ul>
+<li>use function <code>compare_parameters</code> from <code>parameters</code></li>
+<li>specify style of standard errors and p-values in <code>style = "se_p"</code></li>
+<li>provide models names in argument <code>column_names = c(...)</code></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(_____)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____________________(</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   _____, _____, _____, </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   _____, </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   _____ = c("short", _____, _____)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compare goodness of fit measures using <code>performance::compare_performance</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(_____)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, _____, _____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compare-all-models-together-with-modelsummarymodelsummary" class="level2">
+<h2 class="anchored" data-anchor-id="compare-all-models-together-with-modelsummarymodelsummary">1.8.2 Compare all models together with <code>modelsummary::modelsummary</code></h2>
+<ul>
+<li><p>you need create an object <code>all_mods</code> with all three models in a list using function <code>list(...)</code>;</p></li>
+<li><p>in the list, provide names for each model. For example:</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="st">`</span><span class="at">Model name</span><span class="st">`</span> <span class="ot">=</span> fit_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a list below</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all_mods &lt;- list(</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   `Short (dep: wage)` = fit_s, </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   `_____` = _____, </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   _____ = _____</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Display the list structure:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str(all_mods, max.level = 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Summarize models with <code>modelsummary::modelsummary</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(_____)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(all_mods)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compute-the-omitted-variables-bias" class="level2">
+<h2 class="anchored" data-anchor-id="compute-the-omitted-variables-bias">1.9 Compute the omitted variables bias</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coef(fit_s)[["educ"]] - coef(fit_l)[["educ"]]</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># coef(fit_aux)[["educ"]] * coef(fit_l)[["IQ"]]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interpret-the-effect-of-education" class="level2">
+<h2 class="anchored" data-anchor-id="interpret-the-effect-of-education">1.10 Interpret the effect of education</h2>
+</section>
+</section>
+<section id="exercise-2.-homework" class="level1">
+<h1>Exercise 2. Homework</h1>
+<section id="check-the-linearity-assumption-in-the-long-model" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-linearity-assumption-in-the-long-model">2.1 Check the linearity assumption in the long model</h2>
+<section id="visually" class="level3">
+<h3 class="anchored" data-anchor-id="visually">2.1.1 Visually</h3>
+<p><code>?check_model</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, check = "linearity")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-tukey-test" class="level3">
+<h3 class="anchored" data-anchor-id="using-tukey-test">2.1.2 Using Tukey test</h3>
+<p><code>?car::residualPlots</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(_____)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="improve-long-model" class="level2">
+<h2 class="anchored" data-anchor-id="improve-long-model">2.2 Improve long model:</h2>
+<ul>
+<li>create object <code>fil_l2</code>;</li>
+<li>use <code>wagehour</code> as a dependent variable;</li>
+<li>add <code>age^2</code> to the model by including <code>I(age^2)</code> to the regression equation</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_l2 &lt;-  lm(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="check-the-linearity-assumption-again" class="level3">
+<h3 class="anchored" data-anchor-id="check-the-linearity-assumption-again">2.2.1 Check the linearity assumption again</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, check = "linearity")</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(fit_l2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-the-multicollinearity-assumption-in-the-long-model" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-multicollinearity-assumption-in-the-long-model">2.2 Check the multicollinearity assumption in the long model</h2>
+<p><code>?car::vif</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conclude-on-the-final-functional-form" class="level2">
+<h2 class="anchored" data-anchor-id="conclude-on-the-final-functional-form">2.3 Conclude on the final functional form</h2>
+</section>
+<section id="check-the-residual-homogeneity" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-residual-homogeneity">2.4 Check the residual homogeneity</h2>
+<section id="visually-1" class="level3">
+<h3 class="anchored" data-anchor-id="visually-1">2.4.1 Visually</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, _____ = "homogeneity")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="statistical-test" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-test">2.4.1 statistical test</h3>
+<p><code>lmtest::bptest</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(_____)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bptest(_____)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-the-robustness-of-regression-again-sample-selectivity" class="level2">
+<h2 class="anchored" data-anchor-id="check-the-robustness-of-regression-again-sample-selectivity">2.5 Check the robustness of regression again sample selectivity</h2>
+<ul>
+<li>Inspect closely the descriptive statistics on the subject of missing observations.</li>
+<li>Why regression has fewer observations than the data?</li>
+<li>Built regression for the complete data set.</li>
+<li>Compare all estimates.</li>
+<li>Discuss bias caused by OVB if present.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_l3 &lt;- lm(_____)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(fit_l, fit_l2, fit_l3, style = "se_p")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="construct-predicted-values-plot-for-age-variable-in-model-fit_l2" class="level2">
+<h2 class="anchored" data-anchor-id="construct-predicted-values-plot-for-age-variable-in-model-fit_l2">2.6 Construct predicted values plot for age variable in model <code>fit_l2</code></h2>
+<p><code>?ggeffects::ggpredict</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(_____)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># _____(_____, terms = "age") %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interpret-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="interpret-the-results">2.7 Interpret the results</h2>
+</section>
+</section>
+<section id="solutions-ex.-1" class="level1">
+<h1>Solutions Ex. 1</h1>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Load data</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  wooldridge<span class="sc">::</span>wage2 <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Compute </span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>dta1 <span class="ot">&lt;-</span> </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  dta <span class="sc">%&gt;%</span> </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">paredu =</span> meduc <span class="sc">+</span> feduc,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">wagehour =</span> wage <span class="sc">/</span> (hours <span class="sc">/</span> <span class="dv">5</span> <span class="sc">*</span> <span class="dv">21</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(wagehour, wage, educ, exper, tenure, </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>         age, paredu, black, married, urban, IQ)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Built pairs plot and descriptive statistics</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dta1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae05-01-OVB_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dta1 <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Unique (#) </th>
+   <th style="text-align:right;"> Missing (%) </th>
+   <th style="text-align:right;"> Mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> Min </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> Max </th>
+   <th style="text-align:right;">    </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> wagehour </td>
+   <td style="text-align:right;"> 602 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5.3 </td>
+   <td style="text-align:right;"> 2.4 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> 5.0 </td>
+   <td style="text-align:right;"> 24.4 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.76" y="10.87" width="3.72" height="0.79" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.48" y="5.03" width="3.72" height="6.63" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.20" y="3.22" width="3.72" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.93" y="7.22" width="3.72" height="4.45" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.65" y="9.60" width="3.72" height="2.06" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.37" y="11.09" width="3.72" height="0.57" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="23.09" y="11.44" width="3.72" height="0.22" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.81" y="11.64" width="3.72" height="0.025" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.54" y="11.66" width="3.72" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="34.26" y="11.66" width="3.72" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.98" y="11.66" width="3.72" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.70" y="11.66" width="3.72" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="45.42" y="11.64" width="3.72" height="0.025" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> wage </td>
+   <td style="text-align:right;"> 449 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 957.9 </td>
+   <td style="text-align:right;"> 404.4 </td>
+   <td style="text-align:right;"> 115.0 </td>
+   <td style="text-align:right;"> 905.0 </td>
+   <td style="text-align:right;"> 3078.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.053" y="11.59" width="3.00" height="0.076" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="3.05" y="10.32" width="3.00" height="1.34" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.05" y="6.20" width="3.00" height="5.46" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.05" y="4.71" width="3.00" height="6.95" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.05" y="3.22" width="3.00" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.05" y="6.20" width="3.00" height="5.46" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.05" y="7.99" width="3.00" height="3.67" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.05" y="9.75" width="3.00" height="1.91" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.05" y="10.52" width="3.00" height="1.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="27.05" y="11.17" width="3.00" height="0.50" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.05" y="11.28" width="3.00" height="0.38" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.05" y="11.59" width="3.00" height="0.076" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.05" y="11.51" width="3.00" height="0.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="39.05" y="11.59" width="3.00" height="0.076" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="42.05" y="11.66" width="3.00" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="45.05" y="11.59" width="3.00" height="0.076" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> educ </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 13.5 </td>
+   <td style="text-align:right;"> 2.2 </td>
+   <td style="text-align:right;"> 9.0 </td>
+   <td style="text-align:right;"> 12.0 </td>
+   <td style="text-align:right;"> 18.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="10.70" width="4.94" height="0.97" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.72" y="10.74" width="4.94" height="0.92" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.65" y="3.22" width="4.94" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="16.59" y="9.84" width="4.94" height="1.83" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.53" y="10.01" width="4.94" height="1.65" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.47" y="10.70" width="4.94" height="0.97" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.41" y="8.44" width="4.94" height="3.22" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.35" y="10.80" width="4.94" height="0.86" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.28" y="10.44" width="4.94" height="1.22" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> exper </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 11.6 </td>
+   <td style="text-align:right;"> 4.4 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 11.0 </td>
+   <td style="text-align:right;"> 23.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="-0.24" y="11.00" width="4.04" height="0.66" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="3.80" y="10.02" width="4.04" height="1.65" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="7.84" y="7.39" width="4.04" height="4.28" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.88" y="4.75" width="4.04" height="6.91" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.92" y="3.22" width="4.04" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.96" y="3.22" width="4.04" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="5.30" width="4.04" height="6.36" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.04" y="4.64" width="4.04" height="7.02" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.08" y="7.11" width="4.04" height="4.55" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.12" y="9.63" width="4.04" height="2.03" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.16" y="10.84" width="4.04" height="0.82" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.20" y="11.55" width="4.04" height="0.11" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tenure </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 7.2 </td>
+   <td style="text-align:right;"> 5.1 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 7.0 </td>
+   <td style="text-align:right;"> 22.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="3.22" width="4.04" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.82" y="6.79" width="4.04" height="4.87" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.86" y="8.43" width="4.04" height="3.24" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="13.90" y="7.79" width="4.04" height="3.87" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="17.94" y="6.86" width="4.04" height="4.80" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.98" y="8.20" width="4.04" height="3.46" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.02" y="9.13" width="4.04" height="2.53" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="30.06" y="9.43" width="4.04" height="2.23" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="34.10" y="10.81" width="4.04" height="0.86" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="38.14" y="11.29" width="4.04" height="0.37" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="42.18" y="11.55" width="4.04" height="0.11" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> age </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 33.1 </td>
+   <td style="text-align:right;"> 3.1 </td>
+   <td style="text-align:right;"> 28.0 </td>
+   <td style="text-align:right;"> 33.0 </td>
+   <td style="text-align:right;"> 38.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="3.22" width="4.44" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.22" y="3.93" width="4.44" height="7.74" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.67" y="5.35" width="4.44" height="6.32" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.11" y="5.28" width="4.44" height="6.38" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.56" y="6.44" width="4.44" height="5.22" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="7.21" width="4.44" height="4.45" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.44" y="7.73" width="4.44" height="3.93" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.89" y="5.54" width="4.44" height="6.12" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.33" y="6.38" width="4.44" height="5.29" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.78" y="5.28" width="4.44" height="6.38" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> paredu </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 21.1 </td>
+   <td style="text-align:right;"> 5.5 </td>
+   <td style="text-align:right;"> 2.0 </td>
+   <td style="text-align:right;"> 22.0 </td>
+   <td style="text-align:right;"> 36.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="-0.84" y="11.54" width="6.54" height="0.12" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.70" y="11.01" width="6.54" height="0.65" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="12.24" y="9.45" width="6.54" height="2.21" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.77" y="5.28" width="6.54" height="6.38" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="25.31" y="3.22" width="6.54" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.84" y="9.09" width="6.54" height="2.57" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="38.38" y="10.78" width="6.54" height="0.89" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.92" y="11.60" width="6.54" height="0.059" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> black </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.1 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="3.22" width="4.44" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.22" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.67" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.11" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.56" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.44" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.89" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.33" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.78" y="10.42" width="4.44" height="1.24" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> married </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.9 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="10.65" width="4.44" height="1.01" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.22" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.67" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.11" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.56" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.44" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.89" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.33" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.78" y="3.22" width="4.44" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> urban </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.7 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="8.34" width="4.44" height="3.32" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.22" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="10.67" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.11" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="19.56" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="24.00" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="28.44" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.89" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.33" y="11.66" width="4.44" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.78" y="3.22" width="4.44" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IQ </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 101.3 </td>
+   <td style="text-align:right;"> 15.1 </td>
+   <td style="text-align:right;"> 50.0 </td>
+   <td style="text-align:right;"> 102.0 </td>
+   <td style="text-align:right;"> 145.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="11.49" width="4.68" height="0.17" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.46" y="10.74" width="4.68" height="0.93" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.13" y="9.74" width="4.68" height="1.92" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.81" y="7.51" width="4.68" height="4.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="20.49" y="4.04" width="4.68" height="7.62" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="25.17" y="3.22" width="4.68" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="29.85" y="5.52" width="4.68" height="6.14" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="34.53" y="9.47" width="4.68" height="2.20" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="39.20" y="11.18" width="4.68" height="0.48" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="43.88" y="11.63" width="4.68" height="0.034" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.4 Short regression: `wage)` on all but `IQ`</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>fit_s <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> tenure <span class="sc">+</span> age <span class="sc">+</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    paredu <span class="sc">+</span> black <span class="sc">+</span> married, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta1</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.6 Auxiliary regression: `IQ` on all but `log(wagehour)`</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>fit_aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  IQ <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> tenure <span class="sc">+</span> age <span class="sc">+</span> </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    paredu <span class="sc">+</span> black <span class="sc">+</span> married, </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta1</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.7 Long regression: `wage)` on all including `IQ`</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>fit_l <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> tenure <span class="sc">+</span> age <span class="sc">+</span> </span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    paredu <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> IQ, </span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta1</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.8.1 Compare all models together with `parameters` and `performance`</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  fit_s, fit_aux, fit_l, </span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">"se_p"</span>, </span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">column_names =</span> <span class="fu">c</span>(<span class="st">"short"</span>, <span class="st">"auxilary"</span>, <span class="st">"long"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    |               short |         auxilary |                long
+---------------------------------------------------------------------------
+(Intercept)  | -647.66*** (175.59) |  62.27*** (5.57) | -896.14*** (188.94)
+educ         |     55.61*** (7.89) |   3.14*** (0.25) |     43.09*** (8.65)
+exper        |      11.99** (4.45) |      0.17 (0.14) |       11.32* (4.42)
+tenure       |         4.07 (2.92) |      0.12 (0.09) |         3.59 (2.90)
+age          |         9.95 (5.47) |    -0.37* (0.17) |       11.44* (5.45)
+paredu       |     10.90*** (2.90) |   0.32*** (0.09) |      9.60*** (2.90)
+black        |    -105.81* (49.87) | -12.76*** (1.58) |      -54.91 (51.71)
+married      |   171.79*** (44.06) |      0.94 (1.40) |   168.02*** (43.75)
+IQ           |                     |                  |      3.99*** (1.17)
+---------------------------------------------------------------------------
+Observations |                 722 |              722 |                 722</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare goodness of fit measures using `performance::compare_performance`</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(fit_s, fit_aux, fit_l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Comparison of Model Performance Indices
+
+Name    | Model |       AIC | AIC weights |       BIC | BIC weights |    R2 | R2 (adj.) |    RMSE |   Sigma
+-----------------------------------------------------------------------------------------------------------
+fit_s   |    lm | 10595.496 |     &lt; 0.001 | 10636.734 |     &lt; 0.001 | 0.189 |     0.181 | 367.307 | 369.359
+fit_aux |    lm |  5612.650 |        1.00 |  5653.888 |        1.00 | 0.377 |     0.371 |  11.652 |  11.717
+fit_l   |    lm | 10585.834 |     &lt; 0.001 | 10631.654 |     &lt; 0.001 | 0.202 |     0.193 | 364.352 | 366.645</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.8.2 Compare all models together with `modelsummary::modelsummary`</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>all_mods <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Short (dep: wage)</span><span class="st">`</span> <span class="ot">=</span> fit_s, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Auxilary (dep: IQ)</span><span class="st">`</span> <span class="ot">=</span> fit_aux, </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Long (dep: wage)</span><span class="st">`</span> <span class="ot">=</span> fit_l</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the list structure:</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(all_mods, <span class="at">max.level =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ Short (dep: wage) :List of 13
+  ..- attr(*, "class")= chr "lm"
+ $ Auxilary (dep: IQ):List of 13
+  ..- attr(*, "class")= chr "lm"
+ $ Long (dep: wage)  :List of 13
+  ..- attr(*, "class")= chr "lm"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarise the models</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(all_mods)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> Short (dep: wage) </th>
+   <th style="text-align:center;"> Auxilary (dep: IQ) </th>
+   <th style="text-align:center;"> Long (dep: wage) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> (Intercept) </td>
+   <td style="text-align:center;"> −647.664 </td>
+   <td style="text-align:center;"> 62.272 </td>
+   <td style="text-align:center;"> −896.143 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (175.586) </td>
+   <td style="text-align:center;"> (5.570) </td>
+   <td style="text-align:center;"> (188.936) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> educ </td>
+   <td style="text-align:center;"> 55.612 </td>
+   <td style="text-align:center;"> 3.137 </td>
+   <td style="text-align:center;"> 43.094 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (7.886) </td>
+   <td style="text-align:center;"> (0.250) </td>
+   <td style="text-align:center;"> (8.648) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> exper </td>
+   <td style="text-align:center;"> 11.992 </td>
+   <td style="text-align:center;"> 0.170 </td>
+   <td style="text-align:center;"> 11.316 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (4.448) </td>
+   <td style="text-align:center;"> (0.141) </td>
+   <td style="text-align:center;"> (4.420) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tenure </td>
+   <td style="text-align:center;"> 4.068 </td>
+   <td style="text-align:center;"> 0.120 </td>
+   <td style="text-align:center;"> 3.589 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (2.922) </td>
+   <td style="text-align:center;"> (0.093) </td>
+   <td style="text-align:center;"> (2.903) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> age </td>
+   <td style="text-align:center;"> 9.947 </td>
+   <td style="text-align:center;"> −0.375 </td>
+   <td style="text-align:center;"> 11.443 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (5.470) </td>
+   <td style="text-align:center;"> (0.174) </td>
+   <td style="text-align:center;"> (5.447) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> paredu </td>
+   <td style="text-align:center;"> 10.896 </td>
+   <td style="text-align:center;"> 0.325 </td>
+   <td style="text-align:center;"> 9.601 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (2.897) </td>
+   <td style="text-align:center;"> (0.092) </td>
+   <td style="text-align:center;"> (2.901) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> black </td>
+   <td style="text-align:center;"> −105.810 </td>
+   <td style="text-align:center;"> −12.756 </td>
+   <td style="text-align:center;"> −54.908 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (49.871) </td>
+   <td style="text-align:center;"> (1.582) </td>
+   <td style="text-align:center;"> (51.709) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> married </td>
+   <td style="text-align:center;"> 171.785 </td>
+   <td style="text-align:center;"> 0.943 </td>
+   <td style="text-align:center;"> 168.021 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (44.064) </td>
+   <td style="text-align:center;"> (1.398) </td>
+   <td style="text-align:center;"> (43.754) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IQ </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 3.990 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1px"> (1.171) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 722 </td>
+   <td style="text-align:center;"> 722 </td>
+   <td style="text-align:center;"> 722 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.189 </td>
+   <td style="text-align:center;"> 0.377 </td>
+   <td style="text-align:center;"> 0.202 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 Adj. </td>
+   <td style="text-align:center;"> 0.181 </td>
+   <td style="text-align:center;"> 0.371 </td>
+   <td style="text-align:center;"> 0.193 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AIC </td>
+   <td style="text-align:center;"> 10595.5 </td>
+   <td style="text-align:center;"> 5612.6 </td>
+   <td style="text-align:center;"> 10585.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BIC </td>
+   <td style="text-align:center;"> 10636.7 </td>
+   <td style="text-align:center;"> 5653.9 </td>
+   <td style="text-align:center;"> 10631.7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Log.Lik. </td>
+   <td style="text-align:center;"> −5288.748 </td>
+   <td style="text-align:center;"> −2797.325 </td>
+   <td style="text-align:center;"> −5282.917 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> F </td>
+   <td style="text-align:center;"> 23.735 </td>
+   <td style="text-align:center;"> 61.708 </td>
+   <td style="text-align:center;"> 22.528 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 369.36 </td>
+   <td style="text-align:center;"> 11.72 </td>
+   <td style="text-align:center;"> 366.64 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.9 Compute the omited variables bias</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_s)[[<span class="st">"educ"</span>]] <span class="sc">-</span> <span class="fu">coef</span>(fit_l)[[<span class="st">"educ"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12.51822</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit_aux)[[<span class="st">"educ"</span>]] <span class="sc">*</span> <span class="fu">coef</span>(fit_l)[[<span class="st">"IQ"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12.51822</code></pre>
+</div>
+</div>
+</section>
+<section id="solutions-ex.-2" class="level1">
+<h1>Solutions Ex. 2</h1>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.1 Check the linearity assumption in the long model</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="do">### 2.1.1 Visually</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_l, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_l, <span class="at">check =</span> <span class="st">"linearity"</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="do">### 2.1.2 Using Tukey test</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(fit_l)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.2 Improve long model:</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>fit_l2 <span class="ot">&lt;-</span>  <span class="fu">lm</span>(</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  wagehour <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> tenure <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">I</span>(age<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    paredu <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> IQ, </span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta1</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="do">### 2.2.1 Check the linearity assumption again</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_l2, <span class="at">check =</span> <span class="st">"linearity"</span>)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="fu">residualPlots</span>(fit_l2)</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.2 Check the multicollinearity assumption in the long model</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit_l2)</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.4 Check the residual homogeneity</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="do">### 2.4.1 Visually</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_l2, <span class="at">check =</span> <span class="st">"homogeneity"</span>)</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a><span class="do">### 2.4.1 statistical test</span></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(fit_l2)</span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.5 Check the robustnes of regression agains sample selectivity</span></span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dta1)</span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a><span class="fu">df.residual</span>(fit_l2)</span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a>fit_l3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a>  wagehour <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> tenure <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">I</span>(age<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a>    black <span class="sc">+</span> married <span class="sc">+</span> IQ, </span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dta1</span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(fit_l, fit_l2, fit_l3, <span class="at">style =</span> <span class="st">"se_p"</span>)</span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.6 Construct prediced values plot for age variable in model `fit_l2`</span></span>
+<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_l2, <span class="at">terms =</span> <span class="st">"age"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
