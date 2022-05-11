@@ -1,0 +1,394 @@
+---
+title: "AE05-01 OVB and wage equation"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 16,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+```
+
+# Goals:
+
+-   Demonstrate the effect of the OVB;
+-   Make an educated guess about the effect of OVB;
+
+Data used here comes form: M. Blackburn and D. Neumark (1992), "Unobserved Ability, Efficiency Wages, and Interindustry Wage Differentials," Quarterly Journal of Economics 107, 1421-1436.
+
+# Exercise 1. In class
+
+## 1.1 Load data
+
+Check help fo the data frame `?wooldridge::wage2`.
+
+```{r}
+dta <- 
+  wooldridge::wage2 %>% 
+  as_tibble()
+```
+
+## 1.2 Compute
+
+-   total amount of parents education `paredu` as a sum of years of their education
+-   wage per hour `wagehour` as wage divided by average daily hours and 21 working days month. assume that each week has 5 working days.
+-   select `wage`, `wagehour`, `educ`, `exper`, `tenure`, `age`, `paredu` and `black`, `married`, `urban`, and `IQ`.
+
+```{r}
+# dta1 <- 
+#   ________ %>% 
+#   ________(paredu = ________,
+#            wagehour = ________) %>% 
+#   select(________)
+```
+
+## 1.3 Built pairs plot and descriptive statistics
+
+```{r}
+# library(GGally)
+# ________(dta1)
+```
+
+```{r}
+# library(modelsummary)
+# dta1 %>% ________()
+```
+
+## 1.4 Short regression: `wage` on all but `IQ`
+
+Why is IQ important?
+
+```{r}
+# fit_s <- lm()
+```
+
+## 1.5 Hypothesis the bias
+
+## 1.6 Auxiliary regression: `IQ` on all but `wage`
+
+```{r}
+# fit_aux <- lm()
+```
+
+## 1.7 Long regression: `wage` on all including `IQ`
+
+```{r}
+# fit_l <- lm()
+```
+
+## 1.8.1 Compare all models together with `parameters` and `performance`
+
+-   use function `compare_parameters` from `parameters`
+-   specify style of standard errors and p-values in `style = "se_p"`
+-   provide models names in argument `column_names = c(...)`
+
+```{r}
+# library(_____)
+# _____________________(
+#   _____, _____, _____, 
+#   _____, 
+#   _____ = c("short", _____, _____)
+#   )
+```
+
+Compare goodness of fit measures using `performance::compare_performance`
+
+```{r}
+# library(_____)
+# _____(_____, _____, _____)
+```
+
+## 1.8.2 Compare all models together with `modelsummary::modelsummary`
+
+-   you need create an object `all_mods` with all three models in a list using function `list(...)`;
+
+-   in the list, provide names for each model. For example:
+
+```{r}
+#| eval: false
+list(`Model name` = fit_s)
+```
+
+Create a list below
+
+```{r}
+# all_mods <- list(
+#   `Short (dep: wage)` = fit_s, 
+#   `_____` = _____, 
+#   _____ = _____
+#   )
+```
+
+Display the list structure:
+
+```{r}
+# str(all_mods, max.level = 1)
+```
+
+Summarize models with `modelsummary::modelsummary`
+
+```{r}
+# library(_____)
+# _____(all_mods)
+```
+
+## 1.9 Compute the omitted variables bias
+
+```{r}
+# coef(fit_s)[["educ"]] - coef(fit_l)[["educ"]]
+# coef(fit_aux)[["educ"]] * coef(fit_l)[["IQ"]]
+```
+
+## 1.10 Interpret the effect of education
+
+# Exercise 2. Homework
+
+## 2.1 Check the linearity assumption in the long model
+
+### 2.1.1 Visually
+
+`?check_model`
+
+```{r}
+# _____(_____, check = "linearity")
+```
+
+### 2.1.2 Using Tukey test
+
+`?car::residualPlots`
+
+```{r}
+# library(_____)
+# _____(_____)
+```
+
+## 2.2 Improve long model:
+
+-   create object `fil_l2`;
+-   use `wagehour` as a dependent variable;
+-   add `age^2` to the model by including `I(age^2)` to the regression equation
+
+```{r}
+# fit_l2 <-  lm(_____)
+```
+
+### 2.2.1 Check the linearity assumption again
+
+```{r}
+# _____(_____, check = "linearity")
+# _____(fit_l2)
+```
+
+## 2.2 Check the multicollinearity assumption in the long model
+
+`?car::vif`
+
+```{r}
+# _____(_____)
+```
+
+## 2.3 Conclude on the final functional form
+
+## 2.4 Check the residual homogeneity
+
+### 2.4.1 Visually
+
+```{r}
+# _____(_____, _____ = "homogeneity")
+```
+
+### 2.4.1 statistical test
+
+`lmtest::bptest`
+
+```{r}
+# library(_____)
+# bptest(_____)
+```
+
+## 2.5 Check the robustness of regression again sample selectivity
+
+-   Inspect closely the descriptive statistics on the subject of missing observations.
+-   Why regression has fewer observations than the data?
+-   Built regression for the complete data set.
+-   Compare all estimates.
+-   Discuss bias caused by OVB if present.
+
+```{r}
+# fit_l3 <- lm(_____)
+# _____(fit_l, fit_l2, fit_l3, style = "se_p")
+```
+
+## 2.6 Construct predicted values plot for age variable in model `fit_l2`
+
+`?ggeffects::ggpredict`
+
+```{r}
+# library(_____)
+# _____(_____, terms = "age") %>% plot()
+```
+
+## 2.7 Interpret the results
+
+# Solutions Ex. 1
+
+```{r}
+#| code-fold: true
+## 1 Load data
+dta <- 
+  wooldridge::wage2 %>% 
+  as_tibble()
+
+## 2 Compute 
+dta1 <- 
+  dta %>% 
+  mutate(paredu = meduc + feduc,
+         wagehour = wage / (hours / 5 * 21)) %>% 
+  select(wagehour, wage, educ, exper, tenure, 
+         age, paredu, black, married, urban, IQ)
+
+## 3 Built pairs plot and descriptive statistics
+library(GGally)
+ggpairs(dta1)
+dta1 %>% datasummary_skim()
+
+## 1.4 Short regression: `wage)` on all but `IQ`
+fit_s <- lm(
+  wage ~ educ + exper + tenure + age + 
+    paredu + black + married, 
+  data = dta1
+  )
+
+## 1.6 Auxiliary regression: `IQ` on all but `log(wagehour)`
+fit_aux <- lm(
+  IQ ~ educ + exper + tenure + age + 
+    paredu + black + married, 
+  data = dta1
+)
+
+## 1.7 Long regression: `wage)` on all including `IQ`
+fit_l <- lm(
+  wage ~ educ + exper + tenure + age + 
+    paredu + black + married + IQ, 
+  data = dta1
+  )
+
+## 1.8.1 Compare all models together with `parameters` and `performance`
+library(parameters)
+compare_parameters(
+  fit_s, fit_aux, fit_l, 
+  style = "se_p", 
+  column_names = c("short", "auxilary", "long"))
+
+## Compare goodness of fit measures using `performance::compare_performance`
+library(performance)
+compare_performance(fit_s, fit_aux, fit_l)
+
+## 1.8.2 Compare all models together with `modelsummary::modelsummary`
+all_mods <- list(
+  `Short (dep: wage)` = fit_s, 
+  `Auxilary (dep: IQ)` = fit_aux, 
+  `Long (dep: wage)` = fit_l
+  )
+
+# Display the list structure:
+str(all_mods, max.level = 1)
+
+# Summarise the models
+library(modelsummary)
+modelsummary(all_mods)
+
+## 1.9 Compute the omited variables bias
+coef(fit_s)[["educ"]] - coef(fit_l)[["educ"]]
+coef(fit_aux)[["educ"]] * coef(fit_l)[["IQ"]]
+```
+
+# Solutions Ex. 2
+
+```{r}
+#| eval: false
+#| code-fold: true
+
+## 2.1 Check the linearity assumption in the long model
+
+### 2.1.1 Visually
+plot(fit_l, which = 1)
+check_model(fit_l, check = "linearity")
+
+### 2.1.2 Using Tukey test
+library(car)
+residualPlots(fit_l)
+
+
+## 2.2 Improve long model:
+fit_l2 <-  lm(
+  wagehour ~ educ + exper + tenure + age + I(age^2) + 
+    paredu + black + married + IQ, 
+  data = dta1
+  )
+
+### 2.2.1 Check the linearity assumption again
+check_model(fit_l2, check = "linearity")
+library(car)
+residualPlots(fit_l2)
+
+## 2.2 Check the multicollinearity assumption in the long model
+vif(fit_l2)
+
+## 2.4 Check the residual homogeneity
+### 2.4.1 Visually
+check_model(fit_l2, check = "homogeneity")
+
+### 2.4.1 statistical test
+library(lmtest)
+bptest(fit_l2)
+
+## 2.5 Check the robustnes of regression agains sample selectivity
+nrow(dta1)
+df.residual(fit_l2)
+
+fit_l3 <- lm(
+  wagehour ~ educ + exper + tenure + age + I(age^2) + 
+    black + married + IQ, 
+  data = dta1
+)
+
+compare_parameters(fit_l, fit_l2, fit_l3, style = "se_p")
+
+## 2.6 Construct prediced values plot for age variable in model `fit_l2`
+library(ggeffects)
+ggpredict(fit_l2, terms = "age") %>% plot()
+```

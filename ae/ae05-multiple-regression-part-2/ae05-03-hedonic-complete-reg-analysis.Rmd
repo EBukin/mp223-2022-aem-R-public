@@ -1,0 +1,343 @@
+---
+title: "AE05-03 Hedonic Prices and heteroscedasticity"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 12,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE
+)
+
+my_gof <- function(fit_obj, digits = 4) {
+  sum_fit <- summary(fit_obj)
+  
+  stars <- 
+    pf(sum_fit$fstatistic[1],
+       sum_fit$fstatistic[2], 
+       sum_fit$fstatistic[3],
+       lower.tail=FALSE) %>% 
+    symnum(corr = FALSE, na = FALSE, 
+           cutpoints = c(0,  .001,.01,.05,  1),
+           symbols   =  c("***","**","*"," ")) %>% 
+    as.character()
+  
+  list(
+    # `R^2` = sum_fit$r.squared %>% round(digits),
+    # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+    # `Num. obs.` = sum_fit$residuals %>% length(),
+    `Num. df` = sum_fit$df[[2]],
+    `F statistic` = 
+      str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+  )
+}
+
+# Function for screening many regressors
+screen_many_regs <-
+  function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+    
+    if (class(fit_obj_list) == "lm") 
+      fit_obj_list <- list(fit_obj_list)
+    
+    if (length(rlang::dots_list(...)) > 0)  
+      fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+    
+    # browser()
+    fit_obj_list %>%
+      screenreg(
+        custom.note =
+          map2_chr(., seq_along(.), ~ {
+            str_c("Model ", .y, " ", as.character(.x$call)[[2]])
+          }) %>%
+          c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+          str_c(collapse = "\n") ,
+        digits = digits,
+        single.row = single.row,
+        custom.gof.rows =
+          map(., ~my_gof(.x, digits)) %>%
+          transpose() %>%
+          map(unlist),
+        reorder.gof = c(3, 4, 5, 1, 2)
+      )
+  }
+```
+
+# Goals:
+
+-   Get a brief introduction to the Hedonic Prices model;
+-   Practice fitting linear regression in R;
+-   Test linearity assumption: visually and using a statistical tests;
+-   Practice linear transformation;
+-   Exerciser coefficients interpretation;
+
+# Exercise
+
+## 1. Load the data
+
+```{r}
+dta <- 
+  alr4::MinnLand %>% 
+  as_tibble()
+```
+
+## 2. Draw box-plots of `acrePrice` versus `year`
+
+Modify variable `year` creating a factor based on `year`: use function `as.factor()`;
+
+Play with the scale transformation of `acrePrice` to visualize data more meaningful:
+
+-   check help for `ggplot2::scale_*_continuous(trans = "_______")`
+-   check help for `ggplot2::scale_*_log10()`
+
+```{r}
+# dta %>% 
+#   _________(________ = __________(________)) %>% 
+#   ggplot() + 
+#   aes(___ = ____, ___ = ____) + 
+#   geom_________()
+```
+
+## 3. Convert monetary values from current to constant prices
+
+Create a table with GDP deflator rates
+
+```{r}
+defl_dta <-
+  tibble(
+    year = 2002:2011,
+    defl = c(77.47, 78.91, 81.03, 83.56, 86.09, 
+             88.4, 90.12, 90.8, 91.86, 93.78)
+  )
+glimpse(defl_dta)
+```
+
+Join `defl_dta` to the `dta` data and create new object `dta_const`:
+
+-   see help on joining data [here](https://rstudio-education.github.io/tidyverse-cookbook/transform-tables.html#joins);
+-   convert `acrePrice` to the constant prices.
+-   remove deflator variable;
+-   convert variable year to a factor;
+
+```{r}
+# dta_const <- 
+#   _________ %>% 
+#   left_join(_________, by = "_________") %>% 
+#   _________(_________ = _________ * (_________),
+#             year = _________(_________)) %>% 
+#   _________(- _________)
+# glimpse(dta_const)
+```
+
+HW. Built a box plot out of it with log transformation.
+
+```{r}
+#
+```
+
+## 4. Produce summary statistics
+
+Use any function of your liking. Maybe data summary skim from `modelsummary` package.
+
+```{r}
+#
+```
+
+## 5. Produce a correlation matrix
+
+Use: `correlation::correlation()`
+
+```{r}
+# ___________ %>% 
+#   ___________() %>% 
+#   summary()
+```
+
+## 6. Fit regression and summarize the results
+
+use `log(acrePrice)` as a dependent variable
+
+```{r}
+# fit1 <- lm(
+#   _____ ~ _____,
+#   data = _____
+# )
+# summary(fit1)
+```
+
+Use `performance` and `parameters` package to summarize the regression results.
+
+```{r}
+library(parameters)
+library(performance)
+# parameters(_____)
+# performance(_____)
+```
+
+### Interpret the regression results
+
+```{r}
+# screen_many_regs(fit1)
+```
+
+## 7. Check linearity visually
+
+```{r}
+# check_model(______, check = ______)
+```
+
+## 9. Check the linearity using `car` package
+
+```{r}
+library(car)
+# residualPlots(______)
+```
+
+## 11. Check multicollinearity
+
+use `vif()` from `car`.
+
+```{r}
+# ______(______)
+```
+
+## 12. Check homoscedasticity visually
+
+```{r}
+# check_model(______, check = c("linearity", "homogeneity"))
+```
+
+## 13. Check homoscedasticity using statistical tests
+
+```{r}
+library(lmtest)
+# ______(______)
+```
+
+## 14. Correct standard errors and interpret the results
+
+```{r}
+library(sandwich)
+# parameters(_____, vcov = "HC3")
+```
+
+# Solutions
+
+```{r}
+#| code-fold: true
+#| cache: true
+
+## 1. Load the data
+dta <- 
+  alr4::MinnLand %>% 
+  as_tibble() 
+
+glimpse(dta)
+
+## 2. Draw boxplots of `acrePrice` versus `year`
+dta %>% 
+  mutate(year = as.factor(year)) %>% 
+  ggplot() + 
+  aes(x = year,  y = acrePrice) + 
+  geom_boxplot() + 
+  scale_y_log10()
+
+## 3. Convert monetary values from current to constant prices
+defl_dta <-
+  tibble(
+    year = 2002:2011,
+    defl = c(77.47, 78.91, 81.03, 83.56, 86.09, 
+             88.4, 90.12, 90.8, 91.86, 93.78)
+  )
+glimpse(defl_dta)
+
+dta_const <- 
+  dta %>% 
+  left_join(defl_dta, by = "year") %>% 
+  mutate(acrePrice = acrePrice / (defl / 100),
+         year = as.factor(year)) %>% 
+  select(-defl)
+glimpse(dta_const)
+
+dta_const %>% 
+  ggplot() + 
+  aes(x = year,  y = acrePrice) + 
+  geom_boxplot() + 
+  scale_y_log10() + 
+  labs(y = "Price per acre in constant 2010 USD")
+
+
+## 4. Produce summary statistics
+dta_const %>% datasummary_skim(output = "markdown")
+
+
+## 5. Produce a correlation matrix
+library(correlation)
+dta_const %>% 
+  correlation() %>% 
+  summary()
+
+## 6. Fit the basic regression and summarize the results
+fit1 <- lm(
+  log(acrePrice) ~ crpPct + acres + region + 
+    year + tillable + productivity, 
+  data = dta_const
+)
+summary(fit1)
+parameters(fit1)
+performance(fit1)
+
+
+## 7. Check linearity visually
+check_model(fit1, check = "linearity")
+
+## 9. Check the linearity using `car` package
+
+library(car)
+residualPlots(fit1)
+
+## 11. Check multicollinearity
+vif(fit1)
+
+## 12. Check homoscedasticity visually
+check_model(fit1, check = c("linearity", "homogeneity"))
+
+## 13. Check homoscedasticity using statistical tests
+library(lmtest)
+bptest(fit1)
+
+## 14. Correct standard errors
+library(lmtest)
+library(sandwich)
+parameters(fit1, vcov = "HC3")
+```

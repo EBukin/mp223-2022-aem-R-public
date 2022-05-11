@@ -1,0 +1,579 @@
+---
+title: "Heteroscedasticity"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    transition: fade
+    slide-number: true
+    scrollable: true
+    incremental: true
+execute:
+  freeze: auto
+bibliography: ../../references.bib
+---
+
+# R setup {.smaller}
+
+```{r}
+#| echo: true
+
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(ggpmisc)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(report)
+library(wooldridge)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 12,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+
+arrange_diagnostics <-
+    function(fit_obj_list,
+             ...,
+             which = c(1, 3),
+             cols = NULL) {
+        
+        if (class(fit_obj_list) == "lm") fit_obj_list <- list(fit_obj_list)
+        
+        if (length(rlang::dots_list(...)) > 0)  fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+        
+        if (is.null(cols)) cols = ceiling(length(fit_obj_list) * length(which) / 2)
+        
+        rows = ceiling(length(fit_obj_list) * length(which) / cols)
+        
+        if (length(which) > 1) {
+            par(mfcol = c(rows, cols))
+        } else {
+            par(mfrow = c(rows, cols))
+        }
+        
+        fit_obj_list %>%
+            walk(~ {
+                fitt <- .x
+                which %>%
+                    walk(~ {
+                        plot(fitt, which = .x, main = as.character(fitt$call)[2])
+                    })
+            })
+        par(mfrow = c(1, 1))
+    }
+
+
+my_gof <- function(fit_obj, digits = 4) {
+    sum_fit <- summary(fit_obj)
+    
+    stars <- 
+        pf(sum_fit$fstatistic[1],
+           sum_fit$fstatistic[2], 
+           sum_fit$fstatistic[3],
+           lower.tail=FALSE) %>% 
+        symnum(corr = FALSE, na = FALSE, 
+               cutpoints = c(0,  .001,.01,.05,  1),
+               symbols   =  c("***","**","*"," ")) %>% 
+        as.character()
+    
+    list(
+        # `R^2` = sum_fit$r.squared %>% round(digits),
+        # `Adj. R^2` = sum_fit$adj.r.squared %>% round(digits),
+        # `Num. obs.` = sum_fit$residuals %>% length(),
+        `Num. df` = sum_fit$df[[2]],
+        `F statistic` = str_c(sum_fit$fstatistic[1] %>% round(digits), " ", stars)
+    )
+}
+
+
+screen_many_regs <-
+    function(fit_obj_list, ..., digits = 4, single.row = TRUE) {
+        
+        if (class(fit_obj_list) == "lm") fit_obj_list <- list(fit_obj_list)
+        
+        if (length(rlang::dots_list(...)) > 0)  fit_obj_list <- fit_obj_list %>% append(rlang::dots_list(...))
+        
+        # browser()
+        fit_obj_list %>%
+            texreg::screenreg(
+                custom.note =
+                    list(., seq_along(.), names(.)) %>% 
+                    pmap_chr(~ {
+                        # browser()
+                        # mod_nm <- str_c("Model ", ..2)
+                        if (!is.null(..3) && ..3 != "") mod_nm <- ..3 else {
+                            mod_nm <- str_c("Model ", ..2)
+                        }
+                        str_c(mod_nm, " ", as.character(..1$call)[[2]])
+                    }) %>%
+                    c("*** p < 0.001; ** p < 0.01; * p < 0.05", .) %>%
+                    str_c(collapse = "\n") ,
+                digits = digits,
+                single.row = single.row,
+                custom.gof.rows =
+                    map(., ~my_gof(.x, digits)) %>%
+                    transpose() %>%
+                    map(unlist),
+                reorder.gof = c(3, 4, 5, 1, 2)
+            )
+    }
+
+
+
+```
+
+## Assumption 5. Error Terms Homoscedasticity {.smaller}
+
+$$Var(u|x_{i1}, x_{i2}, \cdots , x_{ik}) = \sigma^2$$
+
+```{r}
+#| echo: false
+#| fig-asp: 0.4
+knitr::include_graphics("img/het-01.png")
+```
+
+------------------------------------------------------------------------
+
+### Causes of heteroscedasticity
+
+-   Functional relationship is misspecified;
+
+-   Omitting an important factor;
+
+-   Nature of data generation process;
+
+------------------------------------------------------------------------
+
+### Consequence:
+
+-   Estimates may not be biased, but;
+
+-   Standard errors are inefficient;
+
+-   Hypothesis testing on the coefficients may be False because under heteroskedasticity our estimates are inefficient;
+
+------------------------------------------------------------------------
+
+### Detection
+
+-   graphical: residuals vs regressors and fitted values plots;
+
+-   Formal statistical testing:
+
+    -   Breusch-Pagan heteroskedasticiy test;
+
+    -   White test;
+
+    -   Goldfeld-Quandt heteroskedasticity test;
+
+------------------------------------------------------------------------
+
+### Solutions:
+
+-   Re specify the model;
+
+-   Choose different regressors;
+
+    -   attempt to correct SE with alternative estimation procedures - use the heteroskedasticity-consistent (robust) standard errors!
+
+-   See also: "Assumption AMLR.5" in [@wooldridge2020introductory] ;
+
+------------------------------------------------------------------------
+
+### AMLR. 5. Heteroscedasticity examples (1/2)
+
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+library(magick)
+"img/het-02.png" %>% 
+  image_read() %>%
+  image_ggplot(interpolate = TRUE) + 
+  labs(caption = "Source: Gujarati, D., & Porter, D. C. (2004). Basic Econometrics, 2004. Editura McGraw-Hill, 858.")
+```
+
+------------------------------------------------------------------------
+
+### AMLR. 5. Heteroscedasticity examples (2/2)
+
+```{r echo = FALSE, fig.height=5}
+#| echo: false
+#| fig-asp: 0.5
+library(magick)
+"img/het-03.png" %>% 
+  image_read() %>%
+  image_ggplot(interpolate = TRUE) + 
+  labs(caption = "Source: Weisberg, Sanford. 2013. Applied Linear Regression 4th Edition. Wiley.")
+```
+
+# Example 1. Heteroscedasticity in the wage equation
+
+## Data
+
+```{r}
+#| code-fold: true
+woolwage2 <-
+  wooldridge::wage2 %>%
+  as_tibble %>%
+  select(wage, educ, tenure, abil = KWW)
+glimpse(woolwage2)
+report(woolwage2) %>% as_tibble()
+```
+
+## The model
+
+```{r}
+#| code-fold: true
+fit_1 <- lm(wage ~ educ + abil, data = woolwage2)
+screen_many_regs(fit_1, single.row = F)
+```
+
+## Visual diagnostics:
+
+```{r}
+#| fig-asp: 0.5
+library(performance)
+check_model(fit_1, check = "linearity") %>% plot()
+```
+
+------------------------------------------------------------------------
+
+### Residuals vs Fitted
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, which = c(1))
+```
+
+------------------------------------------------------------------------
+
+### Residuals vs Fitted
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, which = c(1))
+abline(700, 0, lwd=3, lty = 5, col = "blue")
+abline(-700, 0, lwd=3, lty = 5, col = "blue")
+```
+
+------------------------------------------------------------------------
+
+### Residuals vs Fitted
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, which = c(1))
+abline(700, 0, lwd=3, lty = 5, col = "blue")
+abline(-700, 0, lwd=3, lty = 5, col = "blue")
+abline(750, -1.5, lwd=3, lty = 5, col = "green")
+```
+
+------------------------------------------------------------------------
+
+### Standardized residuals vs Fitted
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, which = c(3))
+```
+
+------------------------------------------------------------------------
+
+### (sqrt) Standardized residuals vs Fitted
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, which = c(3))
+abline(0.15, 0, lwd=2, lty = 5, col = "blue")
+abline(1.4, 0, lwd=2, lty = 5, col = "blue")
+```
+
+------------------------------------------------------------------------
+
+### (sqrt) Standardized residuals vs Fitted
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, which = c(3))
+abline(0.15, 0, lwd=2, lty = 5, col = "blue")
+abline(1.4, 0, lwd=2, lty = 5, col = "blue")
+abline(0.2, 0.0012, lwd=2, lty = 5, col = "green")
+```
+
+------------------------------------------------------------------------
+
+### Residuals vs Fitted + (sqrt) Standardized residuals
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-asp: 1
+#| fig-width: 6
+arrange_diagnostics(fit_1, which = c(1))
+abline(700, 0, lwd=3, lty = 5, col = "blue")
+abline(-700, 0, lwd=3, lty = 5, col = "blue")
+abline(750, -1.5, lwd=3, lty = 5, col = "green")
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-asp: 1
+#| fig-width: 5
+arrange_diagnostics(fit_1, which = c(3))
+abline(0.15, 0, lwd=2, lty = 5, col = "blue")
+abline(1.4, 0, lwd=2, lty = 5, col = "blue")
+abline(0.2, 0.0012, lwd=2, lty = 5, col = "green")
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+### Residuals vs Fitted + (sqrt) Standardized residuals
+
+```{r}
+check_model(fit_1, check = c("linearity", "homogeneity")) %>% plot()
+```
+
+## Statistical tests
+
+```{r}
+#| fig-asp: 0.35
+library(performance)
+check_heteroscedasticity(fit_1)
+```
+
+-   $H_0$ error terms are homoscedastic.
+
+-   $H_1$ we have heteroscedastic error terms.
+
+-   We reject $H_0$ if p-value \< 0.05 (at 5% significance level).
+
+------------------------------------------------------------------------
+
+### The Breusch-Pagan test {.smaller}
+
+```{r}
+library(lmtest)
+bptest(fit_1)
+```
+
+```{r}
+library(car)
+ncvTest(fit_1)
+```
+
+------------------------------------------------------------------------
+
+### White test: a special case of the BP test
+
+```{r echo=TRUE}
+bptest(fit_1, ~ educ * abil + educ + I(educ^2) + I(abil^2), 
+       data = woolwage2)
+```
+
+------------------------------------------------------------------------
+
+### Goldfeld-Quandt test: Stable with non-normal data
+
+```{r }
+# ?bptest ## install.packages("lmtest") is is not installed
+gqtest(fit_1)
+```
+
+```{r echo = TRUE}
+gqtest(fit_1, 0.15)
+```
+
+## Conclusions on Heteroskedasticity in the wage equation
+
+-   We have:
+
+    -   Heteroskedasticity;
+
+    -   Inappropriate model specification;
+
+    -   Possible linearity assumption violation;
+
+-   Solutions:
+
+    -   Model re-specification;
+
+    -   Correcting standard errors;
+
+## Model adjustment:
+
+```{r}
+#| code-fold: true
+fit_1 <- lm(wage ~ educ + abil, data = woolwage2)
+fit_2 <- lm(log(wage) ~ educ + abil , data = woolwage2)
+fit_3 <- lm(log(wage) ~ educ + abil + tenure , data = woolwage2)
+screen_many_regs(fit_1, fit_2, fit_3, single.row = T)
+```
+
+------------------------------------------------------------------------
+
+### Linearity + Heteroskedasticity (1/2)
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, fit_2, fit_3, which = c(1), cols = 3)
+```
+
+------------------------------------------------------------------------
+
+### Linearity + Heteroskedasticity (2/2)
+
+```{r}
+#| echo: false
+arrange_diagnostics(fit_1, fit_2, fit_3, which = c(3), cols = 3)
+```
+
+------------------------------------------------------------------------
+
+### Heteroskedasticity {.smaller}
+
+::: columns
+::: {.column width="50%"}
+```{r echo=TRUE}
+bptest(fit_2, data = woolwage2)
+bptest(fit_2, ~ educ * abil + I(educ^2) + I(abil^2), data = woolwage2)
+```
+:::
+
+::: {.column width="50%"}
+```{r echo=TRUE}
+bptest(fit_3, data = woolwage2)
+bptest(fit_3, ~ educ * abil + educ * tenure + abil * tenure +
+      I(educ^2) + I(abil^2) + I(tenure^2), data = woolwage2)
+```
+:::
+:::
+
+## Conclusions:
+
+```{r}
+parameters(fit_3)
+```
+
+Model `fit_3` describes the data in the best way because:
+
+-   Reduces omitted variable bias;
+-   Resolves non-linearity;
+-   But it still suffers from the heteroskedasticity!!
+
+## Robust standard errors {.smaller}
+
+Robust estimators for variance covariance matrix:
+
+-   `sandwich::vcovHC` - heteroskedasticity consistent
+
+-   `sandwich::vcovCL` - clustered SE
+
+-   `clubSandwich::vcovCR` - clustered heteroskedasticity consistent SE
+
+-   `sandwich::vcovHAC` - heteroskedasticity and autocorrelation consistent
+
+-   Estimation methods:
+
+    -   `HC3` - optimal one as per Long & Ervin (2000)
+    -   `HC1` - default in `Stata`
+
+------------------------------------------------------------------------
+
+### Robust standard errors (1) {.smaller}
+
+Old estimates:
+
+```{r}
+#| code-fold: true
+coeftest(fit_3)
+```
+
+------------------------------------------------------------------------
+
+### Robust standard errors (1) {.smaller}
+
+Robust estimates:
+
+```{r}
+#| code-fold: true
+library(car)
+library(lmtest)
+library(sandwich)
+coeftest(fit_3, vcov. = sandwich::vcovHC(fit_3, type = "HC3"))
+```
+
+------------------------------------------------------------------------
+
+### Robust standard errors (2)
+
+::: smaller
+```{r echo=TRUE}
+coeftest(fit_3, vcov = vcovHC(fit_3, type = "HC3"))    
+coeftest(fit_3, vcov = vcovHC(fit_3, type = "HC1"))    
+```
+:::
+
+------------------------------------------------------------------------
+
+### Robust standard errors (3)
+
+-   For more details on the robust estimator
+
+    -   type `vignette("sandwich")` in R console
+
+    -   see: <https://cran.r-project.org/web/packages/sandwich/vignettes/sandwich.pdf>
+
+------------------------------------------------------------------------
+
+### Comparing Robust standard errors
+
+```{r}
+#| code-fold: true
+#| echo: false
+list(fit_2, fit_2, fit_3, fit_3) %>%
+  screenreg(
+    override.se = list(diag(vcov(fit_2)),
+                       diag(vcovHC(fit_2, type = "HC3")),
+                       diag(vcov(fit_3)),
+                       diag(vcovHC(fit_3, type = "HC3"))) %>% 
+      map(sqrt),
+    digits = 5,
+    custom.model.names = c(
+      "fit_2 - Regular", "fit_2 - Robust", "fit_3 - Regular", "fit_3 - Robust"
+    )
+  )
+```
+
+------------------------------------------------------------------------
+
+## Interpretation {.smaller}
+
+```{r}
+fit_3
+model_parameters(fit_3, vcov = "HC3")
+model_performance(fit_3)
+```
+
+# References
