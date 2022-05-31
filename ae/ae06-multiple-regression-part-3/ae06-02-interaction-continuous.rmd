@@ -1,0 +1,109 @@
+---
+title: "AE06-02 Interaction terms with continuous variables"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+library(forcats)
+library(modelbased)
+library(emmeans)
+library(ggeffects)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 16,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+```
+
+# Goals:
+
+-   Learn what is the interaction term in regression and how to use it;
+
+
+# Exercise 1. Interaction with a continious variables
+
+## 1.1 Load data, compute weekdays
+
+```{r}
+set.seed(1223)
+icecream <- 
+  read_csv("data/ice_cream_sales_rnd.csv") %>% 
+  mutate(
+    weekday = case_when(
+      weekday == 1 ~ "Sun",
+      weekday == 2 ~ "Mon",
+      weekday == 3 ~ "Tue",
+      weekday == 4 ~ "Wed",
+      weekday == 5 ~ "Thu",
+      weekday == 6 ~ "Fri",
+      weekday == 7 ~ "Sat") %>% 
+      as_factor()
+  ) %>% 
+  sample_n(1500)
+```
+
+## 1.2 Describe the data
+
+```{r}
+library(GGally)
+ggpairs(icecream)
+icecream %>% datasummary_skim()
+```
+
+## 1.3 Fit the model with an interaction between temperature and 
+
+Built a regression model with an interaction terms between prices, weekdays and temperatures.
+
+```{r}
+fit1 <- lm(log(sales) ~ temp * price * weekday, icecream)
+parameters(fit1)
+performance(fit1)
+```
+
+## 1.4 Interprete the interaction term between prices and temperature
+
+`estimate_slopes` and `ggpredict`
+```{r}
+# estimate_slopes(______, trend = ______, at = ______ ) %>% plot()
+# ggpredict(______, terms = c(______, "temp [10, 25, 35]") ) %>% ______()
+```
+
+
+## 1.5 Interprete the interaction term between prices and temperature
+
+```{r}
+#
+#
+#
+```

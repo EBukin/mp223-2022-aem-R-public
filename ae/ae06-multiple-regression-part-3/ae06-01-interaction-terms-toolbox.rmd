@@ -1,0 +1,399 @@
+---
+title: "AE06-01 linear transformation and interaction term: the toolbox"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+library(forcats)
+library(modelbased)
+library(emmeans)
+library(ggeffects)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 16,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+```
+
+# Goals:
+
+-   Learn what is the interaction term in regression and how to use it;
+
+
+# Exercise 1. Interaction with a dummy variable
+
+## 1.1 Load data, compute, select, filter
+
+-   total amount of parents education `paredu` as a sum of years of their education
+
+```{r}
+dta <- 
+  wooldridge::wage1 %>% 
+  as_tibble() %>% 
+  mutate(sex = ifelse(female == 0, "male", "female") %>% 
+           as_factor() %>% 
+           fct_rev()) %>%
+  select(wage, educ, exper, sex)
+```
+
+Variables are:
+
+-   `wage`: average hourly earnings
+-   `educ`: years of education
+-   `exper`: years potential experience
+-   `sex`: sex of the respondents
+
+## 1.2 Built pairs plot and descriptive statistics
+
+```{r}
+library(GGally)
+ggpairs(dta, aes(group = sex, colour = sex, alpha = 0.3))
+```
+
+```{r}
+library(modelsummary)
+dta %>% datasummary_skim()
+```
+
+## 1.3 Regression without interaction terms
+
+```{r}
+fit_1 <- lm(wage ~ educ + exper + sex, data = dta)
+parameters(fit_1)
+performance(fit_1)
+```
+
+### Diagnostics
+
+```{r}
+check_model(fit_1, check = c("linearity", "homogeneity"))
+```
+
+## 1.4 Attempting to resolve linearity
+
+- Introduce squared education and experience terms.
+
+```{r}
+# fit_2 <- lm(log(wage) ~ educ + ______ + exper + ______ + sex, 
+#             data = dta)
+# parameters(fit_2)
+# performance(fit_2)
+# check_model(fit_2, check = c("linearity", "homogeneity"))
+```
+
+## 1.5 Computing fitted values
+
+Calculate fitted values based on the regression`fit_2` for: 
+
+-   a women and men;
+-   with  10 and 11 years of experience;
+-   10, 11, 16 and 17 years of education;
+
+Built a `tibble()` with the covariates for prediction:
+
+```{r}
+# pred_dta_1 <-
+#   tibble(
+#     sex = ______,
+#     ______ = c(10, 11, ______, 10, 11, 16, 17),
+#     exper = ______
+#   ) %>%
+#   bind_rows(mutate(., sex = "male"))
+```
+
+Predict fitted values and write them to the variable fitted
+
+```{r}
+# ______(______, pred_dta_1)
+# 
+# pred_dta_2 <- 
+#   pred_dta_1 %>% 
+#   mutate(fitted_values = ______(______, pred_dta_1))
+```
+
+Compute predicted salary and save it into the variable `pred_wage`;
+
+```{r}
+# pred_dta_3 <- 
+#   pred_dta_2 %>% 
+#   mutate(pred_wage = ______(fitted_values))
+# pred_dta_3
+```
+
+## 1.6 Computing slope for squared term
+
+### The slope depends on the value of regressor
+
+$\frac{\partial \text{ wage}}{\partial \text{ educ}} = -0.0306529 + 2 \times 0.0048716 \times \text{educ}$
+
+What is the effect of an additional year of education on wage, given that current level of education is 10 or 16 years?
+
+-   Estimate slopes manually and using `modelbased`;
+-   Interpret the results;
+-   Plot the slope;
+-   What is the meaning of the shaded area?
+
+```{r}
+library(modelbased)
+library(emmeans)
+
+## Estimate slope of educ for 10 and 11 years of education, manually
+# parameters(fit_2)
+# ______ + ______ * ______ * ______
+# ______ + ______ * ______ * ______
+
+# # Estimating slopes manually for our data
+# pred_dta_3 %>% 
+#   select(- pred_wage  ) %>%
+#   pivot_wider(names_from = educ, values_from = fitted_values) %>% 
+#   mutate(beta_educ_10_11 = `11`-`10`,
+#          beta_educ_16_17 = `17`-`16`)
+
+# # Using function estimate_slopes
+# estimate_slopes(fit_2, trend = "educ")
+# 
+# # add `at = "educ"`
+# estimate_slopes(fit_2, trend = ______, at = "educ")
+# 
+# # Add `at = list(educ = c(10, 11))`
+# estimate_slopes(fit_2, trend = ______, at = list(educ = c(10, 11)))
+# 
+# # adding plot
+# estimate_slopes(fit_2, trend = ______, at = ______) %>% plot()
+# 
+# # adding plot at sex and education
+# estimate_slopes(fit_2, trend = ______, at = c("educ", "sex")) %>% ______()
+
+```
+
+### Marginal effects to report
+
+## 1.7 Predicted values given linear transformation
+
+```{r}
+library(ggeffects)
+
+# pred_dta_3
+# 
+# # using ggpredict
+# ggpredict(fit_2, terms = "educ")
+# 
+# # back.transform = F
+# ggpredict(fit_2, ______ = "educ", back.transform = F)
+# 
+# # `terms = c("educ", "sex")`
+# ggpredict(fit_2, terms = c("educ", "sex"), ______)
+# 
+# # Plotting
+# ggpredict(fit_2, ______ = "educ", back.transform = F) %>% plot()
+# ggpredict(fit_2, ______) %>% plot()
+# ggpredict(fit_2, terms = c(______)) %>% plot()
+```
+
+
+## 1.8 Effect of a dummy variable
+
+In the regression coefficients, sex variable has a coefficient of -0.32
+
+```{r}
+# ggpredict(fit_2, ______ = "sex") %>% plot()
+# ggpredict(fit_2, ______ = "sex", back.transform = F)
+# parameters(fit_2)
+```
+
+# Exercise 2. Interaction term
+
+
+## 2.1 Adding an interaction term between sex and education
+
+```{r}
+# fit_3 <- lm(log(wage) ~ 
+#               educ + I(educ ^ 2) + exper + I(exper ^ 2) + sex + 
+#               ______, 
+#             data = dta)
+# parameters(fit_3)
+# performance(fit_3)
+# check_model(fit_3, check = c("linearity", "homogeneity"))
+```
+
+## 2.2 Interpreting the interaction term
+
+Interpreting the changing slopes
+
+```{r}
+# estimate_slopes(______, ______ = "educ", at = "educ") %>% plot()
+# estimate_slopes(______, ______ = "educ", ______ = c("sex", "educ")) %>% plot()
+# estimate_slopes(______, ______ = "educ", ______ = c("sex")) %>% plot()
+```
+
+Interpreting the fitted values
+
+```{r}
+# ggpredict(______, ______ = "educ") %>% plot()
+# ggpredict(______, ______ = c("sex", "educ")) %>% plot()
+# ggpredict(______, ______ = c("educ", "sex")) %>% plot()
+# ggpredict(______, ______ = c("educ", "sex")) %>% plot(add.data = TRUE)
+```
+
+
+
+# Solutions 
+
+```{r}
+#| code-fold: true
+dta <- 
+  wooldridge::wage1 %>% 
+  as_tibble() %>% 
+  mutate(sex = ifelse(female == 0, "male", "female") %>% 
+           as_factor() %>% 
+           fct_rev(),
+         lwage = log(wage)) %>%
+  select(lwage, wage, educ, exper, sex)
+
+# 1.2 Built pairs plot and descriptive statistics
+library(GGally)
+ggpairs(dta, aes(group = sex, colour = sex, alpha = 0.3))
+
+library(modelsummary)
+dta %>% datasummary_skim()
+
+# 1.3 Regression without interaction terms
+fit_1 <- lm(wage ~ educ + exper + sex, data = dta)
+parameters(fit_1)
+performance(fit_1)
+check_model(fit_1, check = c("linearity", "homogeneity"))
+
+# 1.4 Attempting to resolve linearity
+fit_2 <- lm(log(wage) ~ educ + I(educ ^ 2) + exper + I(exper ^ 2) + sex, 
+            data = dta)
+parameters(fit_2)
+performance(fit_2)
+check_model(fit_2, check = c("linearity", "homogeneity"))
+
+# 1.5 Computing fitted values
+pred_dta_1 <-
+  tibble(
+    sex = "female",
+    educ = c(10, 11, 16, 17, 10, 11, 16, 17),
+    exper = c(10, 10, 10, 10, 11, 11, 11, 11)
+  ) %>%
+  bind_rows(mutate(., sex = "male"))
+
+# Predict fitted values and write them to the variable fitted
+pred_dta_2 <- 
+  pred_dta_1 %>% 
+  mutate(fitted_values = predict(fit_2, pred_dta_1))
+
+
+# Compute predicted salary and save it into the variable `pred_wage`;
+pred_dta_3 <- 
+  pred_dta_2 %>% 
+  mutate(pred_wage = exp(fitted_values))
+pred_dta_3
+
+# 1.6 Computing slope for squared term
+library(modelbased)
+library(emmeans)
+
+# Estimate slope of educ for 10 and 11 years of education, manually
+-0.0306529 + 0.0048716 * 2 * 10
+-0.0306529 + 0.0048716 * 2 * 11
+
+# Estimating slopes manually for our data
+pred_dta_3 %>% 
+  # filter(educ %in% c(10, 11)) %>% 
+  select(- pred_wage  ) %>%
+  pivot_wider(names_from = educ, values_from = fitted_values) %>% 
+  mutate(beta_educ_10_11 = `11`-`10`,
+         beta_educ_16_17 = `17`-`16`)
+
+# Using function estimate_slopes
+estimate_slopes(fit_2, trend = "educ")
+
+# add `at = "educ"`
+estimate_slopes(fit_2, trend = "educ", at = "educ")
+
+# Add `at = list(educ = c(10, 11))`
+estimate_slopes(fit_2, trend = "educ", at = list(educ = c(10, 11)))
+
+# adding plot
+estimate_slopes(fit_2, trend = "educ", at = "educ") %>% plot()
+
+# adding plot at sex and education
+estimate_slopes(fit_2, trend = "educ", at = c("educ", "sex")) %>% plot()
+
+# 1.7 Predicted values given linear transformation
+library(ggeffects)
+
+pred_dta_3
+
+# using ggpredict
+ggpredict(fit_2, terms = "educ")
+
+# back.transform = F
+ggpredict(fit_2, terms = "educ", back.transform = F)
+
+# `terms = c("educ", "sex")`
+ggpredict(fit_2, terms = c("educ", "sex"), back.transform = F)
+
+# Plotting
+ggpredict(fit_2, terms = "educ", back.transform = F) %>% plot()
+ggpredict(fit_2, terms = "educ") %>% plot()
+ggpredict(fit_2, terms = c("educ", "sex")) %>% plot()
+
+# 1.8 Effect of a dummy variable
+ggpredict(fit_2, terms = "sex") %>% plot()
+ggpredict(fit_2, terms = "sex", back.transform = F)
+parameters(fit_2)
+
+# Exercise 2. Interaction term
+## 2.1 Adding an interaction term between sex and education
+fit_3 <- lm(log(wage) ~ 
+              educ + I(educ ^ 2) + exper + I(exper ^ 2) + sex + 
+              educ:sex, 
+            data = dta)
+parameters(fit_3)
+performance(fit_3)
+check_model(fit_3, check = c("linearity", "homogeneity"))
+
+## 2.2 Interpreting the interaction term
+estimate_slopes(fit_3, trend = "educ", at = "educ") %>% plot()
+estimate_slopes(fit_3, trend = "educ", at = c("sex", "educ")) %>% plot()
+estimate_slopes(fit_3, trend = "educ", at = c("sex")) %>% plot()
+
+ggpredict(fit_3, terms = "educ") %>% plot()
+ggpredict(fit_3, terms = c("sex", "educ")) %>% plot()
+ggpredict(fit_3, terms = c("educ", "sex")) %>% plot()
+ggpredict(fit_3, terms = c("educ", "sex")) %>% plot(add.data = TRUE)
+```

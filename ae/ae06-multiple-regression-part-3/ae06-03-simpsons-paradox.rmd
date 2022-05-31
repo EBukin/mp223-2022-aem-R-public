@@ -1,0 +1,194 @@
+---
+title: "AE06-03 Simpson's paradox and unobserved heterogeneity"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+library(forcats)
+library(modelbased)
+library(emmeans)
+library(ggeffects)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 16,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+```
+
+# Goals:
+
+Learn about vicious role of Heteroskedasticity
+
+# The problem: 
+
+Let us understand how bill depth affects the bill length in penguins
+
+Check: [https://allisonhorst.github.io/palmerpenguins/](https://allisonhorst.github.io/palmerpenguins/)
+
+```{r echo=FALSE}
+knitr::include_graphics(path = "https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png")
+```
+
+```{r echo=FALSE}
+knitr::include_graphics(path = "https://allisonhorst.github.io/palmerpenguins/reference/figures/culmen_depth.png")
+```
+
+
+# Data 
+
+```{r}
+library(palmerpenguins)
+pings <- penguins
+```
+
+
+# Summary stats
+
+```{r}
+pings %>% datasummary_skim() 
+ggpairs(pings)
+```
+
+
+# Fit and summary
+
+```{r}
+ping_fit1 <- lm(bill_length_mm  ~ bill_depth_mm  + sex, pings)
+parameters(ping_fit1)
+performance(ping_fit1)
+check_model(ping_fit1, check = c("linearity", "homogeneity"))
+```
+
+# Check assumpation
+
+```{r}
+library(lmtest)
+bptest(ping_fit1)
+```
+
+# Correct SE
+
+```{r}
+parameters(ping_fit1, vcov = "HC5")
+```
+
+
+# Exploring relationship between bill_length_mm and bill_depth_mm 
+
+## Step 1. Scatter + linear regression
+
+```{r}
+pt1 <- 
+  pings %>% 
+  ggplot() + 
+  aes(x = bill_depth_mm , y = bill_length_mm) + 
+  geom_point() + 
+  geom_smooth(aes(x = bill_depth_mm , y = bill_length_mm), 
+              method = "lm", inherit.aes = FALSE)
+
+pt1
+```
+
+## Step 3. Scatter + linear regression + islands shapes
+
+```{r}
+# pt1 + 
+#   aes(shape = island) 
+```
+
+## Step 4. Scatter + linear regression + islands shapes + species colours
+
+```{r}
+# pt1 + 
+#   aes(shape = island) +
+#   aes(colour = species)
+```
+
+## Step 5. Scatter + linear regression + islands shapes + species colors + within species linear regressions
+
+
+```{r}
+# pt1 + 
+#   aes(shape = island) +
+#   aes(colour = species) + 
+#   geom_smooth(aes(x = bill_depth_mm, y = bill_length_mm,
+#                   colour = species, fill = species),
+#               method = "lm", inherit.aes = FALSE)
+```
+
+  
+# Built a regression that estimates such kind of relatiohsip
+
+```{r}
+# ping_fit3 <- lm(____________, pings)
+```
+
+
+# Report regression results correcting standtard errors
+
+```{r}
+# estimate_slopes
+# ggeffect
+```
+
+
+# Solutions
+
+```{r eval=FALSE}
+
+# pt1 + 
+#   geom_smooth(aes(x = bill_depth_mm , y = bill_length_mm), 
+#               method = "lm", inherit.aes = FALSE) +
+#   aes(shape = island) +
+#   aes(colour = species) + 
+#   geom_smooth(aes(x = bill_depth_mm, y = bill_length_mm,
+#                   colour = species, fill = species),
+#               method = "lm", inherit.aes = FALSE)
+
+ping_fit3 <- lm(bill_length_mm  ~ bill_depth_mm*species  +  sex, pings)
+estimate_slopes(ping_fit3, trend = "bill_depth_mm", at = "species") %>% plot()
+ggeffect(ping_fit3, terms = c("bill_depth_mm", "species")) %>% plot()
+
+library(lmtest)
+library(sandwich)
+ggeffect(
+  ping_fit3, 
+  terms = c("bill_depth_mm", "species"), 
+  vcov. = vcovHC(ping_fit3, "HC5")
+  ) %>% 
+  plot()
+```
+
+
+
