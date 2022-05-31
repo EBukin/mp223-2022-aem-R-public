@@ -291,7 +291,7 @@ un_dta %>% datasummary_skim(output = "data.frame")
 ```{r}
 #| code-fold: true
 #| fig-height: 5
-#| fig-asp: .5
+#| fig-asp: 0.5
 un_dta %>% 
   select(fertility, lifeExpF, pctUrban, ppgdp, group) %>%
   ggpairs(aes(alpha = 0.6))
@@ -304,7 +304,7 @@ un_dta %>%
 ```{r}
 #| code-fold: true
 #| fig-height: 5
-#| fig-asp: .5
+#| fig-asp: 0.5
 un_dta %>% 
   select(fertility, lifeExpF, pctUrban, ppgdp, group) %>%
   ggpairs(aes(colour = group, alpha = 0.6))
