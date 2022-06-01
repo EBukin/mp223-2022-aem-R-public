@@ -36,6 +36,9 @@ library(car)
 library(broom)
 library(modelsummary)
 library(texreg)
+library(insight)
+library(scales)
+library(glue)
 
 ggplot2::theme_set(ggplot2::theme_bw())
 
@@ -49,6 +52,140 @@ knitr::opts_chunk$set(
   echo = TRUE, 
   cache = TRUE
 )
+
+# Custom functions to summaries data nicely
+get_signif <- 
+  function(x) {
+    symnum(
+      x,
+      corr = FALSE,
+      na = FALSE,
+      cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+      symbols = c("***", "**", "*", ".", " ")
+    ) %>% 
+      as.character()
+  }
+
+tidy_skim <- 
+  function(dta) {
+    dta %>%
+      select(- any_of(c("id", "time"))) %>% 
+      skimr::skim_without_charts() %>%
+      as_tibble() %>%
+      select(any_of(c("skim_variable","n_missing")), contains("numeric")) %>%
+      rename_with( ~ str_remove(., "numeric\\."))
+  }
+
+tidy_coeftest <- 
+  function(
+    mod, 
+    mod_name = deparse(substitute(mod)), 
+    mod_vcov = vcov(mod),
+    dig = 3, 
+    ...) {
+    mod_name_sym <- sym(mod_name)
+    mod %>%
+      lmtest::coeftest(vcov. = mod_vcov)  %>%
+      broom::tidy() %>%
+      mutate(
+          across(c(estimate, std.error),
+                 ~ scales::number(., 1 / 10 ^ dig, big.mark = ",")),
+        across(c(p.value), ~ insight::format_p(., stars_only = TRUE)),
+        mod_stat := glue::glue("{estimate}{p.value} ({std.error})")
+      ) %>%
+      select(parameter = term, !!mod_name_sym := mod_stat)
+  }
+
+tidy_gof <- 
+  function(
+    mod, 
+    mod_name = deparse(substitute(mod)), 
+    dig = 3, 
+    ...) {
+    mod_sum <- summary(mod)
+    mod_sum <- mod_sum$fstatistic
+    if (is.vector(mod_sum)) {
+      df1 <- mod_sum[[2]]
+      df2 <- mod_sum[[3]]
+      df <- str_c(c(df1, df2), collapse = "; ")
+    } else {
+      df <- str_c(mod_sum$parameter, collapse = "; ")
+    }
+    mod %>%
+      broom::glance() %>%
+      {
+        dta <- .
+        if (!"logLik" %in% names(dta)) {
+          dta <-
+            mutate(dta, logLik = mod %>% stats::logLik() %>% as.numeric())
+        }
+        
+        if (!"AIC" %in% names(dta)) {
+          dta <- mutate(dta, AIC = mod %>% stats::AIC() %>% as.numeric())
+        }
+        
+        if (!"BIC" %in% names(dta)) {
+          dta <- mutate(dta, BIC = mod %>% stats::BIC() %>% as.numeric())
+        }
+        dta
+      } %>%
+      mutate(
+        across(any_of(c("r.squared", "deviance", "adj.r.squared")), 
+               ~ scales::number(., 1 / 10 ^ dig, big.mark = ",")),
+        across(any_of(c("statistic", "logLik", "AIC", "BIC")),
+               ~ scales::number(., 1, big.mark = ",")),
+        `F Statistics (df)` =
+          glue("{statistic}{get_signif(p.value)} ", "({df})"),
+        nobs = scales::number(nobs, 1, big.mark = ",")
+      ) %>%
+      select(
+        N = nobs,
+        `R-sq. adj.` = adj.r.squared,
+        `Log likelihood` = logLik,
+        AIC,
+        BIC,
+        `F Statistics (df)`
+      ) %>%
+      pivot_longer(everything(), 
+                   names_to = "parameter", 
+                   values_to = mod_name)
+  }
+
+
+tidy_summary <-
+  function(mod,
+           mod_name = deparse(substitute(mod)),
+           mod_vcov = vcov(mod),
+           dig = 3,
+           ...) {
+    
+    tidy_coeftest(mod,mod_name = mod_name, mod_vcov = mod_vcov, dig = dig) %>% 
+      bind_rows(tidy_gof(mod, mod_name = mod_name, dig = dig))
+  }
+
+
+tidy_summary_list <-
+  function(mod_list,
+           mod_vcov = NULL,
+           dig = 3,
+           ...) {
+    # browser()
+    mod_list %>%
+      list(., names(.), seq_along(.)) %>% 
+      pmap(~ {
+        vcov_here <- vcov(..1)
+        if (!is.null(mod_vcov[[..3]]))
+          vcov_here <- mod_vcov[[..3]]
+        tidy_summary(
+          mod = .x,
+          mod_name = .y,
+          mod_vcov = vcov_here,
+          dig = dig
+        )
+      }) %>%
+      reduce(full_join, by = "parameter")
+  }
+
 ```
 
 # Recap
@@ -157,7 +294,7 @@ where $i$ is the individual and $t$ is the time dimension;
 
 -   Ability are **time-invariant and specific to each individual**;
 
-    -   If we introduce dummy variables for each individual, 
+    -   If we introduce dummy variables for each individual,
     -   we can approximate different ability levels!
 
 ## Cross-sectional data and idividual dummies
@@ -244,9 +381,8 @@ May be difficult... Any ideas why?...
 ## Pooled OLS
 
 -   Union example, the short model:
-  
-. . .
-$$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \epsilon_{it}$$
+
+. . . $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \epsilon_{it}$$
 
 -   Estimates are biased because we do not observe ability, which are time-invariant [@Mundlak1961].
 
@@ -291,7 +427,7 @@ $$log(\text{Wage}_{it} - \overline{\text{Wage}_{i}}) = \\ \beta_0 + \beta_1 \cdo
 
 $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  {\text{Union}_{it-1}}) + \\ \beta_2 \cdot (X_{it} - {{X}_{i,t-1}}) + \\ \beta_3 \cdot (\text{Ability}_{i} - {\text{Ability}_{i,t-1}}) + (\epsilon_{it} - {\epsilon_{i,t-1}})$$
 
--   Has similar effect as the within transformation. 
+-   Has similar effect as the within transformation.
 -   Sacrifices at least one time dimension.
 -   Relaxes autocorrelation assumption.
 -   May be not possible with unbalanced data.
@@ -302,13 +438,13 @@ $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\t
 
 #### Very Important:
 
--    NOT ZERO correlation between FE and regressors: $Cov(\delta_{i},{X}_{it}) \neq 0$
+-   NOT ZERO CORRELATION between effects and regressors: $Cov(\delta_{i},{X}_{it}) \neq 0$
 
--   $E[\epsilon_{is}| {X}_{it}, \delta_{i}] = 0$ - strict exogeneity:
+-   Strict exogeneity: $E[\epsilon_{is}| {X}_{it}, \delta_{i}] = 0$
 
     -   $Cov(\epsilon_{is}, {X}_{jt}) = 0$ and $Cov(\epsilon_{it}, {X}_{it}) = 0$ , where $j\neq i$ and $s\neq t$ ;
 
-    -   Residuals do not correlate with all explanatory variable in all time periods and for all individuals.
+    -   Residuals ($\epsilon$) do not correlate with all explanatory variable ($X$) in all time periods ($t$) and for all individuals ($i$).
 
         -   No autocorrelation/serial correlation: $Cov(\epsilon_{it}, {X}_{i,t-1}) = 0$;
         -   No cross-sectional dependence: $Cov(\epsilon_{it}, {X}_{j,t}) = 0$ (when individual observations react similarly to the common shocks or correlate in space);
@@ -333,11 +469,13 @@ $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\t
 
 -   Introduce a random component of the error term $\color{Red}{v}$
 
--   $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \beta_3 \cdot \color{Red}{v_{i}} + \epsilon_{it}$$
+. . .
+
+$$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \beta_3 \cdot \color{Red}{v_{i}} + \epsilon_{it}$$
 
 -   Difference from the fixed effect model:
 
-    -   Assumes NO CORRELATION between random effects and regressors: $Cov(v_{i},{X}_{it}) = 0$.
+    -   Assumes NO CORRELATION (ZERO CORRELATION) between effects and regressors: $Cov(v_{i},{X}_{it}) = 0$.
 
     -   Ignoring RE causes no bias to the estimates;
 
@@ -345,7 +483,7 @@ $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\t
 
 -   NOT the ultimate solution to Endogeneity.
 
--   There might still be OVB even with the fixed effects.
+-   There might still be some OVB even with the fixed effects.
 
     -   Instrumental Variables are possible within the panel regression context too.
 
@@ -358,18 +496,21 @@ $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\t
 knitr::include_graphics("./img/union-wage-tbl.png")
 ```
 
-# Panel regression: motivation for a panel regression
+::: footer
+Source: @Angrist2009
+:::
+
+# Panel regression: Empirical motivation
 
 ## Example 2. Macro-level data analysis {.smaller}
 
-Let us analyze the link between imports and national product based on [@Kinal1993]. Both variables are in per capita and in log.
+-   Let us analyze a link between imports and national product based on [@Kinal1993].
+-   Both variables are in per capita and in log.
 
 ```{r}
-library(plm)
-library(pder)
+library(plm); library(pder); library(splm)
 data("ForeignTrade", package = "pder")
-ForeignTrade <- 
-  ForeignTrade %>% 
+ForeignTrade <- ForeignTrade %>% 
   select(country, year, exports, imports, gnp) %>% 
   pdata.frame(index = c("country", "year"))
 pdim(ForeignTrade)
@@ -421,6 +562,9 @@ pp1
 ### Pooled
 
 ```{r}
+#| echo: false
+#| message: false
+#| fig-width: 8
 pp1 +
   guides(colour = "none") + 
   geom_abline(
@@ -490,116 +634,225 @@ pp1 +
   #             aes(group = country))+ 
 ```
 
-# Panel regression: practice
+# Panel regression: Empirical practice
 
 ## General algorithm {.smaller}
 
-1.  Pooled OLS;
+1.  Pooled OLS using;
 
-    -   Linearity validation;
+    -   Gauss-Markov assumption validation: Linearity, Collinearity, No endogeneity, Homoscedasticity, validation;
 
-2.  Fixed Effect. Within-transformation. Individual, Time, two-ways;
+2.  FE: Fixed Effect. Within-transformation. Individual, Time or Two-ways effects;
 
     -   `F-test` and `LM test` on FE consistency against pooled;
 
-3.  Random Effect;
+3.  RE: Random Effect;
 
-    -   `Hausman test`, `Chamberlain test`, `Angrist and Newey` on RE consistency against FE;
+    -   `Hausman test`, `Chamberlain test`, `Angrist and Newey` on effects' correlation with regressors of RE consistency against the FE;
 
-4.  Serial correlation and cross-sectional dependence tests;
+4.  Choosing the appropriate functional form;
 
-5.  Robust standard errors:
+5.  Serial correlation and cross-sectional dependence tests;
 
-    -   Clustered SE;
-    -   Heteroscedasticity and autocorrelation robust SE;
+6.  Robust standard errors:
 
-6.  Summary and interpretation;
+    -   Clustered SE and/or heteroscedasticity and/or autocorrelation robust SE;
 
-## Example 3. Micro-level application `RiceFarms` {.smaller}
+7.  Summary and interpretation;
 
--   Let us explore the determinants of rice productivity. We want to understand if larger farms are more productive compared to smaller once.
+# Example 3. Micro-level application `RiceFarms`
+
+-   Let us explore the determinants of rice farms productivity.
+
+. . .
+
+::: callout-tip
+We want to understand if larger farms are more productive compared to smaller once.
+:::
+
+## Farm-specific Rice production function (1) {.smaller}
+
+-   We employ a production function approach, relying on the Cobb-Douglas Production function:
+
+. . .
+
+$$\ln y = \ln \beta_0 + \sum_{n = 1}^{N}  \beta_n \ln x_n + \sum_{k = 1}^{K} \gamma_k \delta_k + \epsilon$$
+
+where,
+
+-   $y$ is the output and $x_n$ are the inputs all in physical mass (or monetary value); $N$ is the number of independent variables;
+-   $\delta_k$ are the shift parameters of additional dummy variables;
+-   $\beta_0$ , $\beta_n$ , $\gamma_n$ are the estimated coefficients;
+
+## Farm-specific Rice production function (2) {.smaller}
+
+-   Inputs are: land, seeds, urea, pesticide and labor;
+-   Output: rice production in physical mass;
+-   short model (all things are in log):
+. . .
+
+$$\text{output} = A_0 + \beta_1 \cdot \text{land} + \beta_2 \cdot \text{labor} + \\ \beta_3 \cdot \text{seed} + \beta_4 \cdot \text{urea} + \beta_1 \cdot  \text{pesticide}$$
+
+-   What are the ex-ante expectations about the regression coefficients?
+
+    -   Ideas? ...
+
+## What about OVB? (3) {.smaller}
+
+-   What omitted variables could cause bias of the regression?
+
+    -   Any!? ...
+    -   Any!? ...
+    -   Capital, Ability, Climate, Geography...
+
+-   Let us speculate on the bias of land estimated given exclusion of ability.
+
+    -   Long model.
+    -   Short model.
+    -   OVB formula.
+
+-   Educated guess about bias of the estimates.
+
+## Farm-level data
 
 -   Following data `RiceFarms` is used from package `splm`. We only use a subset of variables:
 
-    -   `goutput` - gross output of rice in kg
-    -   `size` - the total area cultivated with rice, measured in hectares
+    -   `output` - gross output of rice in kg
+    -   `land` - the total area cultivated with rice, measured in hectares
     -   `seed` - seed in kilogram
     -   `urea` - urea in kilogram
-    -   `totlabor` - total labor (excluding harvest labor)
+    -   `pesticide` - urea in kilogram
+    -   `labor` - total labor (excluding harvest labor)
 
--   To make analysis consistent with the theory, we would like to estimate a Cobb-Douglas Proudhon function, thus, all $Y$ and $X$ are converted in log.
+-   We calculate logs of all variables. 
+-   we do not use logs for summary statistics.
 
-------------------------------------------------------------------------
-
-### Data glimpse {.smaller}
+## Data glimpse (1) {.smaller}
 
 ```{r}
-library(plm); library(splm)
 data("RiceFarms", package = "splm")
-rice_dta <- RiceFarms %>% as_tibble() %>% 
-  select(id, time, goutput, size, seed, urea, totlabor) %>% 
-  mutate(across(c(goutput, size, seed, urea, totlabor), ~ log(.)))
-rice_dta_p <- rice_dta %>% pdata.frame(index = c("id", "time"))
-rice_dta
-pdim(rice_dta_p)
+rice_dta_selection <- RiceFarms %>% as_tibble() %>%
+  select(
+    id, time,
+    output = goutput,
+    land = size,
+    labor = totlabor,
+    seed, urea,
+    pest = pesticide
+  )
+
+rice_dta_1 <- rice_dta_selection %>%
+  mutate(across(c(output, land, seed, urea, pest, labor), ~ log(.)))
+
+# Making panel structure
+rice_dta_p1 <- rice_dta_1 %>% pdata.frame(index = c("id", "time"))
+pdim(rice_dta_p1)
 ```
 
-------------------------------------------------------------------------
-
-### Summary statistics for log and no-log variables
+## Data glimpse (2) {.smaller}
 
 ```{r}
-library(modelsummary)
-RiceFarms %>% as_tibble() %>% select(id, time, goutput, size, seed, urea, totlabor) %>% 
-datasummary_skim(output = "data.frame")
-datasummary_skim(rice_dta_p, output = "data.frame")
+glimpse(rice_dta_1)
+tidy_skim(rice_dta_1)
 ```
 
-------------------------------------------------------------------------
+-   Any problems with data? 
 
-### Data visualization
+## Any problems with data? (1)
+
+-   Any? ...
+-   `pest`, when transformed with logs, produces `-Inf` values.
+
+    -   Why is that so?
+    -   Any? ...
+    -   Because there are zero values of pesticides application $\ln 0 = - \infty$. 
+
+
+## `-Infinity` in logs: lazy solution
+
+-   Before log transformation, substitute any zero with a small value, for example `0.0001`;
+
+```{r}
+rice_dta_lazy <- 
+  rice_dta_selection %>% 
+  mutate(pest = ifelse(pest <= 0, 0.0001, pest))%>%
+  mutate(across(c(output, land, seed, urea, pest, labor), ~ log(.)))
+rice_dta_p_lazy <- rice_dta_lazy %>% pdata.frame(index = c("id", "time"))
+rice_dta_lazy %>% tidy_skim()
+```
+
+
+
+## `-Infinity` in logs: smart solution
+
+-   Introduce reverse dummy variables for each variable with log of zero, see: @Battese1997;
+-   Substitute negative infinity with zero.
+
+```{r}
+rice_dta <- 
+  rice_dta_selection %>% 
+  mutate(
+    pest_revdum = ifelse(pest <= 0, 1, 0),
+    across(c(output, land, seed, urea, pest, labor), ~ log(.)),
+    pest = ifelse(is.infinite(pest), 0, pest)) 
+rice_dta_p <- rice_dta %>% pdata.frame(index = c("id", "time"))
+rice_dta %>% tidy_skim()
+```
+
+
+## Data exploration
 
 ```{r}
 #| fig-asp: 0.5
 library(GGally)
-rice_dta_p %>% select(-id, -time) %>% ggpairs()
+rice_dta %>% select(-id, -time) %>% ggpairs()
 ```
 
-------------------------------------------------------------------------
-
-### Step 1.1 Pooled OLS
+## Step 1.1 Pooled OLS
 
 ```{r}
-library(performance)
-library(parameters)
-rice_pooled <- plm(goutput ~ size + seed + urea + totlabor, rice_dta_p, model = "pooling")
-rice_pooled_2 <- lm(goutput ~ size + seed + urea + totlabor, rice_dta_p)
-compare_models(rice_pooled, style = "se_p") %>% print(digits = 3)
-performance(rice_pooled) %>% print(digits = 3)
+rice_pooled <- 
+  plm(output ~ land + labor + seed + urea + pest + pest_revdum, 
+      rice_dta_p, model = "pooling")
+
+rice_pooled_2 <-   
+  lm(output ~ land + labor + seed + urea + pest + pest_revdum, rice_dta_p)
+
+tidy_summary_list(list(pooled_plm = rice_pooled, pooled_lm = rice_pooled_2))
 ```
 
-------------------------------------------------------------------------
-
-### Step 1.2 Linearity and homoscedasticity
+## Step 1.2 Linearity and homoscedasticity
 
 ```{r}
 check_model(rice_pooled_2, check = c("linearity", "homogeneity"))
 ```
 
-------------------------------------------------------------------------
-
-### Step 2.1 Fixed Effect: within transformation
+## Step 2.1 Fixed Effect: within transformation
 
 ```{r}
-rice_fe <- plm(goutput ~ size + seed + urea + totlabor, 
-               rice_dta_p, model = "within", effect = "individual")
-compare_models(rice_pooled, rice_fe, style = "se_p") %>% print(digits = 3)
-compare_performance(rice_pooled, rice_fe) %>% print(digits = 3)
+rice_fe <- 
+  plm(output ~ land + labor + seed + urea + pest + pest_revdum, 
+      rice_dta_p, model = "within", effect = "individual")
+
+tidy_summary_list(list(pooled = rice_pooled, FE = rice_fe))
 ```
 
-------------------------------------------------------------------------
+## Step 2.1 Fixed Effect: lazy versus reverse dummy
 
-### Step 2.2 F test for individual effects {.smaller}
+```{r}
+#| code-fold: true
+rice_fe_lazy <- 
+  plm(output ~ land + labor + seed + urea + pest, 
+      rice_dta_p_lazy, model = "within", effect = "individual")
+rice_pooled_lazy <- 
+  plm(output ~ land + labor + seed + urea + pest, 
+      rice_dta_p_lazy, model = "pooling")
+
+list(pooled = rice_pooled, `pooled (lazy)` = rice_pooled_lazy, `FE (rev. dumy)` = rice_fe, `FE (lazy)` = rice_fe_lazy) %>% 
+  tidy_summary_list()
+```
+
+## Step 2.2 F test for individual effects {.smaller}
 
 -   Compares FE model to OLS. OLS is always consistent, when Gauss-Markov assumptions are satisfied.
 
@@ -610,9 +863,7 @@ compare_performance(rice_pooled, rice_fe) %>% print(digits = 3)
 pFtest(rice_fe, rice_pooled)
 ```
 
-------------------------------------------------------------------------
-
-### Step 2.3 Lagrange Multiplier Tests {.smaller}
+## Step 2.3 Lagrange Multiplier Tests {.smaller}
 
 -   Compares FE model to OLS. OLS is always consistent, when Gauss-Markov assumptions are satisfied.
 
@@ -624,25 +875,18 @@ plmtest(rice_pooled, effect = "individual", type = "honda")
 plmtest(rice_pooled, effect = "individual", type = "bp")
 ```
 
-------------------------------------------------------------------------
-
-### Step 3.1 Random Effect
+## Step 3.1 Random Effect
 
 ```{r}
 rice_re <- 
-  plm(goutput ~ size + seed + urea + totlabor, 
-      rice_dta_p, 
-      model = "random", 
-      effect = "individual")
+  plm(output ~ land + labor + seed + urea + pest + pest_revdum, 
+      rice_dta_p, model = "random", effect = "individual")
 
-compare_models(rice_pooled, rice_fe, rice_re, style = "se_p") %>% 
-  print(digits = 3)
-compare_performance(rice_pooled, rice_fe, rice_re) %>% print(digits = 3)
+list(pooled = rice_pooled, FE = rice_fe, RE = rice_re) %>% 
+  tidy_summary_list()
 ```
 
-------------------------------------------------------------------------
-
-### Step 3.2 Hausman Test for Panel Models
+## Step 3.2 Hausman Test for Panel Models
 
 -   Compares RE to FE model. FE is assumed to be consistent
 
@@ -653,9 +897,9 @@ compare_performance(rice_pooled, rice_fe, rice_re) %>% print(digits = 3)
 phtest(rice_fe, rice_re)
 ```
 
-------------------------------------------------------------------------
+-   Fixed Effect model is recommended 
 
-### Step 4.1 Serial correlation and cross-sectional dependence
+## Step 4.1 Serial correlation and cross-sectional dependence
 
 -   Wooldridge's test for unobserved individual effects
 
@@ -666,21 +910,17 @@ phtest(rice_fe, rice_re)
 pwtest(rice_pooled)
 ```
 
-------------------------------------------------------------------------
-
-### Step 4.2 lm tests for random effects and/or serial correlation
+## Step 4.2 lm tests for random effects and/or serial correlation
 
 -   H0: serial correlation is zero
--   H0: some serial correlation
+-   H1: some serial correlation
 
 ```{r}
 pbsytest(rice_pooled, test = "ar")
 pbsytest(rice_pooled, test = "re")
 ```
 
-------------------------------------------------------------------------
-
-### Step 4.3 Breusch-Godfrey and Durbin-Watson tests
+## Step 4.3 Breusch-Godfrey and Durbin-Watson tests
 
 -   H0: serial correlation is zero
 -   H0: some serial correlation
@@ -688,13 +928,10 @@ pbsytest(rice_pooled, test = "re")
 ```{r}
 pbgtest(rice_fe)
 pbgtest(rice_fe, order = 2)
-pbgtest(rice_fe, order = 3)
 pdwtest(rice_fe)
 ```
 
-------------------------------------------------------------------------
-
-### Step 5. Robust and clustered standard errors
+## Step 5. Robust and clustered standard errors (1)
 
 ```{r}
 library(lmtest)
@@ -702,59 +939,94 @@ library(car)
 library(sandwich)
 
 # Regular SE
-coeftest(rice_fe, vcov. = vcov(rice_fe))
+vcov(rice_fe)
 
-coeftest(rice_fe,
-         vcov. = vcovHC(rice_fe, method = "arellano", 
-                        type = "HC0", cluster = "group"))
-coeftest(rice_fe,
-         vcov. = clubSandwich::vcovCR(rice_fe, type = "CR1S"))
+# Clustered, heteroscedasticity and autocorrelation robust SE
+vcovHC(rice_fe, method = "arellano", type = "HC0", cluster = "group")
 
-
-coeftest(rice_fe,
-         vcov. = clubSandwich::vcovCR(rice_fe, type = "CR3"))
 
 ```
 
-------------------------------------------------------------------------
 
-### Linear hypothesis (1)
-
-```{r}
-linearHypothesis(rice_fe,
-  "size + seed + urea + totlabor = 1", 
-  vcov. = vcovHC(rice_fe, method = "arellano", 
-                        type = "HC0", cluster = "group"))
-```
-
-------------------------------------------------------------------------
-
-### Linear hypothesis (2)
+## Step 5. Robust and clustered standard errors (2)
 
 ```{r}
-deltaMethod(
+coeftest(
   rice_fe,
-  "size + seed + urea + totlabor",
-  vcov. = vcovHC(
-    rice_fe,
-    method = "arellano",
-    type = "HC0",
-    cluster = "group"
-  )
+  vcov. = vcovHC(rice_fe, 
+                 method = "arellano", 
+                 type = "HC0", 
+                 cluster = "group"))
+```
+
+## Step 5. Robust and clustered standard errors (2)
+
+```{r}
+tidy_summary_list( 
+  mod_list = 
+    list(`FE regular SE` = rice_fe, 
+         `FE cl. het. robust` = rice_fe, 
+         `FE cl. het. autocor. robust` = rice_fe),
+  mod_vcov = list(
+    vcov(rice_fe),
+    vcovHC(rice_fe, method = "white1", type = "HC0"),
+    vcovHC(rice_fe, method = "arellano", type = "sss")
+    )
 )
 ```
 
-## Take away {.smaller}
+## Linear hypothesis (1)
 
--   Data types;
+```{r}
+lh_1 <- 
+  linearHypothesis(rice_fe,
+                   "land + labor + seed + urea + pest = 1",
+                   vcov. = vcovHC(rice_fe))
 
--   Why panel data;
+# Sum of the linear combinations
+attr(lh_1, "value") %>% as.vector() 
+
+# SE of the linear combinations
+attr(lh_1, "vcov") %>% as.vector()
+```
+
+## Linear hypothesis (2)
+
+```{r}
+deltaMethod(
+  rice_fe, 
+  "land + labor + seed + urea + pest",
+  vcov. = vcovHC(rice_fe)
+)
+```
+
+# Class/Homework
+
+
+
+# Take away {.smaller}
+
+-   Data types: cross-sectional and panel balanced and unbalanced
+
+-   Why panel data:
 
 -   FE vs RE;
 
     -   Correlated and uncorrelated individual effects
     -   Limitations of the panel regression methods
+    -   Within, first difference, Random effect
 
 -   Practical application;
+
+    -   Fitting panel regression
+    -   Model selection routine
+    -   Statistical testing
+    -   Standard Errors correction
+    -   Results presentation
+
+-   Linear hypothesis testing
+
+    -   Linear combination of parameters
+    -   Delta method
 
 # References
