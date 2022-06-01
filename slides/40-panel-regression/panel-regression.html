@@ -896,8 +896,8 @@
 </ul></li>
 </ul>
 </section>
-<section id="cross-sectional-data-and-idividual-dummies" class="slide level2">
-<h2>Cross-sectional data and idividual dummies</h2>
+<section id="cross-sectional-data-and-individual-dummies" class="slide level2">
+<h2>Cross-sectional data and individual dummies</h2>
 <ul>
 <li class="fragment"><p>Can we introduce dummy variables for each individual in a cross-section?</p>
 <ul>
@@ -989,8 +989,8 @@
 </tbody>
 </table>
 </section>
-<section id="panel-data-data-and-idividual-dummies" class="slide level2 smaller">
-<h2>Panel data data and idividual dummies</h2>
+<section id="panel-data-data-and-individual-dummies" class="slide level2 smaller">
+<h2>Panel data data and individual dummies</h2>
 <table>
 <colgroup>
 <col style="width: 12%">
@@ -1185,14 +1185,14 @@
 <section class="slide level2">
 
 <div class="smaller">
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
 <col style="width: 16%">
 <col style="width: 16%">
 <col style="width: 16%">
-<col style="width: 16%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1596,11 +1596,12 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 </ul></li>
 </ul>
 </section>
-<section id="infinity-in-logs-lazy-solution" class="slide level2">
+<section id="infinity-in-logs-lazy-solution" class="slide level2 smaller">
 <h2><code>-Infinity</code> in logs: lazy solution</h2>
 <ul>
 <li class="fragment">Before log transformation, substitute any zero with a small value, for example <code>0.0001</code>;</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-11_04e5f0986bf617e3eff73da39d5b9bf1">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>rice_dta_lazy <span class="ot">&lt;-</span> </span>
 <span id="cb12-2"><a href="#cb12-2"></a>  rice_dta_selection <span class="sc">%&gt;%</span> </span>
@@ -1620,22 +1621,23 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 6 pest                  0 -4.37 7.35  -9.21 -9.21 -9.21  5.58  11.0 </code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="infinity-in-logs-smart-solution" class="slide level2">
+<section id="infinity-in-logs-smart-solution" class="slide level2 smaller">
 <h2><code>-Infinity</code> in logs: smart solution</h2>
 <ul>
 <li class="fragment">Introduce reverse dummy variables for each variable with log of zero, see: <span class="citation" data-cites="Battese1997">Battese (<a href="#/ref-Battese1997" role="doc-biblioref" onclick="return false;">1997</a>)</span>;</li>
 <li class="fragment">Substitute negative infinity with zero.</li>
 </ul>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-12_f97a80ecf05a5e827cc20da3b03e5adc">
+<div class="fragment">
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-12_cb3032a5d5b1f6a33a2e77a5da7c1374">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>rice_dta <span class="ot">&lt;-</span> </span>
 <span id="cb14-2"><a href="#cb14-2"></a>  rice_dta_selection <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-4"><a href="#cb14-4"></a>    <span class="at">pest_revdum =</span> <span class="fu">ifelse</span>(pest <span class="sc">&lt;=</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb14-5"><a href="#cb14-5"></a>    <span class="fu">across</span>(<span class="fu">c</span>(output, land, seed, urea, pest, labor), <span class="sc">~</span> <span class="fu">log</span>(.)),</span>
-<span id="cb14-6"><a href="#cb14-6"></a>    <span class="at">pest =</span> <span class="fu">ifelse</span>(<span class="fu">is.infinite</span>(pest), <span class="dv">0</span>, pest)) </span>
-<span id="cb14-7"><a href="#cb14-7"></a>rice_dta_p <span class="ot">&lt;-</span> rice_dta <span class="sc">%&gt;%</span> <span class="fu">pdata.frame</span>(<span class="at">index =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"time"</span>))</span>
-<span id="cb14-8"><a href="#cb14-8"></a>rice_dta <span class="sc">%&gt;%</span> <span class="fu">tidy_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">mutate</span>(<span class="at">pest_revdum =</span> <span class="fu">ifelse</span>(pest <span class="sc">&lt;=</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="fu">across</span>(<span class="fu">c</span>(output, land, seed, urea, pest, labor), <span class="sc">~</span> <span class="fu">log</span>(.)),</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    <span class="at">pest =</span> <span class="fu">ifelse</span>(<span class="fu">is.infinite</span>(pest), <span class="dv">0</span>, pest)) </span>
+<span id="cb14-6"><a href="#cb14-6"></a>rice_dta_p <span class="ot">&lt;-</span> rice_dta <span class="sc">%&gt;%</span> <span class="fu">pdata.frame</span>(<span class="at">index =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"time"</span>))</span>
+<span id="cb14-7"><a href="#cb14-7"></a>rice_dta <span class="sc">%&gt;%</span> <span class="fu">tidy_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 9
   skim_variable n_missing   mean    sd    p0   p25   p50    p75  p100
@@ -1649,6 +1651,7 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 7 pest_revdum           0  0.695 0.461  0     0     1     1      1   </code></pre>
 </div>
 </div>
+</div>
 </section>
 <section id="data-exploration" class="slide level2">
 <h2>Data exploration</h2>
@@ -1660,15 +1663,13 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 <img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%" class="r-stretch"></section>
 <section id="step-1.1-pooled-ols" class="slide level2">
 <h2>Step 1.1 Pooled OLS</h2>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-14_78a0b66010865215f4c07f0af26b4e43">
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-14_995c95fabbc4ef0b9aea053e6527bcd6">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>rice_pooled <span class="ot">&lt;-</span> </span>
 <span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">plm</span>(output <span class="sc">~</span> land <span class="sc">+</span> labor <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> pest <span class="sc">+</span> pest_revdum, </span>
 <span id="cb17-3"><a href="#cb17-3"></a>      rice_dta_p, <span class="at">model =</span> <span class="st">"pooling"</span>)</span>
-<span id="cb17-4"><a href="#cb17-4"></a></span>
-<span id="cb17-5"><a href="#cb17-5"></a>rice_pooled_2 <span class="ot">&lt;-</span>   </span>
-<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">lm</span>(output <span class="sc">~</span> land <span class="sc">+</span> labor <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> pest <span class="sc">+</span> pest_revdum, rice_dta_p)</span>
-<span id="cb17-7"><a href="#cb17-7"></a></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="fu">tidy_summary_list</span>(<span class="fu">list</span>(<span class="at">pooled_plm =</span> rice_pooled, <span class="at">pooled_lm =</span> rice_pooled_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-4"><a href="#cb17-4"></a>rice_pooled_2 <span class="ot">&lt;-</span>   </span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">lm</span>(output <span class="sc">~</span> land <span class="sc">+</span> labor <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> pest <span class="sc">+</span> pest_revdum, rice_dta_p)</span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="fu">tidy_summary_list</span>(<span class="fu">list</span>(<span class="at">pooled_plm =</span> rice_pooled, <span class="at">pooled_lm =</span> rice_pooled_2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 13 × 3
    parameter         pooled_plm         pooled_lm       
@@ -1696,8 +1697,8 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 
 </div>
 <img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:100.0%" class="r-stretch"></section>
-<section id="step-2.1-fixed-effect-within-transformation" class="slide level2">
-<h2>Step 2.1 Fixed Effect: within transformation</h2>
+<section id="step-2.1-fixed-effect" class="slide level2">
+<h2>Step 2.1 Fixed Effect</h2>
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-16_62bb91ac9a851a7b247a7722a19f4963">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>rice_fe <span class="ot">&lt;-</span> </span>
 <span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">plm</span>(output <span class="sc">~</span> land <span class="sc">+</span> labor <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> pest <span class="sc">+</span> pest_revdum, </span>
@@ -1724,8 +1725,8 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 </div>
 </div>
 </section>
-<section id="step-2.1-fixed-effect-lazy-versus-reverse-dummy" class="slide level2">
-<h2>Step 2.1 Fixed Effect: lazy versus reverse dummy</h2>
+<section id="step-2.1-lazy-versus-reverse-dummy" class="slide level2">
+<h2>Step 2.1 lazy versus reverse dummy</h2>
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-17_32b5c5737ff5322720eed1790c8e5826">
 <details>
 <summary>Code</summary>
@@ -1768,6 +1769,7 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 <li class="fragment">H1: Both models are equally consistent.</li>
 </ul></li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-18_9338da2cc0e88b9ac455a2a0f3a212d9">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">pFtest</span>(rice_fe, rice_pooled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1777,6 +1779,7 @@ $ pest   &lt;dbl&gt; 8.699515, 8.006368, 8.517193, 8.517193, 9.230143, 9.230143,
 data:  output ~ land + labor + seed + urea + pest + pest_revdum
 F = 1.4988, df1 = 170, df2 = 849, p-value = 0.0001704
 alternative hypothesis: significant effects</code></pre>
+</div>
 </div>
 </div>
 </section>
@@ -1789,6 +1792,7 @@ alternative hypothesis: significant effects</code></pre>
 <li class="fragment">H1: Both models are equally consistent.</li>
 </ul></li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-19_8e78e2b3805807b74a652519220dbafb">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">plmtest</span>(rice_pooled, <span class="at">effect =</span> <span class="st">"individual"</span>, <span class="at">type =</span> <span class="st">"honda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1809,16 +1813,16 @@ chisq = 13.785, df = 1, p-value = 0.0002049
 alternative hypothesis: significant effects</code></pre>
 </div>
 </div>
+</div>
 </section>
 <section id="step-3.1-random-effect" class="slide level2">
 <h2>Step 3.1 Random Effect</h2>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-20_6ee4df71b1b5a8dcebb3ad0ebfbb3e37">
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-20_8d74b71eed53363543630cc0140482de">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>rice_re <span class="ot">&lt;-</span> </span>
 <span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">plm</span>(output <span class="sc">~</span> land <span class="sc">+</span> labor <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> pest <span class="sc">+</span> pest_revdum, </span>
 <span id="cb30-3"><a href="#cb30-3"></a>      rice_dta_p, <span class="at">model =</span> <span class="st">"random"</span>, <span class="at">effect =</span> <span class="st">"individual"</span>)</span>
-<span id="cb30-4"><a href="#cb30-4"></a></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="fu">list</span>(<span class="at">pooled =</span> rice_pooled, <span class="at">FE =</span> rice_fe, <span class="at">RE =</span> rice_re) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">tidy_summary_list</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="fu">list</span>(<span class="at">pooled =</span> rice_pooled, <span class="at">FE =</span> rice_fe, <span class="at">RE =</span> rice_re) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">tidy_summary_list</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 13 × 4
    parameter         pooled             FE               RE              
@@ -1848,6 +1852,7 @@ alternative hypothesis: significant effects</code></pre>
 <li class="fragment">H1: Both models are equally consistent.</li>
 </ul></li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-21_c997bb4a4f6e3d53b88b2c16f235786b">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">phtest</span>(rice_fe, rice_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1862,6 +1867,7 @@ alternative hypothesis: one model is inconsistent</code></pre>
 <ul>
 <li class="fragment">Fixed Effect model is recommended</li>
 </ul>
+</div>
 </section>
 <section id="step-4.1-serial-correlation-and-cross-sectional-dependence" class="slide level2">
 <h2>Step 4.1 Serial correlation and cross-sectional dependence</h2>
@@ -1872,6 +1878,7 @@ alternative hypothesis: one model is inconsistent</code></pre>
 <li class="fragment">H1: some effects also dues to serial correlation</li>
 </ul></li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-22_83915571d7092c35f43c1a3c9047b944">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">pwtest</span>(rice_pooled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1883,13 +1890,15 @@ z = 2.1603, p-value = 0.03075
 alternative hypothesis: unobserved effect</code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="step-4.2-lm-tests-for-random-effects-andor-serial-correlation" class="slide level2">
+<section id="step-4.2-lm-tests-for-random-effects-andor-serial-correlation" class="slide level2 smaller">
 <h2>Step 4.2 lm tests for random effects and/or serial correlation</h2>
 <ul>
 <li class="fragment">H0: serial correlation is zero</li>
 <li class="fragment">H1: some serial correlation</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-23_fb36d91e4e50d486dff78e8eecb0d3b9">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">pbsytest</span>(rice_pooled, <span class="at">test =</span> <span class="st">"ar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1911,13 +1920,15 @@ z = 0.38656, p-value = 0.3495
 alternative hypothesis: random effects sub AR(1) errors</code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="step-4.3-breusch-godfrey-and-durbin-watson-tests" class="slide level2">
+<section id="step-4.3-breusch-godfrey-and-durbin-watson-tests" class="slide level2 smaller">
 <h2>Step 4.3 Breusch-Godfrey and Durbin-Watson tests</h2>
 <ul>
 <li class="fragment">H0: serial correlation is zero</li>
 <li class="fragment">H0: some serial correlation</li>
 </ul>
+<div class="fragment">
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-24_7713515d7c229a87132bff38c9aa3ef6">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">pbgtest</span>(rice_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1947,49 +1958,47 @@ DW = 2.0627, p-value = 0.8511
 alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="step-5.-robust-and-clustered-standard-errors-1" class="slide level2">
+<section id="step-5.-robust-and-clustered-standard-errors-1" class="slide level2 smaller">
 <h2>Step 5. Robust and clustered standard errors (1)</h2>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-25_346a0a0e57b944e18578fd8a977c02fd">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb46-2"><a href="#cb46-2"></a><span class="fu">library</span>(car)</span>
-<span id="cb46-3"><a href="#cb46-3"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb46-4"><a href="#cb46-4"></a></span>
-<span id="cb46-5"><a href="#cb46-5"></a><span class="co"># Regular SE</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a><span class="fu">vcov</span>(rice_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-25_989640d2bc12173f069cc1f9a4f7b593">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(car); <span class="fu">library</span>(sandwich); <span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">scipen =</span> <span class="dv">15</span>)</span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="co"># Regular SE</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="fu">vcov</span>(rice_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                     land         labor          seed          urea
-land         1.307260e-03 -5.976900e-04 -4.187446e-04 -1.436119e-04
-labor       -5.976900e-04  1.106333e-03 -2.476802e-04 -7.863668e-05
-seed        -4.187446e-04 -2.476802e-04  9.301083e-04 -1.297924e-04
-urea        -1.436119e-04 -7.863668e-05 -1.297924e-04  3.716328e-04
-pest        -6.702867e-06  3.084721e-05 -4.104904e-05 -4.768357e-05
-pest_revdum -1.019925e-05  1.311208e-04 -2.518308e-04 -2.307928e-04
-                     pest   pest_revdum
-land        -6.702867e-06 -1.019925e-05
-labor        3.084721e-05  1.311208e-04
-seed        -4.104904e-05 -2.518308e-04
-urea        -4.768357e-05 -2.307928e-04
-pest         3.839510e-04  2.579932e-03
-pest_revdum  2.579932e-03  1.832420e-02</code></pre>
+<pre><code>                    land       labor        seed        urea         pest
+land         0.001307260 -0.00059769 -0.00041874 -0.00014361 -0.000006703
+labor       -0.000597690  0.00110633 -0.00024768 -0.00007864  0.000030847
+seed        -0.000418745 -0.00024768  0.00093011 -0.00012979 -0.000041049
+urea        -0.000143612 -0.00007864 -0.00012979  0.00037163 -0.000047684
+pest        -0.000006703  0.00003085 -0.00004105 -0.00004768  0.000383951
+pest_revdum -0.000010199  0.00013112 -0.00025183 -0.00023079  0.002579932
+            pest_revdum
+land         -0.0000102
+labor         0.0001311
+seed         -0.0002518
+urea         -0.0002308
+pest          0.0025799
+pest_revdum   0.0183242</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># Clustered, heteroscedasticity and autocorrelation robust SE</span></span>
 <span id="cb48-2"><a href="#cb48-2"></a><span class="fu">vcovHC</span>(rice_fe, <span class="at">method =</span> <span class="st">"arellano"</span>, <span class="at">type =</span> <span class="st">"HC0"</span>, <span class="at">cluster =</span> <span class="st">"group"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                     land         labor          seed          urea
-land         0.0022016832 -0.0009074465 -5.899655e-04 -3.471405e-04
-labor       -0.0009074465  0.0011725584 -1.176004e-04  1.305040e-05
-seed        -0.0005899655 -0.0001176004  1.319484e-03 -4.018513e-04
-urea        -0.0003471405  0.0000130504 -4.018513e-04  6.529290e-04
-pest         0.0001164086 -0.0000212831 -1.703657e-05 -9.712742e-05
-pest_revdum  0.0008925552 -0.0001894873 -1.507624e-04 -6.511068e-04
-                     pest   pest_revdum
-land         1.164086e-04  0.0008925552
-labor       -2.128310e-05 -0.0001894873
-seed        -1.703657e-05 -0.0001507624
-urea        -9.712742e-05 -0.0006511068
-pest         3.332476e-04  0.0022655413
-pest_revdum  2.265541e-03  0.0162578921
+<pre><code>                  land       labor        seed        urea        pest
+land         0.0022017 -0.00090745 -0.00058997 -0.00034714  0.00011641
+labor       -0.0009074  0.00117256 -0.00011760  0.00001305 -0.00002128
+seed        -0.0005900 -0.00011760  0.00131948 -0.00040185 -0.00001704
+urea        -0.0003471  0.00001305 -0.00040185  0.00065293 -0.00009713
+pest         0.0001164 -0.00002128 -0.00001704 -0.00009713  0.00033325
+pest_revdum  0.0008926 -0.00018949 -0.00015076 -0.00065111  0.00226554
+            pest_revdum
+land          0.0008926
+labor        -0.0001895
+seed         -0.0001508
+urea         -0.0006511
+pest          0.0022655
+pest_revdum   0.0162579
 attr(,"cluster")
 [1] "group"</code></pre>
 </div>
@@ -1997,24 +2006,21 @@ attr(,"cluster")
 </section>
 <section id="step-5.-robust-and-clustered-standard-errors-2" class="slide level2">
 <h2>Step 5. Robust and clustered standard errors (2)</h2>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-26_60155a2f2859bcd997a5efe39fce4ca3">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">coeftest</span>(</span>
-<span id="cb50-2"><a href="#cb50-2"></a>  rice_fe,</span>
-<span id="cb50-3"><a href="#cb50-3"></a>  <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe, </span>
-<span id="cb50-4"><a href="#cb50-4"></a>                 <span class="at">method =</span> <span class="st">"arellano"</span>, </span>
-<span id="cb50-5"><a href="#cb50-5"></a>                 <span class="at">type =</span> <span class="st">"HC0"</span>, </span>
-<span id="cb50-6"><a href="#cb50-6"></a>                 <span class="at">cluster =</span> <span class="st">"group"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-26_4f62600da60f057da73097def4fbe64f">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">coeftest</span>(rice_fe,</span>
+<span id="cb50-2"><a href="#cb50-2"></a>         <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe, <span class="at">method =</span> <span class="st">"arellano"</span>, </span>
+<span id="cb50-3"><a href="#cb50-3"></a>                        <span class="at">type =</span> <span class="st">"HC0"</span>, <span class="at">cluster =</span> <span class="st">"group"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
 
-            Estimate Std. Error t value  Pr(&gt;|t|)    
-land        0.419835   0.046922  8.9475 &lt; 2.2e-16 ***
-labor       0.270841   0.034243  7.9095 8.035e-15 ***
-seed        0.123808   0.036325  3.4084 0.0006843 ***
-urea        0.162908   0.025552  6.3754 2.992e-10 ***
-pest        0.110293   0.018255  6.0418 2.279e-09 ***
-pest_revdum 0.634982   0.127506  4.9800 7.703e-07 ***
+            Estimate Std. Error t value             Pr(&gt;|t|)    
+land          0.4198     0.0469    8.95 &lt; 0.0000000000000002 ***
+labor         0.2708     0.0342    7.91    0.000000000000008 ***
+seed          0.1238     0.0363    3.41              0.00068 ***
+urea          0.1629     0.0256    6.38    0.000000000299222 ***
+pest          0.1103     0.0183    6.04    0.000000002278921 ***
+pest_revdum   0.6350     0.1275    4.98    0.000000770311250 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -2022,7 +2028,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="step-5.-robust-and-clustered-standard-errors-2-1" class="slide level2">
 <h2>Step 5. Robust and clustered standard errors (2)</h2>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-27_84d9509600885036ed8e985eb82b061a">
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-27_8310a95ee779b08e2c76183d86d9b066">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">tidy_summary_list</span>( </span>
 <span id="cb52-2"><a href="#cb52-2"></a>  <span class="at">mod_list =</span> </span>
 <span id="cb52-3"><a href="#cb52-3"></a>    <span class="fu">list</span>(<span class="st">`</span><span class="at">FE regular SE</span><span class="st">`</span> <span class="ot">=</span> rice_fe, </span>
@@ -2034,6 +2042,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb52-9"><a href="#cb52-9"></a>    <span class="fu">vcovHC</span>(rice_fe, <span class="at">method =</span> <span class="st">"arellano"</span>, <span class="at">type =</span> <span class="st">"sss"</span>)</span>
 <span id="cb52-10"><a href="#cb52-10"></a>    )</span>
 <span id="cb52-11"><a href="#cb52-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 4
    parameter         `FE regular SE`  `FE cl. het. robust` `FE cl. het. autoco…`
@@ -2052,48 +2061,105 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 12 F Statistics (df) 386*** (6; 849)  386*** (6; 849)      386*** (6; 849)      </code></pre>
 </div>
 </div>
+</section></section>
+<section>
+<section id="are-larger-farms-more-productive" class="title-slide slide level1 center">
+<h1>Are larger farms more productive?</h1>
+<div class="callout callout-tip callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Remember:</p>
+<p>We want to understand if larger farms are more productive compared to smaller once.</p>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">It is possible to understand by performing a hypothesis testing about a linear combination of parameters taking into consideration their covariance.</li>
+</ul>
 </section>
-<section id="linear-hypothesis-1" class="slide level2">
+<section id="linear-hypothesis-1" class="slide level2 smaller">
 <h2>Linear hypothesis (1)</h2>
-<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-28_93bc7133df4cf4d55ba155f12571184e">
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-28_32307a2f281618787e97f9cec1b6d972">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>lh_1 <span class="ot">&lt;-</span> </span>
 <span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">linearHypothesis</span>(rice_fe,</span>
 <span id="cb54-3"><a href="#cb54-3"></a>                   <span class="st">"land + labor + seed + urea + pest = 1"</span>,</span>
 <span id="cb54-4"><a href="#cb54-4"></a>                   <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe))</span>
-<span id="cb54-5"><a href="#cb54-5"></a></span>
-<span id="cb54-6"><a href="#cb54-6"></a><span class="co"># Sum of the linear combinations</span></span>
-<span id="cb54-7"><a href="#cb54-7"></a><span class="fu">attr</span>(lh_1, <span class="st">"value"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.vector</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb54-5"><a href="#cb54-5"></a>lh_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.08768471</code></pre>
+<pre><code>Linear hypothesis test
+
+Hypothesis:
+land  + labor  + seed  + urea  + pest = 1
+
+Model 1: restricted model
+Model 2: rice_fe
+
+Note: Coefficient covariance matrix supplied.
+
+  Res.Df Df Chisq Pr(&gt;Chisq)   
+1    850                       
+2    849  1  8.18     0.0042 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># SE of the linear combinations</span></span>
-<span id="cb56-2"><a href="#cb56-2"></a><span class="fu">attr</span>(lh_1, <span class="st">"vcov"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.vector</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># Sum of the linear combinations</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="fu">attr</span>(lh_1, <span class="st">"value"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.vector</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0009399172</code></pre>
+<pre><code>[1] 0.08768</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># SE of the linear combinations</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a><span class="fu">attr</span>(lh_1, <span class="st">"vcov"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.vector</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0009399</code></pre>
 </div>
 </div>
 </section>
-<section id="linear-hypothesis-2" class="slide level2">
-<h2>Linear hypothesis (2)</h2>
+<section id="linear-hypothesis-delta-method-2" class="slide level2">
+<h2>Linear hypothesis: delta method (2)</h2>
 <div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-29_76e8efc67c88ff8607e22321f01e98bc">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">deltaMethod</span>(</span>
-<span id="cb58-2"><a href="#cb58-2"></a>  rice_fe, </span>
-<span id="cb58-3"><a href="#cb58-3"></a>  <span class="st">"land + labor + seed + urea + pest"</span>,</span>
-<span id="cb58-4"><a href="#cb58-4"></a>  <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe)</span>
-<span id="cb58-5"><a href="#cb58-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">deltaMethod</span>(</span>
+<span id="cb60-2"><a href="#cb60-2"></a>  rice_fe, </span>
+<span id="cb60-3"><a href="#cb60-3"></a>  <span class="st">"land + labor + seed + urea + pest"</span>,</span>
+<span id="cb60-4"><a href="#cb60-4"></a>  <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe)</span>
+<span id="cb60-5"><a href="#cb60-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                  Estimate       SE    2.5 % 97.5 %
-land + labor + seed + urea + pest 1.087685 0.030658 1.027596 1.1478</code></pre>
+<pre><code>                                  Estimate     SE  2.5 % 97.5 %
+land + labor + seed + urea + pest   1.0877 0.0307 1.0276   1.15</code></pre>
 </div>
 </div>
 </section></section>
+<section>
 <section id="classhomework" class="title-slide slide level1 center">
 <h1>Class/Homework</h1>
 
 </section>
-
+<section id="reproduce-example-3-from-the-class" class="slide level2 smaller">
+<h2>Reproduce example 3 from the class</h2>
+<ul>
+<li class="fragment"><p>Instead of using a Cobb-Douglas production function, use the Translog production function.</p></li>
+<li class="fragment"><p>Reduce number of regressors to land, labor and seeds for simplicity.</p></li>
+<li class="fragment"><p>Compute the marginal effects of coefficients.</p></li>
+</ul>
+<p>. . . <span class="math display">\[\ln y = \beta_0 + \sum_{n = 1}^{N}  \beta_n \ln x_n + \\ \frac{1}{2} \sum_{n = 1}^{N} \sum_{m = 1}^{M}  \beta_{nm} \ln x_n \ln x_m + \sum_{k = 1}^{K} \gamma_k \delta_k + \epsilon\]</span></p>
+<p>where,</p>
+<ul>
+<li class="fragment"><span class="math inline">\(\ln x_n \ln x_m\)</span> are the interaction terms between all combination of two regressors.</li>
+<li class="fragment">Everything else is the same as in Cobb-Douglas.</li>
+</ul>
+</section></section>
+<section>
 <section id="take-away" class="title-slide slide level1 smaller center">
 <h1>Take away</h1>
+
+</section>
+<section id="take-away-1" class="slide level2 smaller">
+<h2>Take away</h2>
 <ul>
 <li class="fragment"><p>Data types: cross-sectional and panel balanced and unbalanced</p></li>
 <li class="fragment"><p>Why panel data:</p></li>
@@ -2106,6 +2172,7 @@ land + labor + seed + urea + pest 1.087685 0.030658 1.027596 1.1478</code></pre>
 <li class="fragment"><p>Practical application;</p>
 <ul>
 <li class="fragment">Fitting panel regression</li>
+<li class="fragment">Cobb-Douglas and Translog production function</li>
 <li class="fragment">Model selection routine</li>
 <li class="fragment">Statistical testing</li>
 <li class="fragment">Standard Errors correction</li>
@@ -2117,8 +2184,7 @@ land + labor + seed + urea + pest 1.087685 0.030658 1.027596 1.1478</code></pre>
 <li class="fragment">Delta method</li>
 </ul></li>
 </ul>
-</section>
-
+</section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 
@@ -2170,7 +2236,7 @@ Mendelsohn, Robert, William D Nordhaus, and Daigee Shaw. 1994. <span>“The Impa
 Mundlak, Yair. 1961. <span>“Empirical Production Function Free of Management Bias.”</span> <em>Journal of Farm Economics</em> 43 (1): 44. <a href="https://doi.org/10.2307/1235460">https://doi.org/10.2307/1235460</a>.
 </div>
 <div id="ref-Seo2008b" class="csl-entry" role="doc-biblioentry">
-Seo, S. Niggol, and Robert Mendelsohn. 2008a. <span>“Measuring Impacts and Adaptations to Climate Change: A Structural Ricardian Model of African Livestock Management<span class="math inline">\(\less\)</span>sup<span class="math inline">\(\greater\)</span>1<span class="math inline">\(\less\)</span>/Sup<span class="math inline">\(\greater\)</span>.”</span> <em>Agricultural Economics</em> 38 (2): 151–65. <a href="https://doi.org/10.1111/j.1574-0862.2008.00289.x">https://doi.org/10.1111/j.1574-0862.2008.00289.x</a>.
+Seo, S. Niggol, and Robert Mendelsohn. 2008a. <span>“Measuring Impacts and Adaptations to Climate Change: A Structural Ricardian Model of African Livestock Management.”</span> <em>Agricultural Economics</em> 38 (2): 151–65. <a href="https://doi.org/10.1111/j.1574-0862.2008.00289.x">https://doi.org/10.1111/j.1574-0862.2008.00289.x</a>.
 </div>
 <div id="ref-Seo2008" class="csl-entry" role="doc-biblioentry">
 ———. 2008b. <span>“An Analysis of Crop Choice: Adapting to Climate Change in South American Farms.”</span> <em>Ecological Economics</em> 67 (1): 109–16. <a href="https://doi.org/10.1016/j.ecolecon.2007.12.007">https://doi.org/10.1016/j.ecolecon.2007.12.007</a>.
