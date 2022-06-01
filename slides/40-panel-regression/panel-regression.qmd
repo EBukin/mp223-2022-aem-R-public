@@ -55,13 +55,14 @@ knitr::opts_chunk$set(
 
 -   Ceteris paribus!?
 
-    -   Why multiple regression is good?
+    -   Why multiple regression is "good"?
     -   What variables are important when establishing a causal effect of a treatment (key variable)?
     -   What if we do not have an important variable?
 
 -   Selection bias = OVB! In multiple regression analysis.
 
-    -   Bias and Efficiency of estimates
+    -   What does OVB to our regression estimates?
+    -   Bias (inconsistency) of estimates!
 
 # Data Types
 
@@ -75,15 +76,15 @@ knitr::opts_chunk$set(
 | $\vdots$ | $\vdots$ |  $\vdots$   |  $\vdots$   |
 |   $N$    | $y_{N}$  | $x^{1}_{N}$ | $x^{1}_{N}$ |
 
-. . .
-
 Could be repeated multiple times, but in every repetition, there are different individuals.
 
 ## Panel data
 
--   is a tabulated data set,
+-   table with data, where
 
--   each individual (cohort) is represented by multiple observations from different time periods.
+-   **each individual** (cohort) is represented by **multiple observations** from **different time periods**.
+
+-   sometimes, nested cohorts are possible too (region, individual, time).
 
 ## Panel data {.smaller}
 
@@ -115,15 +116,13 @@ Could be repeated multiple times, but in every repetition, there are different i
 
 # Using Panel Data ...
 
-. . .
-
+::: callout-important
 is a strategy to **control** unobserved/omitted but fixed effects using **time** or **cohort (individual)** dimensions.
-
---
+:::
 
 # Motivation for panel data regression analysis
 
-## Example 1: Effect of an employee's union membership on wage
+## Example 1: Effect of an employee's union membership on wage {.smaller}
 
 Does the collective bargaining (union membership) has any effect on wages?
 
@@ -133,23 +132,20 @@ Does the collective bargaining (union membership) has any effect on wages?
 
 $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it} + \beta_2 \cdot {X_{it}} + \beta_3 \cdot \text{Ability}_{i} + \epsilon_{it}$$
 
-where $i$ is the individual and $t$ is time dimension;
+where $i$ is the individual and $t$ is the time dimension;
 
-## Endogeneity problem in the effect of a union membership
+## Is there an endogeneity problem?
 
 -   Is there a source of endogeneity / selection bias here?
 
     -   Any ideas?
-
     -   Any ideas....
 
-    -   Any ideas....
+-   Ability:
 
-    -   Ability:
-
-        -   unobservant;
-        -   time invariant;
-        -   correlates with $X$ and $Y$;
+    -   not observable ;
+    -   time invariant;
+    -   correlates with $X$ and $Y$;
 
 -   Omitting ability causes the OVB!
 
@@ -159,25 +155,21 @@ where $i$ is the individual and $t$ is time dimension;
 
     -   These variables will be different each time we record measurements for each individual.
 
--   Ability are time-invariant;
+-   Ability are **time-invariant and specific to each individual**;
 
-<!-- -->
+    -   If we introduce dummy variables for each individual, 
+    -   we can approximate different ability levels!
 
-    -   Ability are specific to each individual;
-
-    -   If we introduce dummy variables for each individual, we can approximate different ability levels!
-
-## Cross-sectional data: is this possible?
+## Cross-sectional data and idividual dummies
 
 -   Can we introduce dummy variables for each individual in a cross-section?
 
     -   Any ideas?
-    -   Any ideas....
     -   Why?....
 
 -   NO...
 
-    -   Because the number of independent variables have to be less or equal to the number of observations.
+    -   Because the **number of independent variables have to be less or equal to the number of observations**.
 
 ## Cross-sectional example
 
@@ -189,7 +181,7 @@ where $i$ is the individual and $t$ is time dimension;
 | $\vdots$ | $\vdots$ |  $\vdots$   |  $\vdots$   | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
 |   $N$    | $y_{N}$  | $x^{1}_{N}$ | $x^{1}_{N}$ |    0     |    0     |    0     |    1     |
 
-## With the panel data everything is possible {.smaller}
+## Panel data data and idividual dummies {.smaller}
 
 |    ID    |   Time   |    Y     |      X1      |      X2      | ${ID}_1$ | ${ID}_2$ | ${ID}_N$ |
 |:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
@@ -204,22 +196,23 @@ where $i$ is the individual and $t$ is time dimension;
 
 ## With the panel data it will work, but... {.smaller}
 
-May be difficult..
+May be difficult... Any ideas why?...
 
 -   Number of dummy variables is equal to the number of individuals.
 
--   If we have data with 5000 individuals, we will have 5000 regression coefficients.
-
--   What if we have 100000 individuals?
+    -   If we have 5,000 individuals, we have 5,000 regression coefficients.
+    -   What if we have 100,000 individuals?
 
 -   Having too many regressors remains unbiased, but complicates inference:
 
     -   number of degrees of freedom increases;
     -   adjusted $R^2$ may shrink to zero;
 
-# Panel regresion: brief theory
+# Panel regression: brief theory
 
 ## Readings {.smaller}
+
+. . .
 
 #### Key readings:
 
@@ -229,27 +222,31 @@ May be difficult..
 -   @wooldridge2020introductory;
 -   @Soederbom2014, Ch. 9-11
 
+. . .
+
 #### Other readings:
 
 -   @Croissant2018
 
 ## Terminology:
 
--   Pooled OLS without panel structure;
+-   Pooled OLS (regression without any panel structure);
 
 -   Fixed Effect Models:
 
-    -   Least-squares dummy variable approach (Pooled OLS + individual dummies);
+    -   Least-squares dummy variable (Pooled OLS + individual dummies);
     -   Within-transformation
     -   First-difference
+    -   Between transformation (look it up in [@Croissant2018]!)
 
 -   Random Effect Model
 
-## Pooled OLS - without a panel structure
+## Pooled OLS
 
--   Union example, short model:
-
--   $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \epsilon_{it}$$
+-   Union example, the short model:
+  
+. . .
+$$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \epsilon_{it}$$
 
 -   Estimates are biased because we do not observe ability, which are time-invariant [@Mundlak1961].
 
@@ -257,17 +254,21 @@ May be difficult..
 
 -   Introduce a vector of dummy variables $\color{Red}{\delta}$
 
--   $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \beta_3 \cdot \color{Red}{\delta_{i}} + \epsilon_{it}$$
+. . .
 
--   Unbiased but inefficient.
+$$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \\ \beta_3 \cdot \color{Red}{\delta_{i}} + \epsilon_{it}$$
+
+-   Estimates and unbiased (consistent) but inefficient.
 
 ## Within transformation - Key method
 
--   $$log(\text{Wage}_{it} - \overline{\text{Wage}_{i}}) = \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  \overline{\text{Union}_{i}}) + \\ \beta_2 \cdot (X_{it} - \overline{\text{X}_{i}}) +  \beta_3 \cdot (\text{Ability}_{i} - \overline{\text{Ability}_{i}}) + \\ (\epsilon_{it} - \overline{\epsilon_{i}})$$
+. . .
+
+$$log(\text{Wage}_{it} - \overline{\text{Wage}_{i}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  \overline{\text{Union}_{i}}) + \\ \beta_2 \cdot (X_{it} - \overline{\text{X}_{i}}) +  \beta_3 \cdot (\text{Ability}_{i} - \overline{\text{Ability}_{i}}) + \\ (\epsilon_{it} - \overline{\epsilon_{i}})$$
 
 -   Any time-invariant effect will disappear from the regression because: $\text{Ability}_{i} - \overline{\text{Ability}_{i}} = 0$
 
--   Estimates will be identical to the least-squares dummy variable, but more efficient;
+-   Estimates are identical to the least-squares dummy variable, but SE are more efficient;
 
 ------------------------------------------------------------------------
 
@@ -286,13 +287,22 @@ May be difficult..
 
 ## First Difference transformation
 
--   $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  {\text{Union}_{it-1}}) + \\ \beta_2 \cdot (X_{it} - {{X}_{i,t-1}}) + \\ \beta_3 \cdot (\text{Ability}_{i} - {\text{Ability}_{i,t-1}}) + (\epsilon_{it} - {\epsilon_{i,t-1}})$$
+. . .
+
+$$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  {\text{Union}_{it-1}}) + \\ \beta_2 \cdot (X_{it} - {{X}_{i,t-1}}) + \\ \beta_3 \cdot (\text{Ability}_{i} - {\text{Ability}_{i,t-1}}) + (\epsilon_{it} - {\epsilon_{i,t-1}})$$
+
+-   Has similar effect as the within transformation. 
+-   Sacrifices at least one time dimension.
+-   Relaxes autocorrelation assumption.
+-   May be not possible with unbalanced data.
 
 ## Fixed effect model assumptions {.smaller}
 
-#### Important:
+. . .
 
--   $Cov(\delta_{i},{X}_{it}) \neq 0$ - correlation between fixed effects and regressors
+#### Very Important:
+
+-    NOT ZERO correlation between FE and regressors: $Cov(\delta_{i},{X}_{it}) \neq 0$
 
 -   $E[\epsilon_{is}| {X}_{it}, \delta_{i}] = 0$ - strict exogeneity:
 
@@ -348,7 +358,7 @@ May be difficult..
 knitr::include_graphics("./img/union-wage-tbl.png")
 ```
 
-# Panel regresion: motivation for a panel regression
+# Panel regression: motivation for a panel regression
 
 ## Example 2. Macro-level data analysis {.smaller}
 
@@ -480,21 +490,21 @@ pp1 +
   #             aes(group = country))+ 
 ```
 
-# Panel regresion: practice
+# Panel regression: practice
 
-## Generai algorithm {.smaller}
+## General algorithm {.smaller}
 
 1.  Pooled OLS;
 
-    -   Lineariy validation;
+    -   Linearity validation;
 
 2.  Fixed Effect. Within-transformation. Individual, Time, two-ways;
 
-    -   `F-test` and `LM test` on FE consistency agains pooled;
+    -   `F-test` and `LM test` on FE consistency against pooled;
 
 3.  Random Effect;
 
-    -   `Hausman test`, `Chamberlain test`, `Angrist and Newey` on RE consistency agains FE;
+    -   `Hausman test`, `Chamberlain test`, `Angrist and Newey` on RE consistency against FE;
 
 4.  Serial correlation and cross-sectional dependence tests;
 
@@ -511,10 +521,10 @@ pp1 +
 
 -   Following data `RiceFarms` is used from package `splm`. We only use a subset of variables:
 
-    -   `goutput` - gross output of rice in kg 
+    -   `goutput` - gross output of rice in kg
     -   `size` - the total area cultivated with rice, measured in hectares
-    -   `seed` - seed in kilogram 
-    -   `urea` - urea in kilogram 
+    -   `seed` - seed in kilogram
+    -   `urea` - urea in kilogram
     -   `totlabor` - total labor (excluding harvest labor)
 
 -   To make analysis consistent with the theory, we would like to estimate a Cobb-Douglas Proudhon function, thus, all $Y$ and $X$ are converted in log.
@@ -587,7 +597,7 @@ compare_models(rice_pooled, rice_fe, style = "se_p") %>% print(digits = 3)
 compare_performance(rice_pooled, rice_fe) %>% print(digits = 3)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Step 2.2 F test for individual effects {.smaller}
 
@@ -600,7 +610,7 @@ compare_performance(rice_pooled, rice_fe) %>% print(digits = 3)
 pFtest(rice_fe, rice_pooled)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Step 2.3 Lagrange Multiplier Tests {.smaller}
 
@@ -619,13 +629,18 @@ plmtest(rice_pooled, effect = "individual", type = "bp")
 ### Step 3.1 Random Effect
 
 ```{r}
-rice_re <- plm(goutput ~ size + seed + urea + totlabor, 
-               rice_dta_p, model = "random", effect = "individual")
-compare_models(rice_pooled, rice_fe, rice_re, style = "se_p") %>% print(digits = 3)
+rice_re <- 
+  plm(goutput ~ size + seed + urea + totlabor, 
+      rice_dta_p, 
+      model = "random", 
+      effect = "individual")
+
+compare_models(rice_pooled, rice_fe, rice_re, style = "se_p") %>% 
+  print(digits = 3)
 compare_performance(rice_pooled, rice_fe, rice_re) %>% print(digits = 3)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Step 3.2 Hausman Test for Panel Models
 
@@ -633,25 +648,25 @@ compare_performance(rice_pooled, rice_fe, rice_re) %>% print(digits = 3)
 
     -   H0: One model is inconsistent.
     -   H1: Both models are equally consistent.
-    
+
 ```{r}
 phtest(rice_fe, rice_re)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Step 4.1 Serial correlation and cross-sectional dependence
 
 -   Wooldridge's test for unobserved individual effects
 
-    -   H0: no unorbserved effects
+    -   H0: no unobserved effects
     -   H1: some effects also dues to serial correlation
 
 ```{r}
 pwtest(rice_pooled)
-```   
+```
 
----
+------------------------------------------------------------------------
 
 ### Step 4.2 lm tests for random effects and/or serial correlation
 
@@ -663,9 +678,9 @@ pbsytest(rice_pooled, test = "ar")
 pbsytest(rice_pooled, test = "re")
 ```
 
----
+------------------------------------------------------------------------
 
-### Step 4.3 Breusch-Godfrey and DurbinWatson tests
+### Step 4.3 Breusch-Godfrey and Durbin-Watson tests
 
 -   H0: serial correlation is zero
 -   H0: some serial correlation
@@ -677,9 +692,9 @@ pbgtest(rice_fe, order = 3)
 pdwtest(rice_fe)
 ```
 
----
+------------------------------------------------------------------------
 
-### Step 5. Robust and clusteder standard errors
+### Step 5. Robust and clustered standard errors
 
 ```{r}
 library(lmtest)
@@ -701,7 +716,7 @@ coeftest(rice_fe,
 
 ```
 
----
+------------------------------------------------------------------------
 
 ### Linear hypothesis (1)
 
@@ -712,8 +727,7 @@ linearHypothesis(rice_fe,
                         type = "HC0", cluster = "group"))
 ```
 
-
----
+------------------------------------------------------------------------
 
 ### Linear hypothesis (2)
 
@@ -730,9 +744,7 @@ deltaMethod(
 )
 ```
 
-
-
-## Take aways {.smaller}
+## Take away {.smaller}
 
 -   Data types;
 
