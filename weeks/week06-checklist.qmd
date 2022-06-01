@@ -11,7 +11,3 @@ bibliography: ../references.bib
 
 -   Download here [ae/ae06-multiple-regression-part-3.zip](https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae06-multiple-regression-part-3.zip) or on Ilias.
 :::
-
-::: callout-important
-
-

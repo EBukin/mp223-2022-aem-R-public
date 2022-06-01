@@ -1,0 +1,22 @@
+---
+title: "Week 8"
+subtitle: "Panel Regression Analysis"
+bibliography: ../references.bib
+---
+
+## W08
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W08 Panel Regression Analysis](/slides/40-panel-regression/panel-regression.html)
+-   **Application Exercise:** 📋[ae05-01-OVB.rmd](/ae/ae08-panel-regression-part-1/ae05-01-OVB.html)
+-   Download here [ae/ae08-panel-regression-part-1.zip](https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae08-panel-regression-part-1.zip) or on Ilias.
+:::
+
+
+::: callout-important
+## `SELF STUDY`
+
+-   **Remaining exercises in:** 📋[ae/ae08-panel-regression-part-1.zip](https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae08-panel-regression-part-1.zip)
+:::
