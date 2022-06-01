@@ -1,0 +1,748 @@
+---
+title: "Panel Regression Analysis"
+subtitle: "MP223 - Applied Econometrics Methods for the Social Sciences"
+author: "Eduard Bukin"
+footer:  "[https://ebukin.github.io/mp223-2022-aem-R-public/](https://ebukin.github.io/mp223-2022-aem-R-public/)"
+logo: "../../img/jlu-logo.png"
+editor: visual
+format: 
+  revealjs: 
+    
+    transition: fade
+    slide-number: true
+    smaller: false
+    scrollable: true
+    incremental: true 
+execute:
+  
+  freeze: auto
+bibliography: ../../references.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+# R setup {.smaller}
+
+```{r}
+#| echo: true
+
+library(tidyverse)       # for data wrangling
+library(alr4)            # for the data sets #
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 10,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+```
+
+# Recap
+
+-   Ceteris paribus!?
+
+    -   Why multiple regression is good?
+    -   What variables are important when establishing a causal effect of a treatment (key variable)?
+    -   What if we do not have an important variable?
+
+-   Selection bias = OVB! In multiple regression analysis.
+
+    -   Bias and Efficiency of estimates
+
+# Data Types
+
+## Cross-sectional data {.smaller}
+
+|    ID    |    Y     |     X1      |     X2      |
+|:--------:|:--------:|:-----------:|:-----------:|
+|   $1$    | $y_{1}$  | $x^{1}_{1}$ | $x^{2}_{1}$ |
+|   $2$    | $y_{2}$  | $x^{1}_{2}$ | $x^{2}_{2}$ |
+|   $3$    | $y_{3}$  | $x^{1}_{3}$ | $x^{2}_{3}$ |
+| $\vdots$ | $\vdots$ |  $\vdots$   |  $\vdots$   |
+|   $N$    | $y_{N}$  | $x^{1}_{N}$ | $x^{1}_{N}$ |
+
+. . .
+
+Could be repeated multiple times, but in every repetition, there are different individuals.
+
+## Panel data
+
+-   is a tabulated data set,
+
+-   each individual (cohort) is represented by multiple observations from different time periods.
+
+## Panel data {.smaller}
+
+|    ID    |   Time   |    Y     |      X1      |      X2      |
+|:--------:|:--------:|:--------:|:------------:|:------------:|
+|   $1$    |   $1$    | $y_{11}$ | $x^{1}_{11}$ | $x^{2}_{11}$ |
+|   $1$    |   $2$    | $y_{12}$ | $x^{1}_{12}$ | $x^{2}_{12}$ |
+|   $1$    |   $3$    | $y_{13}$ | $x^{1}_{13}$ | $x^{2}_{13}$ |
+|   $2$    |   $2$    | $y_{22}$ | $x^{1}_{22}$ | $x^{2}_{22}$ |
+|   $2$    |   $3$    | $y_{23}$ | $x^{1}_{23}$ | $x^{2}_{23}$ |
+|   $3$    |   $1$    | $y_{31}$ | $x^{1}_{31}$ | $x^{2}_{31}$ |
+|   $3$    |   $2$    | $y_{32}$ | $x^{1}_{32}$ | $x^{2}_{32}$ |
+| $\vdots$ | $\vdots$ | $\vdots$ |   $\vdots$   |   $\vdots$   |
+|   $N$    |   $1$    | $y_{N1}$ | $x^{1}_{N1}$ | $x^{1}_{N1}$ |
+|   $N$    |   $2$    | $y_{N2}$ | $x^{1}_{N2}$ | $x^{2}_{N2}$ |
+
+## Panel data: Balanced and Unbalanced {.smaller}
+
+|             |               |          |          |             |               |          |          |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|  Balanced   |               |          |          | Unbalanced  |               |          |          |
+| $\text{ID}$ | $\text{Time}$ |   $Y$    |   $X$    | $\text{ID}$ | $\text{Time}$ |   $Y$    |   $X$    |
+|      1      |       1       | $Y_{11}$ | $X_{11}$ |      1      |       1       | $Y_{11}$ | $X_{11}$ |
+|      1      |       2       | $Y_{12}$ | $X_{12}$ |      1      |       2       | $Y_{12}$ | $X_{12}$ |
+|      1      |       3       | $Y_{13}$ | $X_{13}$ |      2      |       2       | $Y_{22}$ | $X_{22}$ |
+|      2      |       1       | $Y_{21}$ | $X_{21}$ |      2      |       3       | $Y_{23}$ | $X_{23}$ |
+|      2      |       2       | $Y_{22}$ | $X_{22}$ |      3      |       3       | $Y_{33}$ | $X_{33}$ |
+|      2      |       3       | $Y_{23}$ | $X_{23}$ |      4      |       1       | $Y_{31}$ | $X_{31}$ |
+
+# Using Panel Data ...
+
+. . .
+
+is a strategy to **control** unobserved/omitted but fixed effects using **time** or **cohort (individual)** dimensions.
+
+--
+
+# Motivation for panel data regression analysis
+
+## Example 1: Effect of an employee's union membership on wage
+
+Does the collective bargaining (union membership) has any effect on wages?
+
+-   See the following seminal papers: [@Freeman1984; @Card1996]
+
+. . .
+
+$$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it} + \beta_2 \cdot {X_{it}} + \beta_3 \cdot \text{Ability}_{i} + \epsilon_{it}$$
+
+where $i$ is the individual and $t$ is time dimension;
+
+## Endogeneity problem in the effect of a union membership
+
+-   Is there a source of endogeneity / selection bias here?
+
+    -   Any ideas?
+
+    -   Any ideas....
+
+    -   Any ideas....
+
+    -   Ability:
+
+        -   unobservant;
+        -   time invariant;
+        -   correlates with $X$ and $Y$;
+
+-   Omitting ability causes the OVB!
+
+## Solution: use the panel data
+
+-   Most of the individual-related characteristics change over time: wage. union membership, skills, experience.
+
+    -   These variables will be different each time we record measurements for each individual.
+
+-   Ability are time-invariant;
+
+<!-- -->
+
+    -   Ability are specific to each individual;
+
+    -   If we introduce dummy variables for each individual, we can approximate different ability levels!
+
+## Cross-sectional data: is this possible?
+
+-   Can we introduce dummy variables for each individual in a cross-section?
+
+    -   Any ideas?
+    -   Any ideas....
+    -   Why?....
+
+-   NO...
+
+    -   Because the number of independent variables have to be less or equal to the number of observations.
+
+## Cross-sectional example
+
+|    ID    |    Y     |     X1      |     X2      | ${ID}_1$ | ${ID}_2$ | ${ID}_3$ | ${ID}_N$ |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|   $1$    | $y_{1}$  | $x^{1}_{1}$ | $x^{2}_{1}$ |    1     |    0     |    0     |    0     |
+|   $2$    | $y_{2}$  | $x^{1}_{2}$ | $x^{2}_{2}$ |    0     |    1     |    0     |    0     |
+|   $3$    | $y_{3}$  | $x^{1}_{3}$ | $x^{2}_{3}$ |    0     |    0     |    1     |    0     |
+| $\vdots$ | $\vdots$ |  $\vdots$   |  $\vdots$   | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+|   $N$    | $y_{N}$  | $x^{1}_{N}$ | $x^{1}_{N}$ |    0     |    0     |    0     |    1     |
+
+## With the panel data everything is possible {.smaller}
+
+|    ID    |   Time   |    Y     |      X1      |      X2      | ${ID}_1$ | ${ID}_2$ | ${ID}_N$ |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|   $1$    |   $1$    | $y_{11}$ | $x^{1}_{11}$ | $x^{2}_{11}$ |    1     |    0     |    0     |
+|   $1$    |   $2$    | $y_{12}$ | $x^{1}_{12}$ | $x^{2}_{12}$ |    1     |    0     |    0     |
+|   $1$    |   $3$    | $y_{13}$ | $x^{1}_{13}$ | $x^{2}_{13}$ |    1     |    0     |    0     |
+|   $2$    |   $2$    | $y_{22}$ | $x^{1}_{22}$ | $x^{2}_{22}$ |    0     |    1     |    0     |
+|   $2$    |   $3$    | $y_{23}$ | $x^{1}_{23}$ | $x^{2}_{23}$ |    0     |    1     |    0     |
+| $\vdots$ | $\vdots$ | $\vdots$ |   $\vdots$   |   $\vdots$   | $\vdots$ | $\vdots$ | $\vdots$ |
+|   $N$    |   $1$    | $y_{N1}$ | $x^{1}_{N1}$ | $x^{1}_{N1}$ |    0     |    0     |    1     |
+|   $N$    |   $2$    | $y_{N2}$ | $x^{1}_{N2}$ | $x^{2}_{N2}$ |    0     |    0     |    1     |
+
+## With the panel data it will work, but... {.smaller}
+
+May be difficult..
+
+-   Number of dummy variables is equal to the number of individuals.
+
+-   If we have data with 5000 individuals, we will have 5000 regression coefficients.
+
+-   What if we have 100000 individuals?
+
+-   Having too many regressors remains unbiased, but complicates inference:
+
+    -   number of degrees of freedom increases;
+    -   adjusted $R^2$ may shrink to zero;
+
+# Panel regresion: brief theory
+
+## Readings {.smaller}
+
+#### Key readings:
+
+-   @Mundlak1961
+-   @Angrist2009 Ch. 5
+-   @Wooldridge2010;
+-   @wooldridge2020introductory;
+-   @Soederbom2014, Ch. 9-11
+
+#### Other readings:
+
+-   @Croissant2018
+
+## Terminology:
+
+-   Pooled OLS without panel structure;
+
+-   Fixed Effect Models:
+
+    -   Least-squares dummy variable approach (Pooled OLS + individual dummies);
+    -   Within-transformation
+    -   First-difference
+
+-   Random Effect Model
+
+## Pooled OLS - without a panel structure
+
+-   Union example, short model:
+
+-   $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \epsilon_{it}$$
+
+-   Estimates are biased because we do not observe ability, which are time-invariant [@Mundlak1961].
+
+## Least-squares dummy variable approach
+
+-   Introduce a vector of dummy variables $\color{Red}{\delta}$
+
+-   $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \beta_3 \cdot \color{Red}{\delta_{i}} + \epsilon_{it}$$
+
+-   Unbiased but inefficient.
+
+## Within transformation - Key method
+
+-   $$log(\text{Wage}_{it} - \overline{\text{Wage}_{i}}) = \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  \overline{\text{Union}_{i}}) + \\ \beta_2 \cdot (X_{it} - \overline{\text{X}_{i}}) +  \beta_3 \cdot (\text{Ability}_{i} - \overline{\text{Ability}_{i}}) + \\ (\epsilon_{it} - \overline{\epsilon_{i}})$$
+
+-   Any time-invariant effect will disappear from the regression because: $\text{Ability}_{i} - \overline{\text{Ability}_{i}} = 0$
+
+-   Estimates will be identical to the least-squares dummy variable, but more efficient;
+
+------------------------------------------------------------------------
+
+::: smaller
+|    ID    |   Time   |   $Y$    |     $Y-\overline{Y}$      |     $X1$     |      $X1-\overline{X1}$       |
+|:----------:|:----------:|:----------:|:----------:|:----------:|:----------:|
+|   $1$    |   $1$    | $y_{11}$ | $y_{11} - \overline{y_1}$ | $x^{1}_{11}$ | $x^1_{11} - \overline{x^1_1}$ |
+|   $1$    |   $2$    | $y_{12}$ | $y_{12} - \overline{y_1}$ | $x^{1}_{12}$ | $x^1_{12} - \overline{x^1_1}$ |
+|   $1$    |   $3$    | $y_{13}$ | $y_{13} - \overline{y_1}$ | $x^{1}_{13}$ | $x^1_{13} - \overline{x^1_1}$ |
+|   $2$    |   $2$    | $y_{22}$ | $y_{22} - \overline{y_2}$ | $x^{1}_{22}$ | $x^1_{22} - \overline{x^1_2}$ |
+|   $2$    |   $3$    | $y_{23}$ | $y_{23} - \overline{y_2}$ | $x^{1}_{23}$ | $x^1_{23} - \overline{x^1_2}$ |
+| $\vdots$ | $\vdots$ | $\vdots$ |         $\vdots$          |   $\vdots$   |           $\vdots$            |
+|   $N$    |   $1$    | $y_{N1}$ | $y_{N1} - \overline{y_N}$ | $x^{1}_{N1}$ | $x^1_{N1} - \overline{x^1_N}$ |
+|   $N$    |   $2$    | $y_{N2}$ | $y_{N2} - \overline{y_N}$ | $x^{1}_{N2}$ | $x^1_{N2} - \overline{x^1_N}$ |
+:::
+
+## First Difference transformation
+
+-   $$log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  {\text{Union}_{it-1}}) + \\ \beta_2 \cdot (X_{it} - {{X}_{i,t-1}}) + \\ \beta_3 \cdot (\text{Ability}_{i} - {\text{Ability}_{i,t-1}}) + (\epsilon_{it} - {\epsilon_{i,t-1}})$$
+
+## Fixed effect model assumptions {.smaller}
+
+#### Important:
+
+-   $Cov(\delta_{i},{X}_{it}) \neq 0$ - correlation between fixed effects and regressors
+
+-   $E[\epsilon_{is}| {X}_{it}, \delta_{i}] = 0$ - strict exogeneity:
+
+    -   $Cov(\epsilon_{is}, {X}_{jt}) = 0$ and $Cov(\epsilon_{it}, {X}_{it}) = 0$ , where $j\neq i$ and $s\neq t$ ;
+
+    -   Residuals do not correlate with all explanatory variable in all time periods and for all individuals.
+
+        -   No autocorrelation/serial correlation: $Cov(\epsilon_{it}, {X}_{i,t-1}) = 0$;
+        -   No cross-sectional dependence: $Cov(\epsilon_{it}, {X}_{j,t}) = 0$ (when individual observations react similarly to the common shocks or correlate in space);
+
+. . .
+
+#### Not less important:
+
+-   Linearity
+-   Homoscedasticity of error terms: $Var(\delta_{i}|{X}_{it}) = \sigma^2_{\delta}$
+
+## Fixed effect: literature {.smaller}
+
+-   Seminal papers: @Mundlak1961
+-   Climate and agriculture: @Mendelsohn1994, @Blanc2017, @Bozzola2017
+-   Choice of irrigation: @Kurukulasuriya2011, @Chatzopoulos2015
+-   Crop choice: @Kurukulasuriya2008, @Seo2008b,
+-   Livestock choice @Seo2008a, @Seo2008
+-   Cross-sectional dependence: @Conley1999
+
+## Random Effect Model {.smaller}
+
+-   Introduce a random component of the error term $\color{Red}{v}$
+
+-   $$log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \beta_3 \cdot \color{Red}{v_{i}} + \epsilon_{it}$$
+
+-   Difference from the fixed effect model:
+
+    -   Assumes NO CORRELATION between random effects and regressors: $Cov(v_{i},{X}_{it}) = 0$.
+
+    -   Ignoring RE causes no bias to the estimates;
+
+## Limitations of Fixed and Random effect models
+
+-   NOT the ultimate solution to Endogeneity.
+
+-   There might still be OVB even with the fixed effects.
+
+    -   Instrumental Variables are possible within the panel regression context too.
+
+-   Measurement error may cause endogeneity;
+
+## Example 1. Unions premium: implication of the Fixed effect model:
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/union-wage-tbl.png")
+```
+
+# Panel regresion: motivation for a panel regression
+
+## Example 2. Macro-level data analysis {.smaller}
+
+Let us analyze the link between imports and national product based on [@Kinal1993]. Both variables are in per capita and in log.
+
+```{r}
+library(plm)
+library(pder)
+data("ForeignTrade", package = "pder")
+ForeignTrade <- 
+  ForeignTrade %>% 
+  select(country, year, exports, imports, gnp) %>% 
+  pdata.frame(index = c("country", "year"))
+pdim(ForeignTrade)
+head(ForeignTrade)
+```
+
+------------------------------------------------------------------------
+
+### Relationship between GNP and imports
+
+```{r}
+#| echo: false
+#| fig-width: 8
+pp1 <- 
+  ForeignTrade %>% 
+  as_tibble() %>% 
+  ggplot() + 
+  aes(x = gnp, y = imports) + 
+  geom_point(aes(color = country), alpha = 0.5) + 
+  xlab("Real GNP per capita") + 
+  ylab("Imports deflated by the unit value of exports per capita")
+pp1
+```
+
+------------------------------------------------------------------------
+
+### Pooled
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-width: 8
+fit1_pooled <- plm(imports ~ gnp, ForeignTrade, model = "pooling")
+fit1_within <- plm(imports ~ gnp, ForeignTrade, model = "within", effect = "individual")
+# fit1_between <- plm(imports ~ gnp, ForeignTrade, model = "between", effect = "individual")
+fit1_within_two <- plm(imports ~ gnp, ForeignTrade, model = "within", effect = "twoways")
+fit1_random <- plm(imports ~ gnp, ForeignTrade, model = "random", effect = "individual")
+fttd_dta <- 
+  ForeignTrade %>% 
+  mutate(ftt = fitted(fit1_within) %>% as.numeric(),
+         res = resid(fit1_within) %>% as.numeric(),
+         ftt = imports - res) %>% 
+  as_tibble()
+pp1
+```
+
+------------------------------------------------------------------------
+
+### Pooled
+
+```{r}
+pp1 +
+  guides(colour = "none") + 
+  geom_abline(
+    aes(slope = coef(fit1_pooled)[[2]],
+        intercept = coef(fit1_pooled)[[1]],
+        linetype = "Pooled OLS"), size = 1) 
+```
+
+------------------------------------------------------------------------
+
+### Pooled + Within
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-width: 8
+pp1 +
+  guides(colour = "none") + 
+  geom_abline(
+    aes(slope = coef(fit1_pooled)[[2]],
+        intercept = coef(fit1_pooled)[[1]],
+        linetype = "Pooled OLS"), size = 1) + 
+  geom_abline(
+    aes(slope = coef(fit1_within)[[1]],
+        intercept = within_intercept(fit1_within),
+        linetype = "Within"), size = 1)
+```
+
+------------------------------------------------------------------------
+
+### Pooled + Within + Random
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-width: 8
+pp1 +
+  guides(colour = "none") + 
+  geom_abline(
+    aes(slope = coef(fit1_pooled)[[2]],
+        intercept = coef(fit1_pooled)[[1]],
+        linetype = "Pooled OLS"), size = 1) + 
+  geom_abline(
+    aes(slope = coef(fit1_within)[[1]],
+        intercept = within_intercept(fit1_within),
+        linetype = "Within"), size = 1) + 
+  geom_abline(
+    aes(slope = coef(fit1_random)[[2]],
+        intercept = coef(fit1_random)[[1]],
+        linetype = "Random"), size = 1) + 
+  geom_path(
+    data = fttd_dta,
+    aes(x = gnp, y = ftt, color = country)
+  )
+
+  # geom_abline(
+  #   aes(slope = coef(fit1_within_two)[[1]],
+  #       intercept = within_intercept(fit1_within_two),
+  #       linetype = "Within + two-ways"), size = 1) + 
+  # geom_abline(
+  #   aes(slope = coef(fit1_between)[[2]],
+  #       intercept = coef(fit1_between)[[1]],
+  #       linetype = "between"), size = 1) + 
+  # guides(colour = "none") + 
+  # geom_smooth(method = "lm", formula = "y ~ x", 
+  #             se = FALSE, inherit.aes = T, 
+  #             aes(group = country))+ 
+```
+
+# Panel regresion: practice
+
+## Generai algorithm {.smaller}
+
+1.  Pooled OLS;
+
+    -   Lineariy validation;
+
+2.  Fixed Effect. Within-transformation. Individual, Time, two-ways;
+
+    -   `F-test` and `LM test` on FE consistency agains pooled;
+
+3.  Random Effect;
+
+    -   `Hausman test`, `Chamberlain test`, `Angrist and Newey` on RE consistency agains FE;
+
+4.  Serial correlation and cross-sectional dependence tests;
+
+5.  Robust standard errors:
+
+    -   Clustered SE;
+    -   Heteroscedasticity and autocorrelation robust SE;
+
+6.  Summary and interpretation;
+
+## Example 3. Micro-level application `RiceFarms` {.smaller}
+
+-   Let us explore the determinants of rice productivity. We want to understand if larger farms are more productive compared to smaller once.
+
+-   Following data `RiceFarms` is used from package `splm`. We only use a subset of variables:
+
+    -   `goutput` - gross output of rice in kg 
+    -   `size` - the total area cultivated with rice, measured in hectares
+    -   `seed` - seed in kilogram 
+    -   `urea` - urea in kilogram 
+    -   `totlabor` - total labor (excluding harvest labor)
+
+-   To make analysis consistent with the theory, we would like to estimate a Cobb-Douglas Proudhon function, thus, all $Y$ and $X$ are converted in log.
+
+------------------------------------------------------------------------
+
+### Data glimpse {.smaller}
+
+```{r}
+library(plm); library(splm)
+data("RiceFarms", package = "splm")
+rice_dta <- RiceFarms %>% as_tibble() %>% 
+  select(id, time, goutput, size, seed, urea, totlabor) %>% 
+  mutate(across(c(goutput, size, seed, urea, totlabor), ~ log(.)))
+rice_dta_p <- rice_dta %>% pdata.frame(index = c("id", "time"))
+rice_dta
+pdim(rice_dta_p)
+```
+
+------------------------------------------------------------------------
+
+### Summary statistics for log and no-log variables
+
+```{r}
+library(modelsummary)
+RiceFarms %>% as_tibble() %>% select(id, time, goutput, size, seed, urea, totlabor) %>% 
+datasummary_skim(output = "data.frame")
+datasummary_skim(rice_dta_p, output = "data.frame")
+```
+
+------------------------------------------------------------------------
+
+### Data visualization
+
+```{r}
+#| fig-asp: 0.5
+library(GGally)
+rice_dta_p %>% select(-id, -time) %>% ggpairs()
+```
+
+------------------------------------------------------------------------
+
+### Step 1.1 Pooled OLS
+
+```{r}
+library(performance)
+library(parameters)
+rice_pooled <- plm(goutput ~ size + seed + urea + totlabor, rice_dta_p, model = "pooling")
+rice_pooled_2 <- lm(goutput ~ size + seed + urea + totlabor, rice_dta_p)
+compare_models(rice_pooled, style = "se_p") %>% print(digits = 3)
+performance(rice_pooled) %>% print(digits = 3)
+```
+
+------------------------------------------------------------------------
+
+### Step 1.2 Linearity and homoscedasticity
+
+```{r}
+check_model(rice_pooled_2, check = c("linearity", "homogeneity"))
+```
+
+------------------------------------------------------------------------
+
+### Step 2.1 Fixed Effect: within transformation
+
+```{r}
+rice_fe <- plm(goutput ~ size + seed + urea + totlabor, 
+               rice_dta_p, model = "within", effect = "individual")
+compare_models(rice_pooled, rice_fe, style = "se_p") %>% print(digits = 3)
+compare_performance(rice_pooled, rice_fe) %>% print(digits = 3)
+```
+
+---
+
+### Step 2.2 F test for individual effects {.smaller}
+
+-   Compares FE model to OLS. OLS is always consistent, when Gauss-Markov assumptions are satisfied.
+
+    -   H0: One model is inconsistent.
+    -   H1: Both models are equally consistent.
+
+```{r}
+pFtest(rice_fe, rice_pooled)
+```
+
+---
+
+### Step 2.3 Lagrange Multiplier Tests {.smaller}
+
+-   Compares FE model to OLS. OLS is always consistent, when Gauss-Markov assumptions are satisfied.
+
+    -   H0: One model is inconsistent.
+    -   H1: Both models are equally consistent.
+
+```{r}
+plmtest(rice_pooled, effect = "individual", type = "honda")
+plmtest(rice_pooled, effect = "individual", type = "bp")
+```
+
+------------------------------------------------------------------------
+
+### Step 3.1 Random Effect
+
+```{r}
+rice_re <- plm(goutput ~ size + seed + urea + totlabor, 
+               rice_dta_p, model = "random", effect = "individual")
+compare_models(rice_pooled, rice_fe, rice_re, style = "se_p") %>% print(digits = 3)
+compare_performance(rice_pooled, rice_fe, rice_re) %>% print(digits = 3)
+```
+
+---
+
+### Step 3.2 Hausman Test for Panel Models
+
+-   Compares RE to FE model. FE is assumed to be consistent
+
+    -   H0: One model is inconsistent.
+    -   H1: Both models are equally consistent.
+    
+```{r}
+phtest(rice_fe, rice_re)
+```
+
+---
+
+### Step 4.1 Serial correlation and cross-sectional dependence
+
+-   Wooldridge's test for unobserved individual effects
+
+    -   H0: no unorbserved effects
+    -   H1: some effects also dues to serial correlation
+
+```{r}
+pwtest(rice_pooled)
+```   
+
+---
+
+### Step 4.2 lm tests for random effects and/or serial correlation
+
+-   H0: serial correlation is zero
+-   H0: some serial correlation
+
+```{r}
+pbsytest(rice_pooled, test = "ar")
+pbsytest(rice_pooled, test = "re")
+```
+
+---
+
+### Step 4.3 Breusch-Godfrey and DurbinWatson tests
+
+-   H0: serial correlation is zero
+-   H0: some serial correlation
+
+```{r}
+pbgtest(rice_fe)
+pbgtest(rice_fe, order = 2)
+pbgtest(rice_fe, order = 3)
+pdwtest(rice_fe)
+```
+
+---
+
+### Step 5. Robust and clusteder standard errors
+
+```{r}
+library(lmtest)
+library(car)
+library(sandwich)
+
+# Regular SE
+coeftest(rice_fe, vcov. = vcov(rice_fe))
+
+coeftest(rice_fe,
+         vcov. = vcovHC(rice_fe, method = "arellano", 
+                        type = "HC0", cluster = "group"))
+coeftest(rice_fe,
+         vcov. = clubSandwich::vcovCR(rice_fe, type = "CR1S"))
+
+
+coeftest(rice_fe,
+         vcov. = clubSandwich::vcovCR(rice_fe, type = "CR3"))
+
+```
+
+---
+
+### Linear hypothesis (1)
+
+```{r}
+linearHypothesis(rice_fe,
+  "size + seed + urea + totlabor = 1", 
+  vcov. = vcovHC(rice_fe, method = "arellano", 
+                        type = "HC0", cluster = "group"))
+```
+
+
+---
+
+### Linear hypothesis (2)
+
+```{r}
+deltaMethod(
+  rice_fe,
+  "size + seed + urea + totlabor",
+  vcov. = vcovHC(
+    rice_fe,
+    method = "arellano",
+    type = "HC0",
+    cluster = "group"
+  )
+)
+```
+
+
+
+## Take aways {.smaller}
+
+-   Data types;
+
+-   Why panel data;
+
+-   FE vs RE;
+
+    -   Correlated and uncorrelated individual effects
+    -   Limitations of the panel regression methods
+
+-   Practical application;
+
+# References
