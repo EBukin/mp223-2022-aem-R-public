@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.491">
+<meta name="generator" content="quarto-0.9.492">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -204,6 +204,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../weeks/week05-checklist.html" class="sidebar-item-text sidebar-link">Week 5</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week06-checklist.html" class="sidebar-item-text sidebar-link">Week 6</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week08-checklist.html" class="sidebar-item-text sidebar-link">Week 8</a>
   </div>
 </li>
     </ul>
@@ -504,8 +514,8 @@ pctUrban    |       -0.02 | 4.22e-03 | [-0.03, -0.02] |  -5.91 | &lt; .001</code
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
-Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
-  Wald t-distribution approximation.</code></pre>
+Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
+  using a Wald t-distribution approximation.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(ft1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -568,8 +578,8 @@ pctUrban    |   -4.39e-04 | 4.27e-03 | [-0.01,  0.01] |  -0.10 | 0.918 </code></
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
-Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
-  Wald t-distribution approximation.</code></pre>
+Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
+  using a Wald t-distribution approximation.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(ft2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -652,8 +662,8 @@ log ppgdp * pctUrban |    8.85e-03 | 1.90e-03 | [ 0.01,  0.01] |   4.67 | &lt; .
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
-Uncertainty intervals (equal-tailed) and p values (two-tailed) computed using a
-  Wald t-distribution approximation.</code></pre>
+Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
+  using a Wald t-distribution approximation.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(ft3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -685,15 +695,26 @@ Coefficient |       SE |        95% CI | t(195) |     p
 Marginal effects estimated for pctUrban</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"log_ppgdp"</span>, <span class="at">at =</span> <span class="st">"pctUrban"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 methods overwritten by 'effectsize':
+  method              from      
+  standardize.Surv    datawizard
+  standardize.bcplm   datawizard
+  standardize.clm2    datawizard
+  standardize.default datawizard
+  standardize.mediate datawizard
+  standardize.wbgee   datawizard
+  standardize.wbm     datawizard</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-7.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>, <span class="at">at =</span> <span class="st">"log_ppgdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(ft3, <span class="at">trend =</span> <span class="st">"pctUrban"</span>, <span class="at">at =</span> <span class="st">"log_ppgdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ae04-02-MLR-linearity_files/figure-html/unnamed-chunk-20-8.png" class="img-fluid" style="width:100.0%"></p>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted values</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted values</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="st">"ppgdp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Predicted values of fertility
 
@@ -711,7 +732,7 @@ Marginal effects estimated for pctUrban</code></pre>
 Adjusted for:
 * pctUrban = 57.93</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"ppgdp"</span>, <span class="st">"pctUrban [10, 50, 90]"</span>)) <span class="sc">%&gt;%</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(ft3a, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"ppgdp"</span>, <span class="st">"pctUrban [10, 50, 90]"</span>)) <span class="sc">%&gt;%</span>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
 </div>

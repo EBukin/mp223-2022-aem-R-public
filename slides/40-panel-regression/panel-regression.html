@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.492">
+
+  <meta name="author" content="Eduard Bukin">
+  <title>mp223 Applied Econometric Methods for the Socials Sciences - Panel Regression Analysis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Panel Regression Analysis</h1>
+  <p class="subtitle">MP223 - Applied Econometrics Methods for the Social Sciences</p>
+  <p class="author">Eduard Bukin</p>
+</section>
+
+<section id="r-setup" class="title-slide slide level1 smaller center">
+<h1>R setup</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># for data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(alr4)            <span class="co"># for the data sets #</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a>ggplot2<span class="sc">::</span><span class="fu">theme_set</span>(ggplot2<span class="sc">::</span><span class="fu">theme_bw</span>())</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">fig.width =</span> <span class="dv">10</span>,</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  <span class="at">fig.retina =</span> <span class="dv">3</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="at">dpi =</span> <span class="dv">300</span>,</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb1-22"><a href="#cb1-22"></a>  <span class="at">cache =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="recap" class="title-slide slide level1 center">
+<h1>Recap</h1>
+<ul>
+<li class="fragment"><p>Ceteris paribus!?</p>
+<ul>
+<li class="fragment">Why multiple regression is “good”?</li>
+<li class="fragment">What variables are important when establishing a causal effect of a treatment (key variable)?</li>
+<li class="fragment">What if we do not have an important variable?</li>
+</ul></li>
+<li class="fragment"><p>Selection bias = OVB! In multiple regression analysis.</p>
+<ul>
+<li class="fragment">What does OVB to our regression estimates?</li>
+<li class="fragment">Bias (inconsistency) of estimates!</li>
+</ul></li>
+</ul>
+</section>
+
+<section>
+<section id="data-types" class="title-slide slide level1 center">
+<h1>Data Types</h1>
+
+</section>
+<section id="cross-sectional-data" class="slide level2 smaller">
+<h2>Cross-sectional data</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">Y</th>
+<th style="text-align: center;">X1</th>
+<th style="text-align: center;">X2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{3}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{3}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{3}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Could be repeated multiple times, but in every repetition, there are different individuals.</p>
+</section>
+<section id="panel-data" class="slide level2">
+<h2>Panel data</h2>
+<ul>
+<li class="fragment"><p>table with data, where</p></li>
+<li class="fragment"><p><strong>each individual</strong> (cohort) is represented by <strong>multiple observations</strong> from <strong>different time periods</strong>.</p></li>
+<li class="fragment"><p>sometimes, nested cohorts are possible too (region, individual, time).</p></li>
+</ul>
+</section>
+<section id="panel-data-1" class="slide level2 smaller">
+<h2>Panel data</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">Time</th>
+<th style="text-align: center;">Y</th>
+<th style="text-align: center;">X1</th>
+<th style="text-align: center;">X2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{11}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{12}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{13}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{22}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{23}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{31}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{31}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{31}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{32}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{32}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{32}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{N2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="panel-data-balanced-and-unbalanced" class="slide level2 smaller">
+<h2>Panel data: Balanced and Unbalanced</h2>
+<table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Balanced</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Unbalanced</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\text{ID}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\text{Time}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\text{ID}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\text{Time}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{11}\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{11}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{12}\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{12}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{13}\)</span></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{22}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{21}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{21}\)</span></td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{23}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{22}\)</span></td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{33}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{33}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{23}\)</span></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(Y_{31}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(X_{31}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section id="using-panel-data" class="title-slide slide level1 center">
+<h1>Using Panel Data …</h1>
+<div class="callout callout-important callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>is a strategy to <strong>control</strong> unobserved/omitted but fixed effects using <strong>time</strong> or <strong>cohort (individual)</strong> dimensions.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<section id="motivation-for-panel-data-regression-analysis" class="title-slide slide level1 center">
+<h1>Motivation for panel data regression analysis</h1>
+
+</section>
+<section id="example-1-effect-of-an-employees-union-membership-on-wage" class="slide level2 smaller">
+<h2>Example 1: Effect of an employee’s union membership on wage</h2>
+<p>Does the collective bargaining (union membership) has any effect on wages?</p>
+<ul>
+<li class="fragment">See the following seminal papers: <span class="citation" data-cites="Freeman1984 Card1996">(<a href="#/ref-Freeman1984" role="doc-biblioref" onclick="return false;">Freeman 1984</a>; <a href="#/ref-Card1996" role="doc-biblioref" onclick="return false;">Card 1996</a>)</span></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it} + \beta_2 \cdot {X_{it}} + \beta_3 \cdot \text{Ability}_{i} + \epsilon_{it}\]</span></p>
+<p>where <span class="math inline">\(i\)</span> is the individual and <span class="math inline">\(t\)</span> is the time dimension;</p>
+</div>
+</section>
+<section id="is-there-an-endogeneity-problem" class="slide level2">
+<h2>Is there an endogeneity problem?</h2>
+<ul>
+<li class="fragment"><p>Is there a source of endogeneity / selection bias here?</p>
+<ul>
+<li class="fragment">Any ideas?</li>
+<li class="fragment">Any ideas….</li>
+</ul></li>
+<li class="fragment"><p>Ability:</p>
+<ul>
+<li class="fragment">not observable ;</li>
+<li class="fragment">time invariant;</li>
+<li class="fragment">correlates with <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>;</li>
+</ul></li>
+<li class="fragment"><p>Omitting ability causes the OVB!</p></li>
+</ul>
+</section>
+<section id="solution-use-the-panel-data" class="slide level2">
+<h2>Solution: use the panel data</h2>
+<ul>
+<li class="fragment"><p>Most of the individual-related characteristics change over time: wage. union membership, skills, experience.</p>
+<ul>
+<li class="fragment">These variables will be different each time we record measurements for each individual.</li>
+</ul></li>
+<li class="fragment"><p>Ability are <strong>time-invariant and specific to each individual</strong>;</p>
+<ul>
+<li class="fragment">If we introduce dummy variables for each individual,</li>
+<li class="fragment">we can approximate different ability levels!</li>
+</ul></li>
+</ul>
+</section>
+<section id="cross-sectional-data-and-idividual-dummies" class="slide level2">
+<h2>Cross-sectional data and idividual dummies</h2>
+<ul>
+<li class="fragment"><p>Can we introduce dummy variables for each individual in a cross-section?</p>
+<ul>
+<li class="fragment">Any ideas?</li>
+<li class="fragment">Why?….</li>
+</ul></li>
+<li class="fragment"><p>NO…</p>
+<ul>
+<li class="fragment">Because the <strong>number of independent variables have to be less or equal to the number of observations</strong>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="cross-sectional-example" class="slide level2">
+<h2>Cross-sectional example</h2>
+<table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">Y</th>
+<th style="text-align: center;">X1</th>
+<th style="text-align: center;">X2</th>
+<th style="text-align: center;"><span class="math inline">\({ID}_1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\({ID}_2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\({ID}_3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\({ID}_N\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{1}\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{2}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{3}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{3}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{3}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="panel-data-data-and-idividual-dummies" class="slide level2 smaller">
+<h2>Panel data data and idividual dummies</h2>
+<table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">Time</th>
+<th style="text-align: center;">Y</th>
+<th style="text-align: center;">X1</th>
+<th style="text-align: center;">X2</th>
+<th style="text-align: center;"><span class="math inline">\({ID}_1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\({ID}_2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\({ID}_N\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{11}\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{12}\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{13}\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{22}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{23}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N1}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{2}_{N2}\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="with-the-panel-data-it-will-work-but" class="slide level2 smaller">
+<h2>With the panel data it will work, but…</h2>
+<p>May be difficult… Any ideas why?…</p>
+<ul>
+<li class="fragment"><p>Number of dummy variables is equal to the number of individuals.</p>
+<ul>
+<li class="fragment">If we have 5,000 individuals, we have 5,000 regression coefficients.</li>
+<li class="fragment">What if we have 100,000 individuals?</li>
+</ul></li>
+<li class="fragment"><p>Having too many regressors remains unbiased, but complicates inference:</p>
+<ul>
+<li class="fragment">number of degrees of freedom increases;</li>
+<li class="fragment">adjusted <span class="math inline">\(R^2\)</span> may shrink to zero;</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="panel-regression-brief-theory" class="title-slide slide level1 center">
+<h1>Panel regression: brief theory</h1>
+
+</section>
+<section id="readings" class="slide level2 smaller">
+<h2>Readings</h2>
+<div class="fragment">
+<h4 id="key-readings">Key readings:</h4>
+<ul>
+<li class="fragment"><span class="citation" data-cites="Mundlak1961">Mundlak (<a href="#/ref-Mundlak1961" role="doc-biblioref" onclick="return false;">1961</a>)</span></li>
+<li class="fragment"><span class="citation" data-cites="Angrist2009">Angrist and Pischke (<a href="#/ref-Angrist2009" role="doc-biblioref" onclick="return false;">2009</a>)</span> Ch. 5</li>
+<li class="fragment"><span class="citation" data-cites="Wooldridge2010">Jeffrey M. Wooldridge (<a href="#/ref-Wooldridge2010" role="doc-biblioref" onclick="return false;">2010</a>)</span>;</li>
+<li class="fragment"><span class="citation" data-cites="wooldridge2020introductory">Jeffrey Marc Wooldridge (<a href="#/ref-wooldridge2020introductory" role="doc-biblioref" onclick="return false;">2020</a>)</span>;</li>
+<li class="fragment"><span class="citation" data-cites="Soederbom2014">Söderbom, Teal, and Eberhardt (<a href="#/ref-Soederbom2014" role="doc-biblioref" onclick="return false;">2014</a>)</span>, Ch. 9-11</li>
+</ul>
+<h4 id="other-readings">Other readings:</h4>
+<ul>
+<li class="fragment"><span class="citation" data-cites="Croissant2018">Croissant and Millo (<a href="#/ref-Croissant2018" role="doc-biblioref" onclick="return false;">2018</a>)</span></li>
+</ul>
+</div>
+</section>
+<section id="terminology" class="slide level2">
+<h2>Terminology:</h2>
+<ul>
+<li class="fragment"><p>Pooled OLS (regression without any panel structure);</p></li>
+<li class="fragment"><p>Fixed Effect Models:</p>
+<ul>
+<li class="fragment">Least-squares dummy variable (Pooled OLS + individual dummies);</li>
+<li class="fragment">Within-transformation</li>
+<li class="fragment">First-difference</li>
+<li class="fragment">Between transformation (look it up in <span class="citation" data-cites="Croissant2018">(<a href="#/ref-Croissant2018" role="doc-biblioref" onclick="return false;">Croissant and Millo 2018</a>)</span>!)</li>
+</ul></li>
+<li class="fragment"><p>Random Effect Model</p></li>
+</ul>
+</section>
+<section id="pooled-ols" class="slide level2">
+<h2>Pooled OLS</h2>
+<ul>
+<li class="fragment">Union example, the short model:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \epsilon_{it}\]</span></p>
+<ul>
+<li class="fragment">Estimates are biased because we do not observe ability, which are time-invariant <span class="citation" data-cites="Mundlak1961">(<a href="#/ref-Mundlak1961" role="doc-biblioref" onclick="return false;">Mundlak 1961</a>)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="least-squares-dummy-variable-approach" class="slide level2">
+<h2>Least-squares dummy variable approach</h2>
+<ul>
+<li class="fragment">Introduce a vector of dummy variables <span class="math inline">\(\color{Red}{\delta}\)</span></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \\ \beta_3 \cdot \color{Red}{\delta_{i}} + \epsilon_{it}\]</span></p>
+<ul>
+<li class="fragment">Estimates and unbiased (consistent) but inefficient.</li>
+</ul>
+</div>
+</section>
+<section id="within-transformation---key-method" class="slide level2">
+<h2>Within transformation - Key method</h2>
+<div class="fragment">
+<p><span class="math display">\[log(\text{Wage}_{it} - \overline{\text{Wage}_{i}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  \overline{\text{Union}_{i}}) + \\ \beta_2 \cdot (X_{it} - \overline{\text{X}_{i}}) +  \beta_3 \cdot (\text{Ability}_{i} - \overline{\text{Ability}_{i}}) + \\ (\epsilon_{it} - \overline{\epsilon_{i}})\]</span></p>
+<ul>
+<li class="fragment"><p>Any time-invariant effect will disappear from the regression because: <span class="math inline">\(\text{Ability}_{i} - \overline{\text{Ability}_{i}} = 0\)</span></p></li>
+<li class="fragment"><p>Estimates are identical to the least-squares dummy variable, but SE are more efficient;</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="smaller">
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">Time</th>
+<th style="text-align: center;"><span class="math inline">\(Y\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(Y-\overline{Y}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X1-\overline{X1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{11} - \overline{y_1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{11} - \overline{x^1_1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{12} - \overline{y_1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{12} - \overline{x^1_1}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{13} - \overline{y_1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{13}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{13} - \overline{x^1_1}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{22} - \overline{y_2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{22} - \overline{x^1_2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{23} - \overline{y_2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{23}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{23} - \overline{x^1_2}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N1} - \overline{y_N}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{N1} - \overline{x^1_N}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y_{N2} - \overline{y_N}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^{1}_{N2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(x^1_{N2} - \overline{x^1_N}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="first-difference-transformation" class="slide level2">
+<h2>First Difference transformation</h2>
+<div class="fragment">
+<p><span class="math display">\[log(\text{Wage}_{it} - {\text{Wage}_{i,t-1}}) = \\ \beta_0 + \beta_1 \cdot (\text{Union}_{it} -  {\text{Union}_{it-1}}) + \\ \beta_2 \cdot (X_{it} - {{X}_{i,t-1}}) + \\ \beta_3 \cdot (\text{Ability}_{i} - {\text{Ability}_{i,t-1}}) + (\epsilon_{it} - {\epsilon_{i,t-1}})\]</span></p>
+<ul>
+<li class="fragment">Has similar effect as the within transformation.</li>
+<li class="fragment">Sacrifices at least one time dimension.</li>
+<li class="fragment">Relaxes autocorrelation assumption.</li>
+<li class="fragment">May be not possible with unbalanced data.</li>
+</ul>
+</div>
+</section>
+<section id="fixed-effect-model-assumptions" class="slide level2 smaller">
+<h2>Fixed effect model assumptions</h2>
+<div class="fragment">
+<h4 id="very-important">Very Important:</h4>
+<ul>
+<li class="fragment"><p>NOT ZERO correlation between FE and regressors: <span class="math inline">\(Cov(\delta_{i},{X}_{it}) \neq 0\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(E[\epsilon_{is}| {X}_{it}, \delta_{i}] = 0\)</span> - strict exogeneity:</p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(Cov(\epsilon_{is}, {X}_{jt}) = 0\)</span> and <span class="math inline">\(Cov(\epsilon_{it}, {X}_{it}) = 0\)</span> , where <span class="math inline">\(j\neq i\)</span> and <span class="math inline">\(s\neq t\)</span> ;</p></li>
+<li class="fragment"><p>Residuals do not correlate with all explanatory variable in all time periods and for all individuals.</p>
+<ul>
+<li class="fragment">No autocorrelation/serial correlation: <span class="math inline">\(Cov(\epsilon_{it}, {X}_{i,t-1}) = 0\)</span>;</li>
+<li class="fragment">No cross-sectional dependence: <span class="math inline">\(Cov(\epsilon_{it}, {X}_{j,t}) = 0\)</span> (when individual observations react similarly to the common shocks or correlate in space);</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="not-less-important">Not less important:</h4>
+<ul>
+<li class="fragment">Linearity</li>
+<li class="fragment">Homoscedasticity of error terms: <span class="math inline">\(Var(\delta_{i}|{X}_{it}) = \sigma^2_{\delta}\)</span></li>
+</ul>
+</div>
+</section>
+<section id="fixed-effect-literature" class="slide level2 smaller">
+<h2>Fixed effect: literature</h2>
+<ul>
+<li class="fragment">Seminal papers: <span class="citation" data-cites="Mundlak1961">Mundlak (<a href="#/ref-Mundlak1961" role="doc-biblioref" onclick="return false;">1961</a>)</span></li>
+<li class="fragment">Climate and agriculture: <span class="citation" data-cites="Mendelsohn1994">Mendelsohn, Nordhaus, and Shaw (<a href="#/ref-Mendelsohn1994" role="doc-biblioref" onclick="return false;">1994</a>)</span>, <span class="citation" data-cites="Blanc2017">Blanc and Schlenker (<a href="#/ref-Blanc2017" role="doc-biblioref" onclick="return false;">2017</a>)</span>, <span class="citation" data-cites="Bozzola2017">Bozzola et al. (<a href="#/ref-Bozzola2017" role="doc-biblioref" onclick="return false;">2017</a>)</span></li>
+<li class="fragment">Choice of irrigation: <span class="citation" data-cites="Kurukulasuriya2011">Kurukulasuriya, Kala, and Mendelsohn (<a href="#/ref-Kurukulasuriya2011" role="doc-biblioref" onclick="return false;">2011</a>)</span>, <span class="citation" data-cites="Chatzopoulos2015">Chatzopoulos and Lippert (<a href="#/ref-Chatzopoulos2015" role="doc-biblioref" onclick="return false;">2015</a>)</span></li>
+<li class="fragment">Crop choice: <span class="citation" data-cites="Kurukulasuriya2008">Kurukulasuriya et al. (<a href="#/ref-Kurukulasuriya2008" role="doc-biblioref" onclick="return false;">2008</a>)</span>, <span class="citation" data-cites="Seo2008b">Seo and Mendelsohn (<a href="#/ref-Seo2008b" role="doc-biblioref" onclick="return false;">2008a</a>)</span>,</li>
+<li class="fragment">Livestock choice <span class="citation" data-cites="Seo2008a">Seo et al. (<a href="#/ref-Seo2008a" role="doc-biblioref" onclick="return false;">2008</a>)</span>, <span class="citation" data-cites="Seo2008">Seo and Mendelsohn (<a href="#/ref-Seo2008" role="doc-biblioref" onclick="return false;">2008b</a>)</span></li>
+<li class="fragment">Cross-sectional dependence: <span class="citation" data-cites="Conley1999">Conley (<a href="#/ref-Conley1999" role="doc-biblioref" onclick="return false;">1999</a>)</span></li>
+</ul>
+</section>
+<section id="random-effect-model" class="slide level2 smaller">
+<h2>Random Effect Model</h2>
+<ul>
+<li class="fragment"><p>Introduce a random component of the error term <span class="math inline">\(\color{Red}{v}\)</span></p></li>
+<li class="fragment"><p><span class="math display">\[log(\text{Wage}_{it}) = \beta_0 + \beta_1 \cdot \text{Union}_{it}  + \beta_2 \cdot X_{it} + \beta_3 \cdot \color{Red}{v_{i}} + \epsilon_{it}\]</span></p></li>
+<li class="fragment"><p>Difference from the fixed effect model:</p>
+<ul>
+<li class="fragment"><p>Assumes NO CORRELATION between random effects and regressors: <span class="math inline">\(Cov(v_{i},{X}_{it}) = 0\)</span>.</p></li>
+<li class="fragment"><p>Ignoring RE causes no bias to the estimates;</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="limitations-of-fixed-and-random-effect-models" class="slide level2">
+<h2>Limitations of Fixed and Random effect models</h2>
+<ul>
+<li class="fragment"><p>NOT the ultimate solution to Endogeneity.</p></li>
+<li class="fragment"><p>There might still be OVB even with the fixed effects.</p>
+<ul>
+<li class="fragment">Instrumental Variables are possible within the panel regression context too.</li>
+</ul></li>
+<li class="fragment"><p>Measurement error may cause endogeneity;</p></li>
+</ul>
+</section>
+<section id="example-1.-unions-premium-implication-of-the-fixed-effect-model" class="slide level2">
+<h2>Example 1. Unions premium: implication of the Fixed effect model:</h2>
+
+<img data-src="./img/union-wage-tbl.png" style="width:100.0%" class="r-stretch"></section></section>
+<section>
+<section id="panel-regression-motivation-for-a-panel-regression" class="title-slide slide level1 center">
+<h1>Panel regression: motivation for a panel regression</h1>
+
+</section>
+<section id="example-2.-macro-level-data-analysis" class="slide level2 smaller">
+<h2>Example 2. Macro-level data analysis</h2>
+<p>Let us analyze the link between imports and national product based on <span class="citation" data-cites="Kinal1993">(<a href="#/ref-Kinal1993" role="doc-biblioref" onclick="return false;">Kinal and Lahiri 1993</a>)</span>. Both variables are in per capita and in log.</p>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-3_74707ece4a1100ff01f4dfc5a40499c6">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(pder)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">data</span>(<span class="st">"ForeignTrade"</span>, <span class="at">package =</span> <span class="st">"pder"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>ForeignTrade <span class="ot">&lt;-</span> </span>
+<span id="cb2-5"><a href="#cb2-5"></a>  ForeignTrade <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">select</span>(country, year, exports, imports, gnp) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="fu">pdata.frame</span>(<span class="at">index =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>))</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">pdim</span>(ForeignTrade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Balanced Panel: n = 31, T = 24, N = 744</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(ForeignTrade)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 country year  exports  imports      gnp
+Indonesia-1963 Indonesia 1963 -7.62723 -9.19358 -0.22242
+Indonesia-1964 Indonesia 1964 -7.61279 -8.96084  0.12960
+Indonesia-1965 Indonesia 1965 -7.65318 -8.96664  0.01653
+Indonesia-1966 Indonesia 1966 -7.67038 -9.30862  0.15908
+Indonesia-1967 Indonesia 1967 -7.67121 -9.12042  0.13064
+Indonesia-1968 Indonesia 1968 -7.42591 -8.79655  0.19652</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="relationship-between-gnp-and-imports">Relationship between GNP and imports</h3>
+
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="pooled">Pooled</h3>
+
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="pooled-1">Pooled</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-6_dc00a41f8d894f1ba3a3268d946f1386">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pp1 <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_abline</span>(</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="fu">aes</span>(<span class="at">slope =</span> <span class="fu">coef</span>(fit1_pooled)[[<span class="dv">2</span>]],</span>
+<span id="cb6-5"><a href="#cb6-5"></a>        <span class="at">intercept =</span> <span class="fu">coef</span>(fit1_pooled)[[<span class="dv">1</span>]],</span>
+<span id="cb6-6"><a href="#cb6-6"></a>        <span class="at">linetype =</span> <span class="st">"Pooled OLS"</span>), <span class="at">size =</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="pooled-within">Pooled + Within</h3>
+
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="pooled-within-random">Pooled + Within + Random</h3>
+
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%" class="r-stretch"></section></section>
+<section>
+<section id="panel-regression-practice" class="title-slide slide level1 center">
+<h1>Panel regression: practice</h1>
+
+</section>
+<section id="general-algorithm" class="slide level2 smaller">
+<h2>General algorithm</h2>
+<ol type="1">
+<li class="fragment"><p>Pooled OLS;</p>
+<ul>
+<li class="fragment">Linearity validation;</li>
+</ul></li>
+<li class="fragment"><p>Fixed Effect. Within-transformation. Individual, Time, two-ways;</p>
+<ul>
+<li class="fragment"><code>F-test</code> and <code>LM test</code> on FE consistency against pooled;</li>
+</ul></li>
+<li class="fragment"><p>Random Effect;</p>
+<ul>
+<li class="fragment"><code>Hausman test</code>, <code>Chamberlain test</code>, <code>Angrist and Newey</code> on RE consistency against FE;</li>
+</ul></li>
+<li class="fragment"><p>Serial correlation and cross-sectional dependence tests;</p></li>
+<li class="fragment"><p>Robust standard errors:</p>
+<ul>
+<li class="fragment">Clustered SE;</li>
+<li class="fragment">Heteroscedasticity and autocorrelation robust SE;</li>
+</ul></li>
+<li class="fragment"><p>Summary and interpretation;</p></li>
+</ol>
+</section>
+<section id="example-3.-micro-level-application-ricefarms" class="slide level2 smaller">
+<h2>Example 3. Micro-level application <code>RiceFarms</code></h2>
+<ul>
+<li class="fragment"><p>Let us explore the determinants of rice productivity. We want to understand if larger farms are more productive compared to smaller once.</p></li>
+<li class="fragment"><p>Following data <code>RiceFarms</code> is used from package <code>splm</code>. We only use a subset of variables:</p>
+<ul>
+<li class="fragment"><code>goutput</code> - gross output of rice in kg</li>
+<li class="fragment"><code>size</code> - the total area cultivated with rice, measured in hectares</li>
+<li class="fragment"><code>seed</code> - seed in kilogram</li>
+<li class="fragment"><code>urea</code> - urea in kilogram</li>
+<li class="fragment"><code>totlabor</code> - total labor (excluding harvest labor)</li>
+</ul></li>
+<li class="fragment"><p>To make analysis consistent with the theory, we would like to estimate a Cobb-Douglas Proudhon function, thus, all <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> are converted in log.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 class="smaller" id="data-glimpse">Data glimpse</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-9_0152e4192a48a73bb1089f48abd4a9d9">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(plm); <span class="fu">library</span>(splm)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">data</span>(<span class="st">"RiceFarms"</span>, <span class="at">package =</span> <span class="st">"splm"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>rice_dta <span class="ot">&lt;-</span> RiceFarms <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">select</span>(id, time, goutput, size, seed, urea, totlabor) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(goutput, size, seed, urea, totlabor), <span class="sc">~</span> <span class="fu">log</span>(.)))</span>
+<span id="cb7-6"><a href="#cb7-6"></a>rice_dta_p <span class="ot">&lt;-</span> rice_dta <span class="sc">%&gt;%</span> <span class="fu">pdata.frame</span>(<span class="at">index =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"time"</span>))</span>
+<span id="cb7-7"><a href="#cb7-7"></a>rice_dta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,026 × 7
+       id  time goutput   size  seed  urea totlabor
+    &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 101001     1    8.98  1.10   4.50  6.80     7.98
+ 2 101001     2    8.31  0.693  3.69  6.40     7.68
+ 3 101001     3    7.88  0      4.61  6.55     6.98
+ 4 101001     4    8.41  0.693  4.09  6.40     7.65
+ 5 101001     5    9.70  1.27   4.65  5.99     8.27
+ 6 101001     6    9.77  1.27   4.65  5.99     8.17
+ 7 101017     1    8.25  0.351  3.91  4.79     6.70
+ 8 101017     2    7.94  0.351  3.00  4.61     6.75
+ 9 101017     3    6.86 -0.849  2.71  5.01     6.13
+10 101017     4    5.48 -1.54   1.95  3.91     4.69
+# … with 1,016 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">pdim</span>(rice_dta_p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Balanced Panel: n = 171, T = 6, N = 1026</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="summary-statistics-for-log-and-no-log-variables">Summary statistics for log and no-log variables</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-10_a3a80289fd13da2972c5763bec6fa368">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>RiceFarms <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(id, time, goutput, size, seed, urea, totlabor) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">datasummary_skim</span>(<span class="at">output =</span> <span class="st">"data.frame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Unique (#) Missing (%)     Mean       SD      Min   Median      Max
+1       id        171           0 374954.1 164378.9 101001.0 401037.0 609245.0
+2     time          6           0      3.5      1.7      1.0      3.5      6.0
+3  goutput        482           0   1405.2   1921.8     42.0    886.5  20960.0
+4     size        300           0      0.4      0.5      0.0      0.3      5.3
+5     seed         67           0     18.2     45.3      1.0     10.0   1250.0
+6     urea        121           0     95.4    127.1      1.0     60.0   1250.0
+7 totlabor        544           0    388.4    484.2     17.0    252.0   4774.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">datasummary_skim</span>(rice_dta_p, <span class="at">output =</span> <span class="st">"data.frame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Unique (#) Missing (%) Mean  SD  Min Median  Max
+1  goutput        482           0  6.7 1.0  3.7    6.8 10.0
+2     size        300           0 -1.3 1.0 -4.6   -1.3  1.7
+3     seed         67           0  2.4 0.9  0.0    2.3  7.1
+4     urea        121           0  4.0 1.2  0.0    4.1  7.1
+5 totlabor        544           0  5.6 0.8  2.8    5.5  8.5</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="data-visualization">Data visualization</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-11_44e4ecc7fcbae52758db44b648e76a28">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>rice_dta_p <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>id, <span class="sc">-</span>time) <span class="sc">%&gt;%</span> <span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="step-1.1-pooled-ols">Step 1.1 Pooled OLS</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-12_8574fafa3e29a3a9396c4166bbc70682">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>rice_pooled <span class="ot">&lt;-</span> <span class="fu">plm</span>(goutput <span class="sc">~</span> size <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> totlabor, rice_dta_p, <span class="at">model =</span> <span class="st">"pooling"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>rice_pooled_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(goutput <span class="sc">~</span> size <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> totlabor, rice_dta_p)</span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="fu">compare_models</span>(rice_pooled, <span class="at">style =</span> <span class="st">"se_p"</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    |      rice_pooled
+-------------------------------
+(Intercept)  | 4.823*** (0.192)
+size         | 0.440*** (0.031)
+seed         | 0.167*** (0.027)
+urea         | 0.191*** (0.015)
+totlabor     | 0.239*** (0.029)
+-------------------------------
+Observations |             1026</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">performance</span>(rice_pooled) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC     |     BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-----------------------------------------------------
+809.073 | 838.673 | 0.871 |     0.871 | 0.357 | 0.358</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-1.2-linearity-and-homoscedasticity">Step 1.2 Linearity and homoscedasticity</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-13_b4aa92c331f0774eaa17ba454ce59c36">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">check_model</span>(rice_pooled_2, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="panel-regression_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="step-2.1-fixed-effect-within-transformation">Step 2.1 Fixed Effect: within transformation</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-14_6c86326cf8d4ced11c974f85efba0277">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>rice_fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(goutput <span class="sc">~</span> size <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> totlabor, </span>
+<span id="cb21-2"><a href="#cb21-2"></a>               rice_dta_p, <span class="at">model =</span> <span class="st">"within"</span>, <span class="at">effect =</span> <span class="st">"individual"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="fu">compare_models</span>(rice_pooled, rice_fe, <span class="at">style =</span> <span class="st">"se_p"</span>) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    |      rice_pooled |          rice_fe
+--------------------------------------------------
+(Intercept)  | 4.823*** (0.192) |                 
+size         | 0.440*** (0.031) | 0.426*** (0.037)
+seed         | 0.167*** (0.027) | 0.138*** (0.031)
+urea         | 0.191*** (0.015) | 0.186*** (0.019)
+totlabor     | 0.239*** (0.029) | 0.254*** (0.034)
+--------------------------------------------------
+Observations |             1026 |             1026</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">compare_performance</span>(rice_pooled, rice_fe) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Comparison of Model Performance Indices
+
+Name        | Model |     AIC | AIC weights |     BIC | BIC weights |    R2 | R2 (adj.) |  RMSE | Sigma
+-------------------------------------------------------------------------------------------------------
+rice_pooled |   plm | 809.073 |     &lt; 0.001 | 838.673 |     &lt; 0.001 | 0.871 |     0.871 | 0.357 | 0.358
+rice_fe     |   plm | 550.410 |        1.00 | 575.077 |        1.00 | 0.718 |     0.661 | 0.315 | 0.315</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 class="smaller" id="step-2.2-f-test-for-individual-effects">Step 2.2 F test for individual effects</h3>
+<ul>
+<li class="fragment"><p>Compares FE model to OLS. OLS is always consistent, when Gauss-Markov assumptions are satisfied.</p>
+<ul>
+<li class="fragment">H0: One model is inconsistent.</li>
+<li class="fragment">H1: Both models are equally consistent.</li>
+</ul></li>
+</ul>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-15_626ec42143f43993845cdb315687f6e4">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">pFtest</span>(rice_fe, rice_pooled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test for individual effects
+
+data:  goutput ~ size + seed + urea + totlabor
+F = 1.4228, df1 = 170, df2 = 851, p-value = 0.0009396
+alternative hypothesis: significant effects</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 class="smaller" id="step-2.3-lagrange-multiplier-tests">Step 2.3 Lagrange Multiplier Tests</h3>
+<ul>
+<li class="fragment"><p>Compares FE model to OLS. OLS is always consistent, when Gauss-Markov assumptions are satisfied.</p>
+<ul>
+<li class="fragment">H0: One model is inconsistent.</li>
+<li class="fragment">H1: Both models are equally consistent.</li>
+</ul></li>
+</ul>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-16_b0ac134af68ab80b4921fbe1c0687c17">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">plmtest</span>(rice_pooled, <span class="at">effect =</span> <span class="st">"individual"</span>, <span class="at">type =</span> <span class="st">"honda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Lagrange Multiplier Test - (Honda) for balanced panels
+
+data:  goutput ~ size + seed + urea + totlabor
+normal = 3.1461, p-value = 0.0008273
+alternative hypothesis: significant effects</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">plmtest</span>(rice_pooled, <span class="at">effect =</span> <span class="st">"individual"</span>, <span class="at">type =</span> <span class="st">"bp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Lagrange Multiplier Test - (Breusch-Pagan) for balanced panels
+
+data:  goutput ~ size + seed + urea + totlabor
+chisq = 9.898, df = 1, p-value = 0.001655
+alternative hypothesis: significant effects</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-3.1-random-effect">Step 3.1 Random Effect</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-17_b43017a0914de371e416dd46823f72bf">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>rice_re <span class="ot">&lt;-</span> </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">plm</span>(goutput <span class="sc">~</span> size <span class="sc">+</span> seed <span class="sc">+</span> urea <span class="sc">+</span> totlabor, </span>
+<span id="cb31-3"><a href="#cb31-3"></a>      rice_dta_p, </span>
+<span id="cb31-4"><a href="#cb31-4"></a>      <span class="at">model =</span> <span class="st">"random"</span>, </span>
+<span id="cb31-5"><a href="#cb31-5"></a>      <span class="at">effect =</span> <span class="st">"individual"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6"></a></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="fu">compare_models</span>(rice_pooled, rice_fe, rice_re, <span class="at">style =</span> <span class="st">"se_p"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-8"><a href="#cb31-8"></a>  <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    |      rice_pooled |          rice_fe |          rice_re
+---------------------------------------------------------------------
+(Intercept)  | 4.823*** (0.192) |                  | 4.822*** (0.195)
+size         | 0.440*** (0.031) | 0.426*** (0.037) | 0.440*** (0.031)
+seed         | 0.167*** (0.027) | 0.138*** (0.031) | 0.161*** (0.027)
+urea         | 0.191*** (0.015) | 0.186*** (0.019) | 0.190*** (0.016)
+totlabor     | 0.239*** (0.029) | 0.254*** (0.034) | 0.242*** (0.029)
+---------------------------------------------------------------------
+Observations |             1026 |             1026 |             1026</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">compare_performance</span>(rice_pooled, rice_fe, rice_re) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Comparison of Model Performance Indices
+
+Name        | Model |     AIC | AIC weights |     BIC | BIC weights |    R2 | R2 (adj.) |  RMSE | Sigma
+-------------------------------------------------------------------------------------------------------
+rice_pooled |   plm | 809.073 |     &lt; 0.001 | 838.673 |     &lt; 0.001 | 0.871 |     0.871 | 0.357 | 0.358
+rice_fe     |   plm | 550.410 |        1.00 | 575.077 |        1.00 | 0.718 |     0.661 | 0.315 | 0.315
+rice_re     |   plm | 740.067 |     &lt; 0.001 | 769.668 |     &lt; 0.001 | 0.851 |     0.850 | 0.345 | 0.346</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-3.2-hausman-test-for-panel-models">Step 3.2 Hausman Test for Panel Models</h3>
+<ul>
+<li class="fragment"><p>Compares RE to FE model. FE is assumed to be consistent</p>
+<ul>
+<li class="fragment">H0: One model is inconsistent.</li>
+<li class="fragment">H1: Both models are equally consistent.</li>
+</ul></li>
+</ul>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-18_b28c00ba0ab8721fde2a76f052f2a284">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">phtest</span>(rice_fe, rice_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Hausman Test
+
+data:  goutput ~ size + seed + urea + totlabor
+chisq = 4.799, df = 4, p-value = 0.3086
+alternative hypothesis: one model is inconsistent</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-4.1-serial-correlation-and-cross-sectional-dependence">Step 4.1 Serial correlation and cross-sectional dependence</h3>
+<ul>
+<li class="fragment"><p>Wooldridge’s test for unobserved individual effects</p>
+<ul>
+<li class="fragment">H0: no unobserved effects</li>
+<li class="fragment">H1: some effects also dues to serial correlation</li>
+</ul></li>
+</ul>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-19_9a1ff42f57a877556d047ff45dd11671">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">pwtest</span>(rice_pooled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wooldridge's test for unobserved individual effects
+
+data:  formula
+z = 2.0307, p-value = 0.04229
+alternative hypothesis: unobserved effect</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-4.2-lm-tests-for-random-effects-andor-serial-correlation">Step 4.2 lm tests for random effects and/or serial correlation</h3>
+<ul>
+<li class="fragment">H0: serial correlation is zero</li>
+<li class="fragment">H0: some serial correlation</li>
+</ul>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-20_4d86c1a06e90aa3c8d6750e1098934cc">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">pbsytest</span>(rice_pooled, <span class="at">test =</span> <span class="st">"ar"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bera, Sosa-Escudero and Yoon locally robust test - balanced panel
+
+data:  formula
+chisq = 30.216, df = 1, p-value = 3.865e-08
+alternative hypothesis: AR(1) errors sub random effects</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">pbsytest</span>(rice_pooled, <span class="at">test =</span> <span class="st">"re"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bera, Sosa-Escudero and Yoon locally robust test (one-sided) - balanced
+    panel
+
+data:  formula
+z = -0.60485, p-value = 0.7274
+alternative hypothesis: random effects sub AR(1) errors</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-4.3-breusch-godfrey-and-durbin-watson-tests">Step 4.3 Breusch-Godfrey and Durbin-Watson tests</h3>
+<ul>
+<li class="fragment">H0: serial correlation is zero</li>
+<li class="fragment">H0: some serial correlation</li>
+</ul>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-21_1a45d1f13535a90ee3807bcc5a4c4cba">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">pbgtest</span>(rice_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Breusch-Godfrey/Wooldridge test for serial correlation in panel models
+
+data:  goutput ~ size + seed + urea + totlabor
+chisq = 352.09, df = 6, p-value &lt; 2.2e-16
+alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">pbgtest</span>(rice_fe, <span class="at">order =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Breusch-Godfrey/Wooldridge test for serial correlation in panel models
+
+data:  goutput ~ size + seed + urea + totlabor
+chisq = 65.092, df = 2, p-value = 7.335e-15
+alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">pbgtest</span>(rice_fe, <span class="at">order =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Breusch-Godfrey/Wooldridge test for serial correlation in panel models
+
+data:  goutput ~ size + seed + urea + totlabor
+chisq = 137.65, df = 3, p-value &lt; 2.2e-16
+alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">pdwtest</span>(rice_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Durbin-Watson test for serial correlation in panel models
+
+data:  goutput ~ size + seed + urea + totlabor
+DW = 2.0222, p-value = 0.6532
+alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="step-5.-robust-and-clustered-standard-errors">Step 5. Robust and clustered standard errors</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-22_c304332712622a574f8eff4966856084">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="fu">library</span>(car)</span>
+<span id="cb51-3"><a href="#cb51-3"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb51-4"><a href="#cb51-4"></a></span>
+<span id="cb51-5"><a href="#cb51-5"></a><span class="co"># Regular SE</span></span>
+<span id="cb51-6"><a href="#cb51-6"></a><span class="fu">coeftest</span>(rice_fe, <span class="at">vcov. =</span> <span class="fu">vcov</span>(rice_fe))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+         Estimate Std. Error t value  Pr(&gt;|t|)    
+size     0.425501   0.036999 11.5002 &lt; 2.2e-16 ***
+seed     0.138176   0.031141  4.4370 1.032e-05 ***
+urea     0.186226   0.019361  9.6186 &lt; 2.2e-16 ***
+totlabor 0.253804   0.033926  7.4811 1.838e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">coeftest</span>(rice_fe,</span>
+<span id="cb53-2"><a href="#cb53-2"></a>         <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe, <span class="at">method =</span> <span class="st">"arellano"</span>, </span>
+<span id="cb53-3"><a href="#cb53-3"></a>                        <span class="at">type =</span> <span class="st">"HC0"</span>, <span class="at">cluster =</span> <span class="st">"group"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+         Estimate Std. Error t value  Pr(&gt;|t|)    
+size     0.425501   0.047968  8.8704 &lt; 2.2e-16 ***
+seed     0.138176   0.038211  3.6161 0.0003167 ***
+urea     0.186226   0.026497  7.0281 4.294e-12 ***
+totlabor 0.253804   0.035043  7.2426 9.859e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">coeftest</span>(rice_fe,</span>
+<span id="cb55-2"><a href="#cb55-2"></a>         <span class="at">vcov. =</span> clubSandwich<span class="sc">::</span><span class="fu">vcovCR</span>(rice_fe, <span class="at">type =</span> <span class="st">"CR1S"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+         Estimate Std. Error t value  Pr(&gt;|t|)    
+size     0.425501   0.048180  8.8315 &lt; 2.2e-16 ***
+seed     0.138176   0.038380  3.6002 0.0003363 ***
+urea     0.186226   0.026614  6.9972 5.289e-12 ***
+totlabor 0.253804   0.035198  7.2108 1.229e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">coeftest</span>(rice_fe,</span>
+<span id="cb57-2"><a href="#cb57-2"></a>         <span class="at">vcov. =</span> clubSandwich<span class="sc">::</span><span class="fu">vcovCR</span>(rice_fe, <span class="at">type =</span> <span class="st">"CR3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+         Estimate Std. Error t value  Pr(&gt;|t|)    
+size     0.425501   0.049718  8.5583 &lt; 2.2e-16 ***
+seed     0.138176   0.039402  3.5068 0.0004773 ***
+urea     0.186226   0.027929  6.6678 4.669e-11 ***
+totlabor 0.253804   0.035869  7.0759 3.104e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="linear-hypothesis-1">Linear hypothesis (1)</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-23_dab6942dd1327346fb4388c76f9b1152">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">linearHypothesis</span>(rice_fe,</span>
+<span id="cb59-2"><a href="#cb59-2"></a>  <span class="st">"size + seed + urea + totlabor = 1"</span>, </span>
+<span id="cb59-3"><a href="#cb59-3"></a>  <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(rice_fe, <span class="at">method =</span> <span class="st">"arellano"</span>, </span>
+<span id="cb59-4"><a href="#cb59-4"></a>                        <span class="at">type =</span> <span class="st">"HC0"</span>, <span class="at">cluster =</span> <span class="st">"group"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear hypothesis test
+
+Hypothesis:
+size  + seed  + urea  + totlabor = 1
+
+Model 1: restricted model
+Model 2: goutput ~ size + seed + urea + totlabor
+
+Note: Coefficient covariance matrix supplied.
+
+  Res.Df Df  Chisq Pr(&gt;Chisq)
+1    852                     
+2    851  1 0.0176     0.8944</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="linear-hypothesis-2">Linear hypothesis (2)</h3>
+<div class="cell" data-hash="panel-regression_cache/revealjs/unnamed-chunk-24_948d842f5b26364005a12afc7a78904d">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">deltaMethod</span>(</span>
+<span id="cb61-2"><a href="#cb61-2"></a>  rice_fe,</span>
+<span id="cb61-3"><a href="#cb61-3"></a>  <span class="st">"size + seed + urea + totlabor"</span>,</span>
+<span id="cb61-4"><a href="#cb61-4"></a>  <span class="at">vcov. =</span> <span class="fu">vcovHC</span>(</span>
+<span id="cb61-5"><a href="#cb61-5"></a>    rice_fe,</span>
+<span id="cb61-6"><a href="#cb61-6"></a>    <span class="at">method =</span> <span class="st">"arellano"</span>,</span>
+<span id="cb61-7"><a href="#cb61-7"></a>    <span class="at">type =</span> <span class="st">"HC0"</span>,</span>
+<span id="cb61-8"><a href="#cb61-8"></a>    <span class="at">cluster =</span> <span class="st">"group"</span></span>
+<span id="cb61-9"><a href="#cb61-9"></a>  )</span>
+<span id="cb61-10"><a href="#cb61-10"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              Estimate       SE    2.5 % 97.5 %
+size + seed + urea + totlabor 1.003706 0.027922 0.948981 1.0584</code></pre>
+</div>
+</div>
+</section>
+<section id="take-away" class="slide level2 smaller">
+<h2>Take away</h2>
+<ul>
+<li class="fragment"><p>Data types;</p></li>
+<li class="fragment"><p>Why panel data;</p></li>
+<li class="fragment"><p>FE vs RE;</p>
+<ul>
+<li class="fragment">Correlated and uncorrelated individual effects</li>
+<li class="fragment">Limitations of the panel regression methods</li>
+</ul></li>
+<li class="fragment"><p>Practical application;</p></li>
+</ul>
+</section></section>
+<section id="references" class="title-slide slide level1 smaller scrollable">
+<h1>References</h1>
+
+
+<img src="../../img/jlu-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<p><a href="https://ebukin.github.io/mp223-2022-aem-R-public/">https://ebukin.github.io/mp223-2022-aem-R-public/</a></p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Angrist2009" class="csl-entry" role="doc-biblioentry">
+Angrist, Joshua D., and Jörn-Steffen Pischke. 2009. <em>Mostly Harmless Econometrics</em>. Princeton University Press. <a href="https://doi.org/10.1515/9781400829828">https://doi.org/10.1515/9781400829828</a>.
+</div>
+<div id="ref-Blanc2017" class="csl-entry" role="doc-biblioentry">
+Blanc, Elodie, and Wolfram Schlenker. 2017. <span>“The Use of Panel Models in Assessments of Climate Impacts on Agriculture.”</span> <em>Review of Environmental Economics and Policy</em> 11 (2): 258–79. <a href="https://doi.org/10.1093/reep/rex016">https://doi.org/10.1093/reep/rex016</a>.
+</div>
+<div id="ref-Bozzola2017" class="csl-entry" role="doc-biblioentry">
+Bozzola, Martina, Emanuele Massetti, Robert Mendelsohn, and Fabian Capitanio. 2017. <span>“A Ricardian Analysis of the Impact of Climate Change on Italian Agriculture.”</span> <em>European Review of Agricultural Economics</em> 45 (1): 57–79. <a href="https://doi.org/10.1093/erae/jbx023">https://doi.org/10.1093/erae/jbx023</a>.
+</div>
+<div id="ref-Card1996" class="csl-entry" role="doc-biblioentry">
+Card, David. 1996. <span>“The Effect of Unions on the Structure of Wages: A Longitudinal Analysis.”</span> <em>Econometrica</em> 64 (4): 957. <a href="https://doi.org/10.2307/2171852">https://doi.org/10.2307/2171852</a>.
+</div>
+<div id="ref-Chatzopoulos2015" class="csl-entry" role="doc-biblioentry">
+Chatzopoulos, Thomas, and Christian Lippert. 2015. <span>“Endogenous Farm-Type Selection, Endogenous Irrigation, and Spatial Effects in Ricardian Models of Climate Change.”</span> <em>European Review of Agricultural Economics</em> 43 (2): 217–35. <a href="https://doi.org/10.1093/erae/jbv014">https://doi.org/10.1093/erae/jbv014</a>.
+</div>
+<div id="ref-Conley1999" class="csl-entry" role="doc-biblioentry">
+Conley, T. G. 1999. <span>“<span>GMM</span> Estimation with Cross Sectional Dependence.”</span> <em>Journal of Econometrics</em> 92 (1): 1–45. <a href="https://doi.org/10.1016/s0304-4076(98)00084-0">https://doi.org/10.1016/s0304-4076(98)00084-0</a>.
+</div>
+<div id="ref-Croissant2018" class="csl-entry" role="doc-biblioentry">
+Croissant, Yves, and Giovanni Millo. 2018. <em>Panel Data Econometrics with r</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-Freeman1984" class="csl-entry" role="doc-biblioentry">
+Freeman, Richard B. 1984. <span>“Longitudinal Analyses of the Effects of Trade Unions.”</span> <em>Journal of Labor Economics</em> 2 (1): 1–26. <a href="https://doi.org/10.1086/298021">https://doi.org/10.1086/298021</a>.
+</div>
+<div id="ref-Kinal1993" class="csl-entry" role="doc-biblioentry">
+Kinal, T., and K. Lahiri. 1993. <span>“On the Estimation of Simultaneous-Equations Error-Components Models with an Application to a Model of Developing Country Foreign Trade.”</span> <em>Journal of Applied Econometrics</em> 8 (1): 81–92. <a href="https://doi.org/10.1002/jae.3950080107">https://doi.org/10.1002/jae.3950080107</a>.
+</div>
+<div id="ref-Kurukulasuriya2011" class="csl-entry" role="doc-biblioentry">
+Kurukulasuriya, Pradeep, Namrata Kala, and Robert Mendelsohn. 2011. <span>“Adaptation and Climate Change Impacts: A Structural Ricardian Model of Irrigation and Farm Income in Africa.”</span> <em>Climate Change Economics</em> 2 (02): 149–74.
+</div>
+<div id="ref-Kurukulasuriya2008" class="csl-entry" role="doc-biblioentry">
+Kurukulasuriya, Pradeep, Robert Mendelsohn, Pradeep Kurukulasuriya, and Robert Mendelsohn. 2008. <span>“Crop Switching as a Strategy for Adapting to Climate Change.”</span> <a href="https://doi.org/10.22004/AG.ECON.56970">https://doi.org/10.22004/AG.ECON.56970</a>.
+</div>
+<div id="ref-Mendelsohn1994" class="csl-entry" role="doc-biblioentry">
+Mendelsohn, Robert, William D Nordhaus, and Daigee Shaw. 1994. <span>“The Impact of Global Warming on Agriculture: A Ricardian Analysis.”</span> <em>The American Economic Review</em>, 753–71.
+</div>
+<div id="ref-Mundlak1961" class="csl-entry" role="doc-biblioentry">
+Mundlak, Yair. 1961. <span>“Empirical Production Function Free of Management Bias.”</span> <em>Journal of Farm Economics</em> 43 (1): 44. <a href="https://doi.org/10.2307/1235460">https://doi.org/10.2307/1235460</a>.
+</div>
+<div id="ref-Seo2008b" class="csl-entry" role="doc-biblioentry">
+Seo, S. Niggol, and Robert Mendelsohn. 2008a. <span>“Measuring Impacts and Adaptations to Climate Change: A Structural Ricardian Model of African Livestock Management<span class="math inline">\(\less\)</span>sup<span class="math inline">\(\greater\)</span>1<span class="math inline">\(\less\)</span>/Sup<span class="math inline">\(\greater\)</span>.”</span> <em>Agricultural Economics</em> 38 (2): 151–65. <a href="https://doi.org/10.1111/j.1574-0862.2008.00289.x">https://doi.org/10.1111/j.1574-0862.2008.00289.x</a>.
+</div>
+<div id="ref-Seo2008" class="csl-entry" role="doc-biblioentry">
+———. 2008b. <span>“An Analysis of Crop Choice: Adapting to Climate Change in South American Farms.”</span> <em>Ecological Economics</em> 67 (1): 109–16. <a href="https://doi.org/10.1016/j.ecolecon.2007.12.007">https://doi.org/10.1016/j.ecolecon.2007.12.007</a>.
+</div>
+<div id="ref-Seo2008a" class="csl-entry" role="doc-biblioentry">
+Seo, S. Niggol, Robert Mendelsohn, S. Niggol Seo, and Robert Mendelsohn. 2008. <span>“Animal Husbandry in Africa: Climate Change Impacts and Adaptations.”</span> <a href="https://doi.org/10.22004/AG.ECON.56968">https://doi.org/10.22004/AG.ECON.56968</a>.
+</div>
+<div id="ref-Soederbom2014" class="csl-entry" role="doc-biblioentry">
+Söderbom, Måns, Francis Teal, and Markus Eberhardt. 2014. <em>Empirical Development Economics</em>. ROUTLEDGE. <a href="https://www.ebook.de/de/product/21466458/mans_soederbom_francis_teal_markus_eberhardt_empirical_development_economics.html">https://www.ebook.de/de/product/21466458/mans_soederbom_francis_teal_markus_eberhardt_empirical_development_economics.html</a>.
+</div>
+<div id="ref-Wooldridge2010" class="csl-entry" role="doc-biblioentry">
+Wooldridge, Jeffrey M. 2010. <em>Econometric Analysis of Cross Section and Panel Data</em>. MIT press.
+</div>
+<div id="ref-wooldridge2020introductory" class="csl-entry" role="doc-biblioentry">
+Wooldridge, Jeffrey Marc. 2020. <em>Introductory Econometrics: A Modern Approach</em>. South-Western. <a href="https://www.cengage.uk/shop/isbn/9781337558860">https://www.cengage.uk/shop/isbn/9781337558860</a>.
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          let href = ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>

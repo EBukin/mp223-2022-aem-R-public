@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.492">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-06-01">
+
+<title>mp223 Applied Econometric Methods for the Socials Sciences - AE06-01 linear transformation and interaction term: the toolbox</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">AE06-01 linear transformation and interaction term: the toolbox</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../" class="sidebar-logo-link">
+      <img src="../../img/jlu-logo-1.jfif" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/EBukin/mp223-2022-aem-R-public/" title="Source code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Useful links" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-info-square"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://ilias.uni-giessen.de/goto.php?target=crs_301421&amp;client_id=JLUG">
+          Ilias
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&amp;again=yes">
+          StudIP
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY">
+          Youtube playlist
+          </a>
+        </li>
+    </ul>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">Course information</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Weekly checklists</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week01-checklist.html" class="sidebar-item-text sidebar-link">Week 1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week03-checklist.html" class="sidebar-item-text sidebar-link">Week 3</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week04-checklist.html" class="sidebar-item-text sidebar-link">Week 4</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week05-checklist.html" class="sidebar-item-text sidebar-link">Week 5</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week06-checklist.html" class="sidebar-item-text sidebar-link">Week 6</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../weeks/week08-checklist.html" class="sidebar-item-text sidebar-link">Week 8</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals:</a></li>
+  <li><a href="#exercise-1.-interaction-with-a-dummy-variable" id="toc-exercise-1.-interaction-with-a-dummy-variable" class="nav-link" data-scroll-target="#exercise-1.-interaction-with-a-dummy-variable">Exercise 1. Interaction with a dummy variable</a>
+  <ul class="collapse">
+  <li><a href="#load-data-compute-select-filter" id="toc-load-data-compute-select-filter" class="nav-link" data-scroll-target="#load-data-compute-select-filter">1.1 Load data, compute, select, filter</a></li>
+  <li><a href="#built-pairs-plot-and-descriptive-statistics" id="toc-built-pairs-plot-and-descriptive-statistics" class="nav-link" data-scroll-target="#built-pairs-plot-and-descriptive-statistics">1.2 Built pairs plot and descriptive statistics</a></li>
+  <li><a href="#regression-without-interaction-terms" id="toc-regression-without-interaction-terms" class="nav-link" data-scroll-target="#regression-without-interaction-terms">1.3 Regression without interaction terms</a>
+  <ul class="collapse">
+  <li><a href="#diagnostics" id="toc-diagnostics" class="nav-link" data-scroll-target="#diagnostics">Diagnostics</a></li>
+  </ul></li>
+  <li><a href="#attempting-to-resolve-linearity" id="toc-attempting-to-resolve-linearity" class="nav-link" data-scroll-target="#attempting-to-resolve-linearity">1.4 Attempting to resolve linearity</a></li>
+  <li><a href="#computing-fitted-values" id="toc-computing-fitted-values" class="nav-link" data-scroll-target="#computing-fitted-values">1.5 Computing fitted values</a></li>
+  <li><a href="#computing-slope-for-squared-term" id="toc-computing-slope-for-squared-term" class="nav-link" data-scroll-target="#computing-slope-for-squared-term">1.6 Computing slope for squared term</a>
+  <ul class="collapse">
+  <li><a href="#the-slope-depends-on-the-value-of-regressor" id="toc-the-slope-depends-on-the-value-of-regressor" class="nav-link" data-scroll-target="#the-slope-depends-on-the-value-of-regressor">The slope depends on the value of regressor</a></li>
+  <li><a href="#marginal-effects-to-report" id="toc-marginal-effects-to-report" class="nav-link" data-scroll-target="#marginal-effects-to-report">Marginal effects to report</a></li>
+  </ul></li>
+  <li><a href="#predicted-values-given-linear-transformation" id="toc-predicted-values-given-linear-transformation" class="nav-link" data-scroll-target="#predicted-values-given-linear-transformation">1.7 Predicted values given linear transformation</a></li>
+  <li><a href="#effect-of-a-dummy-variable" id="toc-effect-of-a-dummy-variable" class="nav-link" data-scroll-target="#effect-of-a-dummy-variable">1.8 Effect of a dummy variable</a></li>
+  </ul></li>
+  <li><a href="#exercise-2.-interaction-term" id="toc-exercise-2.-interaction-term" class="nav-link" data-scroll-target="#exercise-2.-interaction-term">Exercise 2. Interaction term</a>
+  <ul class="collapse">
+  <li><a href="#adding-an-interaction-term-between-sex-and-education" id="toc-adding-an-interaction-term-between-sex-and-education" class="nav-link" data-scroll-target="#adding-an-interaction-term-between-sex-and-education">2.1 Adding an interaction term between sex and education</a></li>
+  <li><a href="#interpreting-the-interaction-term" id="toc-interpreting-the-interaction-term" class="nav-link" data-scroll-target="#interpreting-the-interaction-term">2.2 Interpreting the interaction term</a></li>
+  </ul></li>
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">AE06-01 linear transformation and interaction term: the toolbox</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 1, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parameters)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(see)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(correlation)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(clubSandwich)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelbased)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.align =</span> <span class="st">"center"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.width =</span> <span class="dv">16</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.asp =</span> <span class="fl">0.618</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">fig.retina =</span> <span class="dv">1</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">out.width =</span> <span class="st">"100%"</span>, </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="goals" class="level1">
+<h1>Goals:</h1>
+<ul>
+<li>Learn what is the interaction term in regression and how to use it;</li>
+</ul>
+</section>
+<section id="exercise-1.-interaction-with-a-dummy-variable" class="level1">
+<h1>Exercise 1. Interaction with a dummy variable</h1>
+<section id="load-data-compute-select-filter" class="level2">
+<h2 class="anchored" data-anchor-id="load-data-compute-select-filter">1.1 Load data, compute, select, filter</h2>
+<ul>
+<li>total amount of parents education <code>paredu</code> as a sum of years of their education</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  wooldridge<span class="sc">::</span>wage1 <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(female <span class="sc">==</span> <span class="dv">0</span>, <span class="st">"male"</span>, <span class="st">"female"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">fct_rev</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(wage, educ, exper, sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Variables are:</p>
+<ul>
+<li><code>wage</code>: average hourly earnings</li>
+<li><code>educ</code>: years of education</li>
+<li><code>exper</code>: years potential experience</li>
+<li><code>sex</code>: sex of the respondents</li>
+</ul>
+</section>
+<section id="built-pairs-plot-and-descriptive-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="built-pairs-plot-and-descriptive-statistics">1.2 Built pairs plot and descriptive statistics</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dta, <span class="fu">aes</span>(<span class="at">group =</span> sex, <span class="at">colour =</span> sex, <span class="at">alpha =</span> <span class="fl">0.3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Unique (#) </th>
+   <th style="text-align:right;"> Missing (%) </th>
+   <th style="text-align:right;"> Mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> Min </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> Max </th>
+   <th style="text-align:right;">    </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> wage </td>
+   <td style="text-align:right;"> 241 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5.9 </td>
+   <td style="text-align:right;"> 3.7 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 25.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.81" y="11.15" width="3.64" height="0.51" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.45" y="3.22" width="3.64" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.09" y="6.16" width="3.64" height="5.50" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.72" y="8.21" width="3.64" height="3.45" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.36" y="9.36" width="3.64" height="2.30" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.99" y="10.98" width="3.64" height="0.68" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="22.63" y="11.02" width="3.64" height="0.64" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.26" y="11.41" width="3.64" height="0.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="29.90" y="11.49" width="3.64" height="0.17" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.53" y="11.41" width="3.64" height="0.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.17" y="11.58" width="3.64" height="0.085" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.81" y="11.58" width="3.64" height="0.085" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.44" y="11.62" width="3.64" height="0.043" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> educ </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12.6 </td>
+   <td style="text-align:right;"> 2.8 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 12.0 </td>
+   <td style="text-align:right;"> 18.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="11.55" width="4.94" height="0.11" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.72" y="11.51" width="4.94" height="0.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.65" y="11.40" width="4.94" height="0.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="16.59" y="10.70" width="4.94" height="0.97" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.53" y="9.91" width="4.94" height="1.75" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.47" y="3.22" width="4.94" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.41" y="8.24" width="4.94" height="3.42" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.35" y="8.35" width="4.94" height="3.31" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.28" y="10.51" width="4.94" height="1.15" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> exper </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 17.0 </td>
+   <td style="text-align:right;"> 13.6 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 13.5 </td>
+   <td style="text-align:right;"> 51.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.89" y="3.22" width="4.44" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.33" y="6.45" width="4.44" height="5.22" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.78" y="6.82" width="4.44" height="4.84" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="14.22" y="8.99" width="4.44" height="2.67" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.67" y="8.93" width="4.44" height="2.73" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="23.11" y="9.61" width="4.44" height="2.05" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="27.56" y="9.43" width="4.44" height="2.24" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.00" y="9.68" width="4.44" height="1.99" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.44" y="10.17" width="4.44" height="1.49" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.89" y="10.73" width="4.44" height="0.93" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="45.33" y="11.60" width="4.44" height="0.062" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="regression-without-interaction-terms" class="level2">
+<h2 class="anchored" data-anchor-id="regression-without-interaction-terms">1.3 Regression without interaction terms</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> sex, <span class="at">data =</span> dta)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    | Coefficient |   SE |         95% CI | t(522) |      p
+--------------------------------------------------------------------
+(Intercept)  |       -1.73 | 0.75 | [-3.21, -0.25] |  -2.30 | 0.022 
+educ         |        0.60 | 0.05 | [ 0.50,  0.70] |  11.79 | &lt; .001
+exper        |        0.06 | 0.01 | [ 0.04,  0.08] |   6.18 | &lt; .001
+sex [female] |       -2.16 | 0.27 | [-2.69, -1.62] |  -7.97 | &lt; .001</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC      |      BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-------------------------------------------------------
+2681.472 | 2702.798 | 0.309 |     0.305 | 3.066 | 3.078</code></pre>
+</div>
+</div>
+<section id="diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="diagnostics">Diagnostics</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_1, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="attempting-to-resolve-linearity" class="level2">
+<h2 class="anchored" data-anchor-id="attempting-to-resolve-linearity">1.4 Attempting to resolve linearity</h2>
+<ul>
+<li>Introduce squared education and experience terms.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_2 &lt;- lm(log(wage) ~ educ + ______ + exper + ______ + sex, </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#             data = dta)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(fit_2)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># performance(fit_2)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># check_model(fit_2, check = c("linearity", "homogeneity"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="computing-fitted-values" class="level2">
+<h2 class="anchored" data-anchor-id="computing-fitted-values">1.5 Computing fitted values</h2>
+<p>Calculate fitted values based on the regression<code>fit_2</code> for:</p>
+<ul>
+<li>a women and men;</li>
+<li>with 10 and 11 years of experience;</li>
+<li>10, 11, 16 and 17 years of education;</li>
+</ul>
+<p>Built a <code>tibble()</code> with the covariates for prediction:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_dta_1 &lt;-</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   tibble(</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     sex = ______,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     ______ = c(10, 11, ______, 10, 11, 16, 17),</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     exper = ______</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) %&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   bind_rows(mutate(., sex = "male"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Predict fitted values and write them to the variable fitted</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ______(______, pred_dta_1)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_dta_2 &lt;- </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   pred_dta_1 %&gt;% </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(fitted_values = ______(______, pred_dta_1))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compute predicted salary and save it into the variable <code>pred_wage</code>;</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_dta_3 &lt;- </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   pred_dta_2 %&gt;% </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(pred_wage = ______(fitted_values))</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_dta_3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="computing-slope-for-squared-term" class="level2">
+<h2 class="anchored" data-anchor-id="computing-slope-for-squared-term">1.6 Computing slope for squared term</h2>
+<section id="the-slope-depends-on-the-value-of-regressor" class="level3">
+<h3 class="anchored" data-anchor-id="the-slope-depends-on-the-value-of-regressor">The slope depends on the value of regressor</h3>
+<p><span class="math inline">\(\frac{\partial \text{ wage}}{\partial \text{ educ}} = -0.0306529 + 2 \times 0.0048716 \times \text{educ}\)</span></p>
+<p>What is the effect of an additional year of education on wage, given that current level of education is 10 or 16 years?</p>
+<ul>
+<li>Estimate slopes manually and using <code>modelbased</code>;</li>
+<li>Interpret the results;</li>
+<li>Plot the slope;</li>
+<li>What is the meaning of the shaded area?</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelbased)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Estimate slope of educ for 10 and 11 years of education, manually</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(fit_2)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ______ + ______ * ______ * ______</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ______ + ______ * ______ * ______</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # Estimating slopes manually for our data</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_dta_3 %&gt;% </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(- pred_wage  ) %&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_wider(names_from = educ, values_from = fitted_values) %&gt;% </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(beta_educ_10_11 = `11`-`10`,</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#          beta_educ_16_17 = `17`-`16`)</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># # Using function estimate_slopes</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(fit_2, trend = "educ")</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># # add `at = "educ"`</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(fit_2, trend = ______, at = "educ")</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># # Add `at = list(educ = c(10, 11))`</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(fit_2, trend = ______, at = list(educ = c(10, 11)))</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co"># # adding plot</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(fit_2, trend = ______, at = ______) %&gt;% plot()</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co"># # adding plot at sex and education</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(fit_2, trend = ______, at = c("educ", "sex")) %&gt;% ______()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="marginal-effects-to-report" class="level3">
+<h3 class="anchored" data-anchor-id="marginal-effects-to-report">Marginal effects to report</h3>
+</section>
+</section>
+<section id="predicted-values-given-linear-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="predicted-values-given-linear-transformation">1.7 Predicted values given linear transformation</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_dta_3</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># # using ggpredict</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, terms = "educ")</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># # back.transform = F</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, ______ = "educ", back.transform = F)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># # `terms = c("educ", "sex")`</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, terms = c("educ", "sex"), ______)</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plotting</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, ______ = "educ", back.transform = F) %&gt;% plot()</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, ______) %&gt;% plot()</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, terms = c(______)) %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="effect-of-a-dummy-variable" class="level2">
+<h2 class="anchored" data-anchor-id="effect-of-a-dummy-variable">1.8 Effect of a dummy variable</h2>
+<p>In the regression coefficients, sex variable has a coefficient of -0.32</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, ______ = "sex") %&gt;% plot()</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(fit_2, ______ = "sex", back.transform = F)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(fit_2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-2.-interaction-term" class="level1">
+<h1>Exercise 2. Interaction term</h1>
+<section id="adding-an-interaction-term-between-sex-and-education" class="level2">
+<h2 class="anchored" data-anchor-id="adding-an-interaction-term-between-sex-and-education">2.1 Adding an interaction term between sex and education</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit_3 &lt;- lm(log(wage) ~ </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#               educ + I(educ ^ 2) + exper + I(exper ^ 2) + sex + </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#               ______, </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#             data = dta)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters(fit_3)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># performance(fit_3)</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># check_model(fit_3, check = c("linearity", "homogeneity"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interpreting-the-interaction-term" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-the-interaction-term">2.2 Interpreting the interaction term</h2>
+<p>Interpreting the changing slopes</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(______, ______ = "educ", at = "educ") %&gt;% plot()</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(______, ______ = "educ", ______ = c("sex", "educ")) %&gt;% plot()</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate_slopes(______, ______ = "educ", ______ = c("sex")) %&gt;% plot()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Interpreting the fitted values</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(______, ______ = "educ") %&gt;% plot()</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(______, ______ = c("sex", "educ")) %&gt;% plot()</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(______, ______ = c("educ", "sex")) %&gt;% plot()</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ggpredict(______, ______ = c("educ", "sex")) %&gt;% plot(add.data = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="solutions" class="level1">
+<h1>Solutions</h1>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  wooldridge<span class="sc">::</span>wage1 <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(female <span class="sc">==</span> <span class="dv">0</span>, <span class="st">"male"</span>, <span class="st">"female"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">fct_rev</span>(),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwage =</span> <span class="fu">log</span>(wage)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(lwage, wage, educ, exper, sex)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.2 Built pairs plot and descriptive statistics</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dta, <span class="fu">aes</span>(<span class="at">group =</span> sex, <span class="at">colour =</span> sex, <span class="at">alpha =</span> <span class="fl">0.3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>dta <span class="sc">%&gt;%</span> <span class="fu">datasummary_skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Unique (#) </th>
+   <th style="text-align:right;"> Missing (%) </th>
+   <th style="text-align:right;"> Mean </th>
+   <th style="text-align:right;"> SD </th>
+   <th style="text-align:right;"> Min </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> Max </th>
+   <th style="text-align:right;">    </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> lwage </td>
+   <td style="text-align:right;"> 241 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1.6 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> −0.6 </td>
+   <td style="text-align:right;"> 1.5 </td>
+   <td style="text-align:right;"> 3.2 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="-2.43" y="11.62" width="5.77" height="0.041" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="3.33" y="11.66" width="5.77" height="0.00" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.10" y="11.50" width="5.77" height="0.16" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="14.87" y="10.81" width="5.77" height="0.85" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="20.64" y="3.22" width="5.77" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.40" y="4.84" width="5.77" height="6.82" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.17" y="8.09" width="5.77" height="3.57" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.94" y="10.40" width="5.77" height="1.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="43.71" y="11.46" width="5.77" height="0.20" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> wage </td>
+   <td style="text-align:right;"> 241 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5.9 </td>
+   <td style="text-align:right;"> 3.7 </td>
+   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> 4.7 </td>
+   <td style="text-align:right;"> 25.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.81" y="11.15" width="3.64" height="0.51" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="4.45" y="3.22" width="3.64" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="8.09" y="6.16" width="3.64" height="5.50" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.72" y="8.21" width="3.64" height="3.45" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="15.36" y="9.36" width="3.64" height="2.30" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.99" y="10.98" width="3.64" height="0.68" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="22.63" y="11.02" width="3.64" height="0.64" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.26" y="11.41" width="3.64" height="0.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="29.90" y="11.49" width="3.64" height="0.17" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="33.53" y="11.41" width="3.64" height="0.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="37.17" y="11.58" width="3.64" height="0.085" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.81" y="11.58" width="3.64" height="0.085" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="44.44" y="11.62" width="3.64" height="0.043" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> educ </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12.6 </td>
+   <td style="text-align:right;"> 2.8 </td>
+   <td style="text-align:right;"> 0.0 </td>
+   <td style="text-align:right;"> 12.0 </td>
+   <td style="text-align:right;"> 18.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="1.78" y="11.55" width="4.94" height="0.11" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="6.72" y="11.51" width="4.94" height="0.15" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="11.65" y="11.40" width="4.94" height="0.26" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="16.59" y="10.70" width="4.94" height="0.97" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="21.53" y="9.91" width="4.94" height="1.75" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="26.47" y="3.22" width="4.94" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="31.41" y="8.24" width="4.94" height="3.42" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.35" y="8.35" width="4.94" height="3.31" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="41.28" y="10.51" width="4.94" height="1.15" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> exper </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 17.0 </td>
+   <td style="text-align:right;"> 13.6 </td>
+   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 13.5 </td>
+   <td style="text-align:right;"> 51.0 </td>
+   <td style="text-align:right;">  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewbox="0 0 48.00 12.00"><defs><style type="text/css">
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clippath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
+</g><defs><clippath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clippath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.89" y="3.22" width="4.44" height="8.44" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="5.33" y="6.45" width="4.44" height="5.22" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="9.78" y="6.82" width="4.44" height="4.84" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="14.22" y="8.99" width="4.44" height="2.67" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="18.67" y="8.93" width="4.44" height="2.73" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="23.11" y="9.61" width="4.44" height="2.05" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="27.56" y="9.43" width="4.44" height="2.24" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="32.00" y="9.68" width="4.44" height="1.99" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="36.44" y="10.17" width="4.44" height="1.49" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="40.89" y="10.73" width="4.44" height="0.93" style="stroke-width: 0.38; fill: #000000;"></rect><rect x="45.33" y="11.60" width="4.44" height="0.062" style="stroke-width: 0.38; fill: #000000;"></rect></g></svg>
+</td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.3 Regression without interaction terms</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> sex, <span class="at">data =</span> dta)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    | Coefficient |   SE |         95% CI | t(522) |      p
+--------------------------------------------------------------------
+(Intercept)  |       -1.73 | 0.75 | [-3.21, -0.25] |  -2.30 | 0.022 
+educ         |        0.60 | 0.05 | [ 0.50,  0.70] |  11.79 | &lt; .001
+exper        |        0.06 | 0.01 | [ 0.04,  0.08] |   6.18 | &lt; .001
+sex [female] |       -2.16 | 0.27 | [-2.69, -1.62] |  -7.97 | &lt; .001</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC      |      BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-------------------------------------------------------
+2681.472 | 2702.798 | 0.309 |     0.305 | 3.066 | 3.078</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_1, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.4 Attempting to resolve linearity</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(wage) <span class="sc">~</span> educ <span class="sc">+</span> <span class="fu">I</span>(educ <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">+</span> exper <span class="sc">+</span> <span class="fu">I</span>(exper <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">+</span> sex, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> dta)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    | Coefficient |       SE |         95% CI | t(520) |      p
+------------------------------------------------------------------------
+(Intercept)  |        1.02 |     0.19 | [ 0.64,  1.39] |   5.32 | &lt; .001
+educ         |       -0.03 |     0.03 | [-0.09,  0.03] |  -1.00 | 0.316 
+educ^2       |    4.87e-03 | 1.26e-03 | [ 0.00,  0.01] |   3.86 | &lt; .001
+exper        |        0.04 | 4.77e-03 | [ 0.03,  0.05] |   8.37 | &lt; .001
+exper^2      |   -7.19e-04 | 1.06e-04 | [ 0.00,  0.00] |  -6.76 | &lt; .001
+sex [female] |       -0.32 |     0.04 | [-0.39, -0.25] |  -8.84 | &lt; .001</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC      |      BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-------------------------------------------------------
+2265.351 | 4002.887 | 0.416 |     0.411 | 0.406 | 0.408</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_2, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.5 Computing fitted values</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>pred_dta_1 <span class="ot">&lt;-</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="st">"female"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">educ =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">17</span>),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">exper =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">11</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">mutate</span>(., <span class="at">sex =</span> <span class="st">"male"</span>))</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict fitted values and write them to the variable fitted</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>pred_dta_2 <span class="ot">&lt;-</span> </span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  pred_dta_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fitted_values =</span> <span class="fu">predict</span>(fit_2, pred_dta_1))</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute predicted salary and save it into the variable `pred_wage`;</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>pred_dta_3 <span class="ot">&lt;-</span> </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  pred_dta_2 <span class="sc">%&gt;%</span> </span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred_wage =</span> <span class="fu">exp</span>(fitted_values))</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>pred_dta_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 5
+   sex     educ exper fitted_values pred_wage
+   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+ 1 female    10    10          1.21      3.34
+ 2 female    11    10          1.28      3.58
+ 3 female    16    10          1.78      5.94
+ 4 female    17    10          1.91      6.76
+ 5 female    10    11          1.23      3.42
+ 6 female    11    11          1.30      3.67
+ 7 female    16    11          1.81      6.09
+ 8 female    17    11          1.94      6.93
+ 9 male      10    10          1.52      4.59
+10 male      11    10          1.60      4.93
+11 male      16    10          2.10      8.17
+12 male      17    10          2.23      9.31
+13 male      10    11          1.55      4.71
+14 male      11    11          1.62      5.06
+15 male      16    11          2.13      8.38
+16 male      17    11          2.26      9.54</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.6 Computing slope for squared term</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelbased)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate slope of educ for 10 and 11 years of education, manually</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">0.0306529</span> <span class="sc">+</span> <span class="fl">0.0048716</span> <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0667791</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">0.0306529</span> <span class="sc">+</span> <span class="fl">0.0048716</span> <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0765223</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimating slopes manually for our data</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>pred_dta_3 <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter(educ %in% c(10, 11)) %&gt;% </span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span> pred_wage  ) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> educ, <span class="at">values_from =</span> fitted_values) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">beta_educ_10_11 =</span> <span class="st">`</span><span class="at">11</span><span class="st">`</span><span class="sc">-</span><span class="st">`</span><span class="at">10</span><span class="st">`</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">beta_educ_16_17 =</span> <span class="st">`</span><span class="at">17</span><span class="st">`</span><span class="sc">-</span><span class="st">`</span><span class="at">16</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 8
+  sex    exper  `10`  `11`  `16`  `17` beta_educ_10_11 beta_educ_16_17
+  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1 female    10  1.21  1.28  1.78  1.91          0.0717           0.130
+2 female    11  1.23  1.30  1.81  1.94          0.0717           0.130
+3 male      10  1.52  1.60  2.10  2.23          0.0717           0.130
+4 male      11  1.55  1.62  2.13  2.26          0.0717           0.130</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using function estimate_slopes</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_2, <span class="at">trend =</span> <span class="st">"educ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+Coefficient |       SE |       95% CI | t(520) |      p
+-------------------------------------------------------
+0.09        | 7.15e-03 | [0.08, 0.11] |  12.85 | &lt; .001
+Marginal effects estimated for educ</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add `at = "educ"`</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_2, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="st">"educ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+educ  | Coefficient |       SE |        95% CI | t(520) |      p
+----------------------------------------------------------------
+0.00  |       -0.03 |     0.03 | [-0.09, 0.03] |  -1.00 | 0.317 
+2.00  |       -0.01 |     0.03 | [-0.06, 0.04] |  -0.43 | 0.665 
+4.00  |    8.41e-03 |     0.02 | [-0.03, 0.05] |   0.40 | 0.686 
+6.00  |        0.03 |     0.02 | [ 0.00, 0.06] |   1.73 | 0.084 
+8.00  |        0.05 |     0.01 | [ 0.02, 0.07] |   4.04 | &lt; .001
+10.00 |        0.07 | 8.19e-03 | [ 0.05, 0.08] |   8.16 | &lt; .001
+12.00 |        0.09 | 6.89e-03 | [ 0.07, 0.10] |  12.53 | &lt; .001
+14.00 |        0.11 | 8.87e-03 | [ 0.09, 0.12] |  11.93 | &lt; .001
+16.00 |        0.13 |     0.01 | [ 0.10, 0.15] |   9.88 | &lt; .001
+18.00 |        0.14 |     0.02 | [ 0.11, 0.18] |   8.44 | &lt; .001
+Marginal effects estimated for educ</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add `at = list(educ = c(10, 11))`</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_2, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">educ =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+educ  | Coefficient |       SE |       95% CI | t(520) |      p
+---------------------------------------------------------------
+10.00 |        0.07 | 8.19e-03 | [0.05, 0.08] |   8.16 | &lt; .001
+11.00 |        0.08 | 7.14e-03 | [0.06, 0.09] |  10.73 | &lt; .001
+Marginal effects estimated for educ</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding plot</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_2, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="st">"educ"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding plot at sex and education</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_2, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="st">"educ"</span>, <span class="st">"sex"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-5.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.7 Predicted values given linear transformation</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>pred_dta_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 5
+   sex     educ exper fitted_values pred_wage
+   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+ 1 female    10    10          1.21      3.34
+ 2 female    11    10          1.28      3.58
+ 3 female    16    10          1.78      5.94
+ 4 female    17    10          1.91      6.76
+ 5 female    10    11          1.23      3.42
+ 6 female    11    11          1.30      3.67
+ 7 female    16    11          1.81      6.09
+ 8 female    17    11          1.94      6.93
+ 9 male      10    10          1.52      4.59
+10 male      11    10          1.60      4.93
+11 male      16    10          2.10      8.17
+12 male      17    10          2.23      9.31
+13 male      10    11          1.55      4.71
+14 male      11    11          1.62      5.06
+15 male      16    11          2.13      8.38
+16 male      17    11          2.26      9.54</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using ggpredict</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="st">"educ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of wage
+
+educ | Predicted |         95% CI
+---------------------------------
+   0 |      4.16 | [ 2.86,  6.03]
+   3 |      3.96 | [ 3.16,  4.97]
+   5 |      4.03 | [ 3.45,  4.71]
+   7 |      4.26 | [ 3.82,  4.74]
+  10 |      4.98 | [ 4.63,  5.36]
+  12 |      5.80 | [ 5.45,  6.18]
+  14 |      7.03 | [ 6.64,  7.45]
+  18 |     11.60 | [10.37, 12.98]
+
+Adjusted for:
+* exper = 13.50
+*   sex =  male</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># back.transform = F</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="st">"educ"</span>, <span class="at">back.transform =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of wage
+
+educ | Predicted |       95% CI
+-------------------------------
+   0 |      1.42 | [1.05, 1.80]
+   3 |      1.38 | [1.15, 1.60]
+   5 |      1.39 | [1.24, 1.55]
+   7 |      1.45 | [1.34, 1.56]
+  10 |      1.61 | [1.53, 1.68]
+  12 |      1.76 | [1.70, 1.82]
+  14 |      1.95 | [1.89, 2.01]
+  18 |      2.45 | [2.34, 2.56]
+
+Adjusted for:
+* exper = 13.50
+*   sex =  male</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># `terms = c("educ", "sex")`</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>, <span class="st">"sex"</span>), <span class="at">back.transform =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of wage
+
+# sex = male
+
+educ | Predicted |       95% CI
+-------------------------------
+   0 |      1.42 | [1.05, 1.80]
+   4 |      1.38 | [1.19, 1.57]
+   7 |      1.45 | [1.34, 1.56]
+  10 |      1.61 | [1.53, 1.68]
+  12 |      1.76 | [1.70, 1.82]
+  18 |      2.45 | [2.34, 2.56]
+
+# sex = female
+
+educ | Predicted |       95% CI
+-------------------------------
+   0 |      1.10 | [0.73, 1.48]
+   4 |      1.06 | [0.87, 1.25]
+   7 |      1.13 | [1.02, 1.24]
+  10 |      1.29 | [1.21, 1.36]
+  12 |      1.44 | [1.38, 1.50]
+  18 |      2.13 | [2.01, 2.25]
+
+Adjusted for:
+* exper = 13.50</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="st">"educ"</span>, <span class="at">back.transform =</span> F) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-6.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="st">"educ"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-7.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>, <span class="st">"sex"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-8.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.8 Effect of a dummy variable</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="st">"sex"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-9.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_2, <span class="at">terms =</span> <span class="st">"sex"</span>, <span class="at">back.transform =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted values of wage
+
+sex    | Predicted |       95% CI
+---------------------------------
+male   |      1.76 | [1.70, 1.82]
+female |      1.44 | [1.38, 1.50]
+
+Adjusted for:
+*  educ = 12.00
+* exper = 13.50</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    | Coefficient |       SE |         95% CI | t(520) |      p
+------------------------------------------------------------------------
+(Intercept)  |        1.02 |     0.19 | [ 0.64,  1.39] |   5.32 | &lt; .001
+educ         |       -0.03 |     0.03 | [-0.09,  0.03] |  -1.00 | 0.316 
+educ^2       |    4.87e-03 | 1.26e-03 | [ 0.00,  0.01] |   3.86 | &lt; .001
+exper        |        0.04 | 4.77e-03 | [ 0.03,  0.05] |   8.37 | &lt; .001
+exper^2      |   -7.19e-04 | 1.06e-04 | [ 0.00,  0.00] |  -6.76 | &lt; .001
+sex [female] |       -0.32 |     0.04 | [-0.39, -0.25] |  -8.84 | &lt; .001</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 2. Interaction term</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.1 Adding an interaction term between sex and education</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(wage) <span class="sc">~</span> </span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>              educ <span class="sc">+</span> <span class="fu">I</span>(educ <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">+</span> exper <span class="sc">+</span> <span class="fu">I</span>(exper <span class="sc">^</span> <span class="dv">2</span>) <span class="sc">+</span> sex <span class="sc">+</span> </span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>              educ<span class="sc">:</span>sex, </span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> dta)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="fu">parameters</span>(fit_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter           | Coefficient |       SE |         95% CI | t(519) |      p
+-------------------------------------------------------------------------------
+(Intercept)         |        1.06 |     0.21 | [ 0.65,  1.48] |   5.02 | &lt; .001
+educ                |       -0.04 |     0.03 | [-0.10,  0.03] |  -1.11 | 0.267 
+educ^2              |    4.97e-03 | 1.28e-03 | [ 0.00,  0.01] |   3.89 | &lt; .001
+exper               |        0.04 | 4.77e-03 | [ 0.03,  0.05] |   8.37 | &lt; .001
+exper^2             |   -7.22e-04 | 1.07e-04 | [ 0.00,  0.00] |  -6.78 | &lt; .001
+sex [female]        |       -0.41 |     0.17 | [-0.74, -0.07] |  -2.37 | 0.018 
+educ * sex [female] |    6.90e-03 |     0.01 | [-0.02,  0.03] |   0.51 | 0.608 </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">performance</span>(fit_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># Indices of model performance
+
+AIC      |      BIC |    R2 | R2 (adj.) |  RMSE | Sigma
+-------------------------------------------------------
+2267.084 | 4008.885 | 0.417 |     0.410 | 0.406 | 0.408</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_3, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"linearity"</span>, <span class="st">"homogeneity"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-10.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 2.2 Interpreting the interaction term</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_3, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="st">"educ"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-11.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_3, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"educ"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-12.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_3, <span class="at">trend =</span> <span class="st">"educ"</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="st">"sex"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-13.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_3, <span class="at">terms =</span> <span class="st">"educ"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-14.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"educ"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-15.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>, <span class="st">"sex"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-16.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(fit_3, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"educ"</span>, <span class="st">"sex"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">add.data =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ae06-01-interaction-terms-toolbox_files/figure-html/unnamed-chunk-17-17.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022, Eduard Bukin</div>   
+    <div class="nav-footer-right">This page is built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
