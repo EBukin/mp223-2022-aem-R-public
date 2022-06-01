@@ -1,0 +1,269 @@
+---
+title: "AE06-01 linear transformation and interaction term: the toolbox"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+library(forcats)
+library(modelbased)
+library(emmeans)
+library(ggeffects)
+library(insight)
+library(scales)
+library(glue)
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 16,
+  fig.asp = 0.618,
+  fig.retina = 1,
+  out.width = "100%", 
+  message = FALSE,
+  warning = FALSE,
+  echo = TRUE
+)
+
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.width = 10,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = TRUE
+)
+
+# Custom functions to summaries data nicely
+get_signif <- 
+  function(x) {
+    symnum(
+      x,
+      corr = FALSE,
+      na = FALSE,
+      cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+      symbols = c("***", "**", "*", ".", " ")
+    ) %>% 
+      as.character()
+  }
+
+tidy_skim <- 
+  function(dta) {
+    dta %>%
+      select(- any_of(c("id", "time"))) %>% 
+      skimr::skim_without_charts() %>%
+      as_tibble() %>%
+      select(any_of(c("skim_variable","n_missing")), contains("numeric")) %>%
+      rename_with( ~ str_remove(., "numeric\\."))
+  }
+
+tidy_coeftest <- 
+  function(
+    mod, 
+    mod_name = deparse(substitute(mod)), 
+    mod_vcov = vcov(mod),
+    dig = 3, 
+    ...) {
+    mod_name_sym <- sym(mod_name)
+    mod %>%
+      lmtest::coeftest(vcov. = mod_vcov)  %>%
+      broom::tidy() %>%
+      mutate(
+          across(c(estimate, std.error),
+                 ~ scales::number(., 1 / 10 ^ dig, big.mark = ",")),
+        across(c(p.value), ~ insight::format_p(., stars_only = TRUE)),
+        mod_stat := glue::glue("{estimate}{p.value} ({std.error})")
+      ) %>%
+      select(parameter = term, !!mod_name_sym := mod_stat)
+  }
+
+tidy_gof <- 
+  function(
+    mod, 
+    mod_name = deparse(substitute(mod)), 
+    dig = 3, 
+    ...) {
+    mod_sum <- summary(mod)
+    mod_sum <- mod_sum$fstatistic
+    if (is.vector(mod_sum)) {
+      df1 <- mod_sum[[2]]
+      df2 <- mod_sum[[3]]
+      df <- str_c(c(df1, df2), collapse = "; ")
+    } else {
+      df <- str_c(mod_sum$parameter, collapse = "; ")
+    }
+    mod %>%
+      broom::glance() %>%
+      {
+        dta <- .
+        if (!"logLik" %in% names(dta)) {
+          dta <-
+            mutate(dta, logLik = mod %>% stats::logLik() %>% as.numeric())
+        }
+        
+        if (!"AIC" %in% names(dta)) {
+          dta <- mutate(dta, AIC = mod %>% stats::AIC() %>% as.numeric())
+        }
+        
+        if (!"BIC" %in% names(dta)) {
+          dta <- mutate(dta, BIC = mod %>% stats::BIC() %>% as.numeric())
+        }
+        dta
+      } %>%
+      mutate(
+        across(any_of(c("r.squared", "deviance", "adj.r.squared")), 
+               ~ scales::number(., 1 / 10 ^ dig, big.mark = ",")),
+        across(any_of(c("statistic", "logLik", "AIC", "BIC")),
+               ~ scales::number(., 1, big.mark = ",")),
+        `F Statistics (df)` =
+          glue("{statistic}{get_signif(p.value)} ", "({df})"),
+        nobs = scales::number(nobs, 1, big.mark = ",")
+      ) %>%
+      select(
+        N = nobs,
+        `R-sq. adj.` = adj.r.squared,
+        `Log likelihood` = logLik,
+        AIC,
+        BIC,
+        `F Statistics (df)`
+      ) %>%
+      pivot_longer(everything(), 
+                   names_to = "parameter", 
+                   values_to = mod_name)
+  }
+
+
+tidy_summary <-
+  function(mod,
+           mod_name = deparse(substitute(mod)),
+           mod_vcov = vcov(mod),
+           dig = 3,
+           ...) {
+    
+    tidy_coeftest(mod,mod_name = mod_name, mod_vcov = mod_vcov, dig = dig) %>% 
+      bind_rows(tidy_gof(mod, mod_name = mod_name, dig = dig))
+  }
+
+
+tidy_summary_list <-
+  function(mod_list,
+           mod_vcov = NULL,
+           dig = 3,
+           ...) {
+    # browser()
+    mod_list %>%
+      list(., names(.), seq_along(.)) %>% 
+      pmap(~ {
+        vcov_here <- vcov(..1)
+        if (!is.null(mod_vcov[[..3]]))
+          vcov_here <- mod_vcov[[..3]]
+        tidy_summary(
+          mod = .x,
+          mod_name = .y,
+          mod_vcov = vcov_here,
+          dig = dig
+        )
+      }) %>%
+      reduce(full_join, by = "parameter")
+  }
+```
+
+# Goals:
+
+-   Learn what is the production function and how to fit it using panel data framework.
+
+# Exercise 1. Reproduce Rice farms example from the class
+
+-   Built the same Cobb-Douglas production function adding additional regressors from original data (such as: hired/family labor, other fertilizers)
+
+## 1.1 Data loading
+
+Check help for `RiceFarms`.
+
+```{r}
+library(splm)
+library(plm)
+
+data("RiceFarms", package = "splm")
+
+rice_dta_selection <- 
+  RiceFarms %>% 
+  as_tibble() %>%
+  select(
+    id, time,
+    output = goutput,
+    land = size,
+    labor = totlabor,
+    seed, urea,
+    pest = pesticide
+  )
+
+rice_dta <- 
+  rice_dta_selection %>% 
+  mutate(pest_revdum = ifelse(pest <= 0, 1, 0),
+    across(c(output, land, seed, urea, pest, labor), ~ log(.)),
+    pest = ifelse(is.infinite(pest), 0, pest)) 
+
+rice_dta_p <- rice_dta %>% pdata.frame(index = c("id", "time"))
+
+# Making panel structure
+pdim(rice_dta)
+```
+
+## 1.2 Analysis
+
+```{r}
+
+```
+
+## 1.3 Conclusions
+
+-   Compare the model from the class with yours model with more regressors. How does the estimate change?
+
+# Exercise 2. Instead of using a Cobb-Douglas production function, use the Translog production function.
+
+-   Reduce number of regressors to land, labor and seeds for simplicity.
+
+-   Compute the marginal effects of coefficients.
+
+
+Translog function: 
+
+$$\ln y = \beta_0 + \sum_{n = 1}^{N}  \beta_n \ln x_n + \\ \frac{1}{2} \sum_{n = 1}^{N} \sum_{m = 1}^{M}  \beta_{nm} \ln x_n \ln x_m + \sum_{k = 1}^{K} \gamma_k \delta_k + \epsilon$$
+
+where,
+
+-   $\ln x_n \ln x_m$ are the interaction terms between all combination of two regressors.
+-   Everything else is the same as in Cobb-Douglas.
+
+
+## 2.2 Compare marginal effects from the Translog model with the Cobb-Douglas estimates
+

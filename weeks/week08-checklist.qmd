@@ -10,10 +10,9 @@ bibliography: ../references.bib
 ## In class
 
 -   **SLIDES:** 🖥[W08 Panel Regression Analysis](/slides/40-panel-regression/panel-regression.html)
--   **Application Exercise:** 📋[ae05-01-OVB.rmd](/ae/ae08-panel-regression-part-1/ae05-01-OVB.html)
+-   **Application Exercise:** 📋[ae08-01-production-function.Rmd](/ae/ae08-panel-regression-part-1/ae08-01-production-function.html)
 -   Download here [ae/ae08-panel-regression-part-1.zip](https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae08-panel-regression-part-1.zip) or on Ilias.
 :::
-
 
 ::: callout-important
 ## `SELF STUDY`
