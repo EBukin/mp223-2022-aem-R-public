@@ -907,7 +907,7 @@
     "href": "slides/40-panel-regression/panel-regression.html#readings",
     "title": "Panel Regression Analysis",
     "section": "Readings",
-    "text": "Readings\n\nKey readings:\n\nMundlak (1961)\nAngrist and Pischke (2009) Ch. 5\nJeffrey M. Wooldridge (2010);\nJeffrey Marc Wooldridge (2020);\nSöderbom, Teal, and Eberhardt (2014), Ch. 9-11\n\nOther readings:\n\nCroissant and Millo (2018)"
+    "text": "Readings\n\nKey readings:\n\nMundlak (1961)\nAngrist and Pischke (2009) Ch. 5\nJ. M. Wooldridge (2010);\nM. J. Wooldridge (2020);\nSöderbom, Teal, and Eberhardt (2014), Ch. 9-11\n\nOther readings:\n\nCroissant and Millo (2018)"
   },
   {
     "objectID": "slides/40-panel-regression/panel-regression.html#terminology",
@@ -1089,7 +1089,7 @@
     "href": "slides/40-panel-regression/panel-regression.html#step-2.1-lazy-versus-reverse-dummy",
     "title": "Panel Regression Analysis",
     "section": "Step 2.1 lazy versus reverse dummy",
-    "text": "Step 2.1 lazy versus reverse dummy\n\n\nCode\nrice_fe_lazy <- \n  plm(output ~ land + labor + seed + urea + pest, \n      rice_dta_p_lazy, model = \"within\", effect = \"individual\")\nrice_pooled_lazy <- \n  plm(output ~ land + labor + seed + urea + pest, \n      rice_dta_p_lazy, model = \"pooling\")\n\nlist(pooled = rice_pooled, `pooled (lazy)` = rice_pooled_lazy, `FE (rev. dumy)` = rice_fe, `FE (lazy)` = rice_fe_lazy) %>% \n  tidy_summary_list()\n\n\n# A tibble: 13 × 5\n   parameter         pooled         `pooled (lazy)` `FE (rev. dumy)` `FE (lazy)`\n   <chr>             <glue>         <glue>          <glue>           <glue>     \n 1 (Intercept)       4.314*** (0.2… 4.853*** (0.19… <NA>             <NA>       \n 2 land              0.435*** (0.0… 0.436*** (0.03… 0.420*** (0.036) 0.421*** (…\n 3 labor             0.253*** (0.0… 0.247*** (0.02… 0.271*** (0.033) 0.264*** (…\n 4 seed              0.148*** (0.0… 0.164*** (0.02… 0.124*** (0.030) 0.134*** (…\n 5 urea              0.171*** (0.0… 0.179*** (0.01… 0.163*** (0.019) 0.174*** (…\n 6 pest              0.091*** (0.0… 0.006*** (0.00… 0.110*** (0.020) 0.008*** (…\n 7 pest_revdum       0.513*** (0.1… <NA>            0.635*** (0.135) <NA>       \n 8 N                 1,026          1,026           1,026            1,026      \n 9 R-sq. adj.        0.875          0.872           0.676            0.666      \n10 Log likelihood    -379           -391            -245             -261       \n11 AIC               761            785             492              525        \n12 BIC               766            790             497              529        \n13 F Statistics (df) 1,198*** (6; … 1,402*** (5; 1… 386*** (6; 849)  444*** (5;…"
+    "text": "Step 2.1 lazy versus reverse dummy\n\n\nCode\nrice_fe_lazy <- \n  plm(output ~ land + labor + seed + urea + pest, \n      rice_dta_p_lazy, model = \"within\", effect = \"individual\")\nrice_pooled_lazy <- \n  plm(output ~ land + labor + seed + urea + pest, \n      rice_dta_p_lazy, model = \"pooling\")\n\nlist(pooled = rice_pooled, `pooled (lazy)` = rice_pooled_lazy, `FE (rev. dumy)` = rice_fe, `FE (lazy)` = rice_fe_lazy) %>% \n  tidy_summary_list()\n\n\n# A tibble: 13 × 5\n   parameter         pooled         `pooled (lazy)` `FE (rev. dumy)` `FE (lazy)`\n   <chr>             <glue>         <glue>          <glue>           <glue>     \n 1 (Intercept)       4.314*** (0.2… 4.853*** (0.19… <NA>             <NA>       \n 2 land              0.435*** (0.0… 0.436*** (0.03… 0.420*** (0.036) 0.421*** (…\n 3 labor             0.253*** (0.0… 0.247*** (0.02… 0.271*** (0.033) 0.264*** (…\n 4 seed              0.148*** (0.0… 0.164*** (0.02… 0.124*** (0.030) 0.134*** (…\n 5 urea              0.171*** (0.0… 0.179*** (0.01… 0.163*** (0.019) 0.174*** (…\n 6 pest              0.091*** (0.0… 0.006*** (0.00… 0.110*** (0.020) 0.008*** (…\n 7 pest_revdum       0.513*** (0.1… <NA>            0.635*** (0.135) <NA>       \n 8 N                 1,026          1,026           1,026            1,026      \n 9 R-sq. adj.        0.875          0.872           0.676            0.666      \n10 Log likelihood    -379           -391            -245             -261       \n11 AIC               775            797             504              535        \n12 BIC               814            831             538              564        \n13 F Statistics (df) 1,198*** (6; … 1,402*** (5; 1… 386*** (6; 849)  444*** (5;…"
   },
   {
     "objectID": "slides/40-panel-regression/panel-regression.html#step-2.2-f-test-for-individual-effects",
@@ -1110,7 +1110,7 @@
     "href": "slides/40-panel-regression/panel-regression.html#step-3.1-random-effect",
     "title": "Panel Regression Analysis",
     "section": "Step 3.1 Random Effect",
-    "text": "Step 3.1 Random Effect\n\nrice_re <- \n  plm(output ~ land + labor + seed + urea + pest + pest_revdum, \n      rice_dta_p, model = \"random\", effect = \"individual\")\nlist(pooled = rice_pooled, FE = rice_fe, RE = rice_re) %>% \n  tidy_summary_list()\n\n# A tibble: 13 × 4\n   parameter         pooled             FE               RE              \n   <chr>             <glue>             <glue>           <glue>          \n 1 (Intercept)       4.314*** (0.219)   <NA>             4.277*** (0.222)\n 2 land              0.435*** (0.030)   0.420*** (0.036) 0.434*** (0.031)\n 3 labor             0.253*** (0.028)   0.271*** (0.033) 0.258*** (0.029)\n 4 seed              0.148*** (0.026)   0.124*** (0.030) 0.143*** (0.027)\n 5 urea              0.171*** (0.016)   0.163*** (0.019) 0.169*** (0.016)\n 6 pest              0.091*** (0.017)   0.110*** (0.020) 0.097*** (0.018)\n 7 pest_revdum       0.513*** (0.117)   0.635*** (0.135) 0.547*** (0.118)\n 8 N                 1,026              1,026            1,026           \n 9 R-sq. adj.        0.875              0.676            0.853           \n10 Log likelihood    -379               -245             -339            \n11 AIC               761                492              680             \n12 BIC               766                497              685             \n13 F Statistics (df) 1,198*** (6; 1019) 386*** (6; 849)  5,967*** (6)"
+    "text": "Step 3.1 Random Effect\n\nrice_re <- \n  plm(output ~ land + labor + seed + urea + pest + pest_revdum, \n      rice_dta_p, model = \"random\", effect = \"individual\")\nlist(pooled = rice_pooled, FE = rice_fe, RE = rice_re) %>% \n  tidy_summary_list()\n\n# A tibble: 13 × 4\n   parameter         pooled             FE               RE              \n   <chr>             <glue>             <glue>           <glue>          \n 1 (Intercept)       4.314*** (0.219)   <NA>             4.277*** (0.222)\n 2 land              0.435*** (0.030)   0.420*** (0.036) 0.434*** (0.031)\n 3 labor             0.253*** (0.028)   0.271*** (0.033) 0.258*** (0.029)\n 4 seed              0.148*** (0.026)   0.124*** (0.030) 0.143*** (0.027)\n 5 urea              0.171*** (0.016)   0.163*** (0.019) 0.169*** (0.016)\n 6 pest              0.091*** (0.017)   0.110*** (0.020) 0.097*** (0.018)\n 7 pest_revdum       0.513*** (0.117)   0.635*** (0.135) 0.547*** (0.118)\n 8 N                 1,026              1,026            1,026           \n 9 R-sq. adj.        0.875              0.676            0.853           \n10 Log likelihood    -379               -245             -339            \n11 AIC               775                504              694             \n12 BIC               814                538              734             \n13 F Statistics (df) 1,198*** (6; 1019) 386*** (6; 849)  5,967*** (6)"
   },
   {
     "objectID": "slides/40-panel-regression/panel-regression.html#step-3.2-hausman-test-for-panel-models",
@@ -2140,6 +2140,146 @@
     "title": "Exploring numerical data",
     "section": "References",
     "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWeisberg, Sanford. 2005. Applied Linear Regression. John Wiley & Sons, Inc. https://doi.org/10.1002/0471704091."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#recap-example-1-return-to-schooling",
+    "href": "slides/60-iv/iv.html#recap-example-1-return-to-schooling",
+    "title": "Instrumental Variable",
+    "section": "Recap Example 1: return to schooling",
+    "text": "Recap Example 1: return to schooling\n\nDoes more years of schooling causes higher wage?\nJacob Mincer first try to quantify the return to schooling (see Mincer 1974) by estimating the log of annual earning (\\(\\ln Y_i\\)) as a function of years of education (\\(s_i\\)) and potential work experience (\\(x_i\\)) in the following fashion:\n\\[\n\\ln Y_i = \\alpha + \\rho s_i + \\beta_1 x_i + \\beta_2 x^{2}_i + \\varepsilon_i\n\\qquad(1)\\]\n\nWhy experience is introduced in a quadratic form?\nWhat if we omit experience?\nProve that excluding experience causes bias to years of education."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#show-bias-of-excluded-experience",
+    "href": "slides/60-iv/iv.html#show-bias-of-excluded-experience",
+    "title": "Instrumental Variable",
+    "section": "Show bias of excluded experience",
+    "text": "Show bias of excluded experience\n\nWrite down long, short, auxiliary regression and the OVB formula.\n\nShort: \\(\\ln Y_i = \\alpha^S + \\rho^{S} s_i + \\varepsilon_i^S\\)\nLong: \\(\\ln Y_i = \\alpha + \\rho^L s_i + \\beta_1 x_i + \\beta_2 x^{2}_i + \\varepsilon_i\\)\nAuxiliary: \\(x_i = \\delta_0 + \\delta_{xs} s_i + \\upsilon_i\\)\nOVB formula: \\(\\text{OVB} = \\pi_1 \\times \\rho^L\\)\n\nHypothesize about \\(\\delta_{xs}\\) and \\(\\rho^L\\)\n\nRelationship between education and income: \\(\\rho^L_i > 0\\)\nRelationship between experience and education: \\(\\delta_{xs} < 0\\)\n\n\\(\\text{OVB} = \\delta_{xs} \\times \\rho^L = \\{\\delta_{xs} > 0 \\} \\times \\{ \\rho < 0 \\} \\Longrightarrow \\text{OVB} < 0\\)\n\nExcluding \\(x_i\\) cases bias to the return to education by reducing the estimated level of \\(\\rho^S\\) either to lower value or below zero. It could also make it insignificantly different from zero."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#is-there-a-ceteris-paribus-in-the-mincers-equation",
+    "href": "slides/60-iv/iv.html#is-there-a-ceteris-paribus-in-the-mincers-equation",
+    "title": "Instrumental Variable",
+    "section": "Is there a ceteris paribus in the mincer’s equation?",
+    "text": "Is there a ceteris paribus in the mincer’s equation?\n\nIs control for potential experience sufficient for ceteris to be paribus? At a given experience level, are more- and less-educated workers equally able and diligent? 1\nWe may rewrite Equation 1 in the way that it incorporates ability:\n\\[Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i \\qquad(2)\\]\nwhere \\(A^{'}_{i}\\) vector of control variables such as ability, experience and that we desire to have in order to ensure the unbiased estimates of \\(\\rho\\).\nOmitting ability causes a Selection bias: \\(\\rho^{S} = \\rho + \\underbrace{\\delta_{A^{'} s} \\times \\gamma}_{\\text{ability bias}}\\)\n\n(see Joshua D. Angrist and Pischke 2014, Ch. 6)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#how-do-we-fight-the-selection-bias",
+    "href": "slides/60-iv/iv.html#how-do-we-fight-the-selection-bias",
+    "title": "Instrumental Variable",
+    "section": "How do we fight the Selection bias?",
+    "text": "How do we fight the Selection bias?\n\nRandomized trials/experiments (Joshua D. Angrist and Pischke 2009, Ch 1-2.; Joshua D. Angrist and Pischke 2014, Ch. 1);\nRegression analysis (Joshua D. Angrist and Pischke 2009, Ch 3.; Joshua D. Angrist and Pischke 2014, Ch. 2);\n\nMultiple regression (M. J. Wooldridge 2020, Ch. 3)\nPanel regression (M. J. Wooldridge 2020, Ch. 13-14; Croissant and Millo 2018; J. M. Wooldridge 2010)\nOther regressions: binary outcome (logit/probit), censored data (tobit), truncated data, count data (poisson regression), quantile regression …\n\nInstrumental variables\n\nIV (2SLS, GMM) (Joshua D. Angrist and Pischke 2009, Ch. 4.; Joshua D. Angrist and Pischke 2014, Ch. 3);\nLATE – Local average treatment effect\nSelection models, Heckman … (M. J. Wooldridge 2020, Ch. 17; Cameron and Trivedi 2005, Ch. 11-27)\n\nDID - Difference in Difference;\nRDD - Regression Discontinuity Design;"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#definition",
+    "href": "slides/60-iv/iv.html#definition",
+    "title": "Instrumental Variable",
+    "section": "Definition",
+    "text": "Definition\n\nConsider a LONG model: \\(Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i\\) and it SHORT counterpart: \\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\);\n\nwhere \\(s_i\\) is a causal variable of interest and \\(A^{'}_{i}\\) is the vector of control variables that we desire to have in order to ensure unbiased estimates of \\(\\rho\\);\n\n\n\n\n\n\n\nConfusing definition of endogeneity:\n\n\n\nVariable \\(s_i\\) is endogenous if it correlates with the error terms \\(\\varepsilon^{S}_i\\) : \\(Cov(s_i, \\varepsilon^{S}_i) \\neq 0\\)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#definition-cont.",
+    "href": "slides/60-iv/iv.html#definition-cont.",
+    "title": "Instrumental Variable",
+    "section": "Definition (cont.)",
+    "text": "Definition (cont.)\n\nIn practice, endogeneity means that variation in the independent variable \\(s_i\\) (years of education) are not “random” as compared to the variation in the dependent variable \\(Y_i\\) and other regressors \\(A^{'}_i\\);\nIf variance of \\(s_i\\) is truly independent of \\(Y_i\\), \\(s_i\\) is exogenous."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#omitted-variable-bias",
+    "href": "slides/60-iv/iv.html#omitted-variable-bias",
+    "title": "Instrumental Variable",
+    "section": "Omitted Variable Bias",
+    "text": "Omitted Variable Bias\nLong model:\n\\[\nY_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i \\\\\n\\] . . .\nShort model:\n\\[\nY_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\n\\qquad(3)\\]\n\nIf \\(s_i\\) and \\(A_i\\) are correlated, we can assume a linear relationship between them:\n\n\n\\[\nA_i = \\delta_0 + \\delta_1 s_i + \\upsilon_i\n\\]\n\n\n\\[\n\\Rightarrow Y_i = \\alpha + \\rho s_i + \\gamma (\\delta_0 + \\delta_1 A_i + \\upsilon_i) + \\varepsilon_i\n\\]\n\n\n\\[\n= \\underbrace{(\\alpha + \\gamma \\delta_0)}_{\\alpha^S} +\n\\underbrace{(\\rho + \\gamma \\delta_1)}_{\\rho^S} s_i +\n\\underbrace{(\\varepsilon_i + \\gamma \\upsilon_i)}_{\\varepsilon_i^S}\n\\]"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#omitted-variable-bias-visually",
+    "href": "slides/60-iv/iv.html#omitted-variable-bias-visually",
+    "title": "Instrumental Variable",
+    "section": "Omitted Variable Bias: visually",
+    "text": "Omitted Variable Bias: visually"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#measurement-error",
+    "href": "slides/60-iv/iv.html#measurement-error",
+    "title": "Instrumental Variable",
+    "section": "Measurement error",
+    "text": "Measurement error\n\nWe estimate a long model: \\(Y_i = \\alpha + \\beta s^*_i + e_i \\\\\\),\n\nbut \\(s^*_i\\) is unavailable, we only have \\(S_i = s^*_i + m_i\\) instead\n\\(m_i\\) is a systematic measurement error (\\(E[m_i] =0\\) and \\(Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0\\)).\n\nDesired coefficient \\(\\beta = \\frac{Cov(Y_i, s_i)}{Var(s_i)}\\)\nBut with mis-measured data, we estimate biased coefficient \\(\\beta_b\\)\n\n\n\\[\n\\beta_b =  \\frac{Cov(Y_i, s_i)}{Var(s_i)}\n=  \\frac{Cov(a+\\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\\\\n=  \\frac{\\beta \\cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \\beta \\frac{Var(s^{*}_i)}{Var(s_i)}\n\\]\n\n(see Joshua D. Angrist and Pischke 2014, Ch. 6)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#simultaneity",
+    "href": "slides/60-iv/iv.html#simultaneity",
+    "title": "Instrumental Variable",
+    "section": "Simultaneity",
+    "text": "Simultaneity\n\nSimultaneity occurs if at least two variables are jointly determined.\n\nA typical case is when observed outcomes are the result of separate behavioral mechanisms that are coordinated in an equilibrium.\n\nThe prototypical case is a system of demand and supply equations:\n\n\\(D(p)\\) = how high would demand be if the price was set to \\(p\\)?\n\\(S(p)\\) = how high would supply be if the price was set to \\(p\\)?\n\nNumber of police people and the crime rate.\n(see M. J. Wooldridge 2020, Ch. 17) for more details on the problem and solutions."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#iv",
+    "href": "slides/60-iv/iv.html#iv",
+    "title": "Instrumental Variable",
+    "section": "IV",
+    "text": "IV\nRecall the short Equation 3 model \\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\), where\n\n\n\n\n\n\nInstrumental variable is another variable \\(Z_i\\);\n\n\n\n\\(Z_i\\) has a strong association with \\(s_i\\);\n\\(Z_i\\) does not affect \\(Y_i\\) except through its potential effect on A;\n\\(Z_i\\) and \\(Y_i\\) do not share any common causes;"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#iv-image",
+    "href": "slides/60-iv/iv.html#iv-image",
+    "title": "Instrumental Variable",
+    "section": "IV image",
+    "text": "IV image"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#sls",
+    "href": "slides/60-iv/iv.html#sls",
+    "title": "Instrumental Variable",
+    "section": "2SLS",
+    "text": "2SLS"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#consistency-and-unbiasedness-of-the-iv",
+    "href": "slides/60-iv/iv.html#consistency-and-unbiasedness-of-the-iv",
+    "title": "Instrumental Variable",
+    "section": "Consistency and unbiasedness of the IV",
+    "text": "Consistency and unbiasedness of the IV\nIV estimates are not unbiased, but they are consistent (Joshua D. Angrist and Krueger 2001).\n\nUnbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while\nConsistency only means that the estimator converges to the population parameter as the sample size grows.\n\n. . . ::: callout-note Researchers using instrumental variables should aspire to work with large samples. :::"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#research-faqs",
+    "href": "slides/60-iv/iv.html#research-faqs",
+    "title": "Instrumental Variable",
+    "section": "Research FAQs:",
+    "text": "Research FAQs:\nBefore running a regression, ask the following four questions (see Joshua D. Angrist and Pischke 2009, Ch. 1)\n\nWhat is the causal relationship of interest?\nWhat is the experiment that could ideally be used to capture the causal effect of interest?\nWhat is your identification strategy?\nWhat is your mode of statistical inference?"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#faq-1.-what-is-the-causal-relationship-of-interest",
+    "href": "slides/60-iv/iv.html#faq-1.-what-is-the-causal-relationship-of-interest",
+    "title": "Instrumental Variable",
+    "section": "FAQ 1. What is the causal relationship of interest?",
+    "text": "FAQ 1. What is the causal relationship of interest?"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#faq-2.-what-is-the-experiment",
+    "href": "slides/60-iv/iv.html#faq-2.-what-is-the-experiment",
+    "title": "Instrumental Variable",
+    "section": "FAQ 2. What is the experiment…?",
+    "text": "FAQ 2. What is the experiment…?\n\nDescribe an ideal experiment.\nHighlight the forces you’d like to manipulate and the factors you’d like to hold constant.\nFUQs: fundamentally unidentified questions\n\nCausal effect of race or gender;\n\nHowever, we can experiment with how believes about a person’s gender of race affect decisions (Bertrand and Mullainathan 2004).\n\nDo children that start school 1 year later learn more in the primary school?\n\nBecause older kinds are in general better learners there is not counter factual.\nHowever, it is possible to establish this school starting effect on adults (Black, Devereux, and Salvanes 2008)."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#what-is-your-identification-strategy",
+    "href": "slides/60-iv/iv.html#what-is-your-identification-strategy",
+    "title": "Instrumental Variable",
+    "section": "What is your identification strategy?",
+    "text": "What is your identification strategy?\n\n\n\n\n\n\n\nIdentification strategy\n\n\nis the manner in which a researcher uses observational data (i.e., data not generated by a randomized trial) to approximate a real experiment (J. D. Angrist and Keueger 1991)\n\n\n\n\nfinding a suitable natural experiment where the treatment is randomly assigned;\nchoosing the right instrument to endogenous variable that mimics a natural experiment;"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#what-is-your-mode-of-statistical-inference",
+    "href": "slides/60-iv/iv.html#what-is-your-mode-of-statistical-inference",
+    "title": "Instrumental Variable",
+    "section": "What is your mode of statistical inference?",
+    "text": "What is your mode of statistical inference?\n\ndescribes the population to be studied,\nthe sample to be used,\nand the assumptions made when constructing standard errors.\nchoose appropriate statistical methods\napply them diligently."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#introduction-and-the-research-question",
+    "href": "slides/60-iv/iv.html#introduction-and-the-research-question",
+    "title": "Instrumental Variable",
+    "section": "Introduction and the research Question",
+    "text": "Introduction and the research Question"
   },
   {
     "objectID": "slides/30-multiple-regression/collinearity.html#collinearity-or-muticollinearity",
