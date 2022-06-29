@@ -23,6 +23,70 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
@@ -351,11 +415,12 @@
 </div>
 </section>
 <section>
-<section id="refreshrecap" class="title-slide slide level1 center">
-<h1>Refresh/recap</h1>
+<section id="refresh" class="title-slide slide level1 center">
+<h1>Refresh</h1>
 <ul>
 <li class="fragment"><p>What is the ceteris paribus?</p></li>
-<li class="fragment"><p>What is the Selection Bias and how is it different from the OVB?</p></li>
+<li class="fragment"><p>What is the Selection Bias?</p></li>
+<li class="fragment"><p>How is Selection Bias different from the OVB?</p></li>
 <li class="fragment"><p>What is long, short and auxiliary regression?</p></li>
 <li class="fragment"><p>What is the OVB formula?</p></li>
 <li class="fragment"><p>Why is selection bias causing a problem?</p></li>
@@ -413,8 +478,8 @@
 </ul></li>
 </ul>
 </section>
-<section id="is-there-ceteris-paribus-in-the-mincers-equation" class="slide level2 smaller">
-<h2>Is there ceteris paribus in the Mincer’s equation?</h2>
+<section id="is-ceteris-paribus-fulfilled-in-the-mincers-equation" class="slide level2 smaller">
+<h2>Is ceteris paribus fulfilled in the Mincer’s equation?</h2>
 <ul>
 <li class="fragment">Is control for potential experience sufficient for ceteris to be paribus? At a given experience level, are more- and less-educated workers equally able and diligent? <sup>1</sup></li>
 <li class="fragment">We may rewrite <a href="#/eq-mincer-long">Equation&nbsp;1</a> in the way that it incorporates ability:</li>
@@ -467,8 +532,6 @@
 </ul>
 <div class="fragment">
 <p><span class="math display">\[Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i \\ Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i\]</span></p>
-</div>
-<div class="fragment">
 <ul>
 <li class="fragment">where <span class="math inline">\(s_i\)</span> is a causal variable of interest and <span class="math inline">\(A^{'}_{i}\)</span> is the vector of control variables that we desire to have in order to ensure unbiased estimates of <span class="math inline">\(\rho\)</span>;</li>
 </ul>
@@ -540,11 +603,12 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <ul>
 <li class="fragment"><p>We estimate a long model: <span class="math inline">\(Y_i = \alpha + \beta s^*_i + e_i \\\)</span> ,</p>
 <ul>
-<li class="fragment">but <span class="math inline">\(s^*_i\)</span> is unavailable, we only have <span class="math inline">\(S_i = s^*_i + m_i\)</span> instead</li>
-<li class="fragment"><span class="math inline">\(m_i\)</span> is a systematic measurement error (<span class="math inline">\(E[m_i] =0\)</span> and <span class="math inline">\(Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0\)</span>).</li>
+<li class="fragment">but <span class="math inline">\(s^*_i\)</span> is unavailable, we only have <span class="math inline">\(s_i = s^*_i + m_i\)</span> instead</li>
+<li class="fragment"><span class="math inline">\(m_i\)</span> is a systematic measurement error</li>
+<li class="fragment"><span class="math inline">\(E[m_i] =0\)</span> and <span class="math inline">\(Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0\)</span>.</li>
 </ul></li>
 <li class="fragment"><p>Desired coefficient <span class="math inline">\(\beta = \frac{Cov(Y_i, s_i)}{Var(s_i)}\)</span></p></li>
-<li class="fragment"><p>But with mis-measured data, we estimate biased coefficient <span class="math inline">\(\beta_b\)</span></p></li>
+<li class="fragment"><p>But with the erroneous data, we estimate biased coefficient <span class="math inline">\(\beta_b\)</span></p></li>
 </ul>
 <div class="fragment">
 <p><span class="math display">\[ \beta_b =  \frac{Cov(Y_i, s_i)}{Var(s_i)} =  \frac{Cov(a+\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\  =  \frac{\beta \cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \beta \frac{Var(s^{*}_i)}{Var(s_i)} \]</span></p>
@@ -553,10 +617,6 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 </ul>
 </div>
 </section>
-<section id="measurement-error-visually" class="slide level2">
-<h2>Measurement error: visually</h2>
-
-<img data-src="./img/meserr-scheme-1.png" style="width:100.0%" class="r-stretch"></section>
 <section id="simultaneity" class="slide level2 smaller">
 <h2>Simultaneity</h2>
 <ul>
@@ -579,7 +639,14 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <div class="callout callout-important no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>There are same five “lethal” weapons against endogeneity as there were against the selection bias: 1. Randomized Control Trials / Experiments 2. Regression 3. Instrumental variable 4. Difference in difference 5. Regression discontinuity design</p>
+<p>There are same five “lethal” weapons against endogeneity as there were against the selection bias:</p>
+<ol type="1">
+<li class="fragment">Randomized Control Trials / Experiments</li>
+<li class="fragment">Regression</li>
+<li class="fragment">Instrumental variable</li>
+<li class="fragment">Difference in difference</li>
+<li class="fragment">Regression discontinuity design</li>
+</ol>
 </div>
 </div>
 </div>
@@ -640,14 +707,14 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <h2>Instrumental Variable visually (2)</h2>
 
 <img data-src="./img/iv-scheme-2.png" style="width:100.0%" class="r-stretch"></section>
-<section id="iv-intuition-using-2sls-1" class="slide level2 smaller">
-<h2>IV intuition using 2SLS (1)</h2>
+<section id="iv-regression-using-2sls-1" class="slide level2 smaller">
+<h2>IV regression using 2SLS (1)</h2>
 <p>Imagine that we have:</p>
 <ul>
-<li class="fragment">a long model: <span class="math inline">\(Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i\)</span> ;</li>
-<li class="fragment">a short model: <span class="math inline">\(Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i\)</span> ;</li>
+<li class="fragment">long model: <span class="math inline">\(Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i\)</span> ;</li>
+<li class="fragment">short model: <span class="math inline">\(Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i\)</span> ;</li>
 <li class="fragment">with endogenous <span class="math inline">\(s_i\)</span>, and</li>
-<li class="fragment">a valid instrument <span class="math inline">\(Z_i\)</span> that satisfies all three requirements: Relevance, Exclusion and Independence.</li>
+<li class="fragment">a valid instrument <span class="math inline">\(Z_i\)</span></li>
 </ul>
 <div class="fragment">
 <p><strong>Estimate the first stage:</strong> <span class="math inline">\(s_i = \pi_0 + \pi_1 Z_i + nu_i\)</span></p>
@@ -668,20 +735,46 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 </section>
 <section id="iv-intuition-using-2sls-2" class="slide level2">
 <h2>IV intuition using 2SLS (2)</h2>
-<p>TBD</p>
+<div class="cell" data-hash="iv_cache/revealjs/unnamed-chunk-4_a3938d410658ffe90f79b496c16b27d8">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>wg1 <span class="ot">&lt;-</span> wooldridge<span class="sc">::</span>wage2 <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">c</span>(wage, educ, exper, meduc), <span class="sc">~!</span><span class="fu">is.na</span>(.)))</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>ols <span class="ot">&lt;-</span>  <span class="fu">lm</span>(<span class="fu">log</span>(wage) <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> <span class="fu">I</span>(exper<span class="sc">^</span><span class="dv">2</span>), wg1)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>first_stage <span class="ot">&lt;-</span> <span class="fu">lm</span>(educ <span class="sc">~</span> meduc <span class="sc">+</span> exper <span class="sc">+</span> <span class="fu">I</span>(exper<span class="sc">^</span><span class="dv">2</span>), wg1)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>second_stage <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(wage) <span class="sc">~</span> educ_fit <span class="sc">+</span> exper <span class="sc">+</span> <span class="fu">I</span>(exper<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1-9"><a href="#cb1-9"></a>                   wg1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">educ_fit =</span> <span class="fu">fitted</span>(first_stage)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="iv_cache/revealjs/unnamed-chunk-5_4202070e8e5df760c11220e28c949421">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+  parameter         OLS                  `First stage`         `Second stage`   
+  &lt;chr&gt;             &lt;chr&gt;                &lt;chr&gt;                 &lt;chr&gt;            
+1 (Intercept)       "5.4864*** (0.1308)" "12.7886*** (0.4575)" "4.3947*** (0.35…
+2 educ              "0.0802*** (0.0068)" ""                    ""               
+3 meduc             ""                   "0.2199*** (0.0227)"  ""               
+4 educ_fit          ""                   ""                    "0.1518*** (0.02…
+5 exper             "0.0147 (0.0143)"    "-0.0455 (0.0684)"    "0.0170 (0.0151)"
+6 I(exper^2)        "0.0003 (0.0006)"    "-0.0070* (0.0029)"   "0.0010 (0.0007)"
+7 N                 "857"                "857"                 "857"            
+8 R-sq. adj.        "0.1387"             "0.2898"              "0.0482"         
+9 F Statistics (df) "47*** (3)"          "117*** (3)"          "15*** (3)"      </code></pre>
+</div>
+</div>
 </section></section>
 <section>
-<section id="pitfals-of-the-iv" class="title-slide slide level1 center">
-<h1>Pitfals of the IV</h1>
+<section id="pitfalls-of-the-iv" class="title-slide slide level1 center">
+<h1>Pitfalls of the IV</h1>
 
 </section>
-<section id="consistency-and-unbiasedness-of-the-iv" class="slide level2 smaller">
-<h2>Consistency and unbiasedness of the IV</h2>
+<section id="consistency-and-unbiasedness" class="slide level2 smaller">
+<h2>Consistency and unbiasedness</h2>
 <ul>
 <li class="fragment"><p>IV estimates <strong>are not unbiased</strong>, but they <strong>are consistent</strong> <span class="citation" data-cites="Angrist2001">(<a href="#/ref-Angrist2001" role="doc-biblioref" onclick="return false;">Joshua D. Angrist and Krueger 2001</a>)</span>.</p>
 <ul>
-<li class="fragment"><p>Unbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while</p></li>
-<li class="fragment"><p>Consistency only means that the estimator converges to the population parameter as the sample size grows.</p></li>
+<li class="fragment"><p><strong>Unbiasedness</strong> means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while</p></li>
+<li class="fragment"><p><strong>Consistency</strong> only means that the estimator converges to the population parameter as the sample size grows.</p></li>
 </ul></li>
 </ul>
 <div class="fragment">
@@ -699,7 +792,7 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 </div>
 </div>
 <ul>
-<li class="fragment">No statistical tests available</li>
+<li class="fragment">No statistical tests is available for checking the consistency</li>
 </ul>
 </div>
 </section>
@@ -733,7 +826,7 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <li class="fragment"><p>Run the first stage regression with and without the IV;</p></li>
 <li class="fragment"><p>Compare the F-statistics</p>
 <ul>
-<li class="fragment">If F-statistics with instrument is greater than that without by 5 of more,</li>
+<li class="fragment">If F-statistics with instrument is greater than that without <strong>by 5 of more</strong>,</li>
 <li class="fragment">this is a sign of a strong instrument <span class="citation" data-cites="Staiger1997">(<a href="#/ref-Staiger1997" role="doc-biblioref" onclick="return false;">Staiger and Stock 1997</a>)</span>;</li>
 </ul></li>
 <li class="fragment"><p>This test does not ensure that our instruments are independent of omitted variable <span class="math inline">\(A^{'}_i\)</span> or <span class="math inline">\(Y_i\)</span>;</p></li>
@@ -741,10 +834,10 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 </ul>
 </div>
 </section>
-<section id="overidentification-1" class="slide level2 smaller">
+<section id="overidentification-1" class="slide level2">
 <h2>Overidentification (1)</h2>
 <ul>
-<li class="fragment"><p>number of instruments <span class="math inline">\(G\)</span> in the instruments matrix <span class="math inline">\(Z^{'}_i\)</span> substantially exceeds the number of endogenous variables <span class="math inline">\(K\)</span>.</p>
+<li class="fragment"><p>number of instruments <span class="math inline">\(G\)</span> in exceeds the number of endogenous variables <span class="math inline">\(K\)</span>.</p>
 <ul>
 <li class="fragment">when the IV is overidentified, estimates are biased;</li>
 <li class="fragment">bias is proportional to <span class="math inline">\(K - G\)</span>;</li>
@@ -757,7 +850,7 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 </ul></li>
 </ul>
 </section>
-<section id="overidentification-2" class="slide level2 smaller">
+<section id="overidentification-2" class="slide level2">
 <h2>Overidentification (2)</h2>
 <p>Sargan’s overidentification test:</p>
 <ul>
@@ -780,42 +873,24 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <h1>Example 1 (cont.) wage and education</h1>
 <p>Angrist, J. D., &amp; Krueger, A. B. (1991). Does Compulsory School Attendance Affect Schooling and Earnings? The Quarterly Journal of Economics, 106, 979–1014. https://doi.org/10.2307/2937954</p>
 </section>
-<section id="mincer-regression-and-ability-bias" class="slide level2">
+<section id="mincer-regression-and-ability-bias" class="slide level2 smaller">
 <h2>Mincer regression and ability bias</h2>
 <p>Recall the Mincer’s regression <a href="#/eq-mincer-long">Equation&nbsp;1</a> with monthly wage (<span class="math inline">\(Y_i\)</span>) as a function of years of education (<span class="math inline">\(s_i\)</span>) and years of experience (<span class="math inline">\(x_i\)</span>).</p>
 <ul>
-<li class="fragment">Its’ estimation results based on the 1960th sample of 31k white man are below:</li>
+<li class="fragment">Its’ estimations are based on the 1960th sample of 31k white man are below:</li>
+<li class="fragment"><span class="math inline">\(\ln Y_i = \alpha + \underset{(.002)}{.070} s_i + \varepsilon_i\)</span></li>
+<li class="fragment"><span class="math inline">\(\ln Y_i = \alpha + \underset{(.001)}{.107} s_i + \underset{(.001)}{.081} x_i - \underset{(.00002)}{.0012} x^{2}_i + \varepsilon_i\)</span></li>
 </ul>
-<div class="fragment">
-<p>$$</p>
-<p>Y_i = + s_i + _i</p>
-<p>$$</p>
-</div>
-<div class="fragment">
-<p>$$</p>
-<p>Y_i = + s_i + x_i - x^{2}_i + _i</p>
-<p>$$</p>
-<div class="callout callout-note callout-captioned callout-style-default">
-<div class="callout-body">
-<div class="callout-caption">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Answer to the following questions:</strong></p>
-</div>
-<div class="callout-content">
+<p>Answer to the following questions:</p>
 <ul>
-<li class="fragment"><p>Interpret education and experience regression coefficients;</p></li>
-<li class="fragment"><p>Does education matter much for a person with 30 years of experience?</p></li>
+<li class="fragment">Interpret education and experience regression coefficients;</li>
+<li class="fragment">Does education matter much for a person with 30 years of experience?</li>
 </ul>
-</div>
-</div>
-</div>
-</div>
 </section>
 <section id="why-education-is-endogenous" class="slide level2">
 <h2>Why Education is endogenous?</h2>
 <ul>
+<li class="fragment"><p>…</p></li>
 <li class="fragment"><p>Ability bias!</p></li>
 <li class="fragment"><p>Is it sufficient to use the IQ or knowledge of work index to resolve this bias?</p>
 <ul>
@@ -823,6 +898,7 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <li class="fragment"><p>How to quantify the lottery change effect of getting a decent job?</p></li>
 <li class="fragment"><p>How to measure the connections?</p></li>
 </ul></li>
+<li class="fragment"><p>Where to find an IV?</p></li>
 </ul>
 </section>
 <section id="fantastic-ivs-and-how-to-find-them" class="slide level2 smaller">
@@ -841,7 +917,7 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <li class="fragment"><p>Analyze, what were/are the policies/environments that could mimic the experimental setting?</p></li>
 </ol>
 </section>
-<section id="fantastic-ivs-for-education" class="slide level2 smaller">
+<section id="fantastic-ivs-for-education" class="slide level2">
 <h2>Fantastic IVs for education</h2>
 <ul>
 <li class="fragment">Loan policies or other subsidies that vary independently of ability or earnings potential</li>
@@ -874,8 +950,8 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <p>Combination of school start age policies and compulsory schooling laws creates a natural experiment in which children are compelled to attend school for different lengths of time depending on their birthdays.</p>
 </div>
 </section>
-<section id="average-shooling-duration-by-quarter-of-birth" class="slide level2">
-<h2>Average shooling duration by quarter of birth</h2>
+<section id="average-schooling-by-quarter-of-birth" class="slide level2">
+<h2>Average schooling by quarter of birth</h2>
 
 <img data-src="./img/educ-by-quarter.png" style="width:100.0%" class="r-stretch"><div class="footer">
 <p>Source: <span class="citation" data-cites="Angrist1991a">(<a href="#/ref-Angrist1991a" role="doc-biblioref" onclick="return false;">Joshua D. Angrist and Krueger 1991</a>)</span></p>
@@ -888,14 +964,14 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <p>Source: <span class="citation" data-cites="Angrist1991a">(<a href="#/ref-Angrist1991a" role="doc-biblioref" onclick="return false;">Joshua D. Angrist and Krueger 1991</a>)</span></p>
 </div>
 </section>
-<section id="fantactis-instrumental-variable" class="slide level2">
-<h2>Fantactis instrumental variable:</h2>
+<section id="fantastic-instrumental-variable" class="slide level2">
+<h2>Fantastic instrumental variable:</h2>
 <ul>
 <li class="fragment"><p>Quarter of birth;</p></li>
 <li class="fragment"><p>The intuition is:</p>
 <ul>
 <li class="fragment"><p>Only a small part of variance in education (the one linked to the quarter of birth) is used to identify the return to education.</p></li>
-<li class="fragment"><p>This small part of variance occures due to random natural experiment, thus the ceteris paribus holds here.</p></li>
+<li class="fragment"><p>This small part of variance occurs due to random natural experiment, thus the ceteris paribus holds here.</p></li>
 </ul></li>
 </ul>
 </section>
@@ -910,12 +986,6 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <li class="fragment"><p>What does it mean?</p>
 <ul>
 <li class="fragment">Ability bias was small in the OLS!</li>
-</ul></li>
-<li class="fragment"><p>Is it a strong instrument?</p>
-<ul>
-<li class="fragment">Relevance condition</li>
-<li class="fragment">Exclusion restriction</li>
-<li class="fragment">Independnece assumption</li>
 </ul></li>
 </ul>
 </section></section>
@@ -993,23 +1063,88 @@ A_i = \delta_0 + \delta_1 s_i + \upsilon_i
 <h1>Example 2. The colonial origins of comparative development: An empirical investigation</h1>
 <p><span class="citation" data-cites="Acemoglu2001">(<a href="#/ref-Acemoglu2001" role="doc-biblioref" onclick="return false;">Acemoglu, Johnson, and Robinson 2001</a>)</span>. The colonial origins of comparative development: An empirical investigation. American economic review, 91(5), 1369-1401.</p>
 </section>
-<section id="introduction-and-the-research-question" class="slide level2">
-<h2>Introduction and the research question</h2>
+<section id="research-question-and-the-problem" class="slide level2">
+<h2>Research question and the problem</h2>
+<ul>
+<li class="fragment"><p><strong>What are the fundamental causes of the large differences in income per capita across countries?</strong></p></li>
+<li class="fragment"><p>with better “institutions,” more secure property rights, and less distortionary policies,</p>
+<ul>
+<li class="fragment">countries invest more in physical and human capital, and</li>
+<li class="fragment">use these factors more efficiently to</li>
+<li class="fragment">achieve a greater level of income.</li>
+</ul></li>
+<li class="fragment"><p>Institutions are a likely cause of income growth.</p></li>
+</ul>
+</section>
+<section id="endogeneity-problem" class="slide level2">
+<h2>Endogeneity problem</h2>
+<p>What would the ideal experiment here?</p>
+<ul>
+<li class="fragment"><p>Rich economies choose or can afford better institutions.</p></li>
+<li class="fragment"><p>Economies that are different for a variety of reasons</p>
+<ul>
+<li class="fragment">will differ both in their institutions and in their income per capita.</li>
+</ul></li>
+<li class="fragment"><p>To estimate the impact of institutions on income,</p>
+<ul>
+<li class="fragment">we need a <strong>source of exogenous variation in institutions</strong>.</li>
+</ul></li>
+</ul>
 </section>
 <section id="identification-strategy-1" class="slide level2">
 <h2>Identification strategy</h2>
+<ol type="1">
+<li class="fragment"><p>Current performance is cause by:</p></li>
+<li class="fragment"><p>Current institutions, which are caused by</p></li>
+<li class="fragment"><p>Early institutions, which are caused by</p></li>
+<li class="fragment"><p>Settlements types during colonization, which are caused by</p></li>
+<li class="fragment"><p>Settlers’ (potential) mortality or colonization risks.</p></li>
+</ol>
 </section>
+<section id="ols-estimations" class="slide level2">
+<h2>OLS estimations</h2>
+
+<img data-src="./img/institution-ols.png" style="width:100.0%" class="r-stretch"></section>
 <section id="instrumental-variable-1" class="slide level2">
 <h2>Instrumental variable</h2>
+
+<img data-src="./img/institution-iv-2.png" style="width:100.0%" class="r-stretch"></section></section>
+<section>
+<section id="example-3.-children-and-their-parents-labor-supply-evidence-from-exogenous-variation-in-family-size" class="title-slide slide level1 center">
+<h1>Example 3. Children and their parents’ labor supply: Evidence from exogenous variation in family size</h1>
+<p><span class="citation" data-cites="Angrist1996">(<a href="#/ref-Angrist1996" role="doc-biblioref" onclick="return false;">J. Angrist and Evans 1998</a>)</span> Angrist, J., &amp; Evans, W. N. (1996). Children and their parents’ labor supply: Evidence from exogenous variation in family size.</p>
+</section>
+<section id="research-question-and-the-problem-1" class="slide level2">
+<h2>Research question and the problem</h2>
+<ul>
+<li class="fragment"><p><strong>What is the effect of additional child on women labor market participation?</strong></p></li>
+<li class="fragment"><p>Conventional wisdom:</p>
+<ul>
+<li class="fragment">More children require more time therefore, women used to sacrifice own employment opportunities.</li>
+</ul></li>
+</ul>
+</section>
+<section id="endogeneity-problem-1" class="slide level2">
+<h2>Endogeneity problem</h2>
+<p>What would the ideal experiment here?</p>
+<ul>
+<li class="fragment"><p>Families without children are inappropriate counter factual</p></li>
+<li class="fragment"><p>Rich families can afford more children: inappropriate counter factual</p></li>
+<li class="fragment"><p>Family usually plan for having an additional children</p>
+<ul>
+<li class="fragment">thus, a families with 1 children are also inappropriate counter factual</li>
+</ul></li>
+<li class="fragment"><p>we need a <strong>source of exogenous variation in children</strong></p></li>
+</ul>
+</section>
+<section id="identification-strategy-2" class="slide level2">
+<h2>Identification strategy</h2>
+<p>People may plan for a second child, but they cannot plan for having a twin!</p>
 </section>
 <section id="results" class="slide level2">
 <h2>Results</h2>
-</section></section>
-<section id="example-3.-twins-instrument-on-number-of-children." class="title-slide slide level1 center">
-<h1>Example 3. Twins instrument on number of children.</h1>
-<p><span class="citation" data-cites="Angrist1996">(<a href="#/ref-Angrist1996" role="doc-biblioref" onclick="return false;">J. Angrist and Evans 1998</a>)</span> Angrist, J., &amp; Evans, W. N. (1996). Children and their parents’ labor supply: Evidence from exogenous variation in family size.</p>
-</section>
 
+<img data-src="./img/twins.png" style="width:100.0%" class="r-stretch"></section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
 
