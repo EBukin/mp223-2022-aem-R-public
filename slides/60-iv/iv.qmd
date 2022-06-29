@@ -826,7 +826,7 @@ knitr::include_graphics("./img/institution-ols.png")
 knitr::include_graphics("./img/institution-iv-2.png")
 ```
 
-# Example 3. Twins instrument on number of children
+# Example 3. Children and their parents' labor supply: Evidence from exogenous variation in family size
 
 [@Angrist1996] Angrist, J., & Evans, W. N. (1996). Children and their parents' labor supply: Evidence from exogenous variation in family size.
 
