@@ -49,6 +49,7 @@ knitr::opts_chunk$set(
   cache = TRUE
 )
 
+
 # Custom functions to summaries data nicely
 get_signif <- 
   function(x) {
@@ -182,13 +183,16 @@ tidy_summary_list <-
       reduce(full_join, by = "parameter")
   }
 
+
 ```
 
-# Refresh/recap
+# Refresh
 
 -   What is the ceteris paribus?
 
--   What is the Selection Bias and how is it different from the OVB?
+-   What is the Selection Bias?
+
+-   How is Selection Bias different from the OVB?
 
 -   What is long, short and auxiliary regression?
 
@@ -232,7 +236,7 @@ $$ {#eq-mincer-long}
     -   Excluding $x_i$ cases bias of the return to education;
     -   It reduces the estimated level of $\rho^S$ either to lower value or below zero. It could also make it insignificantly different from zero.
 
-## Is there ceteris paribus in the Mincer's equation? {.smaller}
+## Is ceteris paribus fulfilled in the Mincer's equation? {.smaller}
 
 -   Is control for potential experience sufficient for ceteris to be paribus? At a given experience level, are more- and less-educated workers equally able and diligent? [^1]
 -   We may rewrite @eq-mincer-long in the way that it incorporates ability:
@@ -281,8 +285,6 @@ Is another terminology for the selection bias problem
 . . .
 
 $$Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i \\ Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$$
-
-. . .
 
 -   where $s_i$ is a causal variable of interest and $A^{'}_{i}$ is the vector of control variables that we desire to have in order to ensure unbiased estimates of $\rho$;
 
@@ -350,25 +352,19 @@ knitr::include_graphics("./img/ovb-scheme-1.png")
 
 -   We estimate a long model: $Y_i = \alpha + \beta s^*_i + e_i \\$ ,
 
-    -   but $s^*_i$ is unavailable, we only have $S_i = s^*_i + m_i$ instead
-    -   $m_i$ is a systematic measurement error ($E[m_i] =0$ and $Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0$).
+    -   but $s^*_i$ is unavailable, we only have $s_i = s^*_i + m_i$ instead
+    -   $m_i$ is a systematic measurement error
+    -   $E[m_i] =0$ and $Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0$.
 
 -   Desired coefficient $\beta = \frac{Cov(Y_i, s_i)}{Var(s_i)}$
 
--   But with mis-measured data, we estimate biased coefficient $\beta_b$
+-   But with the erroneous data, we estimate biased coefficient $\beta_b$
 
 . . .
 
 $$ \beta_b =  \frac{Cov(Y_i, s_i)}{Var(s_i)} =  \frac{Cov(a+\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\  =  \frac{\beta \cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \beta \frac{Var(s^{*}_i)}{Var(s_i)} $$
 
 -   [see @Angrist2014, Ch. 6]
-
-## Measurement error: visually
-
-```{r confound-meserr}
-#| echo: false
-knitr::include_graphics("./img/meserr-scheme-1.png")
-```
 
 ## Simultaneity {.smaller}
 
@@ -388,7 +384,13 @@ knitr::include_graphics("./img/meserr-scheme-1.png")
 # Solutions to endogeneity
 
 ::: {.callout-important appearance="minimal" icon="false"}
-There are same five "lethal" weapons against endogeneity as there were against the selection bias: 1. Randomized Control Trials / Experiments 2. Regression 3. Instrumental variable 4. Difference in difference 5. Regression discontinuity design
+There are same five "lethal" weapons against endogeneity as there were against the selection bias:
+
+1.  Randomized Control Trials / Experiments
+2.  Regression
+3.  Instrumental variable
+4.  Difference in difference
+5.  Regression discontinuity design
 :::
 
 ## Instrumental Variable {.smaller}
@@ -441,14 +443,14 @@ knitr::include_graphics("./img/iv-scheme-2.png")
 # dagify(Y ~ s, Y ~ U, s ~ U, s ~ Uz, Z ~ Uz) %>% ggdag() 
 ```
 
-## IV intuition using 2SLS (1) {.smaller}
+## IV regression using 2SLS (1) {.smaller}
 
 Imagine that we have:
 
--   a long model: $Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$ ;
--   a short model: $Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$ ;
+-   long model: $Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$ ;
+-   short model: $Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$ ;
 -   with endogenous $s_i$, and
--   a valid instrument $Z_i$ that satisfies all three requirements: Relevance, Exclusion and Independence.
+-   a valid instrument $Z_i$
 
 . . .
 
@@ -471,17 +473,40 @@ where
 
 ## IV intuition using 2SLS (2)
 
-TBD
+```{r}
+wg1 <- wooldridge::wage2 %>% as_tibble() %>% 
+  filter(if_all(c(wage, educ, exper, meduc), ~!is.na(.)))
+#
+ols <-  lm(log(wage) ~ educ + exper + I(exper^2), wg1)
+#
+first_stage <- lm(educ ~ meduc + exper + I(exper^2), wg1)
+#
+second_stage <- lm(log(wage) ~ educ_fit + exper + I(exper^2),
+                   wg1 %>% mutate(educ_fit = fitted(first_stage)))
+```
 
-# Pitfals of the IV
+```{r}
+#| echo: false
+left_join(
+  tibble(parameter = c("(Intercept)", "educ",  "meduc", "educ_fit","exper",
+                       "I(exper^2)", "N", "R-sq. adj.", "F Statistics (df)")),
+  tidy_summary_list(
+    list(OLS = ols, `First stage` = first_stage, `Second stage` = second_stage), 
+    dig = 4)
+) %>% 
+  mutate(across(everything(), ~ifelse(is.na(.), "", .)))
 
-## Consistency and unbiasedness of the IV {.smaller}
+```
+
+# Pitfalls of the IV
+
+## Consistency and unbiasedness {.smaller}
 
 -   IV estimates **are not unbiased**, but they **are consistent** [@Angrist2001].
 
-    -   Unbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while
+    -   **Unbiasedness** means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while
 
-    -   Consistency only means that the estimator converges to the population parameter as the sample size grows.
+    -   **Consistency** only means that the estimator converges to the population parameter as the sample size grows.
 
 . . .
 
@@ -489,7 +514,7 @@ TBD
 Researchers that use IV should aspire to work with large samples.
 :::
 
--   No statistical tests available
+-   No statistical tests is available for checking the consistency
 
 ## Bad instruments (1) {.smaller}
 
@@ -521,16 +546,16 @@ Weak instrument test:
 
 -   Compare the F-statistics
 
-    -   If F-statistics with instrument is greater than that without by 5 of more,
+    -   If F-statistics with instrument is greater than that without **by 5 of more**,
     -   this is a sign of a strong instrument [@Staiger1997];
 
 -   This test does not ensure that our instruments are independent of omitted variable $A^{'}_i$ or $Y_i$;
 
 -   [see @angrist2001, @Staiger1997]
 
-## Overidentification (1) {.smaller}
+## Overidentification (1)
 
--   number of instruments $G$ in the instruments matrix $Z^{'}_i$ substantially exceeds the number of endogenous variables $K$.
+-   number of instruments $G$ in exceeds the number of endogenous variables $K$.
 
     -   when the IV is overidentified, estimates are biased;
     -   bias is proportional to $K - G$;
@@ -541,7 +566,7 @@ Weak instrument test:
     -   select one IV for the first stage, and
     -   put the remaining instruments into the second stage
 
-## Overidentification (2) {.smaller}
+## Overidentification (2)
 
 Sargan's overidentification test:
 
@@ -565,33 +590,22 @@ Wu-Hausman test for endogeneity tests if the variable that we are worried about 
 
 Angrist, J. D., & Krueger, A. B. (1991). Does Compulsory School Attendance Affect Schooling and Earnings? The Quarterly Journal of Economics, 106, 979--1014. https://doi.org/10.2307/2937954
 
-## Mincer regression and ability bias
+## Mincer regression and ability bias {.smaller}
 
 Recall the Mincer's regression @eq-mincer-long with monthly wage ($Y_i$) as a function of years of education ($s_i$) and years of experience ($x_i$).
 
--   Its' estimation results based on the 1960th sample of 31k white man are below:
+-   Its' estimations are based on the 1960th sample of 31k white man are below:
+-   $\ln Y_i = \alpha + \underset{(.002)}{.070} s_i + \varepsilon_i$
+-   $\ln Y_i = \alpha + \underset{(.001)}{.107} s_i + \underset{(.001)}{.081} x_i - \underset{(.00002)}{.0012} x^{2}_i + \varepsilon_i$
 
-. . .
-
-$$
-\ln Y_i = \alpha + \underset{(.002)}{.070} s_i + \varepsilon_i
-$$
-
-. . .
-
-$$
-\ln Y_i = \alpha + \underset{(.001)}{.107} s_i + \underset{(.001)}{.081} x_i - \underset{(.00002)}{.0012} x^{2}_i + \varepsilon_i
-$$
-
-::: callout-note
-## Answer to the following questions:
+Answer to the following questions:
 
 -   Interpret education and experience regression coefficients;
-
 -   Does education matter much for a person with 30 years of experience?
-:::
 
 ## Why Education is endogenous?
+
+-   ...
 
 -   Ability bias!
 
@@ -602,6 +616,8 @@ $$
     -   How to quantify the lottery change effect of getting a decent job?
 
     -   How to measure the connections?
+
+-   Where to find an IV?
 
 ## Fantastic IVs and how to find them? {.smaller}
 
@@ -617,7 +633,7 @@ $$
 
 3.  Analyze, what were/are the policies/environments that could mimic the experimental setting?
 
-## Fantastic IVs for education {.smaller}
+## Fantastic IVs for education
 
 -   Loan policies or other subsidies that vary independently of ability or earnings potential
 -   Region and time variation in school construction [@Duflo2001]
@@ -648,7 +664,7 @@ Identification strategy:
 
 Combination of school start age policies and compulsory schooling laws creates a natural experiment in which children are compelled to attend school for different lengths of time depending on their birthdays.
 
-## Average shooling duration by quarter of birth
+## Average schooling by quarter of birth
 
 ```{r}
 #| echo: false
@@ -670,7 +686,7 @@ knitr::include_graphics("./img/wage-by-quarter.png")
 Source: [@Angrist1991a]
 :::
 
-## Fantactis instrumental variable:
+## Fantastic instrumental variable:
 
 -   Quarter of birth;
 
@@ -678,7 +694,7 @@ Source: [@Angrist1991a]
 
     -   Only a small part of variance in education (the one linked to the quarter of birth) is used to identify the return to education.
 
-    -   This small part of variance occures due to random natural experiment, thus the ceteris paribus holds here.
+    -   This small part of variance occurs due to random natural experiment, thus the ceteris paribus holds here.
 
 ## Estimates
 
@@ -694,12 +710,6 @@ knitr::include_graphics("./img/tabl-return-to-schooling.png")
 -   What does it mean?
 
     -   Ability bias was small in the OLS!
-
--   Is it a strong instrument?
-
-    -   Relevance condition
-    -   Exclusion restriction
-    -   Independnece assumption
 
 # Questions about questions
 
@@ -764,16 +774,93 @@ is the manner in which a researcher uses observational data (i.e., data not gene
 
 [@Acemoglu2001]. The colonial origins of comparative development: An empirical investigation. American economic review, 91(5), 1369-1401.
 
-## Introduction and the research question
+## Research question and the problem
+
+-   **What are the fundamental causes of the large differences in income per capita across countries?**
+
+-   with better "institutions," more secure property rights, and less distortionary policies,
+
+    -   countries invest more in physical and human capital, and
+    -   use these factors more efficiently to
+    -   achieve a greater level of income.
+
+-   Institutions are a likely cause of income growth.
+
+## Endogeneity problem
+
+What would the ideal experiment here?
+
+-   Rich economies choose or can afford better institutions.
+
+-   Economies that are different for a variety of reasons
+
+    -   will differ both in their institutions and in their income per capita.
+
+-   To estimate the impact of institutions on income,
+
+    -   we need a **source of exogenous variation in institutions**.
 
 ## Identification strategy
 
+1.  Current performance is cause by:
+
+2.  Current institutions, which are caused by
+
+3.  Early institutions, which are caused by
+
+4.  Settlements types during colonization, which are caused by
+
+5.  Settlers' (potential) mortality or colonization risks.
+
+## OLS estimations
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/institution-ols.png")
+```
+
 ## Instrumental variable
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/institution-iv-2.png")
+```
+
+# Example 3. Twins instrument on number of children
+
+[@Angrist1996] Angrist, J., & Evans, W. N. (1996). Children and their parents' labor supply: Evidence from exogenous variation in family size.
+
+## Research question and the problem
+
+-   **What is the effect of additional child on women labor market participation?**
+
+-   Conventional wisdom:
+
+    -   More children require more time therefore, women used to sacrifice own employment opportunities.
+
+## Endogeneity problem
+
+What would the ideal experiment here?
+
+-   Families without children are inappropriate counter factual
+
+-   Rich families can afford more children: inappropriate counter factual
+
+-   Family usually plan for having an additional children
+
+    -   thus, a families with 1 children are also inappropriate counter factual
+
+-   we need a **source of exogenous variation in children**
+
+## Identification strategy
+
+People may plan for a second child, but they cannot plan for having a twin!
 
 ## Results
 
-# Example 3. Twins instrument on number of children.
-
-[@Angrist1996] Angrist, J., & Evans, W. N. (1996). Children and their parents' labor supply: Evidence from exogenous variation in family size.
+```{r}
+#| echo: false
+knitr::include_graphics("./img/twins.png")
+```
 
 # References
