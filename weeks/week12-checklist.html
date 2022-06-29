@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>mp223 Applied Econometric Methods for the Socials Sciences - Week 4</title>
+<title>mp223 Applied Econometric Methods for the Socials Sciences - Week 12</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -15,25 +15,6 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 
@@ -43,8 +24,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../weeks/week05-checklist.html" rel="next">
-<link href="../weeks/week03-checklist.html" rel="prev">
+<link href="../weeks/week08-checklist.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -85,7 +65,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Week 4</h1>
+      <h1 class="quarto-secondary-nav-title">Week 12</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -155,7 +135,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../weeks/week04-checklist.html" class="sidebar-item-text sidebar-link active">Week 4</a>
+  <a href="../weeks/week04-checklist.html" class="sidebar-item-text sidebar-link">Week 4</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -175,7 +155,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../weeks/week12-checklist.html" class="sidebar-item-text sidebar-link">Week 12</a>
+  <a href="../weeks/week12-checklist.html" class="sidebar-item-text sidebar-link active">Week 12</a>
   </div>
 </li>
     </ul>
@@ -189,20 +169,17 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#w04-00-simple-regression-analysis" id="toc-w04-00-simple-regression-analysis" class="nav-link active" data-scroll-target="#w04-00-simple-regression-analysis">W04-00 Simple regression analysis</a></li>
-  <li><a href="#w04-01-multiple-regression" id="toc-w04-01-multiple-regression" class="nav-link" data-scroll-target="#w04-01-multiple-regression">W04-01 Multiple Regression</a></li>
-  <li><a href="#w04-02-linearity" id="toc-w04-02-linearity" class="nav-link" data-scroll-target="#w04-02-linearity">W04-02 Linearity</a></li>
-  <li><a href="#w04-03-hedonic-prices-model" id="toc-w04-03-hedonic-prices-model" class="nav-link" data-scroll-target="#w04-03-hedonic-prices-model">W04-03 Hedonic prices model</a></li>
+  <li><a href="#w12" id="toc-w12" class="nav-link active" data-scroll-target="#w12">W12</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/weeks/week04-checklist.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/edit/main/weeks/week12-checklist.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/EBukin/mp223-2022-aem-R-public/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Week 4</h1>
-<p class="subtitle lead">Multiple Regression Analysis</p>
+<h1 class="title d-none d-lg-block">Week 12</h1>
+<p class="subtitle lead">Instrumental Variable</p>
 </div>
 
 
@@ -216,34 +193,8 @@ div.csl-indent {
 
 </header>
 
-<section id="w04-00-simple-regression-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="w04-00-simple-regression-analysis">W04-00 Simple regression analysis</h2>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-<code>SELF STUDY</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>SLIDES:</strong> 🖥<a href="../slides/10-simple-regression/10-simple-regression.html">W04-00 Simple regression</a></li>
-<li><strong>Application Exercise:</strong> 📋<code>ae04-00-simple-regression-from-slides-HW.R</code>
-<ul>
-<li>Perform all the R analysis from slides in an R script.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<ul>
-<li><strong>Practice:</strong> <img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html">Simple Regression</a></li>
-<li><strong>Read</strong>: 📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-slr.html#model-slr">Ch. 7 Linear Regression with a single predictor</a></li>
-</ul>
-</section>
-<section id="w04-01-multiple-regression" class="level2">
-<h2 class="anchored" data-anchor-id="w04-01-multiple-regression">W04-01 Multiple Regression</h2>
+<section id="w12" class="level2">
+<h2 class="anchored" data-anchor-id="w12">W12</h2>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -255,65 +206,15 @@ In class
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/multiple-regression.html">W04-01 Multiple Regression</a></li>
-<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-01-MLR.html">ae04-01-MLR.Rmd</a></li>
-<li>Download here <a href="https://github.com/EBukin/mp223-2022-aem-R-public/raw/main/ae/ae04-multiple-regression-part-1.zip"><code>ae04-multiple-regression-part-1.zip</code></a> or on Ilias.</li>
+<li><strong>SLIDES:</strong> 🖥<a href="../slides/60-iv/iv.html">W12 Instrumental variable</a></li>
 </ul>
 </div>
 </div>
-<ul>
-<li><strong>Practice</strong>: <img src="https://openintrostat.github.io/oilabs-tidy/logo/logo-square.png" class="img-fluid" width="25"> Open Intro. Lab. <a href="https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html">Multiple Regression</a></li>
-<li><strong>Read</strong>: <img src="http://www.masteringmetrics.com/wp-content/themes/easybakeV2/img/book.png" width="23" height="35"> Chapter 2. Regression in <span class="citation" data-cites="Angrist2014">(<a href="#ref-Angrist2014" role="doc-biblioref">Angrist and Pischke 2014</a>)</span>, <a href="https://hds.hebis.de/ubgi/Record/HEB35797798X">JLU: justfind</a>.</li>
-<li><strong>Read</strong>: 📖 Introduction to Modern Statistics. <a href="https://openintro-ims.netlify.app/model-mlr.html#model-mlr">Ch. 8 Linear regression with multiple predictors</a></li>
-</ul>
-</section>
-<section id="w04-02-linearity" class="level2">
-<h2 class="anchored" data-anchor-id="w04-02-linearity">W04-02 Linearity</h2>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-In class
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/linearity.html">W04-02 Linearity</a></li>
-<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html">ae04-02-MLR-linearity.Rmd</a></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="w04-03-hedonic-prices-model" class="level2">
-<h2 class="anchored" data-anchor-id="w04-03-hedonic-prices-model">W04-03 Hedonic prices model</h2>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-<code>SELF STUDY</code>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>SLIDES:</strong> 🖥<a href="../slides/30-multiple-regression/hedonic-regression.html">W04-03 Hedonic Prices Model</a></li>
-<li><strong>Application Exercise:</strong> 📋<a href="../ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html">ae04-03-hedonic-land-prices-HW.Rmd</a></li>
-</ul>
-</div>
-</div>
-
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-Angrist2014" class="csl-entry" role="doc-biblioentry">
-Angrist, Joshua D., and Jörn-Steffen Pischke. 2014. <em>Mastering’metrics: The Path from Cause to Effect</em>. Princeton University Press.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const disableStylesheet = (stylesheets) => {
@@ -492,14 +393,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../weeks/week03-checklist.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 3</span>
+      <a href="../weeks/week08-checklist.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Week 8</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../weeks/week05-checklist.html" class="pagination-link">
-        <span class="nav-page-text">Week 5</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -84,6 +84,13 @@
     "text": "🖥 SELF STUDY Data visualization with ggplot2\nThere are many ways how data could be visualized in R. We do touch numerous visualization examples over the course. Therefore, dedicated mastering of the ggplot2 package is scheduled for self learning.\n\nRecommended. Read:\n\n R4DS Chapter 3 Data visualisation\nCHEATSHEET: Data visualization with ggplot2 cheatsheet\n\nRecommended. Practice:\n\n Primers: Data Visualization Basics\n Primers: Exploratory data analysis\n Primers: Bar Charts\n Primers: Histograms\n Primers: Boxplots and Counts\n Primers: Scatterplots\n Primers: Overplotting\n Primers: Customize plots\n\nOptional. Practice:\n\n Open Intro. Interactive. Visualizing categorical data (takes time to load)\n Open Intro. Interactive. Visualizing numerical data (takes time to load)\n\nOptional. Watch + Practice:\n\n webinar: Tidyverse visualization manipulation basics\n Data and visualisation video + slides\n Visualising data with ggplot2 video + slides\n Visualising numerical data video + slides\n Visualising categorical data video + slides"
   },
   {
+    "objectID": "weeks/week12-checklist.html",
+    "href": "weeks/week12-checklist.html",
+    "title": "Week 12",
+    "section": "",
+    "text": "In class\n\n\n\n\nSLIDES: 🖥W12 Instrumental variable"
+  },
+  {
     "objectID": "weeks/week06-checklist.html",
     "href": "weeks/week06-checklist.html",
     "title": "Week 6",
@@ -2142,53 +2149,53 @@
     "text": "References\n\n\n\nhttps://ebukin.github.io/mp223-2022-aem-R-public/\n\n\n\nWeisberg, Sanford. 2005. Applied Linear Regression. John Wiley & Sons, Inc. https://doi.org/10.1002/0471704091."
   },
   {
-    "objectID": "slides/60-iv/iv.html#recap-example-1-return-to-schooling",
-    "href": "slides/60-iv/iv.html#recap-example-1-return-to-schooling",
+    "objectID": "slides/60-iv/iv.html#return-to-schooling-ans-selection-bias",
+    "href": "slides/60-iv/iv.html#return-to-schooling-ans-selection-bias",
     "title": "Instrumental Variable",
-    "section": "Recap Example 1: return to schooling",
-    "text": "Recap Example 1: return to schooling\n\nDoes more years of schooling causes higher wage?\nJacob Mincer first try to quantify the return to schooling (see Mincer 1974) by estimating the log of annual earning (\\(\\ln Y_i\\)) as a function of years of education (\\(s_i\\)) and potential work experience (\\(x_i\\)) in the following fashion:\n\\[\n\\ln Y_i = \\alpha + \\rho s_i + \\beta_1 x_i + \\beta_2 x^{2}_i + \\varepsilon_i\n\\qquad(1)\\]\n\nWhy experience is introduced in a quadratic form?\nWhat if we omit experience?\nProve that excluding experience causes bias to years of education."
+    "section": "Return to schooling ans Selection bias",
+    "text": "Return to schooling ans Selection bias\n\nDoes more years of schooling cause higher wages?\nJacob Mincer first try to quantify the return to schooling (see Mincer 1974) by estimating the log of annual earning (\\(\\ln Y_i\\)) as a function of years of education (\\(s_i\\)) and potential work experience (\\(x_i\\)) in the following fashion:\n\n\n\\[\n\\ln Y_i = \\alpha + \\rho s_i + \\beta_1 x_i + \\beta_2 x^{2}_i + \\varepsilon_i\n\\qquad(1)\\]\n\n\n\n\n\n\n\n\nAnswer to the following questions:\n\n\n\nWhy is experience introduced in a quadratic form?\nProve that omitting experience causes bias to years of education."
   },
   {
-    "objectID": "slides/60-iv/iv.html#show-bias-of-excluded-experience",
-    "href": "slides/60-iv/iv.html#show-bias-of-excluded-experience",
+    "objectID": "slides/60-iv/iv.html#show-bias-of-the-excluded-experience",
+    "href": "slides/60-iv/iv.html#show-bias-of-the-excluded-experience",
     "title": "Instrumental Variable",
-    "section": "Show bias of excluded experience",
-    "text": "Show bias of excluded experience\n\nWrite down long, short, auxiliary regression and the OVB formula.\n\nShort: \\(\\ln Y_i = \\alpha^S + \\rho^{S} s_i + \\varepsilon_i^S\\)\nLong: \\(\\ln Y_i = \\alpha + \\rho^L s_i + \\beta_1 x_i + \\beta_2 x^{2}_i + \\varepsilon_i\\)\nAuxiliary: \\(x_i = \\delta_0 + \\delta_{xs} s_i + \\upsilon_i\\)\nOVB formula: \\(\\text{OVB} = \\pi_1 \\times \\rho^L\\)\n\nHypothesize about \\(\\delta_{xs}\\) and \\(\\rho^L\\)\n\nRelationship between education and income: \\(\\rho^L_i > 0\\)\nRelationship between experience and education: \\(\\delta_{xs} < 0\\)\n\n\\(\\text{OVB} = \\delta_{xs} \\times \\rho^L = \\{\\delta_{xs} > 0 \\} \\times \\{ \\rho < 0 \\} \\Longrightarrow \\text{OVB} < 0\\)\n\nExcluding \\(x_i\\) cases bias to the return to education by reducing the estimated level of \\(\\rho^S\\) either to lower value or below zero. It could also make it insignificantly different from zero."
+    "section": "Show bias of the excluded experience",
+    "text": "Show bias of the excluded experience\n\nWrite down long, short, auxiliary regression and the OVB formula.\n\nShort: \\(\\ln Y_i = \\alpha^S + \\rho^{S} s_i + \\varepsilon_i^S\\)\nLong: \\(\\ln Y_i = \\alpha + \\rho^L s_i + \\beta_1 x_i + \\varepsilon_i\\)\nAuxiliary: \\(x_i = \\delta_0 + \\delta_{xs} s_i + \\upsilon_i\\)\nOVB formula: \\(\\text{OVB} = \\delta_{xs} \\times \\rho^L\\)\n\nHypothesize about \\(\\delta_{xs}\\) and \\(\\rho^L\\)\n\nRelationship between education and income: \\(\\rho^L_i > 0\\)\nRelationship between experience and education: \\(\\delta_{xs} < 0\\)\n\n\\(\\text{OVB} = \\delta_{xs} \\times \\rho^L = \\{\\delta_{xs} > 0 \\} \\times \\{ \\rho < 0 \\} \\Longrightarrow \\text{OVB} < 0\\)\n\nExcluding \\(x_i\\) cases bias of the return to education;\nIt reduces the estimated level of \\(\\rho^S\\) either to lower value or below zero. It could also make it insignificantly different from zero."
   },
   {
-    "objectID": "slides/60-iv/iv.html#is-there-a-ceteris-paribus-in-the-mincers-equation",
-    "href": "slides/60-iv/iv.html#is-there-a-ceteris-paribus-in-the-mincers-equation",
+    "objectID": "slides/60-iv/iv.html#is-there-ceteris-paribus-in-the-mincers-equation",
+    "href": "slides/60-iv/iv.html#is-there-ceteris-paribus-in-the-mincers-equation",
     "title": "Instrumental Variable",
-    "section": "Is there a ceteris paribus in the mincer’s equation?",
-    "text": "Is there a ceteris paribus in the mincer’s equation?\n\nIs control for potential experience sufficient for ceteris to be paribus? At a given experience level, are more- and less-educated workers equally able and diligent? 1\nWe may rewrite Equation 1 in the way that it incorporates ability:\n\\[Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i \\qquad(2)\\]\nwhere \\(A^{'}_{i}\\) vector of control variables such as ability, experience and that we desire to have in order to ensure the unbiased estimates of \\(\\rho\\).\nOmitting ability causes a Selection bias: \\(\\rho^{S} = \\rho + \\underbrace{\\delta_{A^{'} s} \\times \\gamma}_{\\text{ability bias}}\\)\n\n(see Joshua D. Angrist and Pischke 2014, Ch. 6)"
+    "section": "Is there ceteris paribus in the Mincer’s equation?",
+    "text": "Is there ceteris paribus in the Mincer’s equation?\n\nIs control for potential experience sufficient for ceteris to be paribus? At a given experience level, are more- and less-educated workers equally able and diligent? 1\nWe may rewrite Equation 1 in the way that it incorporates ability:\n\n\n\\[Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i \\qquad(2)\\]\n\n\n\nwhere \\(A^{'}_{i}\\) vector of control variables such as ability, experience and that we desire to have in order to ensure the unbiased estimates of \\(\\rho\\).\nOmitting ability causes a Selection bias: \\(\\rho^{S} = \\rho + \\underbrace{\\delta_{A^{'} s} \\times \\gamma}_{\\text{ability bias}}\\)\n\n\n(see Joshua D. Angrist and Pischke 2014, Ch. 6)"
   },
   {
-    "objectID": "slides/60-iv/iv.html#how-do-we-fight-the-selection-bias",
-    "href": "slides/60-iv/iv.html#how-do-we-fight-the-selection-bias",
+    "objectID": "slides/60-iv/iv.html#solutions-to-the-selection-bias",
+    "href": "slides/60-iv/iv.html#solutions-to-the-selection-bias",
     "title": "Instrumental Variable",
-    "section": "How do we fight the Selection bias?",
-    "text": "How do we fight the Selection bias?\n\nRandomized trials/experiments (Joshua D. Angrist and Pischke 2009, Ch 1-2.; Joshua D. Angrist and Pischke 2014, Ch. 1);\nRegression analysis (Joshua D. Angrist and Pischke 2009, Ch 3.; Joshua D. Angrist and Pischke 2014, Ch. 2);\n\nMultiple regression (M. J. Wooldridge 2020, Ch. 3)\nPanel regression (M. J. Wooldridge 2020, Ch. 13-14; Croissant and Millo 2018; J. M. Wooldridge 2010)\nOther regressions: binary outcome (logit/probit), censored data (tobit), truncated data, count data (poisson regression), quantile regression …\n\nInstrumental variables\n\nIV (2SLS, GMM) (Joshua D. Angrist and Pischke 2009, Ch. 4.; Joshua D. Angrist and Pischke 2014, Ch. 3);\nLATE – Local average treatment effect\nSelection models, Heckman … (M. J. Wooldridge 2020, Ch. 17; Cameron and Trivedi 2005, Ch. 11-27)\n\nDID - Difference in Difference;\nRDD - Regression Discontinuity Design;"
+    "section": "Solutions to the selection bias",
+    "text": "Solutions to the selection bias\n\nRandomized trials/experiments (Joshua D. Angrist and Pischke 2009, Ch 1-2.; Joshua D. Angrist and Pischke 2014, Ch. 1);\nRegression analysis (Joshua D. Angrist and Pischke 2009, Ch 3.; Joshua D. Angrist and Pischke 2014, Ch. 2);\n\nMultiple regression (M. J. Wooldridge 2020, Ch. 3);\nPanel regression (M. J. Wooldridge 2020, Ch. 13-14; Croissant and Millo 2018; J. M. Wooldridge 2010)\nOther regressions: binary outcome (logit/probit), censored data (tobit), truncated data, count data (poisson regression), quantile regression …\n\nInstrumental variables\n\nIV (2SLS, GMM) (Joshua D. Angrist and Pischke 2009, Ch. 4.; Joshua D. Angrist and Pischke 2014, Ch. 3);\nLATE – Local average treatment effect\nSample selection models, Heckman … (M. J. Wooldridge 2020, Ch. 17; Cameron and Trivedi 2005, Ch. 11-27)\n\nDID - Difference in Difference;\nRDD - Regression Discontinuity Design;"
   },
   {
     "objectID": "slides/60-iv/iv.html#definition",
     "href": "slides/60-iv/iv.html#definition",
     "title": "Instrumental Variable",
     "section": "Definition",
-    "text": "Definition\n\nConsider a LONG model: \\(Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i\\) and it SHORT counterpart: \\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\);\n\nwhere \\(s_i\\) is a causal variable of interest and \\(A^{'}_{i}\\) is the vector of control variables that we desire to have in order to ensure unbiased estimates of \\(\\rho\\);\n\n\n\n\n\n\n\nConfusing definition of endogeneity:\n\n\n\nVariable \\(s_i\\) is endogenous if it correlates with the error terms \\(\\varepsilon^{S}_i\\) : \\(Cov(s_i, \\varepsilon^{S}_i) \\neq 0\\)"
+    "text": "Definition\n\nConsider following LONG and SHORT models:\n\n\n\\[Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i \\\\ Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\]\n\n\n\nwhere \\(s_i\\) is a causal variable of interest and \\(A^{'}_{i}\\) is the vector of control variables that we desire to have in order to ensure unbiased estimates of \\(\\rho\\);\n\n\n\n\n\n\n\n\n\nConfusing definition of endogeneity:\n\n\n\nVariable \\(s_i\\) is endogenous if it correlates with the error terms \\(\\varepsilon^{S}_i\\) : \\(Cov(s_i, \\varepsilon^{S}_i) \\neq 0\\)"
   },
   {
     "objectID": "slides/60-iv/iv.html#definition-cont.",
     "href": "slides/60-iv/iv.html#definition-cont.",
     "title": "Instrumental Variable",
     "section": "Definition (cont.)",
-    "text": "Definition (cont.)\n\nIn practice, endogeneity means that variation in the independent variable \\(s_i\\) (years of education) are not “random” as compared to the variation in the dependent variable \\(Y_i\\) and other regressors \\(A^{'}_i\\);\nIf variance of \\(s_i\\) is truly independent of \\(Y_i\\), \\(s_i\\) is exogenous."
+    "text": "Definition (cont.)\n\nIn practice, endogeneity means that\n\nvariation in the independent variable \\(s_i\\) (years of education) are not “random” as compared to the variation in the dependent variable \\(Y_i\\), but rather\nan external process \\(U\\) affects variation in both \\(s_i\\) and \\(Y_i\\);\nthus, \\(s_i\\) is endogenous to \\(Y_i\\);\n\nIf variance of \\(s_i\\) is truly independent of \\(Y_i\\), \\(s_i\\) is exogenous."
   },
   {
     "objectID": "slides/60-iv/iv.html#omitted-variable-bias",
     "href": "slides/60-iv/iv.html#omitted-variable-bias",
     "title": "Instrumental Variable",
     "section": "Omitted Variable Bias",
-    "text": "Omitted Variable Bias\nLong model:\n\\[\nY_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i \\\\\n\\] . . .\nShort model:\n\\[\nY_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\n\\qquad(3)\\]\n\nIf \\(s_i\\) and \\(A_i\\) are correlated, we can assume a linear relationship between them:\n\n\n\\[\nA_i = \\delta_0 + \\delta_1 s_i + \\upsilon_i\n\\]\n\n\n\\[\n\\Rightarrow Y_i = \\alpha + \\rho s_i + \\gamma (\\delta_0 + \\delta_1 A_i + \\upsilon_i) + \\varepsilon_i\n\\]\n\n\n\\[\n= \\underbrace{(\\alpha + \\gamma \\delta_0)}_{\\alpha^S} +\n\\underbrace{(\\rho + \\gamma \\delta_1)}_{\\rho^S} s_i +\n\\underbrace{(\\varepsilon_i + \\gamma \\upsilon_i)}_{\\varepsilon_i^S}\n\\]"
+    "text": "Omitted Variable Bias\n\nLong model: \\(Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i\\)\nShort model: \\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\)\nIf \\(s_i\\) and \\(A_i\\) are correlated, we can assume a linear relationship between them:\n\\[\nA_i = \\delta_0 + \\delta_1 s_i + \\upsilon_i\n\\]\n\\[\n\\Rightarrow Y_i = \\alpha + \\rho s_i + \\gamma (\\delta_0 + \\delta_1 A_i + \\upsilon_i) + \\varepsilon_i\n\\]\n\\[\n= \\underbrace{(\\alpha + \\gamma \\delta_0)}_{\\alpha^S} +\n\\underbrace{(\\rho + \\gamma \\delta_1)}_{\\rho^S} s_i +\n\\underbrace{(\\varepsilon_i + \\gamma \\upsilon_i)}_{\\varepsilon_i^S}\n\\]"
   },
   {
     "objectID": "slides/60-iv/iv.html#omitted-variable-bias-visually",
@@ -2202,7 +2209,14 @@
     "href": "slides/60-iv/iv.html#measurement-error",
     "title": "Instrumental Variable",
     "section": "Measurement error",
-    "text": "Measurement error\n\nWe estimate a long model: \\(Y_i = \\alpha + \\beta s^*_i + e_i \\\\\\),\n\nbut \\(s^*_i\\) is unavailable, we only have \\(S_i = s^*_i + m_i\\) instead\n\\(m_i\\) is a systematic measurement error (\\(E[m_i] =0\\) and \\(Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0\\)).\n\nDesired coefficient \\(\\beta = \\frac{Cov(Y_i, s_i)}{Var(s_i)}\\)\nBut with mis-measured data, we estimate biased coefficient \\(\\beta_b\\)\n\n\n\\[\n\\beta_b =  \\frac{Cov(Y_i, s_i)}{Var(s_i)}\n=  \\frac{Cov(a+\\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\\\\n=  \\frac{\\beta \\cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \\beta \\frac{Var(s^{*}_i)}{Var(s_i)}\n\\]\n\n(see Joshua D. Angrist and Pischke 2014, Ch. 6)"
+    "text": "Measurement error\n\nWe estimate a long model: \\(Y_i = \\alpha + \\beta s^*_i + e_i \\\\\\) ,\n\nbut \\(s^*_i\\) is unavailable, we only have \\(S_i = s^*_i + m_i\\) instead\n\\(m_i\\) is a systematic measurement error (\\(E[m_i] =0\\) and \\(Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0\\)).\n\nDesired coefficient \\(\\beta = \\frac{Cov(Y_i, s_i)}{Var(s_i)}\\)\nBut with mis-measured data, we estimate biased coefficient \\(\\beta_b\\)\n\n\n\\[ \\beta_b =  \\frac{Cov(Y_i, s_i)}{Var(s_i)} =  \\frac{Cov(a+\\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\\\  =  \\frac{\\beta \\cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \\beta \\frac{Var(s^{*}_i)}{Var(s_i)} \\]\n\n(see Joshua D. Angrist and Pischke 2014, Ch. 6)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#measurement-error-visually",
+    "href": "slides/60-iv/iv.html#measurement-error-visually",
+    "title": "Instrumental Variable",
+    "section": "Measurement error: visually",
+    "text": "Measurement error: visually"
   },
   {
     "objectID": "slides/60-iv/iv.html#simultaneity",
@@ -2212,32 +2226,151 @@
     "text": "Simultaneity\n\nSimultaneity occurs if at least two variables are jointly determined.\n\nA typical case is when observed outcomes are the result of separate behavioral mechanisms that are coordinated in an equilibrium.\n\nThe prototypical case is a system of demand and supply equations:\n\n\\(D(p)\\) = how high would demand be if the price was set to \\(p\\)?\n\\(S(p)\\) = how high would supply be if the price was set to \\(p\\)?\n\nNumber of police people and the crime rate.\n(see M. J. Wooldridge 2020, Ch. 17) for more details on the problem and solutions."
   },
   {
-    "objectID": "slides/60-iv/iv.html#iv",
-    "href": "slides/60-iv/iv.html#iv",
+    "objectID": "slides/60-iv/iv.html#instrumental-variable",
+    "href": "slides/60-iv/iv.html#instrumental-variable",
     "title": "Instrumental Variable",
-    "section": "IV",
-    "text": "IV\nRecall the short Equation 3 model \\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\), where\n\n\n\n\n\n\nInstrumental variable is another variable \\(Z_i\\);\n\n\n\n\\(Z_i\\) has a strong association with \\(s_i\\);\n\\(Z_i\\) does not affect \\(Y_i\\) except through its potential effect on A;\n\\(Z_i\\) and \\(Y_i\\) do not share any common causes;"
+    "section": "Instrumental Variable",
+    "text": "Instrumental Variable\n\nRecall the short (\\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\)) and long (\\(Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i\\)) models.\n\n\n\n\n\nInstrumental Variable is another variable \\(Z_i\\) that satisfy:\n\n\n\nRelevance condition:\n\n\\(Z_i\\) has a causal effect on \\(s_i\\) (or strong association with (see Hernán and Robins 2020, 194));\n\nExclusion restriction:\n\n\\(Z_i\\) does not affect \\(Y_i\\) directly, except through its potential effect on \\(s_i\\);\n\nIndependence assumption:\n\n\\(Z_i\\) is randomly assigned or “as good as randomly assigned”, same as\n\\(Z_i\\) is unrelated to the omitted variables \\(A^{'}_i\\), same as\n\\(Z_i\\) and \\(Y_i\\) do not share any common causes\n\n\n\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\n(see Joshua D. Angrist and Pischke 2014 Ch. 3 and 6; Joshua D. Angrist and Pischke 2009, Ch. 4.; Hernán and Robins 2020, Ch. 16; J. M. Wooldridge 2010, Ch. 8; Söderbom, Teal, and Eberhardt 2014, Ch. 11)"
   },
   {
-    "objectID": "slides/60-iv/iv.html#iv-image",
-    "href": "slides/60-iv/iv.html#iv-image",
+    "objectID": "slides/60-iv/iv.html#instrumental-variable-visually-1",
+    "href": "slides/60-iv/iv.html#instrumental-variable-visually-1",
     "title": "Instrumental Variable",
-    "section": "IV image",
-    "text": "IV image"
+    "section": "Instrumental Variable visually (1)",
+    "text": "Instrumental Variable visually (1)"
   },
   {
-    "objectID": "slides/60-iv/iv.html#sls",
-    "href": "slides/60-iv/iv.html#sls",
+    "objectID": "slides/60-iv/iv.html#instrumental-variable-visually-2",
+    "href": "slides/60-iv/iv.html#instrumental-variable-visually-2",
     "title": "Instrumental Variable",
-    "section": "2SLS",
-    "text": "2SLS"
+    "section": "Instrumental Variable visually (2)",
+    "text": "Instrumental Variable visually (2)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#iv-intuition-using-2sls-1",
+    "href": "slides/60-iv/iv.html#iv-intuition-using-2sls-1",
+    "title": "Instrumental Variable",
+    "section": "IV intuition using 2SLS (1)",
+    "text": "IV intuition using 2SLS (1)\nImagine that we have:\n\na long model: \\(Y_i = \\alpha + \\rho s_i + \\gamma A^{'}_{i} + \\varepsilon_i\\) ;\na short model: \\(Y_i = \\alpha^S + \\rho^S s_i + \\varepsilon^{S}_i\\) ;\nwith endogenous \\(s_i\\), and\na valid instrument \\(Z_i\\) that satisfies all three requirements: Relevance, Exclusion and Independence.\n\n\nEstimate the first stage: \\(s_i = \\pi_0 + \\pi_1 Z_i + nu_i\\)\n\n\nSubstitute \\(s_i\\) with the fitted values from the first stage \\(\\hat{s_i}\\)\n\n\nEstimate the second stage: \\(Y_i = \\alpha^{IV} + \\rho^{IV} \\hat{s_i} + \\varepsilon^{IV}_i\\)\n\n\nwhere\n\n\\(\\hat{s_i}\\) are the fitted values from the first stage\n\\(\\rho^{IV}\\) is the causal effect of interest from stage two that is asymptotically equal to \\(\\rho\\) , the true effect of interest (\\(\\rho^{IV} \\asymp \\rho\\))"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#iv-intuition-using-2sls-2",
+    "href": "slides/60-iv/iv.html#iv-intuition-using-2sls-2",
+    "title": "Instrumental Variable",
+    "section": "IV intuition using 2SLS (2)",
+    "text": "IV intuition using 2SLS (2)\nTBD"
   },
   {
     "objectID": "slides/60-iv/iv.html#consistency-and-unbiasedness-of-the-iv",
     "href": "slides/60-iv/iv.html#consistency-and-unbiasedness-of-the-iv",
     "title": "Instrumental Variable",
     "section": "Consistency and unbiasedness of the IV",
-    "text": "Consistency and unbiasedness of the IV\nIV estimates are not unbiased, but they are consistent (Joshua D. Angrist and Krueger 2001).\n\nUnbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while\nConsistency only means that the estimator converges to the population parameter as the sample size grows.\n\n. . . ::: callout-note Researchers using instrumental variables should aspire to work with large samples. :::"
+    "text": "Consistency and unbiasedness of the IV\n\nIV estimates are not unbiased, but they are consistent (Joshua D. Angrist and Krueger 2001).\n\nUnbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while\nConsistency only means that the estimator converges to the population parameter as the sample size grows.\n\n\n\n\n\n\n\n\n\nNote\n\n\nResearchers that use IV should aspire to work with large samples.\n\n\n\n\nNo statistical tests available"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#bad-instruments-1",
+    "href": "slides/60-iv/iv.html#bad-instruments-1",
+    "title": "Instrumental Variable",
+    "section": "Bad instruments (1)",
+    "text": "Bad instruments (1)\n\n\\(Z_i\\) that does not satisfy any of the Relevance condition, Exclusion restriction and Independence assumption;\n\\(Z_i\\) that correlate with omitted variable (OV):\n\nThey result into much greater upwards shifting bias compare to the OLS;\nFor example the weather in Brazil and supply price and demand quantity of coffee:\n\nweather shifts the supply curve, it is random, thus it seems as a plausible instrument for price in the demand model\nthe weather in Brazil determines supply expectations on futures exchange, thus, it also shifts the demand for coffee before the supply price is affected;"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#bad-instruments-2",
+    "href": "slides/60-iv/iv.html#bad-instruments-2",
+    "title": "Instrumental Variable",
+    "section": "Bad instruments (2)",
+    "text": "Bad instruments (2)\n\nWeak instrument \\(Z_i\\):\n\nWhen the instrument \\(Z_i\\) is only weakly correlates with endogenous regressor \\(s_i\\);\nFind a better one!\n\n\n\nWeak instrument test:\n\nRun the first stage regression with and without the IV;\nCompare the F-statistics\n\nIf F-statistics with instrument is greater than that without by 5 of more,\nthis is a sign of a strong instrument (Staiger and Stock 1997);\n\nThis test does not ensure that our instruments are independent of omitted variable \\(A^{'}_i\\) or \\(Y_i\\);\nStaiger and Stock (1997)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#overidentification-1",
+    "href": "slides/60-iv/iv.html#overidentification-1",
+    "title": "Instrumental Variable",
+    "section": "Overidentification (1)",
+    "text": "Overidentification (1)\n\nnumber of instruments \\(G\\) in the instruments matrix \\(Z^{'}_i\\) substantially exceeds the number of endogenous variables \\(K\\).\n\nwhen the IV is overidentified, estimates are biased;\nbias is proportional to \\(K - G\\);\nusing fewer instruments therefore reduces bias;\n\nIf you have few candidates for IV and one endogenous regressor:\n\nselect one IV for the first stage, and\nput the remaining instruments into the second stage"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#overidentification-2",
+    "href": "slides/60-iv/iv.html#overidentification-2",
+    "title": "Instrumental Variable",
+    "section": "Overidentification (2)",
+    "text": "Overidentification (2)\nSargan’s overidentification test:\n\n\\(H_0:Cov(Z^{'}_i,\\varepsilon^{IV}_i)=0\\) - the covariance between the instrument and the error term is zero\n\\(H_1:Cov(Z^{'}_i,\\varepsilon^{IV}_i)\\neq0\\)\nThus, by rejecting the \\(H_0\\), we conclude that at least one of the instruments is not valid."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#wu-hausman-test-for-endogeneity",
+    "href": "slides/60-iv/iv.html#wu-hausman-test-for-endogeneity",
+    "title": "Instrumental Variable",
+    "section": "Wu-Hausman test for endogeneity",
+    "text": "Wu-Hausman test for endogeneity\nWu-Hausman test for endogeneity tests if the variable that we are worried about is indeed endogenous.\n\n\\(H_0:Cov(s_i,\\varepsilon_i)=0\\) - the covariance between potentially endogenous variable and the error term is zero\n\\(H_1:Cov(s_i,\\varepsilon_i) \\neq 0\\)\nThus, by rejecting the \\(H_0\\), we conclude that there is endogeneity and there might be a need for IV."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#mincer-regression-and-ability-bias",
+    "href": "slides/60-iv/iv.html#mincer-regression-and-ability-bias",
+    "title": "Instrumental Variable",
+    "section": "Mincer regression and ability bias",
+    "text": "Mincer regression and ability bias\nRecall the Mincer’s regression Equation 1 with monthly wage (\\(Y_i\\)) as a function of years of education (\\(s_i\\)) and years of experience (\\(x_i\\)).\n\nIts’ estimation results based on the 1960th sample of 31k white man are below:\n\n\n$$\nY_i = + s_i + _i\n$$\n\n\n$$\nY_i = + s_i + x_i - x^{2}_i + _i\n$$\n\n\n\n\n\n\nAnswer to the following questions:\n\n\n\nInterpret education and experience regression coefficients;\nDoes education matter much for a person with 30 years of experience?"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#why-education-is-endogenous",
+    "href": "slides/60-iv/iv.html#why-education-is-endogenous",
+    "title": "Instrumental Variable",
+    "section": "Why Education is endogenous?",
+    "text": "Why Education is endogenous?\n\nAbility bias!\nIs it sufficient to use the IQ or knowledge of work index to resolve this bias?\n\nWhat about creativity?\nHow to quantify the lottery change effect of getting a decent job?\nHow to measure the connections?"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#fantastic-ivs-and-how-to-find-them",
+    "href": "slides/60-iv/iv.html#fantastic-ivs-and-how-to-find-them",
+    "title": "Instrumental Variable",
+    "section": "Fantastic IVs and how to find them?",
+    "text": "Fantastic IVs and how to find them?\n\nUse theory!!!\n\nhuman capital theory suggests that people make schooling choices by comparing the costs and benefits of alternatives.\n\nThink and speculate:\n\nWhat is the ideal experiment that could capture the effect of schooling on education?\nWhat are the forces you’d like to manipulate and the factors you’d like to hold constant?\nWhat are the other processes that are independent of wage, but may affect schooling?\n\nAnalyze, what were/are the policies/environments that could mimic the experimental setting?"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#fantastic-ivs-for-education",
+    "href": "slides/60-iv/iv.html#fantastic-ivs-for-education",
+    "title": "Instrumental Variable",
+    "section": "Fantastic IVs for education",
+    "text": "Fantastic IVs for education\n\nLoan policies or other subsidies that vary independently of ability or earnings potential\nRegion and time variation in school construction (Duflo 2001)\nProximity to college(Card 1994)\nQuarter of birth (Joshua D. Angrist and Krueger 1991)\nParents education (Buckles and Hungerman 2013)\nNumber of siblings\n\n\n\n\n\nReasoning on how researcher use theory and available observational data to approximate real experiment is called Identification strategy!"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#random-nature-of-the-date-of-birth",
+    "href": "slides/60-iv/iv.html#random-nature-of-the-date-of-birth",
+    "title": "Instrumental Variable",
+    "section": "Random nature of the date of birth",
+    "text": "Random nature of the date of birth\nAngrist, J. D., & Krueger, A. B. (1991). Does Compulsory School Attendance Affect Schooling and Earnings? The Quarterly Journal of Economics, 106, 979–1014. https://doi.org/10.2307/2937954\nIdentification strategy:\n\nPolicy required students to enter school in the calendar year in which they turned six years old;\nChildren born in the fourth quarter enter school at age 5 and 3⁄4 , while those born in the first quarter enter school at age 6 3⁄4;\nCompulsory schooling laws require students to remain in school until their 16th birthdays;\n\n\nCombination of school start age policies and compulsory schooling laws creates a natural experiment in which children are compelled to attend school for different lengths of time depending on their birthdays."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#average-shooling-duration-by-quarter-of-birth",
+    "href": "slides/60-iv/iv.html#average-shooling-duration-by-quarter-of-birth",
+    "title": "Instrumental Variable",
+    "section": "Average shooling duration by quarter of birth",
+    "text": "Average shooling duration by quarter of birth\n\n\nSource: (Joshua D. Angrist and Krueger 1991)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#average-wage-by-quarter-of-birth",
+    "href": "slides/60-iv/iv.html#average-wage-by-quarter-of-birth",
+    "title": "Instrumental Variable",
+    "section": "Average wage by quarter of birth",
+    "text": "Average wage by quarter of birth\n\n\nSource: (Joshua D. Angrist and Krueger 1991)"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#fantactis-instrumental-variable",
+    "href": "slides/60-iv/iv.html#fantactis-instrumental-variable",
+    "title": "Instrumental Variable",
+    "section": "Fantactis instrumental variable:",
+    "text": "Fantactis instrumental variable:\n\nQuarter of birth;\nThe intuition is:\n\nOnly a small part of variance in education (the one linked to the quarter of birth) is used to identify the return to education.\nThis small part of variance occures due to random natural experiment, thus the ceteris paribus holds here."
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#estimates",
+    "href": "slides/60-iv/iv.html#estimates",
+    "title": "Instrumental Variable",
+    "section": "Estimates",
+    "text": "Estimates"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#conclusions",
+    "href": "slides/60-iv/iv.html#conclusions",
+    "title": "Instrumental Variable",
+    "section": "Conclusions",
+    "text": "Conclusions\n\nIV estimates are very close to the OLS;\nWhat does it mean?\n\nAbility bias was small in the OLS!\n\nIs it a strong instrument?\n\nRelevance condition\nExclusion restriction\nIndependnece assumption"
   },
   {
     "objectID": "slides/60-iv/iv.html#research-faqs",
@@ -2261,25 +2394,46 @@
     "text": "FAQ 2. What is the experiment…?\n\nDescribe an ideal experiment.\nHighlight the forces you’d like to manipulate and the factors you’d like to hold constant.\nFUQs: fundamentally unidentified questions\n\nCausal effect of race or gender;\n\nHowever, we can experiment with how believes about a person’s gender of race affect decisions (Bertrand and Mullainathan 2004).\n\nDo children that start school 1 year later learn more in the primary school?\n\nBecause older kinds are in general better learners there is not counter factual.\nHowever, it is possible to establish this school starting effect on adults (Black, Devereux, and Salvanes 2008)."
   },
   {
-    "objectID": "slides/60-iv/iv.html#what-is-your-identification-strategy",
-    "href": "slides/60-iv/iv.html#what-is-your-identification-strategy",
+    "objectID": "slides/60-iv/iv.html#faq-3.-what-is-your-identification-strategy",
+    "href": "slides/60-iv/iv.html#faq-3.-what-is-your-identification-strategy",
     "title": "Instrumental Variable",
-    "section": "What is your identification strategy?",
-    "text": "What is your identification strategy?\n\n\n\n\n\n\n\nIdentification strategy\n\n\nis the manner in which a researcher uses observational data (i.e., data not generated by a randomized trial) to approximate a real experiment (J. D. Angrist and Keueger 1991)\n\n\n\n\nfinding a suitable natural experiment where the treatment is randomly assigned;\nchoosing the right instrument to endogenous variable that mimics a natural experiment;"
+    "section": "FAQ 3. What is your identification strategy?",
+    "text": "FAQ 3. What is your identification strategy?\n\n\n\n\n\n\n\nIdentification strategy\n\n\nis the manner in which a researcher uses observational data (i.e., data not generated by a randomized trial) to approximate a real experiment (Joshua D. Angrist and Krueger 1991)\n\n\n\n\nUse theory!\nAnalyze, what were/are the policies/environments that could mimic the experimental setting?"
   },
   {
-    "objectID": "slides/60-iv/iv.html#what-is-your-mode-of-statistical-inference",
-    "href": "slides/60-iv/iv.html#what-is-your-mode-of-statistical-inference",
+    "objectID": "slides/60-iv/iv.html#faq-4.-what-is-your-mode-of-statistical-inference",
+    "href": "slides/60-iv/iv.html#faq-4.-what-is-your-mode-of-statistical-inference",
     "title": "Instrumental Variable",
-    "section": "What is your mode of statistical inference?",
-    "text": "What is your mode of statistical inference?\n\ndescribes the population to be studied,\nthe sample to be used,\nand the assumptions made when constructing standard errors.\nchoose appropriate statistical methods\napply them diligently."
+    "section": "FAQ 4. What is your mode of statistical inference?",
+    "text": "FAQ 4. What is your mode of statistical inference?\n\ndescribes the population to be studied,\nthe sample to be used,\nand the assumptions made when constructing standard errors.\nchoose appropriate statistical methods\napply them diligently."
   },
   {
     "objectID": "slides/60-iv/iv.html#introduction-and-the-research-question",
     "href": "slides/60-iv/iv.html#introduction-and-the-research-question",
     "title": "Instrumental Variable",
-    "section": "Introduction and the research Question",
-    "text": "Introduction and the research Question"
+    "section": "Introduction and the research question",
+    "text": "Introduction and the research question"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#identification-strategy-1",
+    "href": "slides/60-iv/iv.html#identification-strategy-1",
+    "title": "Instrumental Variable",
+    "section": "Identification strategy",
+    "text": "Identification strategy"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#instrumental-variable-1",
+    "href": "slides/60-iv/iv.html#instrumental-variable-1",
+    "title": "Instrumental Variable",
+    "section": "Instrumental variable",
+    "text": "Instrumental variable"
+  },
+  {
+    "objectID": "slides/60-iv/iv.html#results",
+    "href": "slides/60-iv/iv.html#results",
+    "title": "Instrumental Variable",
+    "section": "Results",
+    "text": "Results"
   },
   {
     "objectID": "slides/30-multiple-regression/collinearity.html#collinearity-or-muticollinearity",
