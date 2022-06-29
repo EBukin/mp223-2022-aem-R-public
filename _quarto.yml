@@ -57,6 +57,8 @@ website:
             text: "Week 6"
           - href: weeks/week08-checklist.qmd
             text: "Week 8"
+          - href: weeks/week12-checklist.qmd
+            text: "Week 12"
 
   opengraph: true
 

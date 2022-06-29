@@ -20,10 +20,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# R setup {.smaller}
-
-```{r}
-#| echo: true
+```{r echo=FALSE}
 
 library(tidyverse)       # for data wrangling
 library(alr4)            # for the data sets #
@@ -187,64 +184,77 @@ tidy_summary_list <-
 
 ```
 
-# Recap
+# Refresh/recap
 
--   What is the Ceteris Paribus?
+-   What is the ceteris paribus?
 
--   What is the Selection Bias and how is it difference from the OVB?
+-   What is the Selection Bias and how is it different from the OVB?
 
 -   What is long, short and auxiliary regression?
 
--   OVB formula?
+-   What is the OVB formula?
 
--   Why having selection bias causes a problem?
+-   Why is selection bias causing a problem?
 
-## Recap Example 1: return to schooling {.smaller}
+## Return to schooling ans Selection bias {.smaller}
 
--   **Does more years of schooling causes higher wage?**
+-   **Does more years of schooling cause higher wages?**
 
 -   Jacob Mincer first try to quantify the return to schooling [see @mincer1974schooling] by estimating the log of annual earning ($\ln Y_i$) as a function of years of education ($s_i$) and potential work experience ($x_i$) in the following fashion:
 
--   $$
-    \ln Y_i = \alpha + \rho s_i + \beta_1 x_i + \beta_2 x^{2}_i + \varepsilon_i
-    $$ {#eq-mincer-long}
+. . .
 
-    -   Why experience is introduced in a quadratic form?
+$$
+\ln Y_i = \alpha + \rho s_i + \beta_1 x_i + \beta_2 x^{2}_i + \varepsilon_i
+$$ {#eq-mincer-long}
 
-    -   What if we omit experience?
+. . .
 
-    -   **Prove that excluding experience causes bias to years of education**.
+::: callout-note
+## Answer to the following questions:
 
-## Show bias of excluded experience {.smaller}
+-   Why is experience introduced in a quadratic form?
+
+-   **Prove that omitting experience causes bias to years of education.**
+:::
+
+## Show bias of the excluded experience {.smaller}
 
 -   Write down long, short, auxiliary regression and the OVB formula.
     -   Short: $\ln Y_i = \alpha^S + \rho^{S} s_i + \varepsilon_i^S$
-    -   Long: $\ln Y_i = \alpha + \rho^L s_i + \beta_1 x_i + \beta_2 x^{2}_i + \varepsilon_i$
+    -   Long: $\ln Y_i = \alpha + \rho^L s_i + \beta_1 x_i + \varepsilon_i$
     -   Auxiliary: $x_i = \delta_0 + \delta_{xs} s_i + \upsilon_i$
-    -   OVB formula: $\text{OVB} = \pi_1 \times \rho^L$
+    -   OVB formula: $\text{OVB} = \delta_{xs} \times \rho^L$
 -   Hypothesize about $\delta_{xs}$ and $\rho^L$
     -   Relationship between education and income: $\rho^L_i > 0$
     -   Relationship between experience and education: $\delta_{xs} < 0$
 -   $\text{OVB} = \delta_{xs} \times \rho^L = \{\delta_{xs} > 0 \} \times \{ \rho < 0 \} \Longrightarrow \text{OVB} < 0$
-    -   Excluding $x_i$ cases bias to the return to education by reducing the estimated level of $\rho^S$ either to lower value or below zero. It could also make it insignificantly different from zero.
+    -   Excluding $x_i$ cases bias of the return to education;
+    -   It reduces the estimated level of $\rho^S$ either to lower value or below zero. It could also make it insignificantly different from zero.
 
-## Is there a ceteris paribus in the mincer's equation? {.smaller}
+## Is there ceteris paribus in the Mincer's equation? {.smaller}
 
 -   Is control for potential experience sufficient for ceteris to be paribus? At a given experience level, are more- and less-educated workers equally able and diligent? [^1]
 -   We may rewrite @eq-mincer-long in the way that it incorporates ability:
--   $$Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$$ {#eq-long}
--   where $A^{'}_{i}$ vector of control variables such as ability, experience and that we desire to have in order to ensure the unbiased estimates of $\rho$.
--   Omitting ability causes a Selection bias: $\rho^{S} = \rho + \underbrace{\delta_{A^{'} s} \times \gamma}_{\text{ability bias}}$
 
 [^1]: [see @Angrist2014, Ch. 6]
 
-## How do we fight the Selection bias? {.smaller}
+. . .
+
+$$Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$$ {#eq-long}
+
+. . .
+
+-   where $A^{'}_{i}$ vector of control variables such as ability, experience and that we desire to have in order to ensure the unbiased estimates of $\rho$.
+-   Omitting ability causes a Selection bias: $\rho^{S} = \rho + \underbrace{\delta_{A^{'} s} \times \gamma}_{\text{ability bias}}$
+
+## Solutions to the selection bias {.smaller}
 
 1.  Randomized trials/experiments [@Angrist2009, Ch 1-2.; @Angrist2014, Ch. 1];
 
 2.  Regression analysis [@Angrist2009, Ch 3.; @Angrist2014, Ch. 2];
 
-    -   Multiple regression [@wooldridge2020introductory, Ch. 3]
+    -   Multiple regression [@wooldridge2020introductory, Ch. 3];
     -   Panel regression [@wooldridge2020introductory, Ch. 13-14; @Croissant2018; @Wooldridge2010]
     -   Other regressions: binary outcome (logit/probit), censored data (tobit), truncated data, count data (poisson regression), quantile regression ...
 
@@ -252,29 +262,45 @@ tidy_summary_list <-
 
     -   IV (2SLS, GMM) [@Angrist2009, Ch. 4.; @Angrist2014, Ch. 3];
     -   LATE -- Local average treatment effect
-    -   Selection models, Heckman ... [@wooldridge2020introductory, Ch. 17; @Cameron2005, Ch. 11-27]
+    -   Sample selection models, Heckman ... [@wooldridge2020introductory, Ch. 17; @Cameron2005, Ch. 11-27]
 
 4.  DID - Difference in Difference;
 
 5.  RDD - Regression Discontinuity Design;
 
-# Endogeneity as a form of selection bias: return to schooling
+# Endogeneity
 
-## Definition
+::: {.callout-important appearance="minimal" icon="false"}
+Is another terminology for the selection bias problem
+:::
 
--   Consider a **LONG** model: $Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$ and it **SHORT** counterpart: $Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$;
+## Definition {.smaller}
 
-    -   where $s_i$ is a causal variable of interest and $A^{'}_{i}$ is the vector of control variables that we desire to have in order to ensure unbiased estimates of $\rho$;
+-   Consider following **LONG** and **SHORT** models:
 
--   ::: callout-note
-    ## Confusing definition of endogeneity:
+. . .
 
-    -   Variable $s_i$ is endogenous if it correlates with the error terms $\varepsilon^{S}_i$ : $Cov(s_i, \varepsilon^{S}_i) \neq 0$
-    :::
+$$Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i \\ Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$$
+
+. . .
+
+-   where $s_i$ is a causal variable of interest and $A^{'}_{i}$ is the vector of control variables that we desire to have in order to ensure unbiased estimates of $\rho$;
+
+. . .
+
+::: callout-note
+## Confusing definition of endogeneity:
+
+-   Variable $s_i$ is **endogenous** if it correlates with the error terms $\varepsilon^{S}_i$ : $Cov(s_i, \varepsilon^{S}_i) \neq 0$
+:::
 
 ## Definition (cont.)
 
--   In practice, endogeneity means that variation in the independent variable $s_i$ (years of education) are not "random" as compared to the variation in the dependent variable $Y_i$ and other regressors $A^{'}_i$;
+-   In practice, endogeneity means that
+
+    -   variation in the independent variable $s_i$ (years of education) are not "random" as compared to the variation in the dependent variable $Y_i$, but rather
+    -   an external process $U$ affects variation in both $s_i$ and $Y_i$;
+    -   thus, $s_i$ is endogenous to $Y_i$;
 
 -   If variance of $s_i$ is truly independent of $Y_i$, $s_i$ is exogenous.
 
@@ -288,60 +314,41 @@ tidy_summary_list <-
 
 ## Omitted Variable Bias {.smaller}
 
-Long model:
+-   Long model: $Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$
 
-$$
-Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i \\
-$$ . . .
+-   Short model: $Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$
 
-Short model:
+-   If $s_i$ and $A_i$ are correlated, we can assume a linear relationship between them:
 
-$$
-Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i
-$$ {#eq-short}
+-   $$
+    A_i = \delta_0 + \delta_1 s_i + \upsilon_i
+    $$
 
-. . .
+-   $$
+    \Rightarrow Y_i = \alpha + \rho s_i + \gamma (\delta_0 + \delta_1 A_i + \upsilon_i) + \varepsilon_i
+    $$
 
-If $s_i$ and $A_i$ are correlated, we can assume a linear relationship between them:
-
-. . .
-
-$$
-A_i = \delta_0 + \delta_1 s_i + \upsilon_i
-$$
-
-. . .
-
-$$
-\Rightarrow Y_i = \alpha + \rho s_i + \gamma (\delta_0 + \delta_1 A_i + \upsilon_i) + \varepsilon_i
-$$
-
-. . .
-
-$$
-= \underbrace{(\alpha + \gamma \delta_0)}_{\alpha^S} +
-\underbrace{(\rho + \gamma \delta_1)}_{\rho^S} s_i + 
-\underbrace{(\varepsilon_i + \gamma \upsilon_i)}_{\varepsilon_i^S}
-$$
+-   $$
+    = \underbrace{(\alpha + \gamma \delta_0)}_{\alpha^S} +
+    \underbrace{(\rho + \gamma \delta_1)}_{\rho^S} s_i + 
+    \underbrace{(\varepsilon_i + \gamma \upsilon_i)}_{\varepsilon_i^S}
+    $$
 
 ## Omitted Variable Bias: visually
 
-```{r confound-ovb, echo=FALSE}
-#| fig-width: 5
-#| fig-height: 4
-library(ggdag)
-library(ggplot2)
-theme_set(theme_dag())
+```{r confound-ovb}
+#| echo: false
+knitr::include_graphics("./img/ovb-scheme-1.png")
 
-dagify(Y ~ s,
-       Y ~ U,
-       s ~ U) %>% 
-  ggdag() 
+# library(ggdag)
+# library(ggplot2)
+# theme_set(theme_dag())
+# dagify(Y ~ s, Y ~ U, s ~ U) %>% ggdag() 
 ```
 
 ## Measurement error {.smaller}
 
--   We estimate a long model: $Y_i = \alpha + \beta s^*_i + e_i \\$,
+-   We estimate a long model: $Y_i = \alpha + \beta s^*_i + e_i \\$ ,
 
     -   but $s^*_i$ is unavailable, we only have $S_i = s^*_i + m_i$ instead
     -   $m_i$ is a systematic measurement error ($E[m_i] =0$ and $Cov(s^*_i, m_i) = Cov(e_i, m_i) = 0$).
@@ -352,13 +359,16 @@ dagify(Y ~ s,
 
 . . .
 
-$$
-\beta_b =  \frac{Cov(Y_i, s_i)}{Var(s_i)}
-=  \frac{Cov(a+\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\ 
-=  \frac{\beta \cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \beta \frac{Var(s^{*}_i)}{Var(s_i)}
-$$
+$$ \beta_b =  \frac{Cov(Y_i, s_i)}{Var(s_i)} =  \frac{Cov(a+\beta s^*_i + e_i, s^*_i + m_i)}{Var(s_i)} \\  =  \frac{\beta \cdot Cov(s^*_i, s^*_i)}{Var(s_i)} = \beta \frac{Var(s^{*}_i)}{Var(s_i)} $$
 
 -   [see @Angrist2014, Ch. 6]
+
+## Measurement error: visually
+
+```{r confound-meserr}
+#| echo: false
+knitr::include_graphics("./img/meserr-scheme-1.png")
+```
 
 ## Simultaneity {.smaller}
 
@@ -375,67 +385,323 @@ $$
 
 -   [see @wooldridge2020introductory, Ch. 17] for more details on the problem and solutions.
 
-# Instrumental Variable
+# Solutions to endogeneity
 
-## IV
-
-Recall the short @eq-short model $Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$, where
-
-::: callout-note
-## Instrumental variable is another variable $Z_i$;
-
-1.  $Z_i$ has a strong association with $s_i$;
-
-2.  $Z_i$ does not affect $Y_i$ except through its potential effect on A;
-
-3.  $Z_i$ and $Y_i$ do not share any common causes;
+::: {.callout-important appearance="minimal" icon="false"}
+There are same five "lethal" weapons against endogeneity as there were against the selection bias: 1. Randomized Control Trials / Experiments 2. Regression 3. Instrumental variable 4. Difference in difference 5. Regression discontinuity design
 :::
 
-## IV image
+## Instrumental Variable {.smaller}
 
-::: columns
-::: {.column width="50%"}
+. . .
 
-```{r echo=FALSE, cache=TRUE}
-#| fig-width: 5
-#| fig-height: 4
-dagify(Y ~ s,
-       Y ~ U,
-       s ~ U,
-       s ~ Z) %>% 
-  ggdag() 
+Recall the short ($Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$) and long ($Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$) models.
+
+. . .
+
+::: {.callout-note appearance="minimal" icon="false"}
+## Instrumental Variable is another variable $Z_i$ that satisfy:
+
+1.  **Relevance condition:**
+
+    -   $Z_i$ has a causal effect on $s_i$ (or strong association with [see @Hernan2020, p. 194]);
+
+2.  **Exclusion restriction:**
+
+    -   $Z_i$ does not affect $Y_i$ directly, except through its potential effect on $s_i$;
+
+3.  **Independence assumption:**
+
+    -   $Z_i$ is randomly assigned or "as good as randomly assigned", same as
+    -   $Z_i$ is unrelated to the omitted variables $A^{'}_i$, same as
+    -   $Z_i$ and $Y_i$ do not share any common causes
+:::
+
+. . .
+
+::: callout-important
+[see @Angrist2014 Ch. 3 and 6; @Angrist2009, Ch. 4.; @Hernan2020, Ch. 16; @Wooldridge2010, Ch. 8; @Soederbom2014, Ch. 11]
+:::
+
+## Instrumental Variable visually (1)
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/iv-scheme-1.png")
+# theme_set(theme_dag())
+# dagify(Y ~ s, Y ~ U, s ~ U, s ~ Z) %>% ggdag() 
 ```
-:::
 
-::: {.column width="50%"}
+## Instrumental Variable visually (2)
 
-```{r echo=FALSE, cache=TRUE}
-#| fig-width: 5
-#| fig-height: 4
-dagify(Y ~ s,
-       Y ~ U,
-       s ~ U,
-       s ~ Uz,
-       z ~ Uz) %>% 
-  ggdag() 
+```{r}
+#| echo: false
+knitr::include_graphics("./img/iv-scheme-2.png")
+# theme_set(theme_dag())
+# dagify(Y ~ s, Y ~ U, s ~ U, s ~ Uz, Z ~ Uz) %>% ggdag() 
 ```
-:::
 
-:::
+## IV intuition using 2SLS (1) {.smaller}
 
-## 2SLS
+Imagine that we have:
+
+-   a long model: $Y_i = \alpha + \rho s_i + \gamma A^{'}_{i} + \varepsilon_i$ ;
+-   a short model: $Y_i = \alpha^S + \rho^S s_i + \varepsilon^{S}_i$ ;
+-   with endogenous $s_i$, and
+-   a valid instrument $Z_i$ that satisfies all three requirements: Relevance, Exclusion and Independence.
+
+. . .
+
+**Estimate the first stage:** $s_i = \pi_0 + \pi_1 Z_i + nu_i$
+
+. . .
+
+**Substitute** $s_i$ with the fitted values from the first stage $\hat{s_i}$
+
+. . .
+
+**Estimate the second stage:** $Y_i = \alpha^{IV} + \rho^{IV} \hat{s_i} + \varepsilon^{IV}_i$
+
+. . .
+
+where
+
+-   $\hat{s_i}$ are the fitted values from the first stage
+-   $\rho^{IV}$ is the causal effect of interest from stage two that is asymptotically equal to $\rho$ , the true effect of interest ($\rho^{IV} \asymp \rho$)
+
+## IV intuition using 2SLS (2)
+
+TBD
+
+# Pitfals of the IV
 
 ## Consistency and unbiasedness of the IV {.smaller}
 
-IV estimates **are not unbiased**, but they **are consistent** [@Angrist2001].
+-   IV estimates **are not unbiased**, but they **are consistent** [@Angrist2001].
 
--   Unbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while
+    -   Unbiasedness means the estimator has a sampling distribution centered on the parameter of interest in a sample of any size, while
 
--   Consistency only means that the estimator converges to the population parameter as the sample size grows.
+    -   Consistency only means that the estimator converges to the population parameter as the sample size grows.
 
-. . . ::: callout-note Researchers using instrumental variables should aspire to work with large samples. :::
+. . .
 
-# Questions about Questions
+::: callout-note
+Researchers that use IV should aspire to work with large samples.
+:::
+
+-   No statistical tests available
+
+## Bad instruments (1) {.smaller}
+
+1.  $Z_i$ that does not satisfy any of the Relevance condition, Exclusion restriction and Independence assumption;
+
+2.  $Z_i$ that correlate with omitted variable (OV):
+
+    -   They result into much greater upwards shifting bias compare to the OLS;
+
+    -   For example the weather in Brazil and supply price and demand quantity of coffee:
+
+        -   weather shifts the supply curve, it is random, thus it seems as a plausible instrument for price in the demand model
+
+        -   the weather in Brazil determines supply expectations on futures exchange, thus, it also shifts the demand for coffee before the supply price is affected;
+
+## Bad instruments (2) {.smaller}
+
+3.  Weak instrument $Z_i$:
+
+    -   When the instrument $Z_i$ is only weakly correlates with endogenous regressor $s_i$;
+
+    -   Find a better one!
+
+. . .
+
+Weak instrument test:
+
+-   Run the first stage regression with and without the IV;
+
+-   Compare the F-statistics
+
+    -   If F-statistics with instrument is greater than that without by 5 of more,
+    -   this is a sign of a strong instrument [@Staiger1997];
+
+-   This test does not ensure that our instruments are independent of omitted variable $A^{'}_i$ or $Y_i$;
+
+-   [see @angrist2001, @Staiger1997]
+
+## Overidentification (1) {.smaller}
+
+-   number of instruments $G$ in the instruments matrix $Z^{'}_i$ substantially exceeds the number of endogenous variables $K$.
+
+    -   when the IV is overidentified, estimates are biased;
+    -   bias is proportional to $K - G$;
+    -   using fewer instruments therefore reduces bias;
+
+-   If you have few candidates for IV and one endogenous regressor:
+
+    -   select one IV for the first stage, and
+    -   put the remaining instruments into the second stage
+
+## Overidentification (2) {.smaller}
+
+Sargan's overidentification test:
+
+-   $H_0:Cov(Z^{'}_i,\varepsilon^{IV}_i)=0$ - the covariance between the instrument and the error term is zero
+
+-   $H_1:Cov(Z^{'}_i,\varepsilon^{IV}_i)\neq0$
+
+-   Thus, by rejecting the $H_0$, we conclude that at least one of the instruments is not valid.
+
+## Wu-Hausman test for endogeneity
+
+Wu-Hausman test for endogeneity tests if the variable that we are worried about is indeed endogenous.
+
+-   $H_0:Cov(s_i,\varepsilon_i)=0$ - the covariance between potentially endogenous variable and the error term is zero
+
+-   $H_1:Cov(s_i,\varepsilon_i) \neq 0$
+
+-   Thus, by rejecting the $H_0$, we conclude that there is endogeneity and there might be a need for IV.
+
+# Example 1 (cont.) wage and education
+
+Angrist, J. D., & Krueger, A. B. (1991). Does Compulsory School Attendance Affect Schooling and Earnings? The Quarterly Journal of Economics, 106, 979--1014. https://doi.org/10.2307/2937954
+
+## Mincer regression and ability bias
+
+Recall the Mincer's regression @eq-mincer-long with monthly wage ($Y_i$) as a function of years of education ($s_i$) and years of experience ($x_i$).
+
+-   Its' estimation results based on the 1960th sample of 31k white man are below:
+
+. . .
+
+$$
+\ln Y_i = \alpha + \underset{(.002)}{.070} s_i + \varepsilon_i
+$$
+
+. . .
+
+$$
+\ln Y_i = \alpha + \underset{(.001)}{.107} s_i + \underset{(.001)}{.081} x_i - \underset{(.00002)}{.0012} x^{2}_i + \varepsilon_i
+$$
+
+::: callout-note
+## Answer to the following questions:
+
+-   Interpret education and experience regression coefficients;
+
+-   Does education matter much for a person with 30 years of experience?
+:::
+
+## Why Education is endogenous?
+
+-   Ability bias!
+
+-   Is it sufficient to use the IQ or knowledge of work index to resolve this bias?
+
+    -   What about creativity?
+
+    -   How to quantify the lottery change effect of getting a decent job?
+
+    -   How to measure the connections?
+
+## Fantastic IVs and how to find them? {.smaller}
+
+1.  Use theory!!!
+
+    -   human capital theory suggests that people make schooling choices by comparing the costs and benefits of alternatives.
+
+2.  Think and speculate:
+
+    -   What is the ideal experiment that could capture the effect of schooling on education?
+    -   What are the forces you'd like to manipulate and the factors you'd like to hold constant?
+    -   What are the other processes that are independent of wage, but may affect schooling?
+
+3.  Analyze, what were/are the policies/environments that could mimic the experimental setting?
+
+## Fantastic IVs for education {.smaller}
+
+-   Loan policies or other subsidies that vary independently of ability or earnings potential
+-   Region and time variation in school construction [@Duflo2001]
+-   Proximity to college[@Card1994]
+-   Quarter of birth [@Angrist1991a]
+-   Parents education [@Buckles2013]
+-   Number of siblings
+
+. . .
+
+::: {.callout-important appearance="minimal"}
+Reasoning on how researcher use theory and available observational data to approximate real experiment is called **Identification strategy**!
+:::
+
+## Random nature of the date of birth {.smaller}
+
+Angrist, J. D., & Krueger, A. B. (1991). Does Compulsory School Attendance Affect Schooling and Earnings? The Quarterly Journal of Economics, 106, 979--1014. https://doi.org/10.2307/2937954
+
+Identification strategy:
+
+-   Policy required students to enter school in the calendar year in which they turned six years old;
+
+-   Children born in the fourth quarter enter school at age 5 and 3⁄4 , while those born in the first quarter enter school at age 6 3⁄4;
+
+-   Compulsory schooling laws require students to remain in school until their 16th birthdays;
+
+. . .
+
+Combination of school start age policies and compulsory schooling laws creates a natural experiment in which children are compelled to attend school for different lengths of time depending on their birthdays.
+
+## Average shooling duration by quarter of birth
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/educ-by-quarter.png")
+```
+
+::: footer
+Source: [@Angrist1991a]
+:::
+
+## Average wage by quarter of birth
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/wage-by-quarter.png")
+```
+
+::: footer
+Source: [@Angrist1991a]
+:::
+
+## Fantactis instrumental variable:
+
+-   Quarter of birth;
+
+-   The intuition is:
+
+    -   Only a small part of variance in education (the one linked to the quarter of birth) is used to identify the return to education.
+
+    -   This small part of variance occures due to random natural experiment, thus the ceteris paribus holds here.
+
+## Estimates
+
+```{r}
+#| echo: false
+knitr::include_graphics("./img/tabl-return-to-schooling.png")
+```
+
+## Conclusions
+
+-   IV estimates are very close to the OLS;
+
+-   What does it mean?
+
+    -   Ability bias was small in the OLS!
+
+-   Is it a strong instrument?
+
+    -   Relevance condition
+    -   Exclusion restriction
+    -   Independnece assumption
+
+# Questions about questions
 
 ## Research FAQs:
 
@@ -468,7 +734,7 @@ IV estimates **are not unbiased**, but they **are consistent** [@Angrist2001].
         -   Because older kinds are in general better learners there is not counter factual.
         -   However, it is possible to establish this school starting effect on adults [@Black2008].
 
-## What is your identification strategy?
+## FAQ 3. What is your identification strategy?
 
 . . .
 
@@ -478,11 +744,11 @@ IV estimates **are not unbiased**, but they **are consistent** [@Angrist2001].
 is the manner in which a researcher uses observational data (i.e., data not generated by a randomized trial) to approximate a real experiment [@Angrist1991a]
 :::
 
--   finding a suitable natural experiment where the treatment is randomly assigned;
+1.  Use theory!
 
--   choosing the right instrument to endogenous variable that mimics a natural experiment;
+2.  Analyze, what were/are the policies/environments that could mimic the experimental setting?
 
-## What is your mode of statistical inference?
+## FAQ 4. What is your mode of statistical inference?
 
 -   describes the population to be studied,
 
@@ -494,32 +760,20 @@ is the manner in which a researcher uses observational data (i.e., data not gene
 
 -   apply them diligently.
 
-# Example 2. The colonial origins of comparative development: An empirical investigation @Acemoglu2011
+# Example 2. The colonial origins of comparative development: An empirical investigation
 
-Acemoglu, D., Johnson, S., & Robinson, J. A. (2001). The colonial origins of comparative development: An empirical investigation. American economic review, 91(5), 1369-1401.
+[@Acemoglu2001]. The colonial origins of comparative development: An empirical investigation. American economic review, 91(5), 1369-1401.
 
-## Introduction and the research Question
+## Introduction and the research question
 
-# Example 2. Twins instrument on number of children.
+## Identification strategy
 
-Angrist, J., & Evans, W. N. (1996). Children and their parents' labor supply: Evidence from exogenous variation in family size.
+## Instrumental variable
 
-# Example 3. Wage and quarter of birth.
+## Results
 
-J. Angrist and A. Krueger, "Instrumental Variables and the Search for Identification," Journal of Economic Perspectives, Fall 2001.
+# Example 3. Twins instrument on number of children.
 
-Acemoglu, D., & Angrist, J. (2000). How large are human-capital externalities? Evidence from compulsory schooling laws. NBER macroeconomics annual, 15, 9-59.
-
-RF - Reduced Form 1st - First stage
-
-# important literature
-
-J. Angrist and A. Krueger, "Instrumental Variables and the Search for Identification," Journal of Economic Perspectives, Fall 2001.
-
-J. Angrist, "Lifetime Earnings and the Vietnam Era Draft Lottery: Evidence from Social Security Administrative Records," American Economic Review, June 1990.
-
-Acemoglu, D., & Angrist, J. (2000). How large are human-capital externalities? Evidence from compulsory schooling laws. NBER macroeconomics annual, 15, 9-59.
-
-Angrist, J., & Evans, W. N. (1996). Children and their parents' labor supply: Evidence from exogenous variation in family size.
+[@Angrist1996] Angrist, J., & Evans, W. N. (1996). Children and their parents' labor supply: Evidence from exogenous variation in family size.
 
 # References

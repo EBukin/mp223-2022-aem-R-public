@@ -1,0 +1,13 @@
+---
+title: "Week 12"
+subtitle: "Instrumental Variable"
+bibliography: ../references.bib
+---
+
+## W12
+
+::: callout-tip
+## In class
+
+-   **SLIDES:** 🖥[W12 Instrumental variable](/slides/60-iv/iv.html)
+:::
