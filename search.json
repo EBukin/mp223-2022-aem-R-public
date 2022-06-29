@@ -168,6 +168,41 @@
     "text": "This is the website where most lectures, R application exercises and supplementary materials are developed for the course MP223 Applied Econometric Methods for the Social Sciences (SoSe 2022). it is not a substitute of course Ilias or course StudIP pages, but rather a convenient way of making the slides accessible, downloadable and nice."
   },
   {
+    "objectID": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html",
+    "href": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html",
+    "title": "AE11-01 translog production function",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(alr4)\nlibrary(GGally)\nlibrary(parameters)\nlibrary(performance)\nlibrary(see)\nlibrary(car)\nlibrary(broom)\nlibrary(modelsummary)\nlibrary(texreg)\nlibrary(correlation)\nlibrary(patchwork)\nlibrary(lmtest)\nlibrary(sandwich)\nlibrary(clubSandwich)\nlibrary(forcats)\nlibrary(modelbased)\nlibrary(emmeans)\nlibrary(ggeffects)\nlibrary(insight)\nlibrary(scales)\nlibrary(glue)\n\nknitr::opts_chunk$set(\n  fig.align = \"center\",\n  fig.width = 16,\n  fig.asp = 0.618,\n  fig.retina = 1,\n  out.width = \"100%\", \n  message = FALSE,\n  warning = FALSE,\n  echo = TRUE\n)\n\n\nggplot2::theme_set(ggplot2::theme_bw())\n\nknitr::opts_chunk$set(\n  fig.width = 10,\n  fig.asp = 0.618,\n  fig.retina = 3,\n  dpi = 300,\n  out.width = \"100%\", \n  message = FALSE,\n  echo = TRUE, \n  cache = TRUE\n)\n\n# Custom functions to summaries data nicely\nget_signif <- \n  function(x) {\n    symnum(\n      x,\n      corr = FALSE,\n      na = FALSE,\n      cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),\n      symbols = c(\"***\", \"**\", \"*\", \".\", \" \")\n    ) %>% \n      as.character()\n  }\n\ntidy_skim <- \n  function(dta) {\n    dta %>%\n      select(- any_of(c(\"id\", \"time\"))) %>% \n      skimr::skim_without_charts() %>%\n      as_tibble() %>%\n      select(any_of(c(\"skim_variable\",\"n_missing\")), contains(\"numeric\")) %>%\n      rename_with( ~ str_remove(., \"numeric\\\\.\"))\n  }\n\ntidy_coeftest <- \n  function(\n    mod, \n    mod_name = deparse(substitute(mod)), \n    mod_vcov = vcov(mod),\n    dig = 3, \n    ...) {\n    mod_name_sym <- sym(mod_name)\n    mod %>%\n      lmtest::coeftest(vcov. = mod_vcov)  %>%\n      broom::tidy() %>%\n      mutate(\n          across(c(estimate, std.error),\n                 ~ scales::number(., 1 / 10 ^ dig, big.mark = \",\")),\n        across(c(p.value), ~ insight::format_p(., stars_only = TRUE)),\n        mod_stat := glue::glue(\"{estimate}{p.value} ({std.error})\")\n      ) %>%\n      select(parameter = term, !!mod_name_sym := mod_stat)\n  }\n\ntidy_gof <- \n  function(\n    mod, \n    mod_name = deparse(substitute(mod)), \n    dig = 3, \n    ...) {\n    mod_sum <- summary(mod)\n    mod_sum <- mod_sum$fstatistic\n    if (is.vector(mod_sum)) {\n      df1 <- mod_sum[[2]]\n      df2 <- mod_sum[[3]]\n      df <- str_c(c(df1, df2), collapse = \"; \")\n    } else {\n      df <- str_c(mod_sum$parameter, collapse = \"; \")\n    }\n    mod %>%\n      broom::glance() %>%\n      {\n        dta <- .\n        if (!\"logLik\" %in% names(dta)) {\n          dta <-\n            mutate(dta, logLik = mod %>% stats::logLik() %>% as.numeric())\n        }\n        \n        if (!\"AIC\" %in% names(dta)) {\n          dta <- mutate(dta, AIC = mod %>% stats::AIC() %>% as.numeric())\n        }\n        \n        if (!\"BIC\" %in% names(dta)) {\n          dta <- mutate(dta, BIC = mod %>% stats::BIC() %>% as.numeric())\n        }\n        dta\n      } %>%\n      mutate(\n        across(any_of(c(\"r.squared\", \"deviance\", \"adj.r.squared\")), \n               ~ scales::number(., 1 / 10 ^ dig, big.mark = \",\")),\n        across(any_of(c(\"statistic\", \"logLik\", \"AIC\", \"BIC\")),\n               ~ scales::number(., 1, big.mark = \",\")),\n        `F Statistics (df)` =\n          glue(\"{statistic}{get_signif(p.value)} \", \"({df})\"),\n        nobs = scales::number(nobs, 1, big.mark = \",\")\n      ) %>%\n      select(\n        N = nobs,\n        `R-sq. adj.` = adj.r.squared,\n        `Log likelihood` = logLik,\n        AIC,\n        BIC,\n        `F Statistics (df)`\n      ) %>%\n      pivot_longer(everything(), \n                   names_to = \"parameter\", \n                   values_to = mod_name)\n  }\n\n\ntidy_summary <-\n  function(mod,\n           mod_name = deparse(substitute(mod)),\n           mod_vcov = vcov(mod),\n           dig = 3,\n           ...) {\n    \n    tidy_coeftest(mod,mod_name = mod_name, mod_vcov = mod_vcov, dig = dig) %>% \n      bind_rows(tidy_gof(mod, mod_name = mod_name, dig = dig))\n  }\n\n\ntidy_summary_list <-\n  function(mod_list,\n           mod_vcov = NULL,\n           dig = 3,\n           ...) {\n    # browser()\n    mod_list %>%\n      list(., names(.), seq_along(.)) %>% \n      pmap(~ {\n        vcov_here <- vcov(..1)\n        if (!is.null(mod_vcov[[..3]]))\n          vcov_here <- mod_vcov[[..3]]\n        tidy_summary(\n          mod = .x,\n          mod_name = .y,\n          mod_vcov = vcov_here,\n          dig = dig\n        )\n      }) %>%\n      reduce(full_join, by = \"parameter\")\n  }"
+  },
+  {
+    "objectID": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#data-loading",
+    "href": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#data-loading",
+    "title": "AE11-01 translog production function",
+    "section": "1.1 Data loading",
+    "text": "1.1 Data loading\nCheck help for RiceFarms.\n\nlibrary(readr)\nlibrary(haven)\nlibrary(plm)\n\n# dta <- read_dta(\"data/Ghana_Firms_JDE04.dta\")\n# dta_p <- dta %>% pdata.frame(index = c(\"firm\", \"wave\"))\n# \n# # Making panel structure\n# pdim(dta_p)"
+  },
+  {
+    "objectID": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#estimate-a-production-function-using-various-panel-regression-methods",
+    "href": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#estimate-a-production-function-using-various-panel-regression-methods",
+    "title": "AE11-01 translog production function",
+    "section": "1.2 Estimate a production function using various panel regression methods",
+    "text": "1.2 Estimate a production function using various panel regression methods\nSelect an optimal regression model explain the differences between the estimates."
+  },
+  {
+    "objectID": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#extract-total-factor-productivity-measures-from-pooled-ols-and-fe-models",
+    "href": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#extract-total-factor-productivity-measures-from-pooled-ols-and-fe-models",
+    "title": "AE11-01 translog production function",
+    "section": "1.3 Extract total factor productivity measures from pooled ols and fe models",
+    "text": "1.3 Extract total factor productivity measures from pooled ols and fe models"
+  },
+  {
+    "objectID": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#plot-tfp-measures-agains-firm-size-in-tems-of-labout-or-capital.",
+    "href": "ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html#plot-tfp-measures-agains-firm-size-in-tems-of-labout-or-capital.",
+    "title": "AE11-01 translog production function",
+    "section": "1.4 Plot TFP measures agains firm size in tems of labout or capital.",
+    "text": "1.4 Plot TFP measures agains firm size in tems of labout or capital.\n\nPerform non-parametric smoothing."
+  },
+  {
     "objectID": "ae/ae08-panel-regression-part-1/ae08-01-production-function.html",
     "href": "ae/ae08-panel-regression-part-1/ae08-01-production-function.html",
     "title": "AE06-01 linear transformation and interaction term: the toolbox",
