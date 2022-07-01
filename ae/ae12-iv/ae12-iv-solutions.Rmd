@@ -1,0 +1,226 @@
+---
+title: "AE12 Instrumental Variable"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    code_folding: show
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(GGally)
+library(parameters)
+library(performance)
+library(see)
+library(car)
+library(broom)
+library(modelsummary)
+library(texreg)
+library(correlation)
+library(patchwork)
+library(lmtest)
+library(sandwich)
+library(clubSandwich)
+library(forcats)
+library(modelbased)
+library(emmeans)
+library(ggeffects)
+library(insight)
+library(scales)
+library(skimr)
+library(glue)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+
+knitr::opts_chunk$set(
+  fig.align = "center",
+  fig.width = 10,
+  fig.asp = 0.618,
+  fig.retina = 3,
+  dpi = 300,
+  out.width = "100%", 
+  message = FALSE,
+  echo = TRUE, 
+  cache = FALSE
+)
+```
+
+# Goals:
+
+-   learn how to fit the instrumental variable regression.
+
+# Exercise 1. Reproduce the effect schoolin on wage from the seminal paper:
+
+Angrist, J. D., & Krueger, A. B. (1991). Does Compulsory School Attendance Affect Schooling and Earnings? The Quarterly Journal of Economics, 106, 979--1014. https://doi.org/10.2307/2937954
+
+# 1 Data loading
+
+Following variables are there:
+
+lnw - log if wage 
+
+s - years of schooling 
+
+yob - year of birth 
+
+qob - quarter of birth 
+
+sob - week of birth
+
+Load data, select and rename variable converting them to the factors if needed. Glimpse and do the summary statistics.
+
+```{r}
+library(haven)
+dta <- 
+  read_dta("data/ak91.dta") %>% 
+  rename(schooling = s) %>% 
+  mutate(across(c(yob, qob, sob), ~ as.factor(.)))
+glimpse(dta)
+skimr::skim(dta)
+```
+
+## 1.2 Data visualisation
+
+Make data for plotting.
+
+Create a date variable and summaries everything by year and quarter of birth.
+
+```{r}
+library(lubridate)
+plot_dta <-
+  dta %>% 
+  mutate(date = str_c("19", yob, "-", qob) %>% 
+           lubridate::yq(.)) %>% 
+  group_by(date) %>% 
+  summarise(across(c(lnw, schooling), ~mean(.))) %>% 
+  ungroup() %>% 
+  mutate(
+    yob = lubridate::year(date) %>% as.factor(),
+    qob = lubridate::quarter(date) %>% as.factor())
+plot_dta  
+```
+
+Reproduce plots from the paper. Place right axis names and formatting.
+
+```{r}
+plot_dta %>%
+  ggplot() + 
+  aes(y = schooling, x = date) + 
+  geom_point(aes(colour = qob)) + 
+  geom_line() + 
+  geom_label(aes(label = qob, fill = qob), colour = "white") +
+  xlab("Year and quarter of birth")  +
+  ylab("Average years of schooling") + 
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y")
+  
+
+plot_dta %>%
+  ggplot() + 
+  aes(y = lnw, x = date) + 
+  geom_point(aes(colour = qob)) + 
+  geom_line() + 
+  geom_label(aes(label = qob, fill = qob), colour = "white") +
+  xlab("Year and quarter of birth")  +
+  ylab("Average log of wearly wage") + 
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y")
+```
+
+
+# 2 Produce an IV estimates using lm (only for the example)
+
+Never use  manual 2SLS estimations in real analysis as your SE are inefficient. This is an example for proving the point. 
+
+## 2.1 OLS
+
+```{r}
+fitols <- lm(lnw ~ schooling + yob, dta)
+summary(fitols)
+```
+
+## 2.2 first stage with the 1th qurter only
+
+```{r}
+fit_fs_q1 <- lm(schooling ~ yob + qob1, 
+                dta %>% mutate(qob1 = as.integer(qob == "1")))
+summary(fit_fs_q1)
+
+fit_fs_noq <- lm(schooling ~ yob, dta )
+summary(fit_fs_noq)
+```
+
+## 2.2 first stage with all quarters of birth
+
+```{r}
+fit_fs_qall <- lm(schooling ~ yob + qob, dta)
+summary(fit_fs_qall)
+```
+
+## 2.3 second stages
+
+```{r}
+fit_ss_q1 <- lm(lnw ~ schooling_hat + yob, 
+                dta %>% mutate(schooling_hat = fitted(fit_fs_q1)))
+
+fit_ss_qall <- lm(lnw ~ schooling_hat + yob, 
+                dta %>% mutate(schooling_hat = fitted(fit_fs_qall)))
+summary(fit_ss_q1)
+summary(fit_ss_qall)
+```
+
+## 2.4 compare the models
+
+```{r}
+library(modelsummary)
+modelsummary(
+  list(
+    `OLS` = fitols,
+    `Frst. St. no IV` = fit_fs_noq, 
+    `Frst. St. Q1` = fit_fs_q1,
+    `Frst. St. Q all` = fit_fs_qall ,
+    `Secnd. St. Q1` = fit_ss_q1,
+    `Secnd. St. Q all` = fit_ss_qall
+  ),
+  fmt = "%.3f",
+  estimate = "{estimate}{stars} ({std.error})",
+  statistic = NULL,
+  gof_map = c(
+    "adj.r.squared",
+    "nobs",
+    "statistic.Weak.instrument",
+    "statistic.Wu.Hausman",
+    "F",
+    "p.value"
+  ),
+  coef_rename =
+    c(
+      "schooling" = "Years of schooling",
+      "schooling_hat" = "Years of schooling"
+    ),
+  coef_omit = "yob|Intercept",
+  stars = c("*" = 0.05, "**" = 0.01, "***" = 0.001),
+  title = "Manual 2SLS"
+)
+```
+
+## 3. Make an IV estimation
+
+```{r}
+library(AER)
+
+iv_q1 <- ivreg(
+  lnw ~ schooling + yob | + yob + qob1,
+  data = dta %>% mutate(qob1 = as.integer(qob == "1"))
+)
+summary(iv_q1, diagnostics = TRUE)
+
+iv_qall <- ivreg(lnw ~ schooling + yob | + yob + qob, data = dta)
+summary(iv_qall, diagnostics = T)
+```
