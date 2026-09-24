@@ -32,12 +32,15 @@ jobs:
       # no longer exist. They are never re-rendered: the previously deployed
       # output is carried forward from gh-pages instead. Same for the two
       # exercise pages whose 2022 code current packages reject.
+      # Checked out OUTSIDE the project directory. Inside it, Quarto treats the
+      # checkout as project content and copies parts of it into _site, which
+      # published a copy of the old site at /_preserved/.
       - name: Check out the deployed site (for preserved output)
         uses: actions/checkout@v4
         continue-on-error: true
         with:
           ref: gh-pages
-          path: _preserved
+          path: ${{ runner.temp }}/preserved
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -64,28 +67,33 @@ jobs:
         run: quarto render
 
       - name: Restore preserved 2022 output
+        env:
+          PRESERVED: ${{ runner.temp }}/preserved
         run: |
           set -euo pipefail
 
-          if [ ! -d _preserved ]; then
+          if [ ! -d "$PRESERVED" ]; then
             echo "::warning::No gh-pages checkout; slides will be missing from this build."
             exit 0
           fi
 
           # 1. The revealjs decks and every asset they reference.
-          if [ -d _preserved/slides ]; then
+          if [ -d "$PRESERVED/slides" ]; then
             mkdir -p _site/slides
-            cp -r _preserved/slides/. _site/slides/
+            cp -r "$PRESERVED/slides/." _site/slides/
             echo "restored $(find _site/slides -name '*.html' | wc -l) slide decks"
           fi
 
-          # 2. revealjs runtime. Nothing in this render emits it, because no
-          #    revealjs document is rendered, so it must be carried over or every
-          #    deck loses its stylesheet and navigation.
-          if [ -d _preserved/site_libs/revealjs ]; then
+          # 2. The 2022 site_libs, without overwriting anything this build made.
+          #    The preserved pages reference asset names the current Quarto no
+          #    longer emits (bootstrap.min.css, kePrint, lightable, and the old
+          #    quarto-html files); revealjs is emitted by nothing here at all,
+          #    since no revealjs document is rendered. Current Quarto hashes its
+          #    bootstrap filenames, so the old and new names do not collide.
+          if [ -d "$PRESERVED/site_libs" ]; then
             mkdir -p _site/site_libs
-            cp -r _preserved/site_libs/revealjs _site/site_libs/
-            echo "restored site_libs/revealjs"
+            cp -rn "$PRESERVED/site_libs/." _site/site_libs/ || true
+            echo "restored site_libs (no-clobber)"
           fi
 
           # 3. Exercise pages excluded from the render list (see _quarto.yml).
@@ -93,10 +101,10 @@ jobs:
             ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity \
             ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox
           do
-            if [ -f "_preserved/$page.html" ]; then
+            if [ -f "$PRESERVED/$page.html" ]; then
               mkdir -p "_site/$(dirname "$page")"
-              cp "_preserved/$page.html" "_site/$page.html"
-              [ -d "_preserved/${page}_files" ] && cp -r "_preserved/${page}_files" "_site/$(dirname "$page")/"
+              cp "$PRESERVED/$page.html" "_site/$page.html"
+              [ -d "$PRESERVED/${page}_files" ] && cp -r "$PRESERVED/${page}_files" "_site/$(dirname "$page")/"
               echo "restored $page.html"
             else
               echo "::warning::No preserved output for $page"
@@ -116,10 +124,18 @@ jobs:
                    ae/ae12-iv/ae12-iv.html \
                    ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html \
                    ae/ae03-data-wrangling.zip \
-                   site_libs/revealjs/dist/reveal.js
+                   site_libs/revealjs/dist/reveal.js \
+                   site_libs/bootstrap/bootstrap.min.css \
+                   site_libs/kePrint-0.0.1/kePrint.js
           do
             if [ ! -e "_site/$f" ]; then echo "::error::missing _site/$f"; fail=1; fi
           done
+
+          # The gh-pages checkout must never end up inside the published site.
+          if [ -e _site/_preserved ]; then
+            echo "::error::_site/_preserved exists: the gh-pages checkout leaked into the build"
+            fail=1
+          fi
           # An LFS pointer published as a dataset is worse than a missing file,
           # because nothing looks wrong until a student opens it.
           for dta in _site/ae/ae12-iv/data/ak91.dta \
