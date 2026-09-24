@@ -32,15 +32,27 @@ jobs:
       # no longer exist. They are never re-rendered: the previously deployed
       # output is carried forward from gh-pages instead. Same for the two
       # exercise pages whose 2022 code current packages reject.
-      # Checked out OUTSIDE the project directory. Inside it, Quarto treats the
-      # checkout as project content and copies parts of it into _site, which
-      # published a copy of the old site at /_preserved/.
+      # actions/checkout only accepts a path inside the workspace, so this lands
+      # in the project and is moved out immediately afterwards. Left in place it
+      # is project content as far as Quarto is concerned, and its img/ folders
+      # get picked up as site resources and published under /_preserved/.
       - name: Check out the deployed site (for preserved output)
         uses: actions/checkout@v4
         continue-on-error: true
         with:
           ref: gh-pages
-          path: ${{ runner.temp }}/preserved
+          path: _preserved_checkout
+
+      - name: Move the preserved checkout out of the project
+        run: |
+          set -euo pipefail
+          if [ -d _preserved_checkout ]; then
+            rm -rf "${{ runner.temp }}/preserved"
+            mv _preserved_checkout "${{ runner.temp }}/preserved"
+            echo "moved to ${{ runner.temp }}/preserved"
+          else
+            echo "::warning::gh-pages checkout did not happen"
+          fi
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

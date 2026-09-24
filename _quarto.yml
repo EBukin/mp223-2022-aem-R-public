@@ -27,11 +27,14 @@ project:
 
   # Quarto only copies resources it sees referenced, which is why no .zip ever
   # reached the deployed site. Declaring them explicitly fixes the downloads.
+  # Anchored with a leading slash. Unanchored, "img/**" matches any img/
+  # directory anywhere under the project, including one in a checkout of the
+  # deployed site, which published a copy of the old site into _site.
   resources:
-    - "ae/**/*.zip"
-    - "ae/**/data/**"
-    - "ae/**/tinytable_assets/**"
-    - "img/**"
+    - "/ae/**/*.zip"
+    - "/ae/**/data/**"
+    - "/ae/**/tinytable_assets/**"
+    - "/img/**"
 
 website:
   page-navigation: true
