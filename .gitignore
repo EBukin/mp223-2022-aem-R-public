@@ -18,3 +18,10 @@ libs/
 # student bundles by scripts/build-bundles.py instead.
 /_site/
 # _freeze/ is intentionally committed
+
+# _preserved/ holds the 2022 build assets that cannot be regenerated:
+# site_libs (no revealjs document is rendered any more, and current Quarto
+# emits different asset names) and the two exercise pages excluded from the
+# render list. These must be tracked despite the *.html and *_files/ rules.
+!_preserved/
+!_preserved/**
