@@ -1,0 +1,57 @@
+---
+title: "📦 ae11-panel-regression-part-2"
+subtitle: "Translog production function on Ghanaian firm data"
+---
+
+A second panel-data exercise with a more flexible functional form. Belongs to [Panel regression](../topics/50-panel-regression.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae11-panel-regression-part-2.zip" download>⬇ Download ae11-panel-regression-part-2.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae11-01-translog-production-function.Rmd</span>
+    <span class="mp-file-desc">A translog specification with squared and interacted inputs, estimated on firm panel data.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.Rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Data</span><span>Download</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">data/Ghana_Firms_JDE04.dta</span>
+    <span class="mp-file-desc">Panel of Ghanaian manufacturing firms, in Stata format.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae11-panel-regression-part-2/data/Ghana_Firms_JDE04.dta" download>dta</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae11-panel-regression-part-2.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links">
+      
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Panel regression](../topics/50-panel-regression.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae11-panel-regression-part-2)

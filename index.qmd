@@ -1,15 +1,180 @@
 ---
-title: "mp223 Applied Econometric Methods for the Social Sciences (SoSe 2022)"
+title: "MP223 Applied Econometric Methods for the Social Sciences"
+subtitle: "Justus Liebig University Giessen · Summer Semester 2022"
+toc: false
+aliases:
+  - /weeks/week01-checklist.html
 ---
 
-This is the website where most lectures, R application exercises and supplementary materials are developed for the course MP223 Applied Econometric Methods for the Social Sciences (SoSe 2022). it is not a substitute of [course Ilias](https://ilias.uni-giessen.de/goto.php?target=crs_301421&client_id=JLUG) or [course StudIP](https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&again=yes) pages, but rather a convenient way of making the slides accessible, downloadable and nice.
+::: mp-hero
+# Lecture slides, R code and project bundles {.unnumbered}
 
-```{r echo = FALSE}
-knitr::knit_exit()
+::: mp-hero-sub
+Everything developed for MP223 in one place: seven topics, fifteen lecture
+decks, twenty worked R exercises and seven downloadable RStudio projects.
+Start with the slides below, then work through the matching exercises.
+:::
+
+::: mp-hero-meta
+[Taught and written by Eduard (Eddie) Bukin](https://ebukin.github.io) ·
+[Ilias](https://ilias.uni-giessen.de/goto.php?target=crs_301421&client_id=JLUG) ·
+[StudIP](https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&again=yes) ·
+[YouTube playlist](https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY)
+:::
+:::
+
+## Lecture slides
+
+All fifteen decks, in teaching order. Every deck opens as a full-screen
+presentation — press `?` inside it for navigation shortcuts.
+
+```{=html}
+<div class="mp-grid">
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">1 · Introduction</span>
+    <h3 class="mp-card-title"><a href="slides/00-introduction/00-introduction.html">Introduction. Organisation. Setup.</a></h3>
+    <p class="mp-card-desc">How the course runs, software setup, and the two ideas everything rests on: ceteris paribus and selection bias.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">2 · Data wrangling</span>
+    <h3 class="mp-card-title"><a href="slides/50-data-wrangling/workflow-tidy-data-wrangling.html">Workflow, tidy data, wrangling</a></h3>
+    <p class="mp-card-desc">The data-analysis workflow and what makes a dataset tidy.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">2 · Data wrangling</span>
+    <h3 class="mp-card-title"><a href="slides/50-data-wrangling/dplyr.html">Wrangling with dplyr</a></h3>
+    <p class="mp-card-desc">Extended version of the workflow deck, with the full dplyr verb set worked through.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">2 · Data wrangling</span>
+    <h3 class="mp-card-title"><a href="slides/50-data-wrangling/import-data.html">Import data</a></h3>
+    <p class="mp-card-desc">Reading CSV and Excel files with readr and readxl, and cleaning names with janitor.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">3 · Describing data</span>
+    <h3 class="mp-card-title"><a href="slides/20-data-description/exploring-numeric-data.html">Exploring numerical data</a></h3>
+    <p class="mp-card-desc">Distributions, summaries and the plots that reveal them.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">3 · Describing data</span>
+    <h3 class="mp-card-title"><a href="slides/20-data-description/correlation.html">Correlation</a></h3>
+    <p class="mp-card-desc">Correlation types, how to read their strength, and where they mislead.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">4 · Simple regression</span>
+    <h3 class="mp-card-title"><a href="slides/10-simple-regression/10-simple-regression.html">Simple regression</a></h3>
+    <p class="mp-card-desc">One predictor, least squares, and what the coefficients actually mean.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">5 · Multiple regression</span>
+    <h3 class="mp-card-title"><a href="slides/30-multiple-regression/multiple-regression.html">Multiple linear regression</a></h3>
+    <p class="mp-card-desc">Several predictors at once, and holding other things equal in practice.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">5 · Multiple regression</span>
+    <h3 class="mp-card-title"><a href="slides/30-multiple-regression/linearity.html">Linearity</a></h3>
+    <p class="mp-card-desc">Diagnosing non-linearity and fixing it with transformations.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">5 · Multiple regression</span>
+    <h3 class="mp-card-title"><a href="slides/30-multiple-regression/ovb.html">Omitted variable bias</a></h3>
+    <p class="mp-card-desc">What leaving a variable out does to the estimates you keep.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">5 · Multiple regression</span>
+    <h3 class="mp-card-title"><a href="slides/30-multiple-regression/collinearity.html">Collinearity</a></h3>
+    <p class="mp-card-desc">When predictors carry the same information, and how to detect it.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">5 · Multiple regression</span>
+    <h3 class="mp-card-title"><a href="slides/30-multiple-regression/heteroscedasticity.html">Heteroscedasticity</a></h3>
+    <p class="mp-card-desc">Non-constant error variance, its consequences, and robust standard errors.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">5 · Multiple regression</span>
+    <h3 class="mp-card-title"><a href="slides/30-multiple-regression/hedonic-regression.html">Hedonic prices model</a></h3>
+    <p class="mp-card-desc">A full applied example: decomposing prices into the value of characteristics.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">6 · Panel regression</span>
+    <h3 class="mp-card-title"><a href="slides/40-panel-regression/panel-regression.html">Panel regression analysis</a></h3>
+    <p class="mp-card-desc">Fixed and random effects, and what repeated observations buy you.</p>
+  </div>
+
+  <div class="mp-card is-slide">
+    <span class="mp-card-kicker">7 · Instrumental variables</span>
+    <h3 class="mp-card-title"><a href="slides/60-iv/iv.html">Instrumental variable</a></h3>
+    <p class="mp-card-desc">Identification when a regressor is endogenous, and the returns-to-schooling example.</p>
+  </div>
+
+</div>
 ```
 
-This is the legend of key study components in the course.
+## Work through the code
 
-| Prepare in advance (read, watch, do) | Slides | Application exercise | Homework | Pre-recorded video | Project |
-|:------------------------------------:|:------:|:--------------------:|:--------:|:------------------:|:-------:|
-|                  📖                  |   🖥️   |          📋          |    ✍️    |         📺         |   📂    |
+Every exercise is published as a rendered walkthrough you can read in the
+browser, and shipped inside an RStudio project you can download and run.
+
+```{=html}
+<div class="mp-grid">
+
+  <div class="mp-card is-exercise">
+    <span class="mp-card-kicker">Exercises</span>
+    <h3 class="mp-card-title"><a href="exercises.html">All exercises &amp; code</a></h3>
+    <p class="mp-card-desc">Twenty worked R walkthroughs, grouped by topic, with solutions where they exist.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Bundles</span>
+    <h3 class="mp-card-title"><a href="exercises.html#project-bundles">Downloadable projects</a></h3>
+    <p class="mp-card-desc">Seven ready-to-open RStudio projects with their data. See what is inside before downloading.</p>
+  </div>
+
+  <div class="mp-card is-reading">
+    <span class="mp-card-kicker">Resources</span>
+    <h3 class="mp-card-title"><a href="resources.html">External learning resources</a></h3>
+    <p class="mp-card-desc">Books, cheat sheets, interactive tutorials and videos for learning R.</p>
+  </div>
+
+</div>
+```
+
+## How the materials are labelled
+
+The same icons are used in the sidebar and on every topic page:
+
+| Icon | Material |
+|:--:|:--|
+| 🖥 | Lecture slides — a revealjs deck, opens full screen |
+| 📋 | Application exercise — a rendered R walkthrough |
+| 📦 | Project bundle — a downloadable RStudio project with data |
+| 📺 | Video recording |
+| 📖 | Reading or cheat sheet |
+
+## About this site
+
+This site collects the lecture slides, R application exercises and
+supplementary materials developed for **MP223 Applied Econometric Methods for
+the Social Sciences** at JLU Giessen, Summer Semester 2022. It does not replace
+the [Ilias](https://ilias.uni-giessen.de/goto.php?target=crs_301421&client_id=JLUG)
+or [StudIP](https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&again=yes)
+course pages — it makes the slides and code accessible, downloadable and
+readable on any device.
+
+Written and taught by **[Eduard (Eddie) Bukin](https://ebukin.github.io)** —
+applied economist and open-source data scientist. All materials are open
+source and available [on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/).

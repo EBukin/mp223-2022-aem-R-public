@@ -1,0 +1,15 @@
+{
+  "hash": "a6559b7387c631fb45683e89fa0eee49",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"AE03-03 Visualisation of the categorical data\"\nauthor: \"Eduard Bukin\"\ndate: \"2026-09-23\"\noutput: \n  html_document:\n    code_folding: show\nbibliography: ../../references.bib\n---\n\n## Setups\n\nWe will us `tidyverse` for data wrangling and `readr` and `readxl` for data import.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(readr)       # install.packages(\"readr\")\nlibrary(readxl)      # install.packages(\"readxl\")\nlibrary(janitor)     # install.packages(\"janitor\")\nlibrary(skimr)       # install.packages(\"skimr\")\n```\n:::\n\n\n## Categorical data\n\nUse Chapter 4 in intro to modern stats: https://openintro-ims.netlify.app/explore-categorical.html#chp4-exercises\n\nCheck examples and problems in the end.\n\nExploratory data analysis: 1 - Exploring categorical data\n\nhttps://openintrostat.github.io/ims-tutorials/02-explore/\n\nhttps://openintro.shinyapps.io/ims-02-explore-01/\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

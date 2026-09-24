@@ -1,0 +1,143 @@
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Only one deploy at a time; a newer push supersedes an in-flight one.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          # ak91.dta and Ghana_Firms_JDE04.dta are stored in Git LFS. Without
+          # this they check out as ~130-byte pointer files, which would be
+          # zipped into the bundles and published as the datasets themselves.
+          lfs: true
+
+      # The revealjs decks were rendered in 2022 against package versions that
+      # no longer exist. They are never re-rendered: the previously deployed
+      # output is carried forward from gh-pages instead. Same for the two
+      # exercise pages whose 2022 code current packages reject.
+      - name: Check out the deployed site (for preserved output)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: _preserved
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      # Every exercise that still renders has a committed _freeze/ result, so
+      # Quarto reuses it and executes no R here. R is installed only because the
+      # knitr engine is declared; no package restore is needed or wanted.
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install knitr and rmarkdown
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::knitr
+            any::rmarkdown
+
+      - name: Rebuild downloadable project bundles
+        run: python3 scripts/build-bundles.py
+
+      - name: Render site
+        run: quarto render
+
+      - name: Restore preserved 2022 output
+        run: |
+          set -euo pipefail
+
+          if [ ! -d _preserved ]; then
+            echo "::warning::No gh-pages checkout; slides will be missing from this build."
+            exit 0
+          fi
+
+          # 1. The revealjs decks and every asset they reference.
+          if [ -d _preserved/slides ]; then
+            mkdir -p _site/slides
+            cp -r _preserved/slides/. _site/slides/
+            echo "restored $(find _site/slides -name '*.html' | wc -l) slide decks"
+          fi
+
+          # 2. revealjs runtime. Nothing in this render emits it, because no
+          #    revealjs document is rendered, so it must be carried over or every
+          #    deck loses its stylesheet and navigation.
+          if [ -d _preserved/site_libs/revealjs ]; then
+            mkdir -p _site/site_libs
+            cp -r _preserved/site_libs/revealjs _site/site_libs/
+            echo "restored site_libs/revealjs"
+          fi
+
+          # 3. Exercise pages excluded from the render list (see _quarto.yml).
+          for page in \
+            ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity \
+            ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox
+          do
+            if [ -f "_preserved/$page.html" ]; then
+              mkdir -p "_site/$(dirname "$page")"
+              cp "_preserved/$page.html" "_site/$page.html"
+              [ -d "_preserved/${page}_files" ] && cp -r "_preserved/${page}_files" "_site/$(dirname "$page")/"
+              echo "restored $page.html"
+            else
+              echo "::warning::No preserved output for $page"
+            fi
+          done
+
+      - name: Drop references to assets that were never produced
+        run: python3 scripts/strip-dangling-images.py
+
+      - name: Check that nothing is missing
+        run: |
+          set -euo pipefail
+          fail=0
+          for f in index.html slides.html exercises.html resources.html about.html \
+                   slides/60-iv/iv.html \
+                   slides/00-introduction/00-introduction.html \
+                   ae/ae12-iv/ae12-iv.html \
+                   ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html \
+                   ae/ae03-data-wrangling.zip \
+                   site_libs/revealjs/dist/reveal.js
+          do
+            if [ ! -e "_site/$f" ]; then echo "::error::missing _site/$f"; fail=1; fi
+          done
+          # An LFS pointer published as a dataset is worse than a missing file,
+          # because nothing looks wrong until a student opens it.
+          for dta in _site/ae/ae12-iv/data/ak91.dta \
+                     _site/ae/ae11-panel-regression-part-2/data/Ghana_Firms_JDE04.dta
+          do
+            if head -c 40 "$dta" 2>/dev/null | grep -q 'git-lfs'; then
+              echo "::error::$dta is an LFS pointer, not the dataset"; fail=1
+            fi
+          done
+
+          echo "slide decks: $(find _site/slides -name '*.html' 2>/dev/null | wc -l)"
+          echo "exercises:   $(find _site/ae -name '*.html' 2>/dev/null | wc -l)"
+          echo "bundles:     $(find _site/ae -maxdepth 1 -name '*.zip' 2>/dev/null | wc -l)"
+          exit $fail
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: _site

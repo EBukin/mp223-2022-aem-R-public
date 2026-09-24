@@ -1,78 +1,258 @@
 project:
   type: website
+  output-dir: _site
+
+  # Slides are deliberately absent from this list. The revealjs decks were
+  # rendered in 2022 and are preserved as-is by the deploy workflow, which also
+  # carries over site_libs/revealjs. Adding them here would re-execute all the
+  # slide R code; see .github/workflows/build-site.yml.
+  render:
+    - "index.qmd"
+    - "about.qmd"
+    - "slides.qmd"
+    - "exercises.qmd"
+    - "resources.qmd"
+    - "topics/*.qmd"
+    - "bundles/*.qmd"
+    - "ae/**/*.Rmd"
+    - "ae/**/*.rmd"
+    # These four still carry 2022 code that current versions of
+    # marginaleffects / ggeffects / modelsummary reject. The first two keep
+    # their preserved 2022 output (restored by the deploy workflow); the two
+    # ae12 solutions have no preserved output and are not linked in the nav.
+    - "!ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.Rmd"
+    - "!ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.rmd"
+    - "!ae/ae12-iv/ae12-iv-solutions.Rmd"
+    - "!ae/ae12-iv/ae12-iv-solutions-2.Rmd"
+
+  # Quarto only copies resources it sees referenced, which is why no .zip ever
+  # reached the deployed site. Declaring them explicitly fixes the downloads.
+  resources:
+    - "ae/**/*.zip"
+    - "ae/**/data/**"
+    - "ae/**/tinytable_assets/**"
+    - "img/**"
 
 website:
   page-navigation: true
-  title: "mp223 Applied Econometric Methods for the Socials Sciences"
-  description: "mp223 AEM at JLU Giessen. Summer Semester 2022."
+  title: "MP223 Applied Econometric Methods for the Social Sciences"
+  description: "Lecture slides, R application exercises and downloadable project bundles for MP223 at JLU Giessen, Summer Semester 2022. By Eduard (Eddie) Bukin."
   site-url: "https://ebukin.github.io/mp223-2022-aem-R-public/"
-  
+  favicon: "img/jlu-logo.png"
+
   repo-url: https://github.com/EBukin/mp223-2022-aem-R-public/
   repo-actions: [edit, issue]
-  
+
+  open-graph: true
+
   page-footer:
-    right: "This page is built with [Quarto](https://quarto.org/)."
-    left: "&copy; Copyright 2022, Eduard Bukin"
+    left: |
+      &copy; 2022 [Eduard (Eddie) Bukin](https://ebukin.github.io) &middot;
+      Applied economist and open-source data scientist
+    center: |
+      Course materials for MP223 at [JLU Giessen](https://www.uni-giessen.de/)
+    right: |
+      Built with [Quarto](https://quarto.org/) &middot;
+      [Source](https://github.com/EBukin/mp223-2022-aem-R-public/)
     background: "#0168b3"
-    
-  
-  sidebar:
-    background: "#989898"
-    logo: "img/jlu-logo-1.jfif"
-    pinned: true
-    align: center
-    tools:
+
+  navbar:
+    logo: "img/jlu-logo.png"
+    logo-alt: "JLU Giessen logo"
+    title: "MP223 Applied Econometrics"
+    search: true
+    left:
+      - href: index.qmd
+        text: "Home"
+      - href: slides.qmd
+        text: "Slides"
+      - href: exercises.qmd
+        text: "Exercises and code"
+      - href: resources.qmd
+        text: "Resources"
+      - href: about.qmd
+        text: "About the author"
+    right:
       - icon: github
         href: https://github.com/EBukin/mp223-2022-aem-R-public/
-        text: "Source code"
+        aria-label: "Source code on GitHub"
+      - icon: person-circle
+        href: https://ebukin.github.io
+        aria-label: "Author's home page"
       - icon: info-square
-        text: "Useful links"
+        aria-label: "Course platforms"
         menu:
-          - text: Ilias
+          - text: "Ilias course page"
             url: https://ilias.uni-giessen.de/goto.php?target=crs_301421&client_id=JLUG
-          - text: StudIP
+          - text: "StudIP course page"
             url: https://studip.uni-giessen.de/dispatch.php/course/details?sem_id=b1775c5097d2a85c2986b7667d22c3dc&again=yes
-          - text: Youtube playlist
+          - text: "YouTube playlist"
             url: https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY
-        
+
+  sidebar:
     style: "docked"
+    pinned: true
+    align: left
     search: true
-    
-    collapse-level: 2
+    collapse-level: 1
     contents:
       - href: index.qmd
         text: "Course information"
-        
-      - section: "Weekly checklists"
-        contents:
-          - href: weeks/week01-checklist.qmd
-            text: "Week 1"
-          - href: weeks/week03-checklist.qmd
-            text: "Week 3"
-          - href: weeks/week04-checklist.qmd
-            text: "Week 4"
-          - href: weeks/week05-checklist.qmd
-            text: "Week 5"
-          - href: weeks/week06-checklist.qmd
-            text: "Week 6"
-          - href: weeks/week08-checklist.qmd
-            text: "Week 8"
-          - href: weeks/week12-checklist.qmd
-            text: "Week 12"
+      - href: about.qmd
+        text: "About the author"
 
-  opengraph: true
+      - section: "1 &middot; Introduction"
+        href: topics/00-introduction.qmd
+        contents:
+          - href: topics/00-introduction.qmd
+            text: "Overview"
+          - text: "🖥 Introduction. Organisation. Setup."
+            href: /slides/00-introduction/00-introduction.html
+          - href: topics/00-getting-started-with-R.qmd
+            text: "📺 Getting started with R"
+
+      - section: "2 &middot; Data wrangling"
+        href: topics/10-data-wrangling.qmd
+        contents:
+          - href: topics/10-data-wrangling.qmd
+            text: "Overview"
+          - text: "🖥 Workflow, tidy data, wrangling"
+            href: /slides/50-data-wrangling/workflow-tidy-data-wrangling.html
+          - text: "🖥 Wrangling with dplyr (extended)"
+            href: /slides/50-data-wrangling/dplyr.html
+          - text: "🖥 Import data"
+            href: /slides/50-data-wrangling/import-data.html
+          - text: "📋 AE03-01 Import, clean, summarise, plot"
+            href: /ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html
+          - href: bundles/ae03-data-wrangling.qmd
+            text: "📦 Bundle: ae03-data-wrangling"
+
+      - section: "3 &middot; Describing data"
+        href: topics/20-data-description.qmd
+        contents:
+          - href: topics/20-data-description.qmd
+            text: "Overview"
+          - text: "🖥 Exploring numerical data"
+            href: /slides/20-data-description/exploring-numeric-data.html
+          - text: "🖥 Correlation"
+            href: /slides/20-data-description/correlation.html
+          - text: "📋 AE03-02 Plastic waste"
+            href: /ae/ae03-data-wrangling/ae03-02-plastic-waste.html
+          - text: "📋 AE03-02 Plastic waste — solutions"
+            href: /ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html
+          - text: "📋 AE03-03 Correlation"
+            href: /ae/ae03-data-wrangling/ae03-03-correlation.html
+          - text: "📋 AE03-04 Categorical data (homework)"
+            href: /ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.html
+          - href: bundles/ae03-data-wrangling-hw.qmd
+            text: "📦 Bundle: ae03-data-wrangling-hw"
+
+      - section: "4 &middot; Simple regression"
+        href: topics/30-simple-regression.qmd
+        contents:
+          - href: topics/30-simple-regression.qmd
+            text: "Overview"
+          - text: "🖥 Simple regression"
+            href: /slides/10-simple-regression/10-simple-regression.html
+
+      - section: "5 &middot; Multiple regression"
+        href: topics/40-multiple-regression.qmd
+        contents:
+          - href: topics/40-multiple-regression.qmd
+            text: "Overview"
+          - text: "🖥 Multiple linear regression"
+            href: /slides/30-multiple-regression/multiple-regression.html
+          - text: "🖥 Linearity"
+            href: /slides/30-multiple-regression/linearity.html
+          - text: "🖥 Omitted variable bias"
+            href: /slides/30-multiple-regression/ovb.html
+          - text: "🖥 Collinearity"
+            href: /slides/30-multiple-regression/collinearity.html
+          - text: "🖥 Heteroscedasticity"
+            href: /slides/30-multiple-regression/heteroscedasticity.html
+          - text: "🖥 Hedonic prices model"
+            href: /slides/30-multiple-regression/hedonic-regression.html
+          - text: "📋 AE04-01 Multiple linear regression"
+            href: /ae/ae04-multiple-regression-part-1/ae04-01-MLR.html
+          - text: "📋 AE04-02 Linearity"
+            href: /ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html
+          - text: "📋 AE04-03 Hedonic land prices (homework)"
+            href: /ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html
+          - text: "📋 AE04-04 OVB from the slides (homework)"
+            href: /ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html
+          - text: "📋 AE05-01 OVB and the wage equation"
+            href: /ae/ae05-multiple-regression-part-2/ae05-01-OVB.html
+          - text: "📋 AE05-02 OVB from the slides (homework)"
+            href: /ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html
+          - text: "📋 AE05-03 Hedonic prices and heteroscedasticity"
+            href: /ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html
+          - text: "📋 AE06-01 Transformations and interactions"
+            href: /ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.html
+          - text: "📋 AE06-02 Interactions with continuous variables"
+            href: /ae/ae06-multiple-regression-part-3/ae06-02-interaction-continuous.html
+          - text: "📋 AE06-03 Simpson's paradox"
+            href: /ae/ae06-multiple-regression-part-3/ae06-03-simpsons-paradox.html
+          - href: bundles/ae04-multiple-regression-part-1.qmd
+            text: "📦 Bundle: ae04-multiple-regression-part-1"
+          - href: bundles/ae05-multiple-regression-part-2.qmd
+            text: "📦 Bundle: ae05-multiple-regression-part-2"
+          - href: bundles/ae06-multiple-regression-part-3.qmd
+            text: "📦 Bundle: ae06-multiple-regression-part-3"
+
+      - section: "6 &middot; Panel regression"
+        href: topics/50-panel-regression.qmd
+        contents:
+          - href: topics/50-panel-regression.qmd
+            text: "Overview"
+          - text: "🖥 Panel regression analysis"
+            href: /slides/40-panel-regression/panel-regression.html
+          - text: "📋 AE08-01 Production function"
+            href: /ae/ae08-panel-regression-part-1/ae08-01-production-function.html
+          - text: "📋 AE11-01 Translog production function"
+            href: /ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html
+          - href: bundles/ae08-panel-regression-part-1.qmd
+            text: "📦 Bundle: ae08-panel-regression-part-1"
+          - href: bundles/ae11-panel-regression-part-2.qmd
+            text: "📦 Bundle: ae11-panel-regression-part-2"
+
+      - section: "7 &middot; Instrumental variables"
+        href: topics/60-instrumental-variables.qmd
+        contents:
+          - href: topics/60-instrumental-variables.qmd
+            text: "Overview"
+          - text: "🖥 Instrumental variable"
+            href: /slides/60-iv/iv.html
+          - text: "📋 AE12 Instrumental variable"
+            href: /ae/ae12-iv/ae12-iv.html
+          - href: bundles/ae12-iv.qmd
+            text: "📦 Bundle: ae12-iv"
+
+      - section: "Reference"
+        contents:
+          - href: slides.qmd
+            text: "All slide decks"
+          - href: exercises.qmd
+            text: "All exercises and bundles"
+          - href: resources.qmd
+            text: "External learning resources"
 
 format:
   html:
     theme:
-      light: [cosmo]
-      dark: [cosmo]
-    mainfont: "Roboto"
+      light: [cosmo, styles.scss]
+      dark: [cosmo, styles-dark.scss]
+    toc: true
+    toc-depth: 3
     code-copy: true
     code-overflow: wrap
-    toc: true
+    anchor-sections: true
+    smooth-scroll: true
+    link-external-newwindow: true
+    link-external-icon: false
 
-freeze: auto
+author: "Eduard (Eddie) Bukin"
+
+execute:
+  freeze: auto
 
 editor: visual
-

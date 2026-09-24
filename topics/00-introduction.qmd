@@ -1,0 +1,63 @@
+---
+title: "1 · Introduction"
+subtitle: "Course organisation, ceteris paribus and selection bias"
+---
+
+The opening topic sets up the software you will use all semester and introduces
+the two ideas the whole course rests on: comparing like with like *(ceteris
+paribus)*, and what goes wrong when the groups you compare differ for reasons
+you have not measured *(selection bias)*.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Introduction. Organisation. Setup.](/slides/00-introduction/00-introduction.html) | Course organisation and software setup; **Ceteris Paribus**; **Selection Bias**. All three lectures are sections of this one deck. |
+
+: {tbl-colwidths="[40,60]"}
+
+## Videos
+
+From Josh Angrist's *Mastering Econometrics* series at Marginal Revolution
+University:
+
+-   📺 [Ceteris Paribus: Public vs. Private University](https://www.youtube.com/embed/iPBV3BlV7jk)
+-   📺 [Selection Bias: Will You Make More Going to a Private University?](https://www.youtube.com/embed/6YrIDhaUQOE)
+-   📺 [Randomized Trials: The Ideal Weapon](https://www.youtube.com/embed/eGRd8jBdNYg)
+
+### Why econometrics
+
+Short talks worth watching once, in any order:
+
+-   📺 [What's the Difference Between Econometrics and Data Science?](https://www.youtube.com/watch?v=2EhRT2mOXm8)
+-   📺 [What's the Difference Between Econometrics and Statistics?](https://www.youtube.com/watch?v=uVrr_-UUgWk)
+-   📺 [Isn't Econometrics Boring?](https://www.youtube.com/watch?v=g0TuQGpMvjM)
+-   📺 [If I Master Econometrics, What Jobs Can I Get?](https://www.youtube.com/watch?v=ZXgIEzf2wlc)
+-   📺 [Econometrics is the original data science](https://www.youtube.com/watch?v=T24j8XTcpe0)
+
+## Setting up R
+
+Before the next topic, work through the ten-part video series:
+
+→ **[📺 Getting started with R](00-getting-started-with-R.qmd)** — install R and
+RStudio, set up your folders, create a project, and write your first script and
+R Markdown document.
+
+## Practising what the lecture showed
+
+Rebuild the "Ceteris Paribus" example from the slides as an R script of your
+own. This is step `hw00-08` of the
+[getting started series](00-getting-started-with-R.qmd#hw00-08).
+
+::: {.callout-warning appearance="simple"}
+## Not published here
+
+The introductory bundle `ae01-soft-intro-to-R.zip` (with `AE01-README.Rmd`,
+`ae01a-vaccination.Rmd` and `ae01b-un-votes.Rmd`) was distributed through Ilias
+only and is not part of this repository. Every later bundle
+[is published here](../exercises.qmd#project-bundles).
+:::
+
+## Where the course goes next
+
+→ [2 · Data wrangling](10-data-wrangling.qmd)

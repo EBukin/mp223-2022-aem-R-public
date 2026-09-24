@@ -1,0 +1,73 @@
+---
+title: "📦 ae06-multiple-regression-part-3"
+subtitle: "Transformations, interaction terms and unobserved heterogeneity"
+---
+
+Three exercises on getting the functional form right. Belongs to [Multiple regression](../topics/40-multiple-regression.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae06-multiple-regression-part-3.zip" download>⬇ Download ae06-multiple-regression-part-3.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae06-01-interaction-terms-toolbox.rmd</span>
+    <span class="mp-file-desc">The full toolbox: linear transformations and interaction terms, and how to interpret each.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae06-02-interaction-continuous.rmd</span>
+    <span class="mp-file-desc">Interactions between two continuous variables, and reading marginal effects off them.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae06-multiple-regression-part-3/ae06-02-interaction-continuous.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae06-multiple-regression-part-3/ae06-02-interaction-continuous.rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae06-03-simpsons-paradox.rmd</span>
+    <span class="mp-file-desc">Unobserved heterogeneity reversing the sign of a relationship.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae06-multiple-regression-part-3/ae06-03-simpsons-paradox.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae06-multiple-regression-part-3/ae06-03-simpsons-paradox.rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Data</span><span>Download</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">data/ice_cream_sales_rnd.csv</span>
+    <span class="mp-file-desc">Simulated ice cream sales, used for the unobserved-heterogeneity example.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae06-multiple-regression-part-3/data/ice_cream_sales_rnd.csv" download>csv</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae06-multiple-regression-part-3.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links">
+      
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Multiple regression](../topics/40-multiple-regression.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae06-multiple-regression-part-3)

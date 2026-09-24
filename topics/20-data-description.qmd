@@ -1,0 +1,78 @@
+---
+title: "3 · Describing data"
+subtitle: "Distributions, summaries, correlation"
+---
+
+Before fitting anything, look at the data. This topic covers summarising and
+plotting numerical and categorical variables, and measuring how two variables
+move together — along with the ways correlation can mislead you.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Exploring numerical data](/slides/20-data-description/exploring-numeric-data.html) | Distributions, summaries, histograms, boxplots, scatterplots |
+| 🖥 [Correlation](/slides/20-data-description/correlation.html) | Correlation types, interpreting strength, and where correlation misleads |
+
+: {tbl-colwidths="[40,60]"}
+
+## Exercises
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE03-02 Plastic waste](/ae/ae03-data-wrangling/ae03-02-plastic-waste.html) | Exploring the distribution of plastic waste per capita across countries |
+| 📋 [AE03-02 — solutions](/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html) | Worked solutions to the above |
+| 📋 [AE03-03 Correlation](/ae/ae03-data-wrangling/ae03-03-correlation.html) | Computing correlations and reading their strength |
+| 📋 [AE03-04 Categorical data](/ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.html) | Homework: visualising categorical variables |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 Bundles: **[ae03-data-wrangling](../bundles/ae03-data-wrangling.qmd)** ·
+**[ae03-data-wrangling-hw](../bundles/ae03-data-wrangling-hw.qmd)**
+
+## Exploring numerical data
+
+**Read**
+
+-   📖 [IMS Ch. 5 — Exploring numerical data](https://openintro-ims.netlify.app/explore-numerical.html)
+
+**Practise**
+
+-   [Deriving information with dplyr](https://rstudio.cloud/learn/primers/2.3)
+-   [Visualising numerical data](https://openintro.shinyapps.io/ims-02-explore-02/) *(interactive, slow to load)*
+-   [Summarising data](https://openintro.shinyapps.io/ims-02-explore-03/) *(interactive, slow to load)*
+-   [Histograms](https://rstudio.cloud/learn/primers/3.3) · [Boxplots and counts](https://rstudio.cloud/learn/primers/3.4) · [Scatterplots](https://rstudio.cloud/learn/primers/3.5)
+
+**Watch** *(optional)*
+
+-   📺 Visualising numerical data: [video](https://youtu.be/waBabVTI8ec) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d03-viz-num/u2-d03-viz-num.html#1)
+
+## Exploring categorical data
+
+**Read**
+
+-   📖 [IMS Ch. 4 — Exploring categorical data](https://openintro-ims.netlify.app/explore-categorical.html#explore-categorical)
+
+**Practise**
+
+-   [Visualising categorical data](https://openintro.shinyapps.io/ims-02-explore-01/) *(interactive, slow to load)*
+
+**Watch** *(optional)*
+
+-   📺 Visualising categorical data: [video](https://youtu.be/21h3rEO8k2E) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d04-viz-cat/u2-d04-viz-cat.html#1)
+-   📺 Webinar: [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/)
+
+## Correlation
+
+**Read**
+
+-   📖 [Interpreting the strength of a correlation](https://easystats.github.io/effectsize/articles/interpret.html)
+-   📖 [easystats/correlation](https://easystats.github.io/correlation/) · [correlation types](https://easystats.github.io/correlation/articles/types.html)
+
+**Practise**
+
+-   [Exploratory data analysis](https://rstudio.cloud/learn/primers/3.1)
+
+## Where the course goes next
+
+← [2 · Data wrangling](10-data-wrangling.qmd) · → [4 · Simple regression](30-simple-regression.qmd)

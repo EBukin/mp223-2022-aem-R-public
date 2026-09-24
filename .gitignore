@@ -10,3 +10,11 @@ libs/
 *.html
 
 /.quarto/
+
+**/*.quarto_ipynb
+
+# tinytable_assets/ are NOT ignored: modelsummary writes inline table images
+# there and the rendered pages reference them. They are excluded from the
+# student bundles by scripts/build-bundles.py instead.
+/_site/
+# _freeze/ is intentionally committed

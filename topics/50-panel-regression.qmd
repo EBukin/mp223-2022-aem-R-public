@@ -1,0 +1,35 @@
+---
+title: "6 · Panel regression"
+subtitle: "Fixed and random effects on repeated observations"
+bibliography: ../references.bib
+aliases:
+  - /weeks/week08-checklist.html
+---
+
+When the same units are observed more than once, you can control for everything
+about them that does not change over time — even the things you never measured.
+This topic covers what that buys you and what it costs.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Panel regression analysis](/slides/40-panel-regression/panel-regression.html) | Pooled OLS, fixed effects, random effects, and choosing between them |
+
+: {tbl-colwidths="[40,60]"}
+
+## Exercises
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE08-01 Production function](/ae/ae08-panel-regression-part-1/ae08-01-production-function.html) | Estimating the same production function three ways, and testing which to keep |
+| 📋 [AE11-01 Translog production function](/ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html) | A flexible translog specification on Ghanaian firm panel data |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 Bundles: **[ae08-panel-regression-part-1](../bundles/ae08-panel-regression-part-1.qmd)** ·
+**[ae11-panel-regression-part-2](../bundles/ae11-panel-regression-part-2.qmd)**
+
+## Where the course goes next
+
+← [5 · Multiple regression](40-multiple-regression.qmd) · → [7 · Instrumental variables](60-instrumental-variables.qmd)

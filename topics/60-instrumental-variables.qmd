@@ -1,0 +1,44 @@
+---
+title: "7 · Instrumental variables"
+subtitle: "Identification when a regressor is endogenous"
+bibliography: ../references.bib
+aliases:
+  - /weeks/week12-checklist.html
+---
+
+The final topic. When a regressor is correlated with the error term, no amount
+of controlling will fix it — you need outside variation. This topic introduces
+instrumental variables and two-stage least squares through the classic
+returns-to-schooling problem.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Instrumental variable](/slides/60-iv/iv.html) | Endogeneity, instrument validity, two-stage least squares, returns to schooling |
+
+: {tbl-colwidths="[40,60]"}
+
+## Exercises
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE12 Instrumental variable](/ae/ae12-iv/ae12-iv.html) | Two-stage least squares from first principles on Angrist & Krueger's data |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 **[Download the bundle: ae12-iv](../bundles/ae12-iv.qmd)** — includes the
+`ak91.dta` quarter-of-birth dataset and both sets of worked solutions.
+
+::: {.callout-warning appearance="simple"}
+## Solutions are in the bundle, not on the web
+
+`ae12-iv-solutions.Rmd` and `ae12-iv-solutions-2.Rmd` are included in the
+downloadable bundle but have no rendered page here: their `modelsummary`
+call uses a `coef_omit` pattern that current versions of the package reject.
+Open them in RStudio to work through them.
+:::
+
+## Where the course goes next
+
+← [6 · Panel regression](50-panel-regression.qmd) · [Back to the course overview](../index.qmd)

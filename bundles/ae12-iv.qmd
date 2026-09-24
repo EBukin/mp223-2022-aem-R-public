@@ -1,0 +1,71 @@
+---
+title: "📦 ae12-iv"
+subtitle: "Instrumental variables with quarter-of-birth data"
+---
+
+The exercise and two sets of worked solutions, built on Angrist and Krueger's returns-to-schooling data. Belongs to [Instrumental variables](../topics/60-instrumental-variables.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae12-iv.zip" download>⬇ Download ae12-iv.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae12-iv.Rmd</span>
+    <span class="mp-file-desc">Two-stage least squares from first principles: first stage, reduced form, and the IV estimate.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae12-iv/ae12-iv.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae12-iv/ae12-iv.Rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae12-iv-solutions.Rmd</span>
+    <span class="mp-file-desc">Worked solutions.</span>
+    <span class="mp-file-links">
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae12-iv/ae12-iv-solutions.Rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae12-iv-solutions-2.Rmd</span>
+    <span class="mp-file-desc">Further worked solutions with additional specifications.</span>
+    <span class="mp-file-links">
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae12-iv/ae12-iv-solutions-2.Rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Data</span><span>Download</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">data/ak91.dta</span>
+    <span class="mp-file-desc">Angrist &amp; Krueger (1991) census extract: schooling, wages and quarter of birth, in Stata format.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae12-iv/data/ak91.dta" download>dta</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae12-iv.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links">
+      
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Instrumental variables](../topics/60-instrumental-variables.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae12-iv)

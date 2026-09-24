@@ -1,0 +1,50 @@
+---
+title: "📺 Getting started with R"
+subtitle: "A ten-part video series to get your machine ready"
+---
+
+Work through these in order before the data-wrangling topic. Together they take
+about an hour. All of them are in the course
+[YouTube playlist](https://www.youtube.com/playlist?list=PLdj1QiW6P2TcEm0cn1eB6CBQQWLMthjYY).
+
+## Required
+
+| # | Video | Length |
+|:--|:--|:--|
+| `hw00-01` | 📺 [Installing R and RStudio](https://youtu.be/A7XWWLXqKTI) | 4:08 |
+| `hw00-02` | 📺 [R and RStudio: introduction and interface](https://youtu.be/tYdZT62-hio) | 1:36 |
+| `hw00-03` | 📺 [Setting up working folders](https://youtu.be/um56ASPU76o) | 3:54 |
+| `hw00-04` | 📺 [Creating an RStudio project](https://youtu.be/63a-cY6es2I) | 4:06 |
+| `hw00-05` | 📺 [The console: running R code](https://youtu.be/OeAjBJtgh7E) | 10:09 |
+| `hw00-06` | 📺 [`.R` scripts: create, modify, run, save](https://youtu.be/y0TzG4ohLJI) | 4:34 |
+| `hw00-07` | 📺 [`.Rmd` R Markdown: create, modify, save, knit](https://youtu.be/Ew8m1eMQDAs) | 4:54 |
+
+: {tbl-colwidths="[12,66,22]"}
+
+### `hw00-08` Write your own script {#hw00-08}
+
+No video for this one. Take the **Ceteris Paribus** example from the
+[introduction slides](/slides/00-introduction/00-introduction.html) and rebuild
+it yourself as an `.R` script: load the data, reproduce the comparison, and save
+the file in the project you created in `hw00-04`.
+
+## Optional — to learn R more deeply
+
+| # | Material | Length |
+|:--|:--|:--|
+| `hw00-09` | 📺 [Coding out loud: introduction to R and R Markdown](https://youtu.be/ELi3ci4HSLU) | ~1 hour |
+| `hw00-10` | 📺 [UN General Assembly voting patterns](https://youtu.be/r-uTBEclM1E), walked through by Mine Çetinkaya-Rundel | — |
+
+: {tbl-colwidths="[12,66,22]"}
+
+::: {.callout-note appearance="simple"}
+`hw00-10` follows the `ae01b-un-votes.Rmd` exercise from the introductory
+bundle, which was distributed through Ilias and is not published in this
+repository. The video stands on its own.
+:::
+
+## Keep these nearby
+
+-   📖 [R for Data Science](https://r4ds.had.co.nz/index.html) — the book this course leans on
+-   📖 [Posit cheat sheets](https://posit.co/resources/cheatsheets/) — one page per package
+-   More in [external learning resources](../resources.qmd)

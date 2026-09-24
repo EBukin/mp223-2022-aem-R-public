@@ -1,0 +1,146 @@
+---
+title: "All exercises & code"
+subtitle: "Twenty worked R walkthroughs and seven downloadable projects"
+---
+
+Each **application exercise** is a rendered R walkthrough: read it in the
+browser to see the code and its output together. Each one also ships inside a
+**project bundle** — an RStudio project with the data already in place, so you
+can open it and run the same code yourself.
+
+::: {.callout-tip appearance="simple"}
+## How to work through these
+
+1.  Read the rendered walkthrough in the browser to see where you are heading.
+2.  Download the matching bundle and open the `.Rproj` file in RStudio.
+3.  Work through the `.Rmd` yourself — the blanks (`______`) are for you to fill.
+4.  Compare against the solutions where they are provided.
+:::
+
+## 2 · Data wrangling
+
+| Exercise | What you practise | Bundle |
+|:--|:--|:--|
+| 📋 [AE03-01 Import, clean, summarise, plot](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html) | Reading messy Excel and CSV files, cleaning names, first summaries and plots | [📦 ae03](bundles/ae03-data-wrangling.qmd) |
+
+: {tbl-colwidths="[42,40,18]"}
+
+## 3 · Describing data
+
+| Exercise | What you practise | Bundle |
+|:--|:--|:--|
+| 📋 [AE03-02 Plastic waste](/ae/ae03-data-wrangling/ae03-02-plastic-waste.html) | Exploring distributions of plastic waste per capita | [📦 ae03](bundles/ae03-data-wrangling.qmd) |
+| 📋 [AE03-02 Plastic waste — solutions](/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html) | Worked solutions to the exercise above | [📦 ae03](bundles/ae03-data-wrangling.qmd) |
+| 📋 [AE03-03 Correlation](/ae/ae03-data-wrangling/ae03-03-correlation.html) | Computing and interpreting correlations | [📦 ae03](bundles/ae03-data-wrangling.qmd) |
+| 📋 [AE03-04 Categorical data (homework)](/ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.html) | Visualising categorical variables | [📦 ae03-hw](bundles/ae03-data-wrangling-hw.qmd) |
+
+: {tbl-colwidths="[42,40,18]"}
+
+## 4 · Simple regression
+
+| Exercise | What you practise | Bundle |
+|:--|:--|:--|
+| 📋 `ae04-00-simple-regression-from-slides-HW.R` | Reproducing the whole simple-regression analysis from the slides in a plain R script | [📦 ae04](bundles/ae04-multiple-regression-part-1.qmd) |
+
+: {tbl-colwidths="[42,40,18]"}
+
+::: {.callout-note appearance="simple"}
+This one is a plain `.R` script rather than an R Markdown document, so there is
+no rendered page — open it from the bundle.
+:::
+
+## 5 · Multiple regression
+
+| Exercise | What you practise | Bundle |
+|:--|:--|:--|
+| 📋 [AE04-01 Multiple linear regression](/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html) | Fitting and reading a model with several predictors | [📦 ae04](bundles/ae04-multiple-regression-part-1.qmd) |
+| 📋 [AE04-02 Linearity](/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html) | Residual plots, transformations, marginal effects | [📦 ae04](bundles/ae04-multiple-regression-part-1.qmd) |
+| 📋 [AE04-03 Hedonic land prices (homework)](/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html) | A hedonic price model end to end | [📦 ae04](bundles/ae04-multiple-regression-part-1.qmd) |
+| 📋 [AE04-04 OVB from the slides (homework)](/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html) | Reproducing the omitted-variable-bias examples | [📦 ae04](bundles/ae04-multiple-regression-part-1.qmd) |
+| 📋 [AE05-01 OVB and the wage equation](/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html) | Omitted variable bias in a classic wage regression | [📦 ae05](bundles/ae05-multiple-regression-part-2.qmd) |
+| 📋 [AE05-02 OVB from the slides (homework)](/ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html) | More omitted-variable-bias practice | [📦 ae05](bundles/ae05-multiple-regression-part-2.qmd) |
+| 📋 [AE05-03 Hedonic prices & heteroscedasticity](/ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html) | A complete regression analysis including robust inference | [📦 ae05](bundles/ae05-multiple-regression-part-2.qmd) |
+| 📋 [AE06-01 Transformations & interactions toolbox](/ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.html) | The full toolbox for transformed and interacted regressors | [📦 ae06](bundles/ae06-multiple-regression-part-3.qmd) |
+| 📋 [AE06-02 Interactions with continuous variables](/ae/ae06-multiple-regression-part-3/ae06-02-interaction-continuous.html) | Interpreting continuous-by-continuous interactions | [📦 ae06](bundles/ae06-multiple-regression-part-3.qmd) |
+| 📋 [AE06-03 Simpson's paradox](/ae/ae06-multiple-regression-part-3/ae06-03-simpsons-paradox.html) | Unobserved heterogeneity reversing a relationship | [📦 ae06](bundles/ae06-multiple-regression-part-3.qmd) |
+
+: {tbl-colwidths="[42,40,18]"}
+
+## 6 · Panel regression
+
+| Exercise | What you practise | Bundle |
+|:--|:--|:--|
+| 📋 [AE08-01 Production function](/ae/ae08-panel-regression-part-1/ae08-01-production-function.html) | Estimating a production function on panel data | [📦 ae08](bundles/ae08-panel-regression-part-1.qmd) |
+| 📋 [AE11-01 Translog production function](/ae/ae11-panel-regression-part-2/ae11-01-translog-production-function.html) | A translog specification on Ghanaian firm data | [📦 ae11](bundles/ae11-panel-regression-part-2.qmd) |
+
+: {tbl-colwidths="[42,40,18]"}
+
+## 7 · Instrumental variables
+
+| Exercise | What you practise | Bundle |
+|:--|:--|:--|
+| 📋 [AE12 Instrumental variable](/ae/ae12-iv/ae12-iv.html) | Two-stage least squares on Angrist & Krueger's quarter-of-birth data | [📦 ae12](bundles/ae12-iv.qmd) |
+| 📄 `ae12-iv-solutions.Rmd` | Worked solutions — in the bundle only, no rendered page | [📦 ae12](bundles/ae12-iv.qmd) |
+| 📄 `ae12-iv-solutions-2.Rmd` | Further worked solutions — in the bundle only | [📦 ae12](bundles/ae12-iv.qmd) |
+
+: {tbl-colwidths="[42,40,18]"}
+
+## Project bundles {#project-bundles}
+
+Each bundle is an RStudio project: unzip it, open the `.Rproj` file, and every
+path in the exercises will resolve. Open a bundle page to see exactly which
+files and datasets are inside before you download.
+
+```{=html}
+<div class="mp-grid">
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 2 &amp; 3</span>
+    <h3 class="mp-card-title"><a href="bundles/ae03-data-wrangling.html">ae03-data-wrangling</a></h3>
+    <p class="mp-card-desc">Four exercises on importing, cleaning, exploring and correlating data, with five datasets.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 3</span>
+    <h3 class="mp-card-title"><a href="bundles/ae03-data-wrangling-hw.html">ae03-data-wrangling-hw</a></h3>
+    <p class="mp-card-desc">Homework on visualising categorical data.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 4 &amp; 5</span>
+    <h3 class="mp-card-title"><a href="bundles/ae04-multiple-regression-part-1.html">ae04-multiple-regression-part-1</a></h3>
+    <p class="mp-card-desc">Five exercises: simple regression recap, multiple regression, linearity, hedonic prices and OVB.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 5</span>
+    <h3 class="mp-card-title"><a href="bundles/ae05-multiple-regression-part-2.html">ae05-multiple-regression-part-2</a></h3>
+    <p class="mp-card-desc">Three exercises on omitted variable bias and heteroscedasticity.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 5</span>
+    <h3 class="mp-card-title"><a href="bundles/ae06-multiple-regression-part-3.html">ae06-multiple-regression-part-3</a></h3>
+    <p class="mp-card-desc">Three exercises on transformations, interaction terms and Simpson's paradox.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 6</span>
+    <h3 class="mp-card-title"><a href="bundles/ae08-panel-regression-part-1.html">ae08-panel-regression-part-1</a></h3>
+    <p class="mp-card-desc">Estimating a production function on panel data.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 6</span>
+    <h3 class="mp-card-title"><a href="bundles/ae11-panel-regression-part-2.html">ae11-panel-regression-part-2</a></h3>
+    <p class="mp-card-desc">Translog production function on Ghanaian firm data.</p>
+  </div>
+
+  <div class="mp-card is-bundle">
+    <span class="mp-card-kicker">Topic 7</span>
+    <h3 class="mp-card-title"><a href="bundles/ae12-iv.html">ae12-iv</a></h3>
+    <p class="mp-card-desc">Instrumental variables with the Angrist &amp; Krueger quarter-of-birth data.</p>
+  </div>
+
+</div>
+```

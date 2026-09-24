@@ -1,0 +1,81 @@
+---
+title: "📦 ae04-multiple-regression-part-1"
+subtitle: "From simple to multiple regression"
+---
+
+Five exercises taking you from a simple-regression recap through multiple regression, linearity diagnostics, a hedonic price model and omitted variable bias. Belongs to [Simple regression](../topics/30-simple-regression.qmd) · [Multiple regression](../topics/40-multiple-regression.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae04-multiple-regression-part-1.zip" download>⬇ Download ae04-multiple-regression-part-1.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+:::: {.callout-note appearance="simple"}
+Uses datasets that ship with the `alr4` and `wooldridge` packages, so there is no `data/` folder — install those packages instead.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae04-00-simple-regression-from-slides-HW.R</span>
+    <span class="mp-file-desc">Plain R script: reproduce the entire simple-regression analysis from the slides. No rendered page — open it in RStudio.</span>
+    <span class="mp-file-links">
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae04-multiple-regression-part-1/ae04-00-simple-regression-from-slides-HW.R">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae04-01-MLR.Rmd</span>
+    <span class="mp-file-desc">Fit and interpret a model with several predictors.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae04-multiple-regression-part-1/ae04-01-MLR.Rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae04-02-MLR-linearity.Rmd</span>
+    <span class="mp-file-desc">Residual plots, log transformations, interaction terms and marginal effects.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.Rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae04-03-hedonic-land-prices-HW.Rmd</span>
+    <span class="mp-file-desc">Homework: a hedonic land price model from start to finish.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.Rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae04-04-slides-ovb-HW.Rmd</span>
+    <span class="mp-file-desc">Homework: reproduce the omitted-variable-bias examples shown in the lecture.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.Rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae04-multiple-regression-part-1.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links">
+      
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Simple regression](../topics/30-simple-regression.qmd) · [Multiple regression](../topics/40-multiple-regression.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae04-multiple-regression-part-1)

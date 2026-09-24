@@ -1,0 +1,60 @@
+---
+title: "External learning resources"
+subtitle: "Books, cheat sheets, tutorials and videos for learning R"
+aliases:
+  - /articles/external-materials.html
+---
+
+Material from outside the course that pairs well with it. Nothing here is
+required — use it where a topic has not clicked yet.
+
+## Books
+
+-   📖 **[R for Data Science](https://r4ds.had.co.nz/index.html)** by Hadley Wickham and Garrett Grolemund — the book this course leans on most ([source code](https://github.com/hadley/r4ds))
+-   📖 **[Introduction to Modern Statistics](https://openintro-ims.netlify.app/)** — the statistics background, with the regression chapters used directly in [topics 4](topics/30-simple-regression.qmd) and [5](topics/40-multiple-regression.qmd)
+-   📖 **[Mastering 'Metrics](http://www.masteringmetrics.com/)** by Angrist and Pischke — the causal-inference narrative behind the course
+
+## Cheat sheets
+
+One page per package, worth printing:
+
+-   [Data import with readr, readxl and googlesheets4](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+-   [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+-   [Data tidying with tidyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
+-   [Data visualization with ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+-   [The full cheat sheet collection](https://posit.co/resources/cheatsheets/)
+
+## Interactive tutorials
+
+-   [Open Intro interactive labs](https://openintrostat.github.io/oilabs-tidy/) — simple and multiple regression, worked in the browser
+-   [Filtering observations](https://learnr-examples.shinyapps.io/ex-data-filter/) and [summarising data](https://learnr-examples.shinyapps.io/ex-data-summarise/) — short `learnr` tutorials based on R4DS Ch. 5
+-   [RStudio Cloud primers](https://rstudio.cloud/learn/primers) — referenced throughout the topic pages
+
+## Video courses
+
+-   [Data Science Box](https://datasciencebox.org/) by Mine Çetinkaya-Rundel — videos and slides for every wrangling and visualisation topic in this course
+-   [Posit webinars](https://posit.co/resources/videos/) ([source code](https://github.com/rstudio/webinars)):
+    -   [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/) by Garrett Grolemund
+    -   [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/) by Garrett Grolemund
+    -   [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/) with Jenny Bryan
+-   [INBO tutorials](https://inbo.github.io/tutorials/) — including [R for beginners](https://github.com/inbo/tutorials/tree/master/content/tutorials/r_beginners) from the Research Institute for Nature and Forest, Belgium
+
+## Package documentation
+
+Packages used repeatedly in the exercises:
+
+-   Wrangling — [dplyr](https://dplyr.tidyverse.org/) · [tidyr](https://tidyr.tidyverse.org/) · [readr](https://readr.tidyverse.org/) · [readxl](https://readxl.tidyverse.org/) · [janitor](https://sfirke.github.io/janitor/)
+-   Models and diagnostics — [performance](https://easystats.github.io/performance/) · [parameters](https://easystats.github.io/parameters/) · [car](https://cran.r-project.org/package=car)
+-   Results and tables — [modelsummary](https://modelsummary.com/) · [broom](https://broom.tidymodels.org/)
+-   Effects — [ggeffects](https://strengejacke.github.io/ggeffects/) · [modelbased](https://easystats.github.io/modelbased/)
+-   Correlation — [correlation](https://easystats.github.io/correlation/) · [interpreting effect sizes](https://easystats.github.io/effectsize/articles/interpret.html)
+-   Panel and IV — [plm](https://cran.r-project.org/package=plm) · [AER](https://cran.r-project.org/package=AER)
+
+::: {.callout-note appearance="simple"}
+## A note on these links
+
+The course ran in Summer Semester 2022 and some of the services linked here
+have since moved or closed — RStudio is now Posit, and the RStudio Cloud
+primers have changed address. Where a link no longer resolves, searching for
+the title usually finds the material at its new home.
+:::

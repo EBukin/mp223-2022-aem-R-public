@@ -1,0 +1,104 @@
+---
+title: "2 · Data wrangling"
+subtitle: "The analysis workflow, tidy data, importing and reshaping"
+aliases:
+  - /weeks/week03-checklist.html
+---
+
+Before anything can be estimated it has to be read in and reshaped. This topic
+covers the workflow a data analysis follows, what makes a dataset *tidy*, and
+the `readr` / `readxl` / `dplyr` tools you will use in every later exercise.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Workflow, tidy data, wrangling](/slides/50-data-wrangling/workflow-tidy-data-wrangling.html) | The data-analysis workflow and what makes a dataset tidy |
+| 🖥 [Wrangling with dplyr](/slides/50-data-wrangling/dplyr.html) | Extended version of the deck above, working through the full `dplyr` verb set |
+| 🖥 [Import data](/slides/50-data-wrangling/import-data.html) | Reading CSV and Excel with `readr` and `readxl`; cleaning names with `janitor` |
+
+: {tbl-colwidths="[40,60]"}
+
+## Exercise
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE03-01 Import, clean, summarise, plot](/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html) | Reading messy Excel and CSV files, cleaning column names, first summaries and plots |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 **[Download the bundle: ae03-data-wrangling](../bundles/ae03-data-wrangling.qmd)** — the RStudio project with all four AE03 exercises and their five datasets.
+
+## Workflow and tidy data
+
+**Read**
+
+-   📖 [R4DS Ch. 9 — Wrangle](https://r4ds.had.co.nz/wrangle-intro.html#wrangle-intro)
+-   📖 [R4DS Ch. 12 — Tidy data](https://r4ds.had.co.nz/tidy-data.html#tidy-data)
+-   📖 Cheat sheet: [Data tidying with tidyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
+
+**Watch** *(optional)*
+
+-   📺 Tidy data: [video](https://youtu.be/Ux85eR3h9hw) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d05-tidy-data/u2-d05-tidy-data.html#1)
+-   📺 Grammar of data wrangling: [video](https://youtu.be/ZCaYBES_VEk) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d06-grammar-wrangle/u2-d06-grammar-wrangle.html#1)
+-   📺 Webinar: [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
+
+## Importing data
+
+**Read**
+
+-   📖 [R4DS Ch. 11 — Data import](https://r4ds.had.co.nz/data-import.html#data-import)
+-   📖 Cheat sheet: [Data import with the tidyverse](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+-   📖 Package docs: [readr](https://readr.tidyverse.org/reference/readr_example.html) · [readxl](https://readxl.tidyverse.org/) · [janitor](https://sfirke.github.io/janitor/)
+
+**Watch** *(optional)*
+
+-   📺 Data types: [video](https://www.youtube.com/watch?v=WsxLbtWbEfc) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d10-data-types/u2-d10-data-types.html#1)
+-   📺 Data classes: [video](https://youtu.be/dozvSVQcqqg) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d11-data-classes/u2-d11-data-classes.html#1)
+-   📺 Importing data: [video](https://youtu.be/tIMaRYiuEFA) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d12-data-import/u2-d12-data-import.html#1)
+-   📺 [Importing and recoding data](https://datasciencebox.org/exploring-data.html?q=import#importing-and-recoding-data)
+-   📺 Webinar: [What's new with readxl?](https://www.rstudio.com/resources/webinars/what-s-new-with-readxl-a-tidyverse-solution-for-reading-data-stored-in-xls-or-xlsx-format/)
+
+## Wrangling with `dplyr`
+
+`dplyr` comes up in every exercise from here on, so there is no separate session
+for it — use this list to learn it alongside everything else.
+
+**Read**
+
+-   📖 [R4DS Ch. 5 — Data transformation](https://r4ds.had.co.nz/transform.html#transform)
+-   📖 Cheat sheet: [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+-   📖 [tidyverse/dplyr](https://dplyr.tidyverse.org/)
+
+**Practise**
+
+-   [Working with tibbles](https://rstudio.cloud/learn/primers/2.1)
+-   [Isolating data with dplyr](https://rstudio.cloud/learn/primers/2.2)
+-   [Deriving information with dplyr](https://rstudio.cloud/learn/primers/2.3)
+-   [Filtering observations](https://learnr-examples.shinyapps.io/ex-data-filter/)
+-   [Summarising data](https://learnr-examples.shinyapps.io/ex-data-summarise/)
+
+## Visualising with `ggplot2`
+
+Like `dplyr`, `ggplot2` is practised throughout rather than in one session.
+
+**Read**
+
+-   📖 [R4DS Ch. 3 — Data visualisation](https://r4ds.had.co.nz/data-visualisation.html#data-visualisation)
+-   📖 Cheat sheet: [Data visualization with ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+
+**Practise**
+
+-   [Data visualisation basics](https://rstudio.cloud/learn/primers/1.1) · [Exploratory data analysis](https://rstudio.cloud/learn/primers/3.1)
+-   [Bar charts](https://rstudio.cloud/learn/primers/3.2) · [Histograms](https://rstudio.cloud/learn/primers/3.3) · [Boxplots and counts](https://rstudio.cloud/learn/primers/3.4)
+-   [Scatterplots](https://rstudio.cloud/learn/primers/3.5) · [Overplotting](https://rstudio.cloud/learn/primers/3.7) · [Customising plots](https://rstudio.cloud/learn/primers/3.8)
+
+**Watch** *(optional)*
+
+-   📺 Data and visualisation: [video](https://youtu.be/FddF4b_GuTI) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d01-data-viz/u2-d01-data-viz.html#1)
+-   📺 Visualising data with ggplot2: [video](https://youtu.be/s2NF2J36ljE) + [slides](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
+-   📺 Webinar: [Tidyverse visualization manipulation basics](https://www.rstudio.com/resources/webinars/tidyverse-visualization-manipulation-basics/)
+
+## Where the course goes next
+
+← [1 · Introduction](00-introduction.qmd) · → [3 · Describing data](20-data-description.qmd)

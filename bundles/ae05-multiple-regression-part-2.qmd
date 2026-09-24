@@ -1,0 +1,66 @@
+---
+title: "📦 ae05-multiple-regression-part-2"
+subtitle: "Omitted variable bias and heteroscedasticity"
+---
+
+Three exercises on what happens when a regression violates its assumptions. Belongs to [Multiple regression](../topics/40-multiple-regression.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae05-multiple-regression-part-2.zip" download>⬇ Download ae05-multiple-regression-part-2.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+:::: {.callout-note appearance="simple"}
+Uses datasets from the `wooldridge` and `alr4` packages — no `data/` folder.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae05-01-OVB.rmd</span>
+    <span class="mp-file-desc">Omitted variable bias in a classic wage regression, including the homework section.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae05-multiple-regression-part-2/ae05-01-OVB.rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae05-02-HW-slides-ovb.Rmd</span>
+    <span class="mp-file-desc">Homework: further omitted-variable-bias practice from the slides.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.Rmd">source</a>
+    </span>
+  </div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae05-03-hedonic-complete-reg-analysis.Rmd</span>
+    <span class="mp-file-desc">A complete hedonic price analysis with heteroscedasticity tests and robust standard errors.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.Rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae05-multiple-regression-part-2.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links">
+      
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Multiple regression](../topics/40-multiple-regression.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae05-multiple-regression-part-2)

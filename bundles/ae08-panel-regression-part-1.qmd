@@ -1,0 +1,50 @@
+---
+title: "📦 ae08-panel-regression-part-1"
+subtitle: "Estimating a production function on panel data"
+---
+
+A first panel-data exercise. Belongs to [Panel regression](../topics/50-panel-regression.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae08-panel-regression-part-1.zip" download>⬇ Download ae08-panel-regression-part-1.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+:::: {.callout-note appearance="simple"}
+Uses panel datasets from the `plm` and `pder` packages — no `data/` folder.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae08-01-production-function.Rmd</span>
+    <span class="mp-file-desc">Pooled OLS, fixed effects and random effects on the same production function, and how to choose between them.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae08-panel-regression-part-1/ae08-01-production-function.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae08-panel-regression-part-1/ae08-01-production-function.Rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae08-panel-regression-part-1.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links">
+      
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Panel regression](../topics/50-panel-regression.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae08-panel-regression-part-1)

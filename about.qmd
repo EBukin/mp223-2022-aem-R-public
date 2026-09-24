@@ -1,0 +1,63 @@
+---
+title: "About the author"
+subtitle: "Who wrote and taught these materials"
+toc: false
+---
+
+## Eduard (Eddie) Bukin
+
+All slides, R application exercises and project bundles on this site were
+written and taught by **Eduard (Eddie) Bukin** — an applied economist and
+open-source data scientist working on impact evaluation, land markets and
+geospatial analysis.
+
+::: {.callout-note appearance="simple"}
+## Home page
+
+**[ebukin.github.io](https://ebukin.github.io)** — publications, CV and current
+projects.
+:::
+
+He has spent over a decade at institutions including the **World Bank** and the
+**FAO**, and taught MP223 as a PhD candidate at **Justus Liebig University
+Giessen**, where his doctoral research concerns land privatisation in
+Kazakhstan.
+
+### Find him
+
+-   🌐 Home page — [ebukin.github.io](https://ebukin.github.io)
+-   💻 Source code for this course — [github.com/EBukin/mp223-2022-aem-R-public](https://github.com/EBukin/mp223-2022-aem-R-public/)
+-   🎓 [StudIP profile](https://studip.uni-giessen.de/dispatch.php/profile?cid=b1775c5097d2a85c2986b7667d22c3dc&username=gh2910) (JLU Giessen)
+-   ✉️ [eduardbukin\@agrar.uni-giessen.de](mailto:eduardbukin@agrar.uni-giessen.de)
+
+## About the course
+
+**MP223 Applied Econometric Methods for the Social Sciences** was taught at JLU
+Giessen in Summer Semester 2022. It introduces regression analysis as a tool for
+causal reasoning, taught entirely through R: every method on the slides is
+immediately practised on real data in a matching application exercise.
+
+The course covers seven topics — [introduction and research
+design](topics/00-introduction.qmd), [data wrangling](topics/10-data-wrangling.qmd),
+[describing data](topics/20-data-description.qmd), [simple
+regression](topics/30-simple-regression.qmd), [multiple
+regression](topics/40-multiple-regression.qmd), [panel
+regression](topics/50-panel-regression.qmd) and [instrumental
+variables](topics/60-instrumental-variables.qmd).
+
+## Reusing these materials
+
+The materials are published openly so that students can revisit them after the
+course and so that other instructors can build on them. The
+[repository](https://github.com/EBukin/mp223-2022-aem-R-public/) contains every
+source file — `.qmd` decks, `.Rmd` exercises and the data they use.
+
+If you reuse or adapt them, please credit **Eduard Bukin** and link back to
+[ebukin.github.io](https://ebukin.github.io).
+
+## Colophon
+
+Built with [Quarto](https://quarto.org/). Slides are
+[revealjs](https://quarto.org/docs/presentations/revealjs/) decks; exercises are
+R Markdown documents rendered to HTML. Everything is deployed automatically from
+the [GitHub repository](https://github.com/EBukin/mp223-2022-aem-R-public/).

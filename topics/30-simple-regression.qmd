@@ -1,0 +1,46 @@
+---
+title: "4 · Simple regression"
+subtitle: "One predictor, least squares, interpreting coefficients"
+aliases:
+  - /weeks/week04-checklist.html
+---
+
+The first regression topic: fitting a line through a scatterplot, and being
+precise about what its slope and intercept mean.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Simple regression](/slides/10-simple-regression/10-simple-regression.html) | One predictor, ordinary least squares, interpreting the coefficients |
+
+: {tbl-colwidths="[40,60]"}
+
+## Exercise
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 `ae04-00-simple-regression-from-slides-HW.R` | Reproduce the whole simple-regression analysis from the slides in a plain R script |
+
+: {tbl-colwidths="[45,55]"}
+
+::: {.callout-note appearance="simple"}
+This exercise is a plain `.R` script rather than an R Markdown document, so
+there is no rendered page — open it from the bundle.
+:::
+
+📦 **[Download the bundle: ae04-multiple-regression-part-1](../bundles/ae04-multiple-regression-part-1.qmd)** — contains this script alongside the multiple-regression exercises.
+
+## Going deeper
+
+**Read**
+
+-   📖 [IMS Ch. 7 — Linear regression with a single predictor](https://openintro-ims.netlify.app/model-slr.html#model-slr)
+
+**Practise**
+
+-   [Open Intro lab: Simple regression](https://openintrostat.github.io/oilabs-tidy/08_simple_regression/simple_regression.html)
+
+## Where the course goes next
+
+← [3 · Describing data](20-data-description.qmd) · → [5 · Multiple regression](40-multiple-regression.qmd)

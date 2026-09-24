@@ -1,0 +1,89 @@
+---
+title: "All slide decks"
+subtitle: "Fifteen revealjs presentations, in teaching order"
+---
+
+Every deck opens as a full-screen presentation. Useful keys inside a deck:
+`?` shows all shortcuts, `o` opens the slide overview, `f` goes full screen, and
+`e` switches to print view so you can save the deck as a PDF from your browser.
+
+The **Source** link opens the `.qmd` behind each deck — the R code that produced
+every figure and table is in there.
+
+## 1 · Introduction
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Introduction. Organisation. Setup.](/slides/00-introduction/00-introduction.html) | Course organisation, software setup, ceteris paribus, selection bias | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/00-introduction/00-introduction.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/00-introduction.qmd)
+
+## 2 · Data wrangling
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Workflow, tidy data, wrangling](/slides/50-data-wrangling/workflow-tidy-data-wrangling.html) | The analysis workflow and what makes data tidy | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/50-data-wrangling/workflow-tidy-data-wrangling.qmd) |
+| 🖥 [Wrangling with dplyr](/slides/50-data-wrangling/dplyr.html) | Extended version of the deck above, with the full dplyr verb set | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/50-data-wrangling/dplyr.qmd) |
+| 🖥 [Import data](/slides/50-data-wrangling/import-data.html) | Reading CSV and Excel with readr and readxl; cleaning names with janitor | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/50-data-wrangling/import-data.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/10-data-wrangling.qmd)
+
+## 3 · Describing data
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Exploring numerical data](/slides/20-data-description/exploring-numeric-data.html) | Distributions, summaries, histograms, boxplots, scatterplots | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/20-data-description/exploring-numeric-data.qmd) |
+| 🖥 [Correlation](/slides/20-data-description/correlation.html) | Correlation types, interpreting strength, and where correlation misleads | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/20-data-description/correlation.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/20-data-description.qmd)
+
+## 4 · Simple regression
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Simple regression](/slides/10-simple-regression/10-simple-regression.html) | One predictor, least squares, interpreting coefficients | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/10-simple-regression/10-simple-regression.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/30-simple-regression.qmd)
+
+## 5 · Multiple regression
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Multiple linear regression](/slides/30-multiple-regression/multiple-regression.html) | Several predictors, and holding other things equal in practice | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/30-multiple-regression/multiple-regression.qmd) |
+| 🖥 [Linearity](/slides/30-multiple-regression/linearity.html) | Diagnosing non-linearity; fixing it with transformations | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/30-multiple-regression/linearity.qmd) |
+| 🖥 [Omitted variable bias](/slides/30-multiple-regression/ovb.html) | What leaving a variable out does to the estimates you keep | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/30-multiple-regression/ovb.qmd) |
+| 🖥 [Collinearity](/slides/30-multiple-regression/collinearity.html) | When predictors carry the same information; VIF and diagnostics | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/30-multiple-regression/collinearity.qmd) |
+| 🖥 [Heteroscedasticity](/slides/30-multiple-regression/heteroscedasticity.html) | Non-constant error variance and robust standard errors | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/30-multiple-regression/heteroscedasticity.qmd) |
+| 🖥 [Hedonic prices model](/slides/30-multiple-regression/hedonic-regression.html) | A full applied example decomposing prices into characteristics | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/30-multiple-regression/hedonic-regression.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/40-multiple-regression.qmd)
+
+## 6 · Panel regression
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Panel regression analysis](/slides/40-panel-regression/panel-regression.html) | Fixed and random effects; what repeated observations buy you | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/40-panel-regression/panel-regression.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/50-panel-regression.qmd)
+
+## 7 · Instrumental variables
+
+| Deck | What it covers | Source |
+|:--|:--|:--|
+| 🖥 [Instrumental variable](/slides/60-iv/iv.html) | Identification with an endogenous regressor; returns to schooling | [`.qmd`](https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/slides/60-iv/iv.qmd) |
+
+: {tbl-colwidths="[38,44,18]"}
+
+→ [Topic page](topics/60-instrumental-variables.qmd)

@@ -303,7 +303,7 @@ knitr::include_graphics("./img/report-logo.png")
 ::: {.column width="70%"}
 Package for Summary statistics!
 
--   Documentation [easystats/skimr](report://easystats.github.io/report/)
+-   Documentation [easystats/report](https://easystats.github.io/report/)
 
 -   Learn by doing [Using Skimr](https://docs.ropensci.org/skimr/articles/skimr.html)
 

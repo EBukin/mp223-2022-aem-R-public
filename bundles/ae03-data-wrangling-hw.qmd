@@ -1,0 +1,35 @@
+---
+title: "📦 ae03-data-wrangling-hw"
+subtitle: "Homework: visualising categorical data"
+---
+
+A single homework exercise on visualising categorical variables. Belongs to [Describing data](../topics/20-data-description.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae03-data-wrangling-hw.zip" download>⬇ Download ae03-data-wrangling-hw.zip</a></p>
+```
+
+:::: {.callout-tip appearance="simple"}
+Unzip it, then open the `.Rproj` file in RStudio. Every path inside the exercises is relative to that project, so the data will load without edits.
+::::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae03-04-categorical-data-vis.Rmd</span>
+    <span class="mp-file-desc">Bar charts, stacked and dodged positions, and choosing between them.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae03-data-wrangling-hw/ae03-04-categorical-data-vis.Rmd">source</a>
+    </span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Describing data](../topics/20-data-description.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae03-data-wrangling-hw)

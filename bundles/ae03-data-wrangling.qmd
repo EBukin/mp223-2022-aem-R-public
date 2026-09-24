@@ -1,0 +1,109 @@
+---
+title: "📦 ae03-data-wrangling"
+subtitle: "Importing, cleaning, exploring and correlating data"
+---
+
+An RStudio project with four exercises and the five datasets they use. Covers
+[data wrangling](../topics/10-data-wrangling.qmd) and
+[describing data](../topics/20-data-description.qmd).
+
+```{=html}
+<p><a class="mp-download" href="/ae/ae03-data-wrangling.zip" download>⬇ Download ae03-data-wrangling.zip</a></p>
+```
+
+::: {.callout-tip appearance="simple"}
+Unzip it, then open `ae03-data-wrangling.Rproj` in RStudio. Every path inside
+the exercises is relative to that project, so the data will load without edits.
+:::
+
+## What is inside
+
+```{=html}
+<div class="mp-files">
+  <div class="mp-files-head"><span>Exercises</span><span>Read online</span></div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">ae03-01-import-clean-sum-plot.Rmd</span>
+    <span class="mp-file-desc">Import messy Excel and CSV files, clean the column names, produce first summaries and plots.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae03-data-wrangling/ae03-01-import-clean-sum-plot.Rmd">source</a>
+    </span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">ae03-02-plastic-waste.Rmd</span>
+    <span class="mp-file-desc">Explore the distribution of plastic waste per capita across countries.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae03-data-wrangling/ae03-02-plastic-waste.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae03-data-wrangling/ae03-02-plastic-waste.Rmd">source</a>
+    </span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">ae03-02-plastic-waste-solutions.Rmd</span>
+    <span class="mp-file-desc">Worked solutions to the plastic waste exercise.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae03-data-wrangling/ae03-02-plastic-waste-solutions.Rmd">source</a>
+    </span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">ae03-03-correlation.Rmd</span>
+    <span class="mp-file-desc">Compute correlations, read their strength, and see where they mislead.</span>
+    <span class="mp-file-links">
+      <a href="/ae/ae03-data-wrangling/ae03-03-correlation.html">rendered</a>
+      <a href="https://github.com/EBukin/mp223-2022-aem-R-public/blob/main/ae/ae03-data-wrangling/ae03-03-correlation.Rmd">source</a>
+    </span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Data</span><span>Download</span></div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">data/plastic-waste.csv</span>
+    <span class="mp-file-desc">Plastic waste generation and mismanagement by country.</span>
+    <span class="mp-file-links"><a href="/ae/ae03-data-wrangling/data/plastic-waste.csv" download>csv</a></span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">data/NHIS2009.csv</span>
+    <span class="mp-file-desc">US National Health Interview Survey extract, used for health-insurance comparisons.</span>
+    <span class="mp-file-links"><a href="/ae/ae03-data-wrangling/data/NHIS2009.csv" download>csv</a></span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">data/chicken.csv</span>
+    <span class="mp-file-desc">Small tidy dataset used for the first import and plotting steps.</span>
+    <span class="mp-file-links"><a href="/ae/ae03-data-wrangling/data/chicken.csv" download>csv</a></span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">data/commodity-prices.xlsx</span>
+    <span class="mp-file-desc">Commodity price series — the readxl import example.</span>
+    <span class="mp-file-links"><a href="/ae/ae03-data-wrangling/data/commodity-prices.xlsx" download>xlsx</a></span>
+  </div>
+
+  <div class="mp-file">
+    <span class="mp-file-name">data/dirty_data.xlsx</span>
+    <span class="mp-file-desc">Deliberately messy spreadsheet used to practise cleaning with janitor.</span>
+    <span class="mp-file-links"><a href="/ae/ae03-data-wrangling/data/dirty_data.xlsx" download>xlsx</a></span>
+  </div>
+</div>
+
+<div class="mp-files">
+  <div class="mp-files-head"><span>Project</span><span></span></div>
+  <div class="mp-file">
+    <span class="mp-file-name">ae03-data-wrangling.Rproj</span>
+    <span class="mp-file-desc">RStudio project file — open this first.</span>
+    <span class="mp-file-links"></span>
+  </div>
+</div>
+```
+
+## Related
+
+-   Topic: [Data wrangling](../topics/10-data-wrangling.qmd) · [Describing data](../topics/20-data-description.qmd)
+-   [Browse this folder on GitHub](https://github.com/EBukin/mp223-2022-aem-R-public/tree/main/ae/ae03-data-wrangling)

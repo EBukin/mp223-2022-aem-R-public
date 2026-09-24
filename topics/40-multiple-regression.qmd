@@ -1,0 +1,89 @@
+---
+title: "5 · Multiple regression"
+subtitle: "Several predictors, and everything that can go wrong"
+bibliography: ../references.bib
+aliases:
+  - /weeks/week05-checklist.html
+  - /weeks/week06-checklist.html
+---
+
+The core of the course. Six lecture decks and ten exercises covering multiple
+regression itself and the four assumptions that most often fail in applied work:
+linearity, no omitted variables, no collinearity, and constant error variance.
+
+## Slides
+
+| Deck | Covers |
+|:--|:--|
+| 🖥 [Multiple linear regression](/slides/30-multiple-regression/multiple-regression.html) | Several predictors at once; holding other things equal in practice |
+| 🖥 [Linearity](/slides/30-multiple-regression/linearity.html) | Diagnosing non-linearity; fixing it with transformations |
+| 🖥 [Omitted variable bias](/slides/30-multiple-regression/ovb.html) | What leaving a variable out does to the estimates you keep |
+| 🖥 [Collinearity](/slides/30-multiple-regression/collinearity.html) | When predictors carry the same information; VIF and diagnostics |
+| 🖥 [Heteroscedasticity](/slides/30-multiple-regression/heteroscedasticity.html) | Non-constant error variance and robust standard errors |
+| 🖥 [Hedonic prices model](/slides/30-multiple-regression/hedonic-regression.html) | A full applied example decomposing prices into characteristics |
+
+: {tbl-colwidths="[40,60]"}
+
+## Exercises
+
+### Multiple regression and linearity
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE04-01 Multiple linear regression](/ae/ae04-multiple-regression-part-1/ae04-01-MLR.html) | Fitting and reading a model with several predictors |
+| 📋 [AE04-02 Linearity](/ae/ae04-multiple-regression-part-1/ae04-02-MLR-linearity.html) | Residual plots, log transformations, interaction terms, marginal effects |
+| 📋 [AE04-03 Hedonic land prices](/ae/ae04-multiple-regression-part-1/ae04-03-hedonic-land-prices-HW.html) | Homework: a hedonic land price model end to end |
+| 📋 [AE04-04 OVB from the slides](/ae/ae04-multiple-regression-part-1/ae04-04-slides-ovb-HW.html) | Homework: reproduce the omitted-variable-bias examples |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 **[Bundle: ae04-multiple-regression-part-1](../bundles/ae04-multiple-regression-part-1.qmd)**
+
+### Omitted variable bias and heteroscedasticity
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE05-01 OVB and the wage equation](/ae/ae05-multiple-regression-part-2/ae05-01-OVB.html) | Omitted variable bias in a classic wage regression, plus the homework section |
+| 📋 [AE05-02 OVB from the slides](/ae/ae05-multiple-regression-part-2/ae05-02-HW-slides-ovb.html) | Homework: further OVB practice |
+| 📋 [AE05-03 Hedonic prices & heteroscedasticity](/ae/ae05-multiple-regression-part-2/ae05-03-hedonic-complete-reg-analysis.html) | A complete analysis with heteroscedasticity tests and robust standard errors |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 **[Bundle: ae05-multiple-regression-part-2](../bundles/ae05-multiple-regression-part-2.qmd)**
+
+### Transformations, interactions, heterogeneity
+
+| Exercise | What you practise |
+|:--|:--|
+| 📋 [AE06-01 Transformations & interactions toolbox](/ae/ae06-multiple-regression-part-3/ae06-01-interaction-terms-toolbox.html) | The full toolbox for transformed and interacted regressors |
+| 📋 [AE06-02 Interactions with continuous variables](/ae/ae06-multiple-regression-part-3/ae06-02-interaction-continuous.html) | Interpreting continuous-by-continuous interactions |
+| 📋 [AE06-03 Simpson's paradox](/ae/ae06-multiple-regression-part-3/ae06-03-simpsons-paradox.html) | Unobserved heterogeneity reversing a relationship |
+
+: {tbl-colwidths="[45,55]"}
+
+📦 **[Bundle: ae06-multiple-regression-part-3](../bundles/ae06-multiple-regression-part-3.qmd)**
+
+## Going deeper
+
+**Read**
+
+-   📖 Chapter 2, *Regression*, in [@Angrist2014] — [find it in the JLU library](https://hds.hebis.de/ubgi/Record/HEB35797798X)
+-   📖 [IMS Ch. 8 — Linear regression with multiple predictors](https://openintro-ims.netlify.app/model-mlr.html#model-mlr)
+
+**Watch**
+
+-   📺 [Regression Part I: Call in the CIA](https://youtu.be/OwNxEaOF8yY?t=2)
+-   📺 [Regression Part II: Theory](https://youtu.be/KKJ-2_UUhnc?t=1)
+
+**Practise**
+
+-   [Open Intro lab: Multiple regression](https://openintrostat.github.io/oilabs-tidy/09_multiple_regression/multiple_regression.html)
+
+## Where the course goes next
+
+← [4 · Simple regression](30-simple-regression.qmd) · → [6 · Panel regression](50-panel-regression.qmd)
+
+## References
+
+::: {#refs}
+:::
